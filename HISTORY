@@ -1,5 +1,9 @@
 $Id$
 
+V3.84
+2004/08/18  SETPAGE correction for GTEXT and A3D*
+	    Errorbar plot GPLOTE added (see gsaf.doc.new)
+
 V3.83
 2004/08/14  SETPAGE correction
             Original definition of charcter tilt reproduced

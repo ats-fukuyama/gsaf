@@ -832,6 +832,41 @@ C
       RETURN
       END
 C
+C     ****** DRAW XY ERRORBAR GRAPH ******
+C
+      SUBROUTINE GPLOTPE(GX,GY1,GY2,NSRT,NEND,NSTEP,SCAL)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
+      DIMENSION GX(NEND),GY1(NEND),GY2(NEND)
+C
+      IF(.NOT.LGF) RETURN
+C
+      CALL SETCLP(PXS,PXE,PYS,PYE)
+C
+         CALL GUGRPS
+         DO N=NSRT,NEND,NSTEP
+            CALL GUGRPS
+            PX=DX*(GX(N)-GXS)+PXS
+            PY1=DY*(GY1(N)-GYS)+PYS
+            PY2=DY*(GY2(N)-GYS)+PYS
+            IF(SCAL.GT.0.0) THEN
+               CALL MOVE(PX-0.5*SCAL,PY1)
+               CALL DRAW(PX+0.5*SCAL,PY1)
+            ENDIF
+            CALL MOVE(PX,PY1)
+            CALL DRAW(PX,PY2)
+            IF(SCAL.GT.0.0) THEN
+               CALL MOVE(PX-0.5*SCAL,PY2)
+               CALL DRAW(PX+0.5*SCAL,PY2)
+            ENDIF
+            CALL GUGRPE
+         ENDDO
+         CALL GUGRPE
+      CALL OFFCLP
+      RETURN
+      END
+C
 C     ****** DRAW VECTOR GRAPH ******
 C
       SUBROUTINE GVECTR(VX,VY,X,Y,NXA,NXS,NXE,NXSTEP,

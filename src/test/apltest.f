@@ -1,6 +1,6 @@
 C     $Id$
 C
-      DIMENSION X(51),Y(51)
+      DIMENSION X(51),Y(51),Y1(51),Y2(51)
 C
       CALL GSOPEN
 C
@@ -22,7 +22,7 @@ C
       NP=0
       SCL=0.3
 C
-    1 WRITE(6,*) '## INPUT TYPE (0..7,8,9) ?'
+    1 WRITE(6,*) '## INPUT TYPE (0..7,8,9,10) ?'
       READ(5,*,ERR=1,END=9999) MODE
 C
       IF(MODE.LE.3) THEN
@@ -156,6 +156,36 @@ C
          CALL GAXIV2(2.0,2.0,12.0, 8.0,0.0,10.0,0.0,2.0,1, 4)
          CALL GAXIV2(2.0,2.0, 8.0,12.0,0.0,10.0,0.0,2.0,1, 8)
          CALL GAXIV2(2.0,2.0, 2.0,14.0,0.0,10.0,0.0,2.0,1,12)
+         CALL PAGEE
+C
+      ELSEIF(MODE.EQ.10) THEN
+C
+ 3000    WRITE(6,*) '# INPUT : Y0,YA,GXORG,GYORG'
+         READ(5,*,END=1) Y0,YA,GXORG,GYORG
+         WRITE(6,*) '# INPUT : NXS,NYS,NXV,NYV,NM,NP,SCL'
+         READ(5,*,END=3000) NXS,NYS,NXV,NYV,NM,NP,SCl
+C
+         DO N=1,51
+            X(N)=FLOAT(N-1)*DX
+            Y(N)=Y0+YA*SIN(X(N))
+            Y1(N)=Y(N)+0.1*YA*COS(X(N))
+            Y2(N)=Y(N)-0.1*YA*COS(X(N))
+         ENDDO
+         CALL GMNMX1(X,1,51,1,XMIN,XMAX)
+         CALL GQSCAL(XMIN,XMAX,GXMIN,GXMAX,GXSCAL)
+         CALL GMNMX1(Y,1,51,1,YMIN,YMAX)
+         CALL GQSCAL(YMIN,YMAX,GYMIN,GYMAX,GYSCAL)
+C
+         CALL PAGES
+         CALL SETCHS(0.35,0.0)
+         CALL GDEFIN(4.,24.,2.,17.,GXMIN,GXMAX,GYMIN,GYMAX)
+         CALL GFRAME
+         CALL GSCALE(GXORG,GXSCAL,0.0,0.0,SCL,NXS)
+         CALL GSCALE(0.0,0.0,GYORG,GYSCAL,SCL,NYS)
+         CALL GVALUE(GXORG,2*GXSCAL,0.0,0.0,NXV)
+         CALL GVALUE(0.0,0.0,GYORG,2*GYSCAL,NYV)
+         CALL GPLOTPE(X,Y1,Y2,1,51,1,0.5)
+         CALL GPLOTP(X,Y,1,51,1,NM,10,NP)
          CALL PAGEE
       ENDIF
       GOTO 1

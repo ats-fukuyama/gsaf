@@ -4,21 +4,11 @@ C     *******************************
 C     ****** PAGE TEST PROGRAM ******
 C     *******************************
 C
-      DIMENSION NPAGEA(256)
-      CHARACTER KMENU*1,FLNAME*40
+      CHARACTER KMENU*1
 C
       CALL GSOPEN
 C
-      XMIN=0.0
-      XMAX=25.6
-      YMIN=0.0
-      YMAX=18.1
-      XCMIN=0.0
-      XCMAX=25.6
-      YCMIN=0.0
-      YCMAX=18.1
-C
-    1 WRITE(6,*) '# INPUT : 1,2,3,4,5,6  E/END'
+    1 WRITE(6,*) '# INPUT : 1,2,3,4,5,6,7,8,9  E/END'
       READ(5,'(A1)',END=9000,ERR=1) KMENU
       CALL GUCPTL(KMENU)
 C
@@ -87,6 +77,39 @@ C
          CALL XCHAR('H')
          CALL SETPAGE(19.2, 0.0,0.25,1.0)
          CALL XCHAR('F')
+         CALL PAGEE
+      ELSEIF(KMENU.EQ.'7') THEN
+         CALL PAGES
+         CALL SETPAGE(0.0,9.0,0.5,0.5)
+         CALL XGRAF(0)
+         CALL SETPAGE(0.0,0.0,0.5,0.5)
+         CALL XGRAF(1)
+         CALL SETPAGE(12.8,9.0,0.5,0.5)
+         CALL XGRAF(2)
+         CALL SETPAGE(12.8,0.0,0.5,0.5)
+         CALL XGRAF(3)
+         CALL PAGEE
+      ELSEIF(KMENU.EQ.'8') THEN
+         CALL PAGES
+         CALL SETPAGE(0.0,13.5,1.0,0.25)
+         CALL XGRAF(0)
+         CALL SETPAGE(0.0, 9.0,1.0,0.25)
+         CALL XGRAF(1)
+         CALL SETPAGE(0.0, 4.5,1.0,0.25)
+         CALL XGRAF(2)
+         CALL SETPAGE(0.0, 0.0,1.0,0.25)
+         CALL XGRAF(3)
+         CALL PAGEE
+      ELSEIF(KMENU.EQ.'9') THEN
+         CALL PAGES
+         CALL SETPAGE( 0.0, 0.0,0.25,1.0)
+         CALL XGRAF(0)
+         CALL SETPAGE( 6.4, 0.0,0.25,1.0)
+         CALL XGRAF(1)
+         CALL SETPAGE(12.8, 0.0,0.25,1.0)
+         CALL XGRAF(2)
+         CALL SETPAGE(19.2, 0.0,0.25,1.0)
+         CALL XGRAF(3)
          CALL PAGEE
       ELSEIF(KMENU.EQ.'E') THEN
          GOTO 9000
@@ -245,5 +268,53 @@ C
          CALL CHIN(K,8)
          CALL SETCHS(0.6,-45.0)
          CALL TEXT(K,8)
+      RETURN
+      END
+C
+      SUBROUTINE XGRAF(MODE)
+C
+      PARAMETER (NXM=101)
+      DIMENSION X(NXM),Y(NXM)
+C
+      Y0=0.0
+      YA=1.0
+      GXORG=0.0
+      GYORG=0.0
+      NXS=9
+      NXV=2
+      NYS=9
+      NYV=2
+      NXMAX=51
+      NM=0
+      NP=0
+      SCL=0.3
+      DX=2*3.1415927/(NXMAX-1)
+C
+      DO N=1,NXMAX
+         X(N)=FLOAT(N-1)*DX
+         Y(N)=Y0+YA*SIN(X(N))
+      ENDDO
+C
+         CALL GMNMX1(X,1,NXMAX,1,XMIN,XMAX)
+         CALL GQSCAL(XMIN,XMAX,GXMIN,GXMAX,GXSCAL)
+         CALL GMNMX1(Y,1,NXMAX,1,YMIN,YMAX)
+         CALL GQSCAL(YMIN,YMAX,GYMIN,GYMAX,GYSCAL)
+C
+         CALL SETCHS(0.35,0.0)
+         IF(MODE.EQ.0) THEN
+            CALL GDEFIN(4.,24.,2.,17.,GXMIN,GXMAX,GYMIN,GYMAX)
+         ELSEIF(MODE.EQ.1) THEN
+            CALL GDEFIN(4.,24.,2.,17.,GXMAX,GXMIN,GYMIN,GYMAX)
+         ELSEIF(MODE.EQ.2) THEN
+            CALL GDEFIN(4.,24.,2.,17.,GXMIN,GXMAX,GYMAX,GYMIN)
+         ELSE
+            CALL GDEFIN(4.,24.,2.,17.,GXMAX,GXMIN,GYMAX,GYMIN)
+         ENDIF
+         CALL GFRAME
+         CALL GSCALE(GXORG,GXSCAL,0.0,0.0,SCL,NXS)
+         CALL GSCALE(0.0,0.0,GYORG,GYSCAL,SCL,NYS)
+         CALL GVALUE(GXORG,2*GXSCAL,0.0,0.0,NXV)
+         CALL GVALUE(0.0,0.0,GYORG,2*GYSCAL,NYV)
+         CALL GPLOTP(X,Y,1,NXMAX,1,NM,10,NP)
       RETURN
       END

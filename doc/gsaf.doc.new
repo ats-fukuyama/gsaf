@@ -1,7 +1,7 @@
 ### $Id$ ###
-2004 年 5 月 4 日
+2004 年 8 月 18 日
 
-ＧＳＡＦ　使用手引書　　[Version 3.8]
+ＧＳＡＦ　使用手引書　　[Version 3.84]
 
 A. Fukuyama
 
@@ -519,6 +519,8 @@ ghostscript で GIF ファイルを作成する例
 
 	GPLOTP(GX,GY,NS,NE,NSTEP,IMARK,ISTEP,IPAT)
 		折れ線グラフの作図
+	GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
+		誤差幅グラフの作図
 
 	CONTR1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD)
 		等間隔格子データの等高線表示
@@ -1662,6 +1664,17 @@ GPLOTP(GX,GY,NS,NE,NSTEP,IMRK,ISTEP,IPAT)
 	ISTEP	[I]	マークをつけるデータ間隔
 	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
 					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
+GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
+１次元データの誤差幅グラフ表示を行う。
+
+入力	GX	[R(*)]	x 座標データの１次元配列
+	GY1	[R(*)]	y 座標データ誤差下限の１次元配列
+	GY2	[R(*)]	y 座標データ誤差上限の１次元配列
+	NS	[I]	有効データの添字の初値
+	NE	[I]	有効データの添字の終値
+	NSTEP	[I]	有効データの添字の間隔
+	SCAL	[R]	誤差上限および下限を表す横棒の長さ
+				0.0 の場合は横棒を表示しない
 
 
 CONTR1(Z,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD)
