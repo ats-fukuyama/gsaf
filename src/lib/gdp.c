@@ -71,12 +71,12 @@ static unsigned long dpixel[DCOLSIZE];
 static int	nccol,ndcol;
 
 
-static void tinit()
+static void tinit(void)
 {
 	nbuf = 0;
 }
 
-static void tbuff()
+static void tbuff(void)
 {
 	cbuf[nbuf] = 0;
 	printf("%s",cbuf);
@@ -84,8 +84,7 @@ static void tbuff()
 	nbuf = 0;
 }
 
-static void toutpt(i)
-int	i;
+static void toutpt(int i)
 {
 	if(nbuf+1 >= NBUFMAX)
 		tbuff();
@@ -93,9 +92,7 @@ int	i;
 	nbuf++;;
 }
 
-static void toutst(n,ich)
-int	n;
-char	ich[];
+static void toutst(int n,const char ich[])
 {
 	int	i;
 	
@@ -106,8 +103,7 @@ char	ich[];
 	nbuf += n;
 }
 
-static void dvsetwin(win,fwin)
-Window win,fwin;
+static void dvsetwin(Window win,Window fwin)
 {
         XWindowAttributes attribs;
 
@@ -141,11 +137,10 @@ Window win,fwin;
 }
 
 #ifndef UNDERSCORE
-void dvchin(iasc,nchar)
+void dvchin(int4 *iasc,int4 *nchar)
 #else
-void dvchin_(iasc,nchar)
+void dvchin_(int4 *iasc,int4 *nchar)
 #endif
-int4		*iasc,*nchar;
 {
 	XEvent	        event;
 	KeySym	        key;
@@ -254,11 +249,10 @@ int4		*iasc,*nchar;
 }
 
 #ifndef UNDERSCORE
-void dvxyin(ix,iy)
+void dvxyin(int4 *ix,int4 *iy)
 #else
-void dvxyin_(ix,iy)
+void dvxyin_(int4 *ix,int4 *iy)
 #endif
-int4		*ix,*iy;
 {
 	XEvent	event;
 	int	done;
@@ -338,11 +332,10 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-void dvsetv(id)
+void dvsetv(int4 *id)
 #else
-void dvsetv_(id)
+void dvsetv_(int4 *id)
 #endif
-int4		*id;
 {
 	int		i;
 	long		event_mask;
@@ -368,11 +361,10 @@ int4		*id;
 }
 
 #ifndef UNDERSCORE
-void dvgetv(id,ix,iy,kd,kid)
+void dvgetv(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 #else
-void dvgetv_(id,ix,iy,kd,kid)
+void dvgetv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 #endif
-int4		*id,*ix,*iy,*kd,*kid;
 {
 	XEvent	event;
 	KeySym	        key;
@@ -434,9 +426,9 @@ int4		*id,*ix,*iy,*kd,*kid;
 }
 
 #ifndef UNDERSCORE
-void dveras()
+void dveras(void)
 #else
-void dveras_()
+void dveras_(void)
 #endif
 {
 	static const char	tdata[] = {27,12};
@@ -451,9 +443,9 @@ void dveras_()
 }
 
 #ifndef UNDERSCORE
-void dvprnt()
+void dvprnt(void)
 #else
-void dvprnt_()
+void dvprnt_(void)
 #endif
 {
 	static const char	tdata[] = {27,23};
@@ -467,9 +459,9 @@ void dvprnt_()
 }
 
 #ifndef UNDERSCORE
-void dvbell()
+void dvbell(void)
 #else
-void dvbell_()
+void dvbell_(void)
 #endif
 {
 	if(rmode) return;
@@ -483,9 +475,9 @@ void dvbell_()
 }
 
 #ifndef UNDERSCORE
-void dvsync()
+void dvsync(void)
 #else
-void dvsync_()
+void dvsync_(void)
 #endif
 {
 	if(rmode) return;
@@ -493,9 +485,7 @@ void dvsync_()
 	XSync(display,0);
 }
 
-void dvline(ix,iy,imv)
-int4	*ix,*iy;
-int	imv;
+static void dvline(int4 *ix,int4 *iy,int imv)
 {
 	char	kgs[5];
 	int	ixx,iyy,ix1,ix2,iy1,iy2,ixy,i;
@@ -553,11 +543,10 @@ int	imv;
 }
 
 #ifndef UNDERSCORE
-void dvmove(ix,iy)
+void dvmove(int4 *ix,int4 *iy)
 #else
-void dvmove_(ix,iy)
+void dvmove_(int4 *ix,int4 *iy)
 #endif
-int4		*ix,*iy;
 {
 	if(rmode) return;
 	if(tmode) {
@@ -569,11 +558,10 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-void dvdraw(ix,iy)
+void dvdraw(int4 *ix,int4 *iy)
 #else
-void dvdraw_(ix,iy)
+void dvdraw_(int4 *ix,int4 *iy)
 #endif
-int4		*ix,*iy;
 {
 	int		x,y;
 	
@@ -590,12 +578,10 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-void dvlins(ixn,iyn,np)
+void dvlins(int4 ixn[],int4 iyn[],int4 *np)
 #else
-void dvlins_(ixn,iyn,np)
+void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
 #endif
-int4		ixn[],iyn[];
-int4            *np;
 {
 	int		i,n;
         int4            ix,iy;
@@ -634,12 +620,10 @@ int4            *np;
 }
 
 #ifndef UNDERSCORE
-void dvpoly(ixn,iyn,np)
+void dvpoly(int4 ixn[],int4 iyn[],int *np)
 #else
-void dvpoly_(ixn,iyn,np)
+void dvpoly_(int4 ixn[],int4 iyn[],int *np)
 #endif
-int4		ixn[],iyn[];
-int4            *np;
 {
 	int		i,n;
         int4            ix,iy;
@@ -679,11 +663,10 @@ int4            *np;
 }
 
 #ifndef UNDERSCORE
-void dvtype(ich)
+void dvtype(int4 *ich)
 #else
-void dvtype_(ich)
+void dvtype_(int4 *ich)
 #endif
-int4		*ich;
 {
 	char *str;
 
@@ -696,11 +679,10 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-void dvopen(ich)
+void dvopen(int4 *ich)
 #else
-void dvopen_(ich)
+void dvopen_(int4 *ich)
 #endif
-int4		*ich;
 {
 	unsigned long	valuemask;
 	XSetWindowAttributes attributes;
@@ -859,11 +841,10 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-void dvclos(ich)
+void dvclos(int4 *ich)
 #else
-void dvclos_(ich)
+void dvclos_(int4 *ich)
 #endif
-int4		*ich;
 {
 		*ich = 1;
 	if(rmode) return;
@@ -877,19 +858,17 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-void dvoptn(kopt,iopt)
+void dvoptn(char *kopt,int4 *iopt)
 #else
-void dvoptn_(kopt,iopt)
+void dvoptn_(char *kopt,int4 *iopt)
 #endif
-char		*kopt;
-int4		*iopt;
 {
 }
 
 #ifndef UNDERSCORE
-void dvgrmd()
+void dvgrmd(void)
 #else
-void dvgrmd_()
+void dvgrmd_(void)
 #endif
 {
 	static const char	tdata1[] = {27,90,27,75,66,27,77,65};
@@ -908,9 +887,9 @@ void dvgrmd_()
 }
 
 #ifndef UNDERSCORE
-void dvchmd()
+void dvchmd(void)
 #else
-void dvchmd_()
+void dvchmd_(void)
 #endif
 {
 	static const char	tdata1[] = {27,75,65,27,77,66,27,89};
@@ -930,14 +909,10 @@ void dvchmd_()
 }
 
 #ifndef UNDERSCORE
-void dvpags(npage,sizex,sizey,lkeep)
+void dvpags(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
 #else
-void dvpags_(npage,sizex,sizey,lkeep)
+void dvpags_(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
 #endif
-int4		*npage;
-float		*sizex;
-float		*sizey;
-int4		*lkeep;
 {
   Window root;
   int x,y;
@@ -983,7 +958,7 @@ int4		*lkeep;
 #endif
 }
 
-void dupwin()
+static void dupwin(void)
 {
 	char	cmd[80],s[20];
 
@@ -997,13 +972,11 @@ void dupwin()
 	XStoreName(display,window,"GSAF");
 }
 
-
 #ifndef UNDERSCORE
-void dvpage(ich)
+void dvpage(int4 *ich)
 #else
-void dvpage_(ich)
+void dvpage_(int4 *ich)
 #endif
-int4		*ich;
 {
 	int4		ix,iy,ichar;
 	char		s[20];
@@ -1054,27 +1027,26 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-void dvgrps()
+void dvgrps(void)
 #else
-void dvgrps_()
+void dvgrps_(void)
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-void dvgrpe()
+void dvgrpe(void)
 #else
-void dvgrpe_()
+void dvgrpe_(void)
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-void dvtext(ix,iy,iasc,nchar)
+void dvtext(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
 #else
-void dvtext_(ix,iy,iasc,nchar)
+void dvtext_(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
 #endif
-int4		*ix,*iy,*iasc,*nchar;
 {
 	int		i,x,y,n;
 	char		s[256];
@@ -1084,7 +1056,7 @@ int4		*ix,*iy,*iasc,*nchar;
 	n = *nchar;
 	for(i=0; i<n; i++)
 		s[i] = (char)iasc[i];
-	s[n] = (char)0;
+	s[n] = 0;
 
 	if(tmode) {
 #ifndef UNDERSCORE
@@ -1105,8 +1077,7 @@ int4		*ix,*iy,*iasc,*nchar;
 	ypos = y + n * dych;
 }
 
-void dvsetdcol(c)
-XColor *c;
+static void dvsetdcol(XColor *c)
 {
 	int n;
 
@@ -1128,8 +1099,7 @@ XColor *c;
 		c->pixel = dcol[0].pixel;
 }
 
-void dvsetccol(c)
-XColor *c;
+static void dvsetccol(XColor *c)
 {
 	int n;
   
@@ -1152,27 +1122,18 @@ XColor *c;
 	ccol[0] = *c;
 }
 
-int cconv(i)
-int i;
+static int cconv(int i)
 {
-	double r,rr;
-	int ii;
-
-	if (abs(cgamma -1.0) <= 0.01 || cgamma <= 0.0)
+	if (cgamma == 1 || cgamma <= 0)
 		return i*256;
-	else{
-		r = i / 255.0;
-		rr = pow(r,1.0/cgamma);
-		ii = rr * (256*255);
-		return ii;
-	}
+	else
+		return (int)floor(256*255*pow(i/255.0, 1/cgamma)+0.5);
 }
 
-void dvcrgbx(ir,ig,ib)
-int4		ir,ig,ib;
+void dvcrgbx(int4 ir,int4 ig,int4 ib)
 {
 	XColor		c;
-		
+
 	c.red   = cconv(ir);
        	c.green = cconv(ig);
 	c.blue  = cconv(ib);
@@ -1184,11 +1145,10 @@ int4		ir,ig,ib;
 }
 
 #ifndef UNDERSCORE
-void dvstln(iln,ibl,icl)
+void dvstln(int4 *iln,int4 *ibl,int4 *icl)
 #else
-void dvstln_(iln,ibl,icl)
+void dvstln_(int4 *iln,int4 *ibl,int4 *icl)
 #endif
-int4		*iln,*ibl,*icl;
 {
 	unsigned int	line_width;
 	/*	int			cap_style = CapButt;*/
@@ -1371,11 +1331,10 @@ int4		*iln,*ibl,*icl;
 }
 
 #ifndef UNDERSCORE
-void dvlwdt(iw)
+void dvlwdt(int4 *iw)
 #else
-void dvlwdt_(iw)
+void dvlwdt_(int4 *iw)
 #endif
-int4		*iw;
 {
         unsigned int	        line_width;
 	/*	int			cap_style = CapButt;*/
@@ -1409,11 +1368,10 @@ int4		*iw;
 }
 
 #ifndef UNDERSCORE
-void dvcrgb(ir,ig,ib)
+void dvcrgb(int4 *ir,int4 *ig,int4 *ib)
 #else
-void dvcrgb_(ir,ig,ib)
+void dvcrgb_(int4 *ir,int4 *ig,int4 *ib)
 #endif
-int4		*ir,*ig,*ib;
 {
         icls = -2;
 	if(rmode) return;
@@ -1423,11 +1381,10 @@ int4		*ir,*ig,*ib;
 }
 
 #ifndef UNDERSCORE
-void dvgcfunc(id)
+void dvgcfunc(int4 *id)
 #else
-void dvgcfunc_(id)
+void dvgcfunc_(int4 *id)
 #endif
-int4		*id;
 {
   	int     func;
 	static const int	ifunc[] = {15,7,11,3,13,5,9,1,14,6,10,2,12,4,8,0};
@@ -1445,11 +1402,10 @@ int4		*id;
 
 /*
 #ifndef UNDERSCORE
-void dvinfo(icells,iplanes,idepth,iwhite,iblack)
+void dvinfo(int4 *icells,int4 *iplanes,int4 *idepth,int4 *iwhite,int4 *iblack)
 #else
-void dvinfo_(icells,iplanes,idepth,iwhite,iblack)
+void dvinfo_(int4 *icells,int4 *iplanes,int4 *idepth,int4 *iwhite,int4 *iblack)
 #endif
-int4		*icells,*iplanes,*idepth,*iwhite,*iblack;
 {
   	int       cells,planes,depth,white,black;
 
@@ -1467,12 +1423,10 @@ int4		*icells,*iplanes,*idepth,*iwhite,*iblack;
 */
 
 #ifndef UNDERSCORE
-void dvstch(ichh,ichw,ichsp,angl,tilt,ind)
+void dvstch(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
 #else
-void dvstch_(ichh,ichw,ichsp,angl,tilt,ind)
+void dvstch_(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
 #endif
-int4		*ichh,*ichw,*ichsp,*ind;
-float		*angl,*tilt;
 {
 	*ind = 0;
 	if(rmode) return;
@@ -1483,23 +1437,20 @@ float		*angl,*tilt;
 }
 
 #ifndef UNDERSCORE
-void dvfont(ifnt,ind)
+void dvfont(int4 *ifnt,int4 *ind)
 #else
-void dvfont_(ifnt,ind)
+void dvfont_(int4 *ifnt,int4 *ind)
 #endif
-int4		*ifnt,*ind;
 {
 	*ind = 1;
 }
 
 
 #ifndef UNDERSCORE
-void dvrgbtrg(ixn,iyn,ir,ig,ib)
+void dvrgbtrg(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
 #else
-void dvrgbtrg_(ixn,iyn,ir,ig,ib)
+void dvrgbtrg_(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
 #endif
-int4           ixn[],iyn[];
-int4           ir[],ig[],ib[];
 {
 	int		i;
         int4            ix,iy;
@@ -1545,7 +1496,7 @@ int4           ir[],ig[],ib[];
 }
 
 /*
-main()
+int main(void)
 {
 	int4		ich,ix,iy,iasc[8],lkeep,nchar,ichh,ichw,ichsp;
 	int4		iln,ibl,icl;
@@ -1603,9 +1554,9 @@ main()
 		iy = 512*32;
 		dvtext(&ix,&iy,&iasc,&nchar);
 	}
-	
+
 	dvpage(&ich);
 	dvclos();
+	return 0;
 }
 */
-
