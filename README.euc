@@ -2,19 +2,19 @@
 GSAF は Fortran から利用できる２次元グラフィックライブラリです。
 
 Install 手順
-  1. gsaf.tar.Z を適切な directory に転送する。
-  2. zcat gsaf.tar.Z | tar xvf -  によって解凍する。
-  3. cd gsaf/src によって作成された directory に移る。
+  1. gsafXXX.tar.gz を適切な directory に転送する。
+  2. zcat gsafXXX.tar.Z | tar xvf -  によって解凍する。
+  3. cd gsafXXX/src によって作成された directory に移る。
   4. cp ../arch/XXXX/Makefile.arch . によって Makefile.arch をコピーする。
   5. Makefile.arch 中の directory や option を適切に設定する。
-  6. make libs によって library を作成する。
-  7. make tests によって test program を作成する。
+  6. make libs によって lib ディレクトリに library を作成する。
+  7. make tests によって test ディレクトリに test program を作成する。
   8. cd test
-  9. 環境変数 LD_LIBRARY_PATH に library path を設定あるいは追加する．
+  9. 環境変数 LD_LIBRARY_PATH に ../lib を設定あるいは追加する．
  10. X window 上で test ディレクトリの test program の動作を確認する。
  11. cd ..
- 12. （root になって）make install を実行し library を install する。
- 13. 環境変数 LD_LIBRARY_PATH に library path を追加するか，
+ 12. 必要があれば root になり， make install によって libraries や commands を install する。
+ 13. ~/.bashrc 等に環境変数 LD_LIBRARY_PATH として library path を追加するか，
      /etc/ld.so.conf に library path を追加し root で ldconfig を実行
 
 マニュアルの text 版が gsaf.doc.new にあります。
