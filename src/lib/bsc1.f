@@ -1,7 +1,7 @@
 C     $Id$C
 C
 C     ****************************************************
-C     ****** GSAF BASIC ROUTINES V3.5 : INTERFACE 1 ******
+C     ****** GSAF BASIC ROUTINES V3.8 : INTERFACE 1 ******
 C     ****************************************************
 C
 C     ****** SYSTEM INITIALIZE ******
@@ -140,8 +140,8 @@ C
       ENDIF
       CALL GUTIME(T)
       IF(ICH.NE.0) WRITE(6,601) T-TOPEN
-  601 FORMAT(1H ,'# GSAF V3.78 : ',
-     &           'Copyright (C) 1983-2003 A. Fukuyama and T. Akutsu'/
+  601 FORMAT(1H ,'# GSAF V3.80 : ',
+     &           'Copyright (C) 1983-2004 A. Fukuyama and T. Akutsu'/
      &       1H ,'#              CLOSED.  USED CPU TIME =',
      &           F10.3,' SEC')
       RETURN
