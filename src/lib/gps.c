@@ -70,7 +70,7 @@ int4		npage;
 	    psfile = fopen(filename,"w");
 	    fprintf(psfile,"%%!PS-Adobe-2.0 EPSF-1.2\n");
 	  }
-	fprintf(psfile,"%%%%Creator: GSAF gps.c V3.74\n");
+	fprintf(psfile,"%%%%Creator: GSAF gps.c V3.86\n");
 	sprintf(filename,"%s#%d",file_basename,npage);
 	fprintf(psfile,"%%%%Title: (%s)\n",filename);
 	nseconds = time(NULL);

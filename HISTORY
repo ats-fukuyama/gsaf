@@ -1,4 +1,8 @@
 $Id$
+V3.86
+2004/10/28  EPSF message in gps.c deleted for gstops
+            Function type specified in gdp.c gps.c unixc.c
+
 V3.85
 2004/09/04  COMMON inconsistency in Apersen3d.f and pers.f corrected
 
