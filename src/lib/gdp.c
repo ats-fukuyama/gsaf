@@ -68,10 +68,674 @@ unsigned long dpixel[dcolsize];
 int	nccol,ndcol;
 
 
+void tinit()
+{
+	nbuf = 0;
+}
+
+void tbuff()
+{
+	cbuf[nbuf] = 0;
+	printf("%s",cbuf);
+	fflush(stdout);
+	nbuf = 0;
+}
+
+void toutpt(i)
+int	i;
+{
+	if(nbuf+1 >= nbufmax) tbuff();
+	cbuf[nbuf] = (char)i;
+	nbuf = nbuf + 1;
+}
+
+void toutst(n,ich)
+int	n;
+char	ich[];
+{
+	int	i;
+	
+	if(nbuf + n  >= nbufmax) tbuff();
+	for(i = 0; i < n; i++)
+		cbuf[nbuf+i] = ich[i];
+	nbuf = nbuf + n;
+}
+
+void dvsetwin(win,fwin)
+Window win,fwin;
+{
+        XWindowAttributes attribs;
+	XEvent event;
+
+	/*
+        printf(" !! dvsetwin:win,focus= %d,%d\n",win,fwin);
+	*/
+	fflush(stdout);
+	if(win != rootw)
+	  {
+	    XMapRaised(display,win);
+	    
+	    do
+	      {
+	        XGetWindowAttributes(display,win,&attribs);
+		/*
+		if(attribs.map_state == IsViewable)
+			printf("IsViewable\n");
+		if(attribs.map_state == IsUnmapped)
+			printf("IsUnmapped\n");
+		if(attribs.map_state == IsUnviewable)
+			printf("IsUnviewable\n");
+		*/
+		/*
+		  printf(" !! dvsetwin:map_state %d\n",attribs.map_state);
+		  fflush(stdout);
+		*/
+
+	      } while(attribs.map_state != IsViewable);
+	  }
+	/*
+	  printf(" !! dvsetwin:end of loop\n");
+	*/
+	XSetInputFocus(display,fwin,RevertToParent,CurrentTime);
+	XFlush(display);
+}
+
 #ifndef UNDERSCORE
-  dvtype(ich)
+void  dvchin(iasc,nchar)
 #else
-  dvtype_(ich)
+void  dvchin_(iasc,nchar)
+#endif
+int4		*iasc,*nchar;
+{
+	XEvent	        event;
+	KeySym	        key;
+	char		text[10];
+	int		i;
+	int		r;
+#ifndef BSD
+	struct termio	t,st;
+#else
+	struct sgttyb	t,st;
+#endif	
+	if(rmode)
+	{
+		for(i = 0; i < *nchar; i++)
+		   iasc[i] = ' ';
+		return;
+	}
+	if(tmode)
+	{
+		toutpt(31);
+		tbuff();
+#ifndef BSD
+		ioctl(0,TCGETA,&t);
+		st = t;
+		t.c_iflag &= ~(INLCR | IGNCR | ICRNL| ISTRIP);
+		t.c_lflag &= ~(ICANON | ECHO);
+		t.c_cc[VMIN] = 1;
+		t.c_cc[VTIME] = 0;
+		ioctl(0,TCSETAF,&t);
+#else
+		ioctl(0,TIOCGETP,&t);
+		st = t;
+		t.sg_flags |= CBREAK;
+		t.sg_flags &= ~CRMOD;
+		t.sg_flags &= ~ECHO;
+		ioctl(0,TIOCSETN,&t);
+#endif
+		for(i = 0; i < *nchar; i++)
+		{
+			read(0,text,1);
+			if(text[0] < ' ')
+   			 {
+				for(;i < *nchar;)
+					iasc[i++] = 32;
+				goto endloopt;
+			}
+			iasc[i] = text[0];
+		}
+endloopt:
+#ifndef	BSD
+		ioctl(0,TCSETAW,&st);
+#else
+		ioctl(0,TIOCSETN,&st);
+#endif
+		igs = 0;
+		return;
+	}
+
+	XSync(display,0);
+	/*
+	printf("dvchin:begin\n");
+	fflush(stdout);
+	*/
+	dvsetwin(window,window);
+	/*
+	printf("dvchin:before select input\n");
+	fflush(stdout);
+	*/
+	XSelectInput(display,window,KeyPressMask | KeymapStateMask);
+	/*
+	printf("dvchin:before xsync\n");
+	fflush(stdout);
+	*/
+	i = 0;
+	/*
+	printf("dvchin:loop start\n");
+	fflush(stdout);
+	*/
+	while (i < *nchar)
+	{
+	  /*
+	    printf("dvchin:next event start\n");
+	  */
+	  XNextEvent(display,&event);
+	  /*
+	    printf("dvchin:next event end\n");
+	  */
+	  switch(event.type)
+		{
+			case MappingNotify:
+				XRefreshKeyboardMapping((XMappingEvent *)&event);
+				break;
+			case KeyPress:
+				r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
+				if(r == 1) 
+				{
+					if(text[0] >= ' ' && text[0] <= '~') 
+					{
+						iasc[i++] = (int4)text[0];
+					}
+					else
+					{
+					        if(text[0] == 0x0D)
+					        {
+						for(;i < *nchar;)
+							iasc[i++] = 32;
+						goto endloop;
+						}
+					}
+				}
+		}
+	}
+endloop:
+	XSelectInput(display,window,StructureNotifyMask);
+	/*
+	printf("dvchin:loop end\n");
+	fflush(stdout);
+	*/
+}
+
+#ifndef UNDERSCORE
+void  dvxyin(ix,iy)
+#else
+void  dvxyin_(ix,iy)
+#endif
+int4		*ix,*iy;
+{
+	XEvent	event;
+	int	done;
+	int	ixh,ixl,iyh,iyl;
+	static char	tdata[] = {27,26};
+#ifndef BSD
+	struct termio	t,st;
+#else
+	struct sgttyb	t,st;
+#endif	
+	char    text[10];
+		
+	if(rmode)
+	{
+		*ix = 0;
+		*iy = 0;
+		return;
+	}
+	if(tmode)
+	{
+		toutst(2,tdata);
+		tbuff();
+#ifndef BSD
+		ioctl(0,TCGETA,&t);
+		st = t;
+		t.c_iflag &= ~(INLCR | IGNCR | ICRNL| ISTRIP);
+		t.c_lflag &= ~(ICANON | ECHO);
+		t.c_cc[VMIN] = 1;
+		t.c_cc[VTIME] = 0;
+		ioctl(0,TCSETAF,&t);
+#else
+		ioctl(0,TIOCGETP,&t);
+		st = t;
+		t.sg_flags |= CBREAK;
+		t.sg_flags &= ~CRMOD;
+		t.sg_flags &= ~ECHO;
+		ioctl(0,TIOCSETN,&t);
+#endif
+		read(0,text,1);
+		read(0,text,1);
+		ixh = text[0] & 0x1f;
+		read(0,text,1);
+		ixl = text[0] & 0x1f;
+		read(0,text,1);
+		iyh = text[0] & 0x1f;
+		read(0,text,1);
+		iyl = text[0] & 0x1f;
+		if (tmode != 3) read(0,text,1);
+
+#ifndef	BSD
+		ioctl(0,TCSETAW,&st);
+#else
+		ioctl(0,TIOCSETN,&st);
+#endif
+		*ix = ((ixh << 5) + ixl) << 5;
+		*iy = ((iyh << 5) + iyl) << 5;
+		igs = 0;
+		return;
+	}
+
+	dvsetwin(window,window);
+
+	XDefineCursor(display,window,curs);
+	XSelectInput(display,window,ButtonPressMask);
+	XSync(display,0);
+
+	done = 0;
+	while (done == 0)
+	{
+		XNextEvent(display,&event);
+		switch(event.type)
+		{
+			case ButtonPress:
+				*ix = event.xbutton.x / delta;
+				*iy = (ymax - event.xbutton.y) / delta;
+				done = 1;
+		}
+	}
+	XSelectInput(display,window,StructureNotifyMask);
+	XUndefineCursor(display,window);
+}
+
+#ifndef UNDERSCORE
+void  dvsetv(id)
+#else
+void  dvsetv_(id)
+#endif
+int4		*id;
+{
+	int		i;
+	long		event_mask;
+
+	if(rmode) return;
+	if(tmode) return;
+
+        i = *id;
+	event_mask = 0;
+	if((i &  1) != 0) event_mask = event_mask | KeyPressMask;
+	if((i &  2) != 0) event_mask = event_mask | ButtonReleaseMask;
+	if((i &  4) != 0) event_mask = event_mask | ButtonPressMask;
+	if((i &  8) != 0) event_mask = event_mask | PointerMotionMask;
+	if(event_mask != 0)
+	  {
+	    dvsetwin(window,window);
+	    XDefineCursor(display,window,curs);
+	    XSelectInput(display,window,event_mask);
+	    XSync(display,0);
+	  }
+	else
+	  {
+	    XSelectInput(display,window,StructureNotifyMask);
+	    XUndefineCursor(display,window);
+	  }
+}
+
+#ifndef UNDERSCORE
+void  dvgetv(id,ix,iy,kd,kid)
+#else
+void  dvgetv_(id,ix,iy,kd,kid)
+#endif
+int4		*id,*ix,*iy,*kd,*kid;
+{
+	XEvent	event;
+	KeySym	        key;
+	char		text[10];
+	int		r;
+	unsigned int	kidx;
+		
+	*id = -1;
+	if(rmode) return;
+	if(tmode) return;
+
+	*id = 0;
+	while(*id == 0)
+	  {
+	    XNextEvent(display,&event);
+	    switch(event.type)
+	      {
+	      case MappingNotify:
+		XRefreshKeyboardMapping((XMappingEvent *)&event);
+		*id = 0;
+		break;
+	      case KeyPress:
+		*ix = event.xkey.x / delta;
+		*iy = (ymax - event.xkey.y) / delta;
+		r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
+		if(r == 1) 
+		  {
+		    if(IsModifierKey(key))
+		      *id = 0;
+		    else
+		      {
+			kidx = (unsigned char)text[0];
+			*kid = (int4)kidx;
+			*kd = event.xkey.keycode;
+			*id = 1;
+		      }
+		  }
+		else
+		  *id = 0;
+		break;
+	      case ButtonRelease:
+		*ix = event.xbutton.x / delta;
+		*iy = (ymax - event.xbutton.y) / delta;
+		*kid = event.xbutton.button;
+		*id = 2;
+		break;
+	      case ButtonPress:
+		*ix = event.xbutton.x / delta;
+		*iy = (ymax - event.xbutton.y) / delta;
+		*kid = event.xbutton.button;
+		*id = 4;
+		break;
+	      case MotionNotify:
+		*ix = event.xmotion.x / delta;
+		*iy = (ymax - event.xmotion.y) / delta;
+		*kid = 0;
+		*id =  8;
+		break;
+	      default:
+		*id = 0;
+		break;
+	      }
+	  }
+}
+
+#ifndef UNDERSCORE
+void  dveras()
+#else
+void  dveras_()
+#endif
+{
+	static char	tdata[] = {27,12};
+
+	if(rmode) return;
+	if(tmode)
+	{
+		toutst(2,tdata);
+		igs = 0;
+		return;
+	}
+	XClearWindow(display,window);
+}
+
+#ifndef UNDERSCORE
+void  dvprnt()
+#else
+void  dvprnt_()
+#endif
+{
+	static char	tdata[] = {27,23};
+
+	if(rmode) return;
+	if(tmode)
+	{
+		toutst(2,tdata);
+		igs = 0;
+		return;
+	}
+}
+
+#ifndef UNDERSCORE
+void  dvbell()
+#else
+void  dvbell_()
+#endif
+{
+	if(rmode) return;
+	if(tmode)
+	{
+		toutpt(7);
+		igs = 0;
+		return;
+	}
+	XBell(display,0);
+	XFlush(display);
+}
+
+#ifndef UNDERSCORE
+void  dvsync()
+#else
+void  dvsync_()
+#endif
+{
+	if(rmode) return;
+	if(tmode) return;
+	XSync(display,0);
+}
+
+void dvline(ix,iy,imv)
+int4	*ix,*iy;
+int	imv;
+{
+	char	kgs[5];
+	int	ixx,iyy,ix1,ix2,iy1,iy2,ixy,i;
+	
+	if(!imv && !igs)
+	{
+		toutpt(29);
+		kgs[0]=0x20 | iy1p;
+		if(ihr)
+		{
+			kgs[1]=0x60 | ixyp;
+			kgs[2]=0x60 | iy2p;
+			kgs[3]=0x20 | ix1p;
+			kgs[4]=0x40 | ix2p;
+			toutst(5,kgs);
+		}
+		else
+		{
+			kgs[1]=0x60 | iy2p;
+			kgs[2]=0x20 | ix1p;
+			kgs[3]=0x40 | ix2p;
+			toutst(4,kgs);
+		}
+	}
+	ixx = *ix;
+	iyy = *iy;
+	ix1 = ixx >> 10;
+	ix2 = (ixx >> 5) & 0x1f;
+	ixx = (ixx >> 3) & 0x3;
+	iy1 = iyy >> 10;
+	iy2 = (iyy >> 5) & 0x1f;
+	iyy = (iyy >> 3) & 0x3;
+	if(ihr)
+	{
+		ixy = (iyy << 2) | ixx;
+	}
+	else
+	{
+		ixy = 0;
+	}
+
+	if(imv) toutpt(29);
+	
+	i = 0;
+	if(iy1 != iy1p)
+	{
+		kgs[i] = 0x20 | iy1;
+		i = i + 1;
+	}
+	if((ixy != ixyp) || (iy2 != iy2p) || (ix1 != ix1p))
+	{
+		if(ixy != ixyp)
+		{
+			kgs[i] = 0x60 | ixy;
+			i = i + 1;
+		}
+		kgs[i] = 0x60 | iy2;
+		i = i + 1;
+	}
+	if(ix1 != ix1p)
+	{
+		kgs[i] = 0x20 | ix1;
+		i = i + 1;
+	}
+	kgs[i] = 0x40 | ix2;
+	i = i + 1;
+	toutst(i,kgs);
+	
+	ix1p = ix1;
+	ix2p = ix2;
+	iy1p = iy1;
+	iy2p = iy2;
+	ixyp = ixy;
+	igs = 1;
+}
+
+#ifndef UNDERSCORE
+void  dvmove(ix,iy)
+#else
+void  dvmove_(ix,iy)
+#endif
+int4		*ix,*iy;
+{
+	if(rmode) return;
+	if(tmode)
+	{
+		dvline(ix,iy,1);
+		return;
+	}
+	xpos = *ix * delta;
+	ypos = ymax - *iy * delta;
+}
+
+#ifndef UNDERSCORE
+void  dvdraw(ix,iy)
+#else
+void  dvdraw_(ix,iy)
+#endif
+int4		*ix,*iy;
+{
+	int		x,y;
+	
+	if(rmode) return;
+	if(tmode)
+	{
+		dvline(ix,iy,0);
+		return;
+	}
+	x = *ix * delta;
+	y = ymax - *iy * delta;
+	XDrawLine(display,window,gc,xpos,ypos,x,y);
+	xpos = x;
+	ypos = y;
+}
+
+#ifndef UNDERSCORE
+void  dvlins(ixn,iyn,np)
+#else
+void  dvlins_(ixn,iyn,np)
+#endif
+int4		ixn[],iyn[];
+int4            *np;
+{
+	int		x,y,i,n;
+        int4            ix,iy;
+	
+	if(rmode | tmode)
+	{  
+	  ix = ixn[0];
+          iy = iyn[0];
+#ifndef UNDERSCORE
+	  dvmove(&ix,&iy);
+#else
+	  dvmove_(&ix,&iy);
+#endif
+          for (i = 1; i < *np; i++)
+	  {
+	    ix = ixn[i];
+	    iy = iyn[i];
+#ifndef UNDERSCORE
+	    dvdraw(&ix,&iy);
+#else
+	    dvdraw_(&ix,&iy);
+#endif
+	  }
+	  return;
+	}
+
+        n = *np;
+        if (n > npntmax) n = npntmax;
+
+        for (i = 0; i < n; i++)
+	{
+	  points[i].x = ixn[i] * delta;
+	  points[i].y = ymax - iyn[i] * delta;
+	}
+	XDrawLines(display,window,gc,points,n,CoordModeOrigin);
+	xpos = points[n-1].x;
+	ypos = points[n-1].y;
+}
+
+#ifndef UNDERSCORE
+void  dvpoly(ixn,iyn,np)
+#else
+void  dvpoly_(ixn,iyn,np)
+#endif
+int4		ixn[],iyn[];
+int4            *np;
+{
+	int		x,y,i,n;
+        int4            ix,iy;
+	
+	if(rmode | tmode)
+	{  
+	  ix = ixn[0];
+          iy = iyn[0];
+#ifndef UNDERSCORE
+	  dvmove(&ix,&iy);
+#else
+	  dvmove_(&ix,&iy);
+#endif
+          for (i = 1; i < *np; i++)
+	  {
+	    ix = ixn[i];
+	    iy = iyn[i];
+#ifndef UNDERSCORE
+	    dvdraw(&ix,&iy);
+#else
+	    dvdraw_(&ix,&iy);
+#endif
+	  }
+	  return;
+	}
+
+        n = *np;
+        if (n > npntmax) n = npntmax;
+
+        for (i = 0; i < n; i++)
+	{
+	  points[i].x = ixn[i] * delta;
+	  points[i].y = ymax - iyn[i] * delta;
+	}
+	XFillPolygon(display,window,gc,points,n,Complex,CoordModeOrigin);
+	XDrawLines(display,window,gc,points,n,CoordModeOrigin);
+	xpos = points[n-1].x;
+	ypos = points[n-1].y;
+}
+
+#ifndef UNDERSCORE
+void  dvtype(ich)
+#else
+void  dvtype_(ich)
 #endif
 int4		*ich;
 {
@@ -88,9 +752,9 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-  dvopen(ich)
+void  dvopen(ich)
 #else
-  dvopen_(ich)
+void  dvopen_(ich)
 #endif
 int4		*ich;
 {
@@ -271,9 +935,9 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-  dvclos(ich)
+void  dvclos(ich)
 #else
-  dvclos_(ich)
+void  dvclos_(ich)
 #endif
 int4		*ich;
 {
@@ -289,58 +953,19 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-  dvoptn(kopt,iopt)
+void  dvoptn(kopt,iopt)
 #else
-  dvoptn_(kopt,iopt)
+void  dvoptn_(kopt,iopt)
 #endif
 char		*kopt;
 int4		*iopt;
 {
 }
 
-dvsetwin(win,fwin)
-Window win,fwin;
-{
-        XWindowAttributes attribs;
-	XEvent event;
-
-	/*
-        printf(" !! dvsetwin:win,focus= %d,%d\n",win,fwin);
-	*/
-	fflush(stdout);
-	if(win != rootw)
-	  {
-	    XMapRaised(display,win);
-	    
-	    do
-	      {
-	        XGetWindowAttributes(display,win,&attribs);
-		/*
-		if(attribs.map_state == IsViewable)
-			printf("IsViewable\n");
-		if(attribs.map_state == IsUnmapped)
-			printf("IsUnmapped\n");
-		if(attribs.map_state == IsUnviewable)
-			printf("IsUnviewable\n");
-		*/
-		/*
-		  printf(" !! dvsetwin:map_state %d\n",attribs.map_state);
-		  fflush(stdout);
-		*/
-
-	      } while(attribs.map_state != IsViewable);
-	  }
-	/*
-	  printf(" !! dvsetwin:end of loop\n");
-	*/
-	XSetInputFocus(display,fwin,RevertToParent,CurrentTime);
-	XFlush(display);
-}
-
 #ifndef UNDERSCORE
-  dvgrmd()
+void  dvgrmd()
 #else
-  dvgrmd_()
+void  dvgrmd_()
 #endif
 {
 	static char	tdata1[] = {27,90,27,75,66,27,77,65};
@@ -360,9 +985,9 @@ Window win,fwin;
 }
 
 #ifndef UNDERSCORE
-  dvchmd()
+void  dvchmd()
 #else
-  dvchmd_()
+void  dvchmd_()
 #endif
 {
 	static char	tdata1[] = {27,75,65,27,77,66,27,89};
@@ -383,9 +1008,9 @@ Window win,fwin;
 }
 
 #ifndef UNDERSCORE
-  dvpags(npage,sizex,sizey,lkeep)
+void  dvpags(npage,sizex,sizey,lkeep)
 #else
-  dvpags_(npage,sizex,sizey,lkeep)
+void  dvpags_(npage,sizex,sizey,lkeep)
 #endif
 int4		*npage;
 float		*sizex;
@@ -442,7 +1067,7 @@ int4		*lkeep;
 #endif
 }
 
-dupwin()
+void dupwin()
 {
 	char	cmd[80],s[20];
 	sprintf(s,"gsdump%d",pageno);
@@ -457,9 +1082,9 @@ dupwin()
 
 
 #ifndef UNDERSCORE
-  dvpage(ich)
+void  dvpage(ich)
 #else
-  dvpage_(ich)
+void  dvpage_(ich)
 #endif
 int4		*ich;
 {
@@ -518,236 +1143,25 @@ int4		*ich;
 }
 
 #ifndef UNDERSCORE
-  dvgrps()
+void  dvgrps()
 #else
-  dvgrps_()
+void  dvgrps_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvgrpe()
+void  dvgrpe()
 #else
-  dvgrpe_()
+void  dvgrpe_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvmove(ix,iy)
+void  dvtext(ix,iy,iasc,nchar)
 #else
-  dvmove_(ix,iy)
-#endif
-int4		*ix,*iy;
-{
-	if(rmode) return;
-	if(tmode)
-	{
-		dvline(ix,iy,1);
-		return;
-	}
-	xpos = *ix * delta;
-	ypos = ymax - *iy * delta;
-}
-
-#ifndef UNDERSCORE
-  dvdraw(ix,iy)
-#else
-  dvdraw_(ix,iy)
-#endif
-int4		*ix,*iy;
-{
-	int		x,y;
-	
-	if(rmode) return;
-	if(tmode)
-	{
-		dvline(ix,iy,0);
-		return;
-	}
-	x = *ix * delta;
-	y = ymax - *iy * delta;
-	XDrawLine(display,window,gc,xpos,ypos,x,y);
-	xpos = x;
-	ypos = y;
-}
-
-dvline(ix,iy,imv)
-int4	*ix,*iy;
-int	imv;
-{
-	char	kgs[5];
-	int	ixx,iyy,ix1,ix2,iy1,iy2,ixy,i;
-	
-	if(!imv && !igs)
-	{
-		toutpt(29);
-		kgs[0]=0x20 | iy1p;
-		if(ihr)
-		{
-			kgs[1]=0x60 | ixyp;
-			kgs[2]=0x60 | iy2p;
-			kgs[3]=0x20 | ix1p;
-			kgs[4]=0x40 | ix2p;
-			toutst(5,kgs);
-		}
-		else
-		{
-			kgs[1]=0x60 | iy2p;
-			kgs[2]=0x20 | ix1p;
-			kgs[3]=0x40 | ix2p;
-			toutst(4,kgs);
-		}
-	}
-	ixx = *ix;
-	iyy = *iy;
-	ix1 = ixx >> 10;
-	ix2 = (ixx >> 5) & 0x1f;
-	ixx = (ixx >> 3) & 0x3;
-	iy1 = iyy >> 10;
-	iy2 = (iyy >> 5) & 0x1f;
-	iyy = (iyy >> 3) & 0x3;
-	if(ihr)
-	{
-		ixy = (iyy << 2) | ixx;
-	}
-	else
-	{
-		ixy = 0;
-	}
-
-	if(imv) toutpt(29);
-	
-	i = 0;
-	if(iy1 != iy1p)
-	{
-		kgs[i] = 0x20 | iy1;
-		i = i + 1;
-	}
-	if((ixy != ixyp) || (iy2 != iy2p) || (ix1 != ix1p))
-	{
-		if(ixy != ixyp)
-		{
-			kgs[i] = 0x60 | ixy;
-			i = i + 1;
-		}
-		kgs[i] = 0x60 | iy2;
-		i = i + 1;
-	}
-	if(ix1 != ix1p)
-	{
-		kgs[i] = 0x20 | ix1;
-		i = i + 1;
-	}
-	kgs[i] = 0x40 | ix2;
-	i = i + 1;
-	toutst(i,kgs);
-	
-	ix1p = ix1;
-	ix2p = ix2;
-	iy1p = iy1;
-	iy2p = iy2;
-	ixyp = ixy;
-	igs = 1;
-}
-
-#ifndef UNDERSCORE
-  dvlins(ixn,iyn,np)
-#else
-  dvlins_(ixn,iyn,np)
-#endif
-int4		ixn[],iyn[];
-int4            *np;
-{
-	int		x,y,i,n;
-        int4            ix,iy;
-	
-	if(rmode | tmode)
-	{  
-	  ix = ixn[0];
-          iy = iyn[0];
-#ifndef UNDERSCORE
-	  dvmove(&ix,&iy);
-#else
-	  dvmove_(&ix,&iy);
-#endif
-          for (i = 1; i < *np; i++)
-	  {
-	    ix = ixn[i];
-	    iy = iyn[i];
-#ifndef UNDERSCORE
-	    dvdraw(&ix,&iy);
-#else
-	    dvdraw_(&ix,&iy);
-#endif
-	  }
-	  return;
-	}
-
-        n = *np;
-        if (n > npntmax) n = npntmax;
-
-        for (i = 0; i < n; i++)
-	{
-	  points[i].x = ixn[i] * delta;
-	  points[i].y = ymax - iyn[i] * delta;
-	}
-	XDrawLines(display,window,gc,points,n,CoordModeOrigin);
-	xpos = points[n-1].x;
-	ypos = points[n-1].y;
-}
-
-#ifndef UNDERSCORE
-  dvpoly(ixn,iyn,np)
-#else
-  dvpoly_(ixn,iyn,np)
-#endif
-int4		ixn[],iyn[];
-int4            *np;
-{
-	int		x,y,i,n;
-        int4            ix,iy;
-	
-	if(rmode | tmode)
-	{  
-	  ix = ixn[0];
-          iy = iyn[0];
-#ifndef UNDERSCORE
-	  dvmove(&ix,&iy);
-#else
-	  dvmove_(&ix,&iy);
-#endif
-          for (i = 1; i < *np; i++)
-	  {
-	    ix = ixn[i];
-	    iy = iyn[i];
-#ifndef UNDERSCORE
-	    dvdraw(&ix,&iy);
-#else
-	    dvdraw_(&ix,&iy);
-#endif
-	  }
-	  return;
-	}
-
-        n = *np;
-        if (n > npntmax) n = npntmax;
-
-        for (i = 0; i < n; i++)
-	{
-	  points[i].x = ixn[i] * delta;
-	  points[i].y = ymax - iyn[i] * delta;
-	}
-	XFillPolygon(display,window,gc,points,n,Complex,CoordModeOrigin);
-	XDrawLines(display,window,gc,points,n,CoordModeOrigin);
-	xpos = points[n-1].x;
-	ypos = points[n-1].y;
-}
-
-#ifndef UNDERSCORE
-  dvtext(ix,iy,iasc,nchar)
-#else
-  dvtext_(ix,iy,iasc,nchar)
+void  dvtext_(ix,iy,iasc,nchar)
 #endif
 int4		*ix,*iy,*iasc,*nchar;
 {
@@ -780,10 +1194,95 @@ int4		*ix,*iy,*iasc,*nchar;
 	ypos = y + n * dych;
 }
 
+void dvsetdcol(c)
+XColor *c;
+{
+  int n,m;
+
+  for (n = 0; n < ndcol; n++)
+    {    
+      if (dcol[n].red == c->red &&
+          dcol[n].green == c->green &&
+          dcol[n].blue == c->blue)
+	{
+	  c->pixel = dcol[n].pixel;
+	  return;
+	}
+    }
+
+  if (XAllocColor(display,cm,c)) {
+    if (ndcol < dcolsize) {
+      dcol[ndcol] = *c;
+      ++ndcol;
+    }
+  }else{
+    c->pixel = dcol[0].pixel;
+  }
+}
+
+void dvsetccol(c)
+XColor *c;
+{
+  int m,n;
+  
+  n = 0;
+  while ( n < nccol && 
+         (ccol[n].red != c->red || 
+          ccol[n].green != c->green || 
+          ccol[n].blue != c->blue))
+    ++n;
+
+  if (n == nccol)
+    {
+      dvsetdcol(c);
+      if (nccol < ccolsize)
+	++nccol;
+      else
+	--n;
+    }
+  else
+    c->pixel = ccol[n].pixel;
+
+  for (; n > 0; --n)
+      ccol[n] = ccol[n-1];
+  ccol[0] = *c;
+}
+
+int cconv(i)
+int i;
+{
+   double r,rr;
+   int ii;
+
+   if (abs(cgamma -1.0) <= 0.01 || cgamma <= 0.0) {
+      return i*256;
+    }else{
+      r = i / (255.0);
+      rr = pow(r,1.0/cgamma);
+      ii = rr * 65280.0;
+      return ii;
+    }
+ }
+
+void dvcrgbx(ir,ig,ib)
+int4		ir,ig,ib;
+{
+	XColor		c;
+		
+	c.red   = cconv(ir);
+       	c.green = cconv(ig);
+	c.blue  = cconv(ib);
+	if(fullcolor == 1)
+	  XAllocColor(display,cm,&c);
+	else
+	  dvsetccol(&c);
+	XSetForeground(display,gc,c.pixel);
+}
+
 #ifndef UNDERSCORE
-  dvstln(iln,ibl,icl)
+void  dvstln(iln,ibl,icl)
 #else
-  dvstln_(iln,ibl,icl)
+void  dvstln_(iln,ibl,icl)
 #endif
 int4		*iln,*ibl,*icl;
 {
@@ -983,9 +1482,9 @@ int4		*iln,*ibl,*icl;
 }
 
 #ifndef UNDERSCORE
-  dvlwdt(iw)
+void  dvlwdt(iw)
 #else
-  dvlwdt_(iw)
+void  dvlwdt_(iw)
 #endif
 int4		*iw;
 {
@@ -1024,9 +1523,9 @@ int4		*iw;
 }
 
 #ifndef UNDERSCORE
-  dvcrgb(ir,ig,ib)
+void  dvcrgb(ir,ig,ib)
 #else
-  dvcrgb_(ir,ig,ib)
+void  dvcrgb_(ir,ig,ib)
 #endif
 int4		*ir,*ig,*ib;
 {
@@ -1040,95 +1539,10 @@ int4		*ir,*ig,*ib;
 	dvcrgbx(*ir,*ig,*ib);
 }
 
-dvcrgbx(ir,ig,ib)
-int4		ir,ig,ib;
-{
-	XColor		c;
-		
-	c.red   = cconv(ir);
-       	c.green = cconv(ig);
-	c.blue  = cconv(ib);
-	if(fullcolor == 1)
-	  XAllocColor(display,cm,&c);
-	else
-	  dvsetccol(&c);
-	XSetForeground(display,gc,c.pixel);
-}
-
-int cconv(i)
-int i;
-{
-   double r,rr;
-   int ii;
-
-   if (cgamma == 1.0 || cgamma <= 0.0) {
-      return i*256;
-    }else{
-      r = i / (255.0);
-      rr = pow(r,1.0/cgamma);
-      ii = rr * 65280.0;
-      return ii;
-    }
- }
-
-dvsetccol(c)
-XColor *c;
-{
-  int m,n;
-  
-  n = 0;
-  while ( n < nccol && 
-         (ccol[n].red != c->red || 
-          ccol[n].green != c->green || 
-          ccol[n].blue != c->blue))
-    ++n;
-
-  if (n == nccol)
-    {
-      dvsetdcol(c);
-      if (nccol < ccolsize)
-	++nccol;
-      else
-	--n;
-    }
-  else
-    c->pixel = ccol[n].pixel;
-
-  for (; n > 0; --n)
-      ccol[n] = ccol[n-1];
-  ccol[0] = *c;
-}
-
-dvsetdcol(c)
-XColor *c;
-{
-  int n,m;
-
-  for (n = 0; n < ndcol; n++)
-    {    
-      if (dcol[n].red == c->red &&
-          dcol[n].green == c->green &&
-          dcol[n].blue == c->blue)
-	{
-	  c->pixel = dcol[n].pixel;
-	  return;
-	}
-    }
-
-  if (XAllocColor(display,cm,c)) {
-    if (ndcol < dcolsize) {
-      dcol[ndcol] = *c;
-      ++ndcol;
-    }
-  }else{
-    c->pixel = dcol[0].pixel;
-  }
-}
-
 #ifndef UNDERSCORE
-  dvgcfunc(id)
+void  dvgcfunc(id)
 #else
-  dvgcfunc_(id)
+void  dvgcfunc_(id)
 #endif
 int4		*id;
 {
@@ -1148,9 +1562,9 @@ int4		*id;
 
 /*
 #ifndef UNDERSCORE
-  dvinfo(icells,iplanes,idepth,iwhite,iblack)
+void  dvinfo(icells,iplanes,idepth,iwhite,iblack)
 #else
-  dvinfo_(icells,iplanes,idepth,iwhite,iblack)
+void  dvinfo_(icells,iplanes,idepth,iwhite,iblack)
 #endif
 int4		*icells,*iplanes,*idepth,*iwhite,*iblack;
 {
@@ -1169,9 +1583,9 @@ int4		*icells,*iplanes,*idepth,*iwhite,*iblack;
 */
 
 #ifndef UNDERSCORE
-  dvstch(ichh,ichw,ichsp,angl,tilt,ind)
+void  dvstch(ichh,ichw,ichsp,angl,tilt,ind)
 #else
-  dvstch_(ichh,ichw,ichsp,angl,tilt,ind)
+void  dvstch_(ichh,ichw,ichsp,angl,tilt,ind)
 #endif
 int4		*ichh,*ichw,*ichsp,*ind;
 float		*angl,*tilt;
@@ -1185,429 +1599,69 @@ float		*angl,*tilt;
 }
 
 #ifndef UNDERSCORE
-  dvfont(ifnt,ind)
+void  dvfont(ifnt,ind)
 #else
-  dvfont_(ifnt,ind)
+void  dvfont_(ifnt,ind)
 #endif
 int4		*ifnt,*ind;
 {
 	*ind = 1;
 }
 
-#ifndef UNDERSCORE
-  dvchin(iasc,nchar)
-#else
-  dvchin_(iasc,nchar)
-#endif
-int4		*iasc,*nchar;
-{
-	XEvent	        event;
-	KeySym	        key;
-	char		text[10];
-	int		i;
-	int		r;
-#ifndef BSD
-	struct termio	t,st;
-#else
-	struct sgttyb	t,st;
-#endif	
-	if(rmode)
-	{
-		for(i = 0; i < *nchar; i++)
-		   iasc[i] = ' ';
-		return;
-	}
-	if(tmode)
-	{
-		toutpt(31);
-		tbuff();
-#ifndef BSD
-		ioctl(0,TCGETA,&t);
-		st = t;
-		t.c_iflag &= ~(INLCR | IGNCR | ICRNL| ISTRIP);
-		t.c_lflag &= ~(ICANON | ECHO);
-		t.c_cc[VMIN] = 1;
-		t.c_cc[VTIME] = 0;
-		ioctl(0,TCSETAF,&t);
-#else
-		ioctl(0,TIOCGETP,&t);
-		st = t;
-		t.sg_flags |= CBREAK;
-		t.sg_flags &= ~CRMOD;
-		t.sg_flags &= ~ECHO;
-		ioctl(0,TIOCSETN,&t);
-#endif
-		for(i = 0; i < *nchar; i++)
-		{
-			read(0,text,1);
-			if(text[0] < ' ')
-   			 {
-				for(;i < *nchar;)
-					iasc[i++] = 32;
-				goto endloopt;
-			}
-			iasc[i] = text[0];
-		}
-endloopt:
-#ifndef	BSD
-		ioctl(0,TCSETAW,&st);
-#else
-		ioctl(0,TIOCSETN,&st);
-#endif
-		igs = 0;
-		return;
-	}
-
-	XSync(display,0);
-	/*
-	printf("dvchin:begin\n");
-	fflush(stdout);
-	*/
-	dvsetwin(window,window);
-	/*
-	printf("dvchin:before select input\n");
-	fflush(stdout);
-	*/
-	XSelectInput(display,window,KeyPressMask | KeymapStateMask);
-	/*
-	printf("dvchin:before xsync\n");
-	fflush(stdout);
-	*/
-	i = 0;
-	/*
-	printf("dvchin:loop start\n");
-	fflush(stdout);
-	*/
-	while (i < *nchar)
-	{
-	  /*
-	    printf("dvchin:next event start\n");
-	  */
-	  XNextEvent(display,&event);
-	  /*
-	    printf("dvchin:next event end\n");
-	  */
-	  switch(event.type)
-		{
-			case MappingNotify:
-				XRefreshKeyboardMapping((XMappingEvent *)&event);
-				break;
-			case KeyPress:
-				r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
-				if(r == 1) 
-				{
-					if(text[0] >= ' ' && text[0] <= '~') 
-					{
-						iasc[i++] = (int4)text[0];
-					}
-					else
-					{
-					        if(text[0] == 0x0D)
-					        {
-						for(;i < *nchar;)
-							iasc[i++] = 32;
-						goto endloop;
-						}
-					}
-				}
-		}
-	}
-endloop:
-	XSelectInput(display,window,StructureNotifyMask);
-	/*
-	printf("dvchin:loop end\n");
-	fflush(stdout);
-	*/
-}
 
 #ifndef UNDERSCORE
-  dvxyin(ix,iy)
+void  dvrgbtrg(ixn,iyn,ir,ig,ib)
 #else
-  dvxyin_(ix,iy)
+void  dvrgbtrg_(ixn,iyn,ir,ig,ib)
 #endif
-int4		*ix,*iy;
+int4           ixn[],iyn[];
+int4           ir[],ig[],ib[];
 {
-	XEvent	event;
-	int	done;
-	int	ixh,ixl,iyh,iyl;
-	static char	tdata[] = {27,26};
-#ifndef BSD
-	struct termio	t,st;
-#else
-	struct sgttyb	t,st;
-#endif	
-	char    text[10];
-		
-	if(rmode)
-	{
-		*ix = 0;
-		*iy = 0;
-		return;
-	}
-	if(tmode)
-	{
-		toutst(2,tdata);
-		tbuff();
-#ifndef BSD
-		ioctl(0,TCGETA,&t);
-		st = t;
-		t.c_iflag &= ~(INLCR | IGNCR | ICRNL| ISTRIP);
-		t.c_lflag &= ~(ICANON | ECHO);
-		t.c_cc[VMIN] = 1;
-		t.c_cc[VTIME] = 0;
-		ioctl(0,TCSETAF,&t);
-#else
-		ioctl(0,TIOCGETP,&t);
-		st = t;
-		t.sg_flags |= CBREAK;
-		t.sg_flags &= ~CRMOD;
-		t.sg_flags &= ~ECHO;
-		ioctl(0,TIOCSETN,&t);
-#endif
-		read(0,text,1);
-		read(0,text,1);
-		ixh = text[0] & 0x1f;
-		read(0,text,1);
-		ixl = text[0] & 0x1f;
-		read(0,text,1);
-		iyh = text[0] & 0x1f;
-		read(0,text,1);
-		iyl = text[0] & 0x1f;
-		if (tmode != 3) read(0,text,1);
-
-#ifndef	BSD
-		ioctl(0,TCSETAW,&st);
-#else
-		ioctl(0,TIOCSETN,&st);
-#endif
-		*ix = ((ixh << 5) + ixl) << 5;
-		*iy = ((iyh << 5) + iyl) << 5;
-		igs = 0;
-		return;
-	}
-
-	dvsetwin(window,window);
-
-	XDefineCursor(display,window,curs);
-	XSelectInput(display,window,ButtonPressMask);
-	XSync(display,0);
-
-	done = 0;
-	while (done == 0)
-	{
-		XNextEvent(display,&event);
-		switch(event.type)
-		{
-			case ButtonPress:
-				*ix = event.xbutton.x / delta;
-				*iy = (ymax - event.xbutton.y) / delta;
-				done = 1;
-		}
-	}
-	XSelectInput(display,window,StructureNotifyMask);
-	XUndefineCursor(display,window);
-}
-
-#ifndef UNDERSCORE
-  dvsetv(id)
-#else
-  dvsetv_(id)
-#endif
-int4		*id;
-{
-	int		i;
-	long		event_mask;
-
-	if(rmode) return;
-	if(tmode) return;
-
-        i = *id;
-	event_mask = 0;
-	if((i &  1) != 0) event_mask = event_mask | KeyPressMask;
-	if((i &  2) != 0) event_mask = event_mask | ButtonReleaseMask;
-	if((i &  4) != 0) event_mask = event_mask | ButtonPressMask;
-	if((i &  8) != 0) event_mask = event_mask | PointerMotionMask;
-	if(event_mask != 0)
-	  {
-	    dvsetwin(window,window);
-	    XDefineCursor(display,window,curs);
-	    XSelectInput(display,window,event_mask);
-	    XSync(display,0);
-	  }
-	else
-	  {
-	    XSelectInput(display,window,StructureNotifyMask);
-	    XUndefineCursor(display,window);
-	  }
-}
-
-#ifndef UNDERSCORE
-  dvgetv(id,ix,iy,kd,kid)
-#else
-  dvgetv_(id,ix,iy,kd,kid)
-#endif
-int4		*id,*ix,*iy,*kd,*kid;
-{
-	XEvent	event;
-	KeySym	        key;
-	char		text[10];
-	int		r;
-	unsigned int	kidx;
-		
-	*id = -1;
-	if(rmode) return;
-	if(tmode) return;
-
-	*id = 0;
-	while(*id == 0)
-	  {
-	    XNextEvent(display,&event);
-	    switch(event.type)
-	      {
-	      case MappingNotify:
-		XRefreshKeyboardMapping((XMappingEvent *)&event);
-		*id = 0;
-		break;
-	      case KeyPress:
-		*ix = event.xkey.x / delta;
-		*iy = (ymax - event.xkey.y) / delta;
-		r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
-		if(r == 1) 
-		  {
-		    if(IsModifierKey(key))
-		      *id = 0;
-		    else
-		      {
-			kidx = (unsigned char)text[0];
-			*kid = (int4)kidx;
-			*kd = event.xkey.keycode;
-			*id = 1;
-		      }
-		  }
-		else
-		  *id = 0;
-		break;
-	      case ButtonRelease:
-		*ix = event.xbutton.x / delta;
-		*iy = (ymax - event.xbutton.y) / delta;
-		*kid = event.xbutton.button;
-		*id = 2;
-		break;
-	      case ButtonPress:
-		*ix = event.xbutton.x / delta;
-		*iy = (ymax - event.xbutton.y) / delta;
-		*kid = event.xbutton.button;
-		*id = 4;
-		break;
-	      case MotionNotify:
-		*ix = event.xmotion.x / delta;
-		*iy = (ymax - event.xmotion.y) / delta;
-		*kid = 0;
-		*id =  8;
-		break;
-	      default:
-		*id = 0;
-		break;
-	      }
-	  }
-}
-
-#ifndef UNDERSCORE
-  dveras()
-#else
-  dveras_()
-#endif
-{
-	static char	tdata[] = {27,12};
-
-	if(rmode) return;
-	if(tmode)
-	{
-		toutst(2,tdata);
-		igs = 0;
-		return;
-	}
-	XClearWindow(display,window);
-}
-
-#ifndef UNDERSCORE
-  dvprnt()
-#else
-  dvprnt_()
-#endif
-{
-	static char	tdata[] = {27,23};
-
-	if(rmode) return;
-	if(tmode)
-	{
-		toutst(2,tdata);
-		igs = 0;
-		return;
-	}
-}
-
-#ifndef UNDERSCORE
-  dvbell()
-#else
-  dvbell_()
-#endif
-{
-	if(rmode) return;
-	if(tmode)
-	{
-		toutpt(7);
-		igs = 0;
-		return;
-	}
-	XBell(display,0);
-	XFlush(display);
-}
-
-#ifndef UNDERSCORE
-  dvsync()
-#else
-  dvsync_()
-#endif
-{
-	if(rmode) return;
-	if(tmode) return;
-	XSync(display,0);
-}
-
-tinit()
-{
-	nbuf = 0;
-}
-
-toutpt(i)
-int	i;
-{
-	if(nbuf+1 >= nbufmax) tbuff();
-	cbuf[nbuf] = (char)i;
-	nbuf = nbuf + 1;
-}
-
-toutst(n,ich)
-int	n;
-char	ich[];
-{
-	int	i;
+	int		x,y,i,n;
+        int4            ix,iy;
+	int4            red,green,blue;
 	
-	if(nbuf + n  >= nbufmax) tbuff();
-	for(i = 0; i < n; i++)
-		cbuf[nbuf+i] = ich[i];
-	nbuf = nbuf + n;
-}
 
-tbuff()
-{
-	cbuf[nbuf] = 0;
-	printf("%s",cbuf);
-	fflush(stdout);
-	nbuf = 0;
-}
+	if(rmode | tmode)
+	{  
+	  ix = ixn[0];
+          iy = iyn[0];
+#ifndef UNDERSCORE
+	  dvmove(&ix,&iy);
+#else
+	  dvmove_(&ix,&iy);
+#endif
+          for (i = 1; i < 3; i++)
+	  {
+	    ix = ixn[i];
+	    iy = iyn[i];
+#ifndef UNDERSCORE
+	    dvdraw(&ix,&iy);
+#else
+	    dvdraw_(&ix,&iy);
+#endif
+	  }
+	  return;
+	}
 
+	red   = (ir[0]+ir[1]+ir[2])/3;
+	green = (ig[0]+ig[1]+ig[2])/3;
+	blue  = (ib[0]+ib[1]+ib[2])/3;
+	dvcrgbx(red,green,blue);
+
+        for (i = 0; i < 3; i++)
+	{
+	  points[i].x = ixn[i] * delta;
+	  points[i].y = ymax -iyn[i] * delta;
+	}
+	  points[3].x = ixn[0] * delta;
+	  points[3].y = ymax -iyn[0] * delta;
+
+	XFillPolygon(display,window,gc,points,3,Convex,CoordModeOrigin);
+	XDrawLines(display,window,gc,points,4,CoordModeOrigin);
+	xpos = points[2].x;
+	ypos = points[2].y;
+}
 
 /*
 main()
@@ -1674,58 +1728,4 @@ main()
 	dvclos();
 }
 */
-
-#ifndef UNDERSCORE
-  dvrgbtrg(ixn,iyn,ir,ig,ib)
-#else
-  dvrgbtrg_(ixn,iyn,ir,ig,ib)
-#endif
-int4           ixn[],iyn[];
-int4           ir[],ig[],ib[];
-{
-	int		x,y,i,n;
-        int4            ix,iy;
-	int4            red,green,blue;
-	
-
-	if(rmode | tmode)
-	{  
-	  ix = ixn[0];
-          iy = iyn[0];
-#ifndef UNDERSCORE
-	  dvmove(&ix,&iy);
-#else
-	  dvmove_(&ix,&iy);
-#endif
-          for (i = 1; i < 3; i++)
-	  {
-	    ix = ixn[i];
-	    iy = iyn[i];
-#ifndef UNDERSCORE
-	    dvdraw(&ix,&iy);
-#else
-	    dvdraw_(&ix,&iy);
-#endif
-	  }
-	  return;
-	}
-
-	red   = (ir[0]+ir[1]+ir[2])/3;
-	green = (ig[0]+ig[1]+ig[2])/3;
-	blue  = (ib[0]+ib[1]+ib[2])/3;
-	dvcrgbx(red,green,blue);
-
-        for (i = 0; i < 3; i++)
-	{
-	  points[i].x = ixn[i] * delta;
-	  points[i].y = ymax -iyn[i] * delta;
-	}
-	  points[3].x = ixn[0] * delta;
-	  points[3].y = ymax -iyn[0] * delta;
-
-	XFillPolygon(display,window,gc,points,3,Convex,CoordModeOrigin);
-	XDrawLines(display,window,gc,points,4,CoordModeOrigin);
-	xpos = points[2].x;
-	ypos = points[2].y;
-}
 

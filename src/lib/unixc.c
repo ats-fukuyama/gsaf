@@ -3,6 +3,7 @@
 #include <sys/times.h>
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
 
 #ifdef SONYCISC
 typedef long time_t;
@@ -23,9 +24,9 @@ extern char *getenv();
 #endif
 
 #ifndef UNDERSCORE
-  dvdate(ndy,ndm,ndd,nth,ntm,nts)
+void  dvdate(ndy,ndm,ndd,nth,ntm,nts)
 #else
-  dvdate_(ndy,ndm,ndd,nth,ntm,nts)
+void  dvdate_(ndy,ndm,ndd,nth,ntm,nts)
 #endif
 int4 *ndy,*ndm,*ndd,*nth,*ntm,*nts;
 {
@@ -43,9 +44,9 @@ int4 *ndy,*ndm,*ndd,*nth,*ntm,*nts;
 }
 
 #ifndef UNDERSCORE
-  dvtime(i,tick)
+void  dvtime(i,tick)
 #else
-  dvtime_(i,tick)
+void  dvtime_(i,tick)
 #endif
 int4 *i;
 int4 *tick;
@@ -60,9 +61,9 @@ int4 *tick;
 }
 
 #ifndef UNDERSCORE
-  dvsleep(it)
+void  dvsleep(it)
 #else
-  dvsleep_(it)
+void  dvsleep_(it)
 #endif
 int4 *it;
 {
@@ -73,9 +74,9 @@ int4 *it;
 }
 
 #ifndef UNDERSCORE
-  dvrand(i,k)
+void  dvrand(i,k)
 #else
-  dvrand_(i,k)
+void  dvrand_(i,k)
 #endif
 int4 *i,*k;
 {
@@ -91,9 +92,9 @@ int4 *i,*k;
 }
 
 #ifndef UNDERSCORE
-  dvsrand(i)
+void  dvsrand(i)
 #else
-  dvsrand_(i)
+void  dvsrand_(i)
 #endif
 int4 *i;
 {
@@ -105,18 +106,18 @@ int4 *i;
 }
 
 #ifndef UNDERSCORE
-  dvflsh()
+void  dvflsh()
 #else
-  dvflsh_()
+void  dvflsh_()
 #endif
 {
 	fflush(stdout);
 }
 
 #ifndef UNDERSCORE
-  dvrenv(iasc,nchar)
+void  dvrenv(iasc,nchar)
 #else
-  dvrenv_(iasc,nchar)
+void  dvrenv_(iasc,nchar)
 #endif
 int4 *iasc,*nchar;
 {

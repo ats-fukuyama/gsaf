@@ -42,86 +42,7 @@ FILE		*psfile,*hdfile;
 int             interactive,istart,iend,inum,ititle,irotate,icolor;
 int		psmode,igouraud,ipage;
 
-#ifndef UNDERSCORE
-  dvtype(ich)
-#else
-  dvtype_(ich)
-#endif
-int4		*ich;
-{
-	*ich=0;
-}
-
-#ifndef UNDERSCORE
-  dvopen(ich)
-#else
-  dvopen_(ich)
-#endif
-int4		*ich;
-{	
-        char    *strptr,*parm;
-  	char	str[256];
-	int     len; 
-        
-        delta = (72.0/25.4)*(256.0/(1024*32)); /* 72 pt = 1 in = 25.4 mm */
-	psmode = 0;
-	igouraud = 0;
-
-	parm = getenv("GSAF_PARM_TEMP");
-	if(parm) {
-          sscanf(parm,"%s %d %d %d %d %d %d %d",
-                str,&interactive,&istart,&iend,&inum,&ititle,&irotate,&icolor);
-	  if(str[0] == '\0')
-	    {
-	      fprintf(stderr,"## Illegal ps file name ! \n");
-	      exit(1);
-	    }
-	  len = strlen(str);
-	  strncpy(file_basename,str+1,len-2);
-          if(len > 5)
-	    {
-	      strncpy(filename_tail,str+len-4,3);
-	      if(!strcmp(filename_tail,".gs")) file_basename[len-5]='\0';
-	    }
-	  if (interactive >= 4) igouraud = 1;
-	  interactive = interactive % 4;
-	  if (interactive >= 2) psmode = 1;
-	}
-	else {
-	  fprintf(stderr," ## Parameter env var not found ! \n");
-	  exit(1);
-	}
-	ipage = 0;
-	if(psmode == 1) dvheader(1);
-	*ich = 0;
-}
-
-#ifndef UNDERSCORE
-  dvclos(ich)
-#else
-  dvclos_(ich)
-#endif
-int4		*ich;
-{
-	if(psmode == 1)
-	  {
-	    dvtrailer(ipage);
-	    fclose(psfile);
-	  }
-	*ich = 0;
-}
-
-#ifndef UNDERSCORE
-  dvoptn(kopt,iopt)
-#else
-  dvoptn_(kopt,iopt)
-#endif
-char		*kopt;
-int4		*iopt;
-{
-}
-
-dvheader(npage)
+void  dvheader(npage)
 int4		npage;
 {
   	char	filename[256],buffer[256];
@@ -134,19 +55,21 @@ int4		npage;
 	    if(interactive == 2)
 	      {
 		psfile = stdout;
+		fprintf(psfile,"%%!PS-Adobe-2.0\n");
 	      }
 	    else
 	      {
 		sprintf(filename,"%s.ps",file_basename);
 		psfile = fopen(filename,"w");
+		fprintf(psfile,"%%!PS-Adobe-2.0\n");
 	      }
 	  }
 	else
 	  {
 	    sprintf(filename,"%s-%d.eps",file_basename,npage);
 	    psfile = fopen(filename,"w");
+	    fprintf(psfile,"%%!PS-Adobe-2.0 EPSF-1.2\n");
 	  }
-	fprintf(psfile,"%%!PS-Adobe-2.0 EPSF-1.2\n");
 	fprintf(psfile,"%%%%Creator: GSAF gps.c V3.74\n");
 	sprintf(filename,"%s#%d",file_basename,npage);
 	fprintf(psfile,"%%%%Title: (%s)\n",filename);
@@ -209,7 +132,7 @@ int4		npage;
         for (i = 0; i < 13; i++) ifused[i] = 0;
 }
 
-dvtrailer(ipage)
+void  dvtrailer(ipage)
 int4    ipage;
 {
 	fprintf(psfile,"%%%%Trailer\n");
@@ -233,72 +156,7 @@ int4    ipage;
 	fprintf(psfile,"_E end\n%%%%EOF\n");
 }
 
-#ifndef UNDERSCORE
-  dvpags(npage,sizex,sizey,lkeep)
-#else
-  dvpags_(npage,sizex,sizey,lkeep)
-#endif
-int4		*npage;
-float		*sizex;
-float		*sizey;
-int4		*lkeep;
-{
-	ipage=ipage+1;
-	if(psmode != 1) dvheader(*npage);
-	fprintf(psfile,"%%%%Page: %d %d\n",*npage,ipage);
-	fprintf(psfile,"0 i 2 J 0 j 1 w 4 M []0 d\n");
-	ifont = 0;
-	imv = 0;
-}
-
-#ifndef UNDERSCORE
-  dvpage(ich)
-#else
-  dvpage_(ich)
-#endif
-int4		*ich;
-{
-	if(imv)
-	  fprintf(psfile,"S\n");
-	if(psmode == 1)
-	  {
-	    fprintf(psfile,"showpage\n");
-	  }
-	else
-	  {
-	    dvtrailer(1);
-	    fclose(psfile);
-	  }
-	*ich = 0;
-}
-
-#ifndef UNDERSCORE
-  dvgrps()
-#else
-  dvgrps_()
-#endif
-{
-	if(imv)
-	  fprintf(psfile,"S\n");
-	fprintf(psfile,"u\n");
-	imv = 0;
-}
-
-
-#ifndef UNDERSCORE
-  dvgrpe()
-#else
-  dvgrpe_()
-#endif
-{
-	if(imv)
-	  fprintf(psfile,"S\n");
-	fprintf(psfile,"U\n");
-	imv = 0;
-}
-
-
-dvcolor(ind)
+void  dvcolor(ind)
 int       ind;
 {
   switch(ind) 
@@ -396,9 +254,153 @@ int       ind;
 }
 
 #ifndef UNDERSCORE
-  dvmove(ix,iy)
+void  dvtype(ich)
 #else
-  dvmove_(ix,iy)
+void  dvtype_(ich)
+#endif
+int4		*ich;
+{
+	*ich=0;
+}
+
+#ifndef UNDERSCORE
+void  dvopen(ich)
+#else
+void  dvopen_(ich)
+#endif
+int4		*ich;
+{	
+        char    *strptr,*parm;
+  	char	str[256];
+	int     len; 
+        
+        delta = (72.0/25.4)*(256.0/(1024*32)); /* 72 pt = 1 in = 25.4 mm */
+	psmode = 0;
+	igouraud = 0;
+
+	parm = getenv("GSAF_PARM_TEMP");
+	if(parm) {
+          sscanf(parm,"%s %d %d %d %d %d %d %d",
+                str,&interactive,&istart,&iend,&inum,&ititle,&irotate,&icolor);
+	  if(str[0] == '\0')
+	    {
+	      fprintf(stderr,"## Illegal ps file name ! \n");
+	      exit(1);
+	    }
+	  len = strlen(str);
+	  strncpy(file_basename,str+1,len-2);
+          if(len > 5)
+	    {
+	      strncpy(filename_tail,str+len-4,3);
+	      if(!strcmp(filename_tail,".gs")) file_basename[len-5]='\0';
+	    }
+	  if (interactive >= 4) igouraud = 1;
+	  interactive = interactive % 4;
+	  if (interactive >= 2) psmode = 1;
+	}
+	else {
+	  fprintf(stderr," ## Parameter env var not found ! \n");
+	  exit(1);
+	}
+	ipage = 0;
+	if(psmode == 1) dvheader(1);
+	*ich = 0;
+}
+
+#ifndef UNDERSCORE
+void  dvclos(ich)
+#else
+void  dvclos_(ich)
+#endif
+int4		*ich;
+{
+	if(psmode == 1)
+	  {
+	    dvtrailer(ipage);
+	    fclose(psfile);
+	  }
+	*ich = 0;
+}
+
+#ifndef UNDERSCORE
+void  dvoptn(kopt,iopt)
+#else
+void  dvoptn_(kopt,iopt)
+#endif
+char		*kopt;
+int4		*iopt;
+{
+}
+
+#ifndef UNDERSCORE
+void  dvpags(npage,sizex,sizey,lkeep)
+#else
+void  dvpags_(npage,sizex,sizey,lkeep)
+#endif
+int4		*npage;
+float		*sizex;
+float		*sizey;
+int4		*lkeep;
+{
+	ipage=ipage+1;
+	if(psmode != 1) dvheader(*npage);
+	fprintf(psfile,"%%%%Page: %d %d\n",*npage,ipage);
+	fprintf(psfile,"0 i 2 J 0 j 1 w 4 M []0 d\n");
+	ifont = 0;
+	imv = 0;
+}
+
+#ifndef UNDERSCORE
+void  dvpage(ich)
+#else
+void  dvpage_(ich)
+#endif
+int4		*ich;
+{
+	if(imv)
+	  fprintf(psfile,"S\n");
+	if(psmode == 1)
+	  {
+	    fprintf(psfile,"showpage\n");
+	  }
+	else
+	  {
+	    dvtrailer(1);
+	    fclose(psfile);
+	  }
+	*ich = 0;
+}
+
+#ifndef UNDERSCORE
+void  dvgrps()
+#else
+void  dvgrps_()
+#endif
+{
+	if(imv)
+	  fprintf(psfile,"S\n");
+	fprintf(psfile,"u\n");
+	imv = 0;
+}
+
+
+#ifndef UNDERSCORE
+void  dvgrpe()
+#else
+void  dvgrpe_()
+#endif
+{
+	if(imv)
+	  fprintf(psfile,"S\n");
+	fprintf(psfile,"U\n");
+	imv = 0;
+}
+
+
+#ifndef UNDERSCORE
+void  dvmove(ix,iy)
+#else
+void  dvmove_(ix,iy)
 #endif
 int4		*ix,*iy;
 {
@@ -424,9 +426,9 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-  dvdraw(ix,iy)
+void  dvdraw(ix,iy)
 #else
-  dvdraw_(ix,iy)
+void  dvdraw_(ix,iy)
 #endif
 int4		*ix,*iy;
 {
@@ -453,9 +455,9 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-  dvlins(ixn,iyn,np)
+void  dvlins(ixn,iyn,np)
 #else
-  dvlins_(ixn,iyn,np)
+void  dvlins_(ixn,iyn,np)
 #endif
 int4		ixn[],iyn[];
 int4            *np;
@@ -500,9 +502,9 @@ int4            *np;
 }
 
 #ifndef UNDERSCORE
-  dvpoly(ixn,iyn,np)
+void  dvpoly(ixn,iyn,np)
 #else
-  dvpoly_(ixn,iyn,np)
+void  dvpoly_(ixn,iyn,np)
 #endif
 int4		ixn[],iyn[];
 int4            *np;
@@ -543,9 +545,22 @@ int4            *np;
 
 
 #ifndef UNDERSCORE
-  dvrgbtrg(ixn,iyn,ir,ig,ib)
+void  dvcrgb(ir,ig,ib)
 #else
-  dvrgbtrg_(ixn,iyn,ir,ig,ib)
+void  dvcrgb_(ir,ig,ib)
+#endif
+int4		*ir,*ig,*ib;
+{
+  cred   = *ir/255.0;
+  cgreen = *ig/255.0;
+  cblue  = *ib/255.0;
+  cblack = 1.0 - (0.15 * cblue + 0.30 * cred + 0.55 * cgreen);
+}
+
+#ifndef UNDERSCORE
+void  dvrgbtrg(ixn,iyn,ir,ig,ib)
+#else
+void  dvrgbtrg_(ixn,iyn,ir,ig,ib)
 #endif
 int4		ixn[],iyn[];
 int4		ir[],ig[],ib[];
@@ -648,9 +663,9 @@ int4		ir[],ig[],ib[];
 
 
 #ifndef UNDERSCORE
-  dvtext(ix,iy,iasc,nchar)
+void  dvtext(ix,iy,iasc,nchar)
 #else
-  dvtext_(ix,iy,iasc,nchar)
+void  dvtext_(ix,iy,iasc,nchar)
 #endif
 int4		*ix,*iy,*iasc,*nchar;
 {
@@ -712,9 +727,9 @@ int4		*ix,*iy,*iasc,*nchar;
 }
 
 #ifndef UNDERSCORE
-  dvstln(iln,ibl,icl)
+void  dvstln(iln,ibl,icl)
 #else
-  dvstln_(iln,ibl,icl)
+void  dvstln_(iln,ibl,icl)
 #endif
 int4		*iln,*ibl,*icl;
 {
@@ -748,9 +763,9 @@ int4		*iln,*ibl,*icl;
 }
 
 #ifndef UNDERSCORE
-  dvlwdt(iw)
+void  dvlwdt(iw)
 #else
-  dvlwdt_(iw)
+void  dvlwdt_(iw)
 #endif
 int4		*iw;
 {
@@ -758,22 +773,9 @@ int4		*iw;
 }
 
 #ifndef UNDERSCORE
-  dvcrgb(ir,ig,ib)
+void  dvstch(ichh,ichw,ichsp,angl,tilt,ind)
 #else
-  dvcrgb_(ir,ig,ib)
-#endif
-int4		*ir,*ig,*ib;
-{
-  cred   = *ir/255.0;
-  cgreen = *ig/255.0;
-  cblue  = *ib/255.0;
-  cblack = 1.0 - (0.15 * cblue + 0.30 * cred + 0.55 * cgreen);
-}
-
-#ifndef UNDERSCORE
-  dvstch(ichh,ichw,ichsp,angl,tilt,ind)
-#else
-  dvstch_(ichh,ichw,ichsp,angl,tilt,ind)
+void  dvstch_(ichh,ichw,ichsp,angl,tilt,ind)
 #endif
 int4		*ichh,*ichw,*ichsp,*ind;
 float		*angl,*tilt;
@@ -834,9 +836,9 @@ float		*angl,*tilt;
 }
 
 #ifndef UNDERSCORE
-  dvfont(ifnt,ind)
+void  dvfont(ifnt,ind)
 #else
-  dvfont_(ifnt,ind)
+void  dvfont_(ifnt,ind)
 #endif
 int4		*ifnt,*ind;
 {
@@ -855,9 +857,9 @@ int4		*ifnt,*ind;
 }
 
 #ifndef UNDERSCORE
-  dvchin(iasc,nchar)
+void  dvchin(iasc,nchar)
 #else
-  dvchin_(iasc,nchar)
+void  dvchin_(iasc,nchar)
 #endif
 int4		*iasc,*nchar;
 {
@@ -867,9 +869,9 @@ int4		*iasc,*nchar;
 }
 
 #ifndef UNDERSCORE
-  dvxyin(ix,iy)
+void  dvxyin(ix,iy)
 #else
-  dvxyin_(ix,iy)
+void  dvxyin_(ix,iy)
 #endif
 int4		*ix,*iy;
 {
@@ -886,18 +888,18 @@ int4		*ix,*iy;
 }
 
 #ifndef UNDERSCORE
-  dvsetv(id)
+void  dvsetv(id)
 #else
-  dvsetv_(id)
+void  dvsetv_(id)
 #endif
 int4		*id;
 {
 }
 
 #ifndef UNDERSCORE
-  dvgetv(id,ix,iy,kd,kid)
+void  dvgetv(id,ix,iy,kd,kid)
 #else
-  dvgetv_(id,ix,iy,kd,kid)
+void  dvgetv_(id,ix,iy,kd,kid)
 #endif
 int4		*id,*ix,*iy,*kd,*kid;
 {
@@ -909,59 +911,58 @@ int4		*id,*ix,*iy,*kd,*kid;
 }
 
 #ifndef UNDERSCORE
-  dvgrmd()
+void  dvgrmd()
 #else
-  dvgrmd_()
+void  dvgrmd_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvchmd()
+void  dvchmd()
 #else
-  dvchmd_()
+void  dvchmd_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dveras()
+void  dveras()
 #else
-  dveras_()
+void  dveras_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvprnt()
+void  dvprnt()
 #else
-  dvprnt_()
+void  dvprnt_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvbell()
+void  dvbell()
 #else
-  dvbell_()
+void  dvbell_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvsync()
+void  dvsync()
 #else
-  dvsync_()
+void  dvsync_()
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-  dvgcfunc(id)
+void  dvgcfunc(id)
 #else
-  dvgcfunc_(id)
+void  dvgcfunc_(id)
 #endif
 int4		*id;
 {
 }  
-
