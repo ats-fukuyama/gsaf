@@ -3,6 +3,8 @@ $Id$
 V3.80
 2004/05/04  SET_PAGE,INQ_PAGE added
             INQ_GDEFINE,LINE1 added
+            gsaf.doc.new updated
+            gstops, gstoeps: color is now default
             Several minor modification for ftnchek
 
 2004/05/03  file structure of src changed
