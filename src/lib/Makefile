@@ -45,6 +45,12 @@ Acont3d.o : Acont3d.f
 Aline3d.o : Aline3d.f
 	$(FC) -c $(FLFLAGS) Aline3d.f
 
+Acompat.o : Acompat.f
+	$(FC) -c $(FLFLAGS) Acompat.f
+
+Acompat3d.o : Acompat3d.f
+	$(FC) -c $(FLFLAGS) Acompat3d.f
+
 libg3d$(SL) : $(OBJG3D)
 	$(LD) $(LDFLAGS) libg3d$(SL) $(OBJG3D)
 	$(LDX) libg3d$(SL)
@@ -93,6 +99,9 @@ cont1.o : cont1.f
 
 cont2.o : cont2.f
 	$(FC) -c $(FLFLAGS) cont2.f
+
+cont3.o : cont3.f
+	$(FC) -c $(FLFLAGS) cont3.f
 
 pers.o : pers.f
 	$(FC) -c $(FLFLAGS) pers.f

@@ -1,4 +1,7 @@
 $Id$
+V3.89
+2005/03/02  lib/Makefile corrected (three objs without pic option)
+            arch/hp-nifs added
 
 V3.88
 2004/12/18  The change of functions, SETLIN and SETRGB, removed
