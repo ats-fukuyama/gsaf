@@ -173,3 +173,6 @@ C
       RETURN
       END
 C
+      SUBROUTINE gsglEnableLighting
+      RETURN
+      END
