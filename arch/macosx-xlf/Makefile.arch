@@ -20,9 +20,9 @@ CC=xlc
 
 # Compile flags
 
-FLFLAGS=-O
+FLFLAGS=-O -qmaxmem=-1
 CLFLAGS=-O -DBSD
-FFLAGS=-O
+FFLAGS=-O -qmaxmem=-1
 CFLAGS=-O -DBSD
 
 # Make library command and options
