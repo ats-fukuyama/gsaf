@@ -1,4 +1,9 @@
 $Id$
+V3.87
+2004/12/02  arch/freebsd/Makefile.arch added (by Mr. G. Kawamura)
+            arch/macosx-xlf/Makefile.arch updated
+            gdp.c, gps.c, gdum.c gsview.f unix.c updated (by Mr. G. Kawamura)
+
 V3.86
 2004/10/28  EPSF message in gps.c deleted for gstops
             Function type specified in gdp.c gps.c unixc.c
@@ -22,7 +27,7 @@ V3.83
 
 V3.82
 2004/06/18  Makefile.dynamic corrected
-            arch/opteron-pgf/Maekfile.arch added
+            arch/opteron-pgf/Makefile.arch added
 
 V3.81
 2004/06/02  INQ_GDEFIN renamed to INQGDEFINE
