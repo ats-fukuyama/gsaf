@@ -24,68 +24,68 @@ C
 C
       IF(KMENU.EQ.'1') THEN
          CALL PAGES
-         CALL SET_PAGE(0.0,9.0,0.5,0.5)
+         CALL SETPAGE(0.0,9.0,0.5,0.5)
          CALL XMARK
-         CALL SET_PAGE(0.0,0.0,0.5,0.5)
+         CALL SETPAGE(0.0,0.0,0.5,0.5)
          CALL XTEXT
-         CALL SET_PAGE(12.8,9.0,0.5,0.5)
+         CALL SETPAGE(12.8,9.0,0.5,0.5)
          CALL XLINE
-         CALL SET_PAGE(12.8,0.0,0.5,0.5)
+         CALL SETPAGE(12.8,0.0,0.5,0.5)
          CALL XCHAR('S')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'2') THEN
          CALL PAGES
-         CALL SET_PAGE(0.0,13.5,1.0,0.25)
+         CALL SETPAGE(0.0,13.5,1.0,0.25)
          CALL XMARK
-         CALL SET_PAGE(0.0, 9.0,1.0,0.25)
+         CALL SETPAGE(0.0, 9.0,1.0,0.25)
          CALL XTEXT
-         CALL SET_PAGE(0.0, 4.5,1.0,0.25)
+         CALL SETPAGE(0.0, 4.5,1.0,0.25)
          CALL XLINE
-         CALL SET_PAGE(0.0, 0.0,1.0,0.25)
+         CALL SETPAGE(0.0, 0.0,1.0,0.25)
          CALL XCHAR('S')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'3') THEN
          CALL PAGES
-         CALL SET_PAGE( 0.0, 0.0,0.25,1.0)
+         CALL SETPAGE( 0.0, 0.0,0.25,1.0)
          CALL XMARK
-         CALL SET_PAGE( 6.4, 0.0,0.25,1.0)
+         CALL SETPAGE( 6.4, 0.0,0.25,1.0)
          CALL XTEXT
-         CALL SET_PAGE(12.8, 0.0,0.25,1.0)
+         CALL SETPAGE(12.8, 0.0,0.25,1.0)
          CALL XLINE
-         CALL SET_PAGE(19.2, 0.0,0.25,1.0)
+         CALL SETPAGE(19.2, 0.0,0.25,1.0)
          CALL XCHAR('S')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'4') THEN
          CALL PAGES
-         CALL SET_PAGE(0.0,9.0,0.5,0.5)
+         CALL SETPAGE(0.0,9.0,0.5,0.5)
          CALL XMARK
-         CALL SET_PAGE(0.0,0.0,0.5,0.5)
+         CALL SETPAGE(0.0,0.0,0.5,0.5)
          CALL XCHAR('S')
-         CALL SET_PAGE(12.8,9.0,0.5,0.5)
+         CALL SETPAGE(12.8,9.0,0.5,0.5)
          CALL XCHAR('H')
-         CALL SET_PAGE(12.8,0.0,0.5,0.5)
+         CALL SETPAGE(12.8,0.0,0.5,0.5)
          CALL XCHAR('F')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'5') THEN
          CALL PAGES
-         CALL SET_PAGE(0.0,13.5,1.0,0.25)
+         CALL SETPAGE(0.0,13.5,1.0,0.25)
          CALL XMARK
-         CALL SET_PAGE(0.0, 9.0,1.0,0.25)
+         CALL SETPAGE(0.0, 9.0,1.0,0.25)
          CALL XCHAR('S')
-         CALL SET_PAGE(0.0, 4.5,1.0,0.25)
+         CALL SETPAGE(0.0, 4.5,1.0,0.25)
          CALL XCHAR('H')
-         CALL SET_PAGE(0.0, 0.0,1.0,0.25)
+         CALL SETPAGE(0.0, 0.0,1.0,0.25)
          CALL XCHAR('F')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'6') THEN
          CALL PAGES
-         CALL SET_PAGE( 0.0, 0.0,0.25,1.0)
+         CALL SETPAGE( 0.0, 0.0,0.25,1.0)
          CALL XMARK
-         CALL SET_PAGE( 6.4, 0.0,0.25,1.0)
+         CALL SETPAGE( 6.4, 0.0,0.25,1.0)
          CALL XCHAR('S')
-         CALL SET_PAGE(12.8, 0.0,0.25,1.0)
+         CALL SETPAGE(12.8, 0.0,0.25,1.0)
          CALL XCHAR('H')
-         CALL SET_PAGE(19.2, 0.0,0.25,1.0)
+         CALL SETPAGE(19.2, 0.0,0.25,1.0)
          CALL XCHAR('F')
          CALL PAGEE
       ELSEIF(KMENU.EQ.'E') THEN
@@ -149,6 +149,7 @@ C
          CALL MOVE(X,Y)
          CALL DRAW(X+1.5,Y)
   100 CONTINUE
+      CALL SETLIN(0,0,7)
       RETURN
       END
 C
