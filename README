@@ -1,7 +1,7 @@
 ### $Id$ ###
 ***************************************************************
 ***** GSAF is a 2D graphic package available from FORTRAN *****
-*****        (C) Copyright 1983-2001 A. Fukuyama          *****
+*****        (C) Copyright 1983-2004 A. Fukuyama          *****
 ***************************************************************
 
 INSTALL:
@@ -9,15 +9,13 @@ INSTALL:
   1. Copy gsafXX.tar.Z to an appropriate directory.
   2. Defreeze it "zcat gsafXX.tar.Z | tar xvf -"
   3. Change to the new directory by "cd gsaf/src"
-  4. Copy Makefile "cp ../arch/XXX/Makefile ."
-  5. Adjust directories and option in Makefile
-  6. Create libraries by "make lib"
-  7. Create test programs by "make test"
-  8. Check test programs on X window
-  9. Install libraries by "make install"
- 10. Create utility programs by "make appl"
- 11. Install utility programs by "make installa"
- 12. Set environmental variables LD_LIBRARY_PATH=library path
+  4. Copy Makefile.arch "cp ../arch/XXX/Makefile.arch ."
+  5. Adjust directories and option in Makefile.arch
+  6. Create libraries by "make libs"
+  7. Create test programs by "make tests"
+  8. Check test programs in test directory with X window
+  9. Install libraries and binaries by "make install"
+ 10. Set environmental variables LD_LIBRARY_PATH=library path
      or Add library path in /etc/ld.so.conf and run ldconfig as a root.
 
 DOCUMENTS:
@@ -31,7 +29,7 @@ DOCUMENTS:
                        gsaf35.doc.sjis
                        gsaf36.doc.sjis
 
-CONTENTS:
+CONTENTS: (obsolete, should be updated near future)
 
    src/
    libgsp : common graphic library

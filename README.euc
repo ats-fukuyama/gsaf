@@ -5,14 +5,14 @@ Install 手順
   1. gsaf.tar.Z を適切な directory に転送する。
   2. zcat gsaf.tar.Z | tar xvf -  によって解凍する。
   3. cd gsaf/src によって作成された directory に移る。
-  4. cp ../arch/XXXX/Makefile . によって Makefile を作成する。
-  5. Makefile 中の directory や option を適切に設定する。
-  6. make lib によって library を作成する。
-  7. make test によって test program を作成する。
-  8. X window 上で test program が正常に動作することを確かめる。
+  4. cp ../arch/XXXX/Makefile.arch . によって Makefile.arch をコピーする。
+  5. Makefile.arch 中の directory や option を適切に設定する。
+  6. make libs によって library を作成する。
+  7. make tests によって test program を作成する。
+  8. X window 上で test ディレクトリの test program の動作を確認する。
   9. make install によって library を install する。
- 10. make appl によって utility program を作成する。
- 11. make installa によって utility program を install する。
+ 10. 環境変数 LD_LIBRARY_PATH=library path を設定するか，
+     /etc/ld.so.conf に library path を追加し root で ldconfig を実行
 
 マニュアルの text 版が gsaf.doc.sjis にあります。
 　　　　　　　　　　　 gsaf30.doc.sjis

@@ -65,8 +65,8 @@ C
             YF=(XYGRID(I+1)-IY0)*DL
             X=TFXX*XF+TFXY*YF
             Y=TFYX*XF+TFYY*YF
-            IXT=IX+NINT(X*DSIZE)
-            IYT=IY+NINT(Y*DSIZE)
+            IXT=IX+NINT(X*DSIZE*PXSCALE)
+            IYT=IY+NINT(Y*DSIZE*PYSCALE)
             IF(IXT.LT.0)     IXT=0
             IF(IXT.GT.32767) IXT=32767
             IF(IYT.LT.0)     IYT=0
@@ -82,8 +82,8 @@ C
       CALL GS_GRSIZE(IC,DLX)
       X=TFXX*DLX+TFSPX
       Y=TFYX*DLX+TFSPY
-      IX=IX+NINT(X*DSIZE)
-      IY=IY+NINT(Y*DSIZE)
+      IX=IX+NINT(X*DSIZE*PXSCALE)
+      IY=IY+NINT(Y*DSIZE*PYSCALE)
 C
       RETURN
       END
