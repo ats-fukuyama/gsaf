@@ -33,7 +33,7 @@ LDFLAGS=-shared -o
 
 # Library extension
 
-LIB-SUFFIX=-pgf
+LIB-SUFFIX=-pgf64
 SL=$(LIB-SUFFIX).so
 
 # X library path

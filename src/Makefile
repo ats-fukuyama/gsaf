@@ -4,7 +4,7 @@
 # Make for gsaf : V3.80
 #
 
-default : libs tests
+default : libs
 
 libs :
 	(cd lib; make)
