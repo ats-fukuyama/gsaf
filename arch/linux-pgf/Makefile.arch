@@ -20,9 +20,11 @@ CC=cc
 
 # Compile flags
 
+#FLFLAGS=-g -Mbounds -Ktrap=fp -r
+#FFLAGS=-g -Mbounds -Ktrap=fp 
 FLFLAGS=-O -r
-CLFLAGS=-O -r -DUNDERSCORE
 FFLAGS=-O
+CLFLAGS=-O -r -DUNDERSCORE
 CFLAGS=-O -DUNDERSCORE
 
 # Make library command and options
