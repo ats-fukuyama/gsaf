@@ -1,0 +1,25 @@
+# Library difinition
+
+GSPLIB=$(LIBPATH)/libgsp$(SL)
+GDPLIB=$(LIBPATH)/libgdp$(SL) 
+GPPLIB=$(LIBPATH)/libgpp$(SL) 
+GPSLIB=$(LIBPATH)/libgps$(SL)
+GDUMLIB=$(LIBPATH)/libgdum$(SL)
+PLTLIB=$(LIBPATH)/libplot$(SL)
+
+LIBS=./libplot$(SL) ./libgsp$(SL) ./libgdp$(SL) $(XLIBS) $(MLIBS)
+GSLIBS=$(PLTLIB) $(GSPLIB) $(GDPLIB) $(XLIBS) $(MLIBS)
+DUMLIBS=./libplot$(SL) ./libgsp$(SL) ./libgdum$(SL) $(XLIBS) $(MLIBS)
+GDUMLIBS=$(PLTLIB) $(GSPLIB) $(GDUMLIB) $(XLIBS) $(MLIBS)
+ADLIBS=$(GSPLIB) $(GDPLIB) $(XLIBS) $(MLIBS)
+APLIBS=$(GSPLIB) $(GPPLIB) $(MLIBS)
+APSLIBS=$(GSPLIB) $(GPSLIB) $(MLIBS)
+
+# Necessary dependence for static link
+
+LIBSX=./libplot$(SL) ./libgsp$(SL) ./libgdp$(SL)
+LIBDSX=./libplot$(SL) ./libgsp$(SL) ./libgdum$(SL)
+ADLIBSX=$(GSPLIB) $(GDPLIB) 
+APLIBSX=$(GSPLIB) $(GPPLIB)
+APSLIBSX=$(GSPLIB) $(GPSLIB)
+

@@ -1,0 +1,169 @@
+***************************************************************
+***** GSAF is a 2D graphic package available from FORTRAN *****
+*****        (C) Copyright 1983-2001 A. Fukuyama          *****
+***************************************************************
+
+INSTALL:
+
+  1. Copy gsafXX.tar.Z to an appropriate directory.
+  2. Defreeze it "zcat gsafXX.tar.Z | tar xvf -"
+  3. Change to the new directory by "cd gsaf/src"
+  4. Copy Makefile "cp ../arch/XXX/Makefile ."
+  5. Adjust directories and option in Makefile
+  6. Create libraries by "make lib"
+  7. Create test programs by "make test"
+  8. Check test programs on X window
+  9. Install libraries by "make install"
+ 10. Create utility programs by "make appl"
+ 11. Install utility programs by "make installa"
+ 12. Set environmental variables LD_LIBRARY_PATH=library path
+     or Add library path in /etc/ld.so.conf and run ldconfig as a root.
+
+DOCUMENTS:
+
+     At present, only a brief manual (gsaf.doc.minimum) is avilable.
+     Following full manuals are written in Japanese.
+                       gsaf.doc.sjis
+                       gsaf30.doc.sjis
+                       gsaf31.doc.sjis
+                       gsaf33.doc.sjis
+                       gsaf35.doc.sjis
+                       gsaf36.doc.sjis
+
+CONTENTS:
+
+   src/
+   libgsp : common graphic library
+        bsc1.f
+        bsc2.f
+        bsc3.f
+        igl1.f
+        igl2.f
+        igl3.f
+        fio1.f
+        fio2.f
+        unix.f+unixc.c
+        apl1.f
+        apl2.f
+        apl3.f
+        cont1.f
+        cont2.f
+        pers.f
+        spln.f
+
+   libgdp : X-Window output library
+        gdp.c
+
+   libgpp : Printer output library
+        gpplips.c   Canon LIPS-III
+        gpplips2.c  Canon LIPS-II
+
+   libgps : Postscript output library
+        gps.c + adb_ill_1.1
+
+   libgdum : Dummy library
+        gdum.f
+
+   libg3d : 3D library developed by T. Akutsu
+	A3dplot.f
+	Acplot1.f
+	Aline3d.f
+	Argbfunc.f
+	Acont3d.f
+	Agtseries.f
+	Apersen3d.f
+
+   libplot: Calcomp compatible interface library
+        plot.f
+
+   f77g    : Shell script to compile fortran program
+   gsview  : Application to draw graphic data on X-Window
+   gsprint : Shell script ot print out graphic data
+   gsfile  : Application to print out graphic data
+   gstoeps : Application to convert graphic data to EPSF (1 figure per page)
+   gstops  : Application to convert graphic data to PS file
+   gsdump  : Shell script to show X-Window bitmap
+
+   bsctest    : Test program for basic fanctions
+   apltest    : Test program for 2D graph
+   conttest   : Test program for contour plot
+   perstest   : Test program for bird's eye view
+   splntest   : Test program for spline interporation
+   gdptest    : Test program for full color
+   pgtest     : Test program for pgfont
+   pstest     : Test program for postscript font
+   g3dtest    : Test program for libg3d
+
+   gdum.f  : template for device driver
+   gdum.c  : template for device driver
+   gsview.c   : Source program of gsview, gsfile, gstops
+   gslave.f   : Source program of gsview.slave, gsfile.slave, gstops.slave
+   f77g.tp    : Template of f77g shell script
+   gsprint.tp : Template of gsprint shell script
+   gsaf_header1.ps: postscript header file
+   gsaf_header2.ps: postscript header file
+   sample.f   : sample program
+
+   Makefile.body : common part of Makefile
+
+   arch/
+   decosf/Makefile      : Makefile for DEC OSF
+   hp/Makefile          : Makefile for HP9000/700 (dynamic link)
+   hp-static/Makefile   : Makefile for HP9000/700 (static link for minimum cc)
+   ibmaix/Makefile      : Makefile for IBM RS6000
+   linux/Makefile       : Makefile for Linux g77 (dynamic lib)
+   linux-static/Makefile: Makefile for Linux g77 (static lib)
+   linux-pgf77/Makefile : Makefile for Linux intel pgf77 (Portland Group)
+   linux-alpha/Makefile : Makefile for Linux alpha g77 (not completed)
+   macosx/Makefile      : Makefile for MacOSX f2c/fort77 (static lib)
+   nec/Makefile         : Makefile for NEC EWS/RISC (MIPS)
+   sonycisc/Makefile    : Makefile for SONY NEWS/CISC
+   sun/Makefile         : Makefile for SUN OS4.1
+   solaris/Makefile     : Makefile for SUN OS5.4 (Solaris)
+
+   doc/
+   gsaf.doc.new        : Manual (new version, under construction)
+   gsaf.doc.sjis       : Manual
+   gsaf30.doc.sjis     : Addition of the Manual
+   gsaf31.doc.sjis     : V3.1 Addition of the Manual
+   gsaf33.doc.sjis     : V3.3 Addition of the Manual
+   gsaf35.doc.sjis     : V3.5 Addition of the Manual
+   gsaf36.doc.sjis     : V3.6 Addition of the Manual
+   gsaf.doc.minimum    : Brief Manual in English
+
+   README              : README in English (what you read now)
+   README.sjis         : README in Japanese
+   README.euc          : README in Japanese
+   HISTORY	       : History of development
+
+COPYRIGHT:
+
+Copyright of GSAF system: A. Fukuyama, Kyoto University
+Copyright of GSAF 3D package (A*.f): T. Akutsu, Kyoto University
+Copytight of gsaf_header1.ps: Adobe Systems, inc
+pgfont data was derived from Hershey character set used in PGPLOT. 
+
+GASF system is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+
+GSAF system is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with GSAF system; see the file COPYING.
+
+UPDATE:
+
+The newest version of GSAF system is available from
+        ftp://p-grp.nucleng.kyoto-u.ac.jp/pub/gsaf/
+Home page is located at
+        http://p-grp.nucleng.kyoto-u.ac.jp/~fukuyama/gsaf/
+
+Your comments as well as bug information on GSAF system should be mailed to
+	fukuyama@nucleng.kyoto-u.ac.jp
+
+----------------------------------------------------------------------

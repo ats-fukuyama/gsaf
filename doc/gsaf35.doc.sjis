@@ -1,0 +1,90 @@
+--------------------
+GSAF V3.52  99/07/29
+--------------------
+
+ファイル・ディレクトリ構成を変更した．
+　　　　　　　arch, doc, src の各ディレクトリを作成
+　　　　　　　install 作業は src ディレクトリで行う
+　　　　　　　Makefile の作成方法を変更
+
+gstops は  PostScript File 作成コマンド
+　　　　　 　 全体が１つのファイル
+　　　　　　　そのままでプリンタ出力可能
+
+gstoeps は Encapsulated PostScript File 作成コマンド
+　　　　　　　各頁毎に１つのファイル
+　　　　　　　showpage コマンドを付加しないとプリンタ出力されない
+
+画面表示における背景色を白に固定．
+画面表示における解像度の種類を増加 (512,640,768,896,1024,1280)
+
+線分データのグループ化を行うためのルーチンを追加
+     GUGRPS  グループ化開始
+     GUGRPE  グループ化終了
+     （GPLOTP, LINES, GSCALE, GSCALL, GVECTR, TEXT ルーチン等で使用）
+
+べき乗表示を行えるように GNUMBD/R を拡張
+　　桁数指定子 IND:  >0　固定小数点表示
+　　　　　　　　　　 =0　整数表示
+　　　　　　　　　　 <0　浮動小数点表示 (1.234E03)
+　　　　　　　　  <-100  べき乗表示(1.234x10^3)
+　　GVALUE 等でも指定可能
+
+倍精度から単精度への変換を行う関数 GUCLIP(DATA) を追加
+グラフメモリ数値の最適化を行う関数 NGULEN(GSTEP) を追加
+
+ベクトルフォントを拡張した．(IFNT>=32 は印刷時 Postscript font を使用）
+   SETFNT(IFNT)   IFNT=0  従来のソフトウェア文字（標準）
+                       1  従来のハードウェア文字（印刷時 Courier）
+
+                       2  Roman
+                       3  Roman Italic
+                       4  Roman Bold
+                       5  Roman Bold Italic
+                       6  Sans Serif
+                       7  Script
+                       8  German1
+                       9  German2
+                      10  German3
+                      11  Greek
+                      12  German1
+                      13  German1
+                      14  Cyrillic
+                      15  Cyrillic
+                      16  Large Symbol
+                      17  Various symbols
+                      18  Various symbols
+                      19  Various symbols
+
+		      32  Times-Roman
+		      33  Times-Italic
+		      34  Times-Bold
+		      35  Times-BoldItalic
+		      36  Helvetica
+		      37  Helvetica-Oblique
+		      38  Helvetica-Bold
+		      39  Helvetica-BoldOblique
+		      40  Courier
+		      41  Courier-Oblique
+		      42  Courier-Bold
+		      43  Courier-BoldOblique
+		      44  Symbol
+
+TEXT サブルーチンに与える文字列の仕様を拡張した．
+     $+   上付添字開始
+     $-   下付添字開始
+     $=   添字終了
+
+     $0..$9   フォント変更
+           IFNT < 32 の場合：$0..$9 が IFNT=0..9 に対応
+　　　　　 IFNT >=32 の場合：$0..$9 が IFNT=0,1,32..39 に対応
+     $#   ギリシャ文字にフォント変更
+　　　　　フォント変更されている場合には元のフォントに復帰
+
+     $,   1/6 文字幅移動
+     $;   2/9 文字幅移動
+     $!   -1/6 文字幅移動
+     $?   -2/9 文字幅移動
+
+     $/### postscript 出力における８進表現（### は８進表現の３文字）
+     $$   文字 $ の出力

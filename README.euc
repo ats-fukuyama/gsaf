@@ -1,0 +1,174 @@
+GSAF は Fortran から利用できる２次元グラフィックライブラリです。
+
+Install 手順
+  1. gsaf.tar.Z を適切な directory に転送する。
+  2. zcat gsaf.tar.Z | tar xvf -  によって解凍する。
+  3. cd gsaf/src によって作成された directory に移る。
+  4. cp ../arch/XXXX/Makefile . によって Makefile を作成する。
+  5. Makefile 中の directory や option を適切に設定する。
+  6. make lib によって library を作成する。
+  7. make test によって test program を作成する。
+  8. X window 上で test program が正常に動作することを確かめる。
+  9. make install によって library を install する。
+ 10. make appl によって utility program を作成する。
+ 11. make installa によって utility program を install する。
+
+マニュアルの text 版が gsaf.doc.sjis にあります。
+　　　　　　　　　　　 gsaf30.doc.sjis
+　　　　　　　　　　　 gsaf31.doc.sjis
+　　　　　　　　　　　 gsaf33.doc.sjis
+　　　　　　　　　　　 gsaf35.doc.sjis
+　　　　　　　　　　　 gsaf36.doc.sjis
+
+Calcomp 互換の plot ライブラリについては、現在のところマニュアルはなく、
+また十分にテストされていません。ソースプログラムを参照して下さい。
+
+ファイルの説明と主な参照関係
+
+   src/
+   libgsp : 共通グラフィックライブラリ
+        bsc1.f
+        bsc2.f
+        bsc3.f
+        igl1.f
+        igl2.f
+        igl3.f
+        fio1.f
+        fio2.f
+        unix.f+unixc.c
+        apl1.f
+        apl2.f
+        apl3.f
+        cont1.f
+        cont2.f
+        pers.f
+        spln.f
+
+   libgdp : 画面出力ライブラリ
+        gdp.c
+
+   libgpp : プリンタ出力ライブラリ
+        gpplips.c   Canon LIPS III
+        gpplips2.c  Canon LIPS II
+
+   libgps : ポストスクリプト変換ライブラリ
+        gps.c + adb_ill_1.1
+
+   libgdum: ダミーライブラリ
+        gdum.f
+
+   libg3d : 3D library developed by T. Akutsu
+	A3dplot.f
+	Acplot1.f
+	Aline3d.f
+	Argbfunc.f
+	Acont3d.f
+	Agtseries.f
+	Apersen3d.f
+
+   libplot: Calcomp 互換インターフェースライブラリ
+        plot.f
+
+   f77g    : Fortran プログラムをコンパイルするためのシェルスクリプト
+   gsview  : 図形データを画面表示するためのプログラム
+   gsprint : 図形データを印刷するためのシェルスクリプト
+   gsfile  : 図形データを印刷するプログラム
+   gstoeps : 図形データを EPS ファイルに変換するプログラム
+   gstops  : 図形データを PS ファイルに変換するプログラム
+   gsdump  : X-Window ビットマップを表示するためのシェルプログラム
+
+   bsctest    : 基本機能テストプログラム
+   apltest    : グラフ表示機能テストプログラム
+   conttest   : 等高線テストプログラム
+   perstest   : 鳥瞰図テストプログラム
+   splntest   : スプライン補間テストプログラム
+   gdptest    : 色塗り機能テストプログラム
+   pgtest     : pg フォントテストプログラム
+   pstest     : postscript フォントテストプログラム
+   g3dtest    : libg3d テストプログラム
+
+   gdum.f    : デバイスドライバプログラム用テンプレート
+   gdum.c    : デバイスドライバプログラム用テンプレート
+   gsview.c   : gsview, gsfile, gstops のソースプログラム
+   gslave.f   : gsview.slave, gsfile.slave, gstops.slave のソースプログラム
+   f77g.tp    : f77g コマンドのテンプレート
+   gsprint.tp : gsprint コマンドのテンプレート
+   adb_ill_1.1: postscript ヘッダファイル
+   sample.f   : サンプルプログラム
+
+   Makefile.body       : Makefile 共通部分
+
+   arch/
+   linux/Makefile       : Linux on 32 bit 用 Makefile (g77, dynamic library)
+   linux-static/Makefile: Linux on 32 bit 用 Makefile (g77, static library)
+   linux-pgf77/Makefile : Linux on 32 bit 用 Makefile (pgf77, dynamic library)
+   linux-alpha/Makefile : Linux on 64 bit 用 Makefile (g77: not completed yet)
+   hp/Makefile          : HP9000/700 用 Makefile
+   hp-static/Makefile   : 開発環境をもたない HP9000/700 用 Makefile
+   decosf/Makefile      : DEC/DigitalUnix 用 Makefile
+   nec/Makefile         : NEC EWS/RISC 用 Makefile
+   sonycisc/Makefile    : SONY NEWS/CISC 用 Makefile
+   ibmaix/Makefile      : IBM RS6000 用 Makefile
+   sun/Makefile         : SUN OS4.1 用 Makefile
+   solaris/Makefile     : Solaris 用 Makefile
+
+   doc/
+   gsaf.doc.sjis       : マニュアル原稿
+   gsaf30.doc.sjis     : マニュアル原稿追加分
+   gsaf31.doc.sjis     : V3.1マニュアル原稿追加分
+   gsaf33.doc.sjis     : V3.3マニュアル原稿追加分
+   gsaf35.doc.sjis     : V3.5マニュアル原稿追加分
+   gsaf36.doc.sjis     : V3.6マニュアル原稿追加分
+   gsaf.doc.minimum    : 英語版簡略マニュアル原稿
+
+   README              : このファイル（英語版）
+   README.sjis         : このファイル
+   README.euc          : このファイル
+   HISTORY	       : 開発記録
+
+以下は神戸大工学部たけの氏からの contribution です。
+
+   contrib/gppnpdl.c      : NEC ページプリンタ用出力ドライバ
+   contrib/README.gppnpdl : NEC ページプリンタ用出力ドライバ説明
+   contrib/gng.c          : Ngraph 用データへの変換ドライバ
+   contrib/README.gng     : Ngraph 用データへの変換ドライバ説明
+  
+----------------------------------------------------------------------
+
+GSAF（原意は Graphic System - Advanced Features であった。）は、1983年
+当時文字の大きさを変えることすらできなかった岡山大学 NEC ACOS コンピュー
+タでの図形出力を改善するために開発が始められた。当初は FACOM F9430 グ
+ラフィックターミナルへの出力を対象としたが、その後 FM-11, PC9800, FM16
+β, PC98XA, FMR, 等のパーソナルコンピュータへの多色図形表示、ぺージプ
+リンタへの出力等へと拡張された。さらに京都大学大型計算機センターや名古
+屋大学プラズマ研究所で使用するために FACOM M/VP シリーズへ移植されると
+ともに、岡山大学に導入された、図形処理ソフトウェアがほとんどない NEC
+SX スーパーコンピュータでも利用できるようになった。
+
+1991年には HP のワークステーション上の X-Window に約２週間で移植され、
+その後 NEC EWS シリーズでも動作可能となった。1998 年 9 月現在では IBM
+RS6000, SUN OS4.1, Solaris, DEC OSF, Linux に移植されており，主開発
+環境は Linux である．
+
+----------------------------------------------------------------------
+
+GSAF 処理系の著作権は 京都大学大学院工学研究科 福山淳 にあります。
+GSAF 3D package (A*.f) の著作権は 京都大学大学院工学研究科 阿久津拓 に
+あります。
+adb_ill_1.1 ファイルの内容は Adobe 社に著作権があります。
+igl3.f に含まれる pgfont は PGPLOT の Hershey character set から作成
+このソフトウェアの配布、改良等に関しては GPL の規約に従います。
+このソフトウェアの使用によって損害が生じても一切責任はとりません。
+
+このソフトウェアの最新版は次の Anonymous FTP にて公開されています。
+        ftp://p-grp.nucleng.kyoto-u.ac.jp/pub/gsaf/
+個々のファイルは pub/gsaf/gsafXX ディレクトリにあります。
+そのディレクトリの圧縮ファイルは pub/gsaf/gsafXX.tar.Z です。
+もしデバイスドライバやユーティリティを開発され、公開が可能であれば 
+お知らせ下さい．
+
+このソフトウェアに関するご意見、バグ情報等は下記宛の電子メイルでお知ら
+せ下さい。
+	fukuyama@nucleng.kyoto-u.ac.jp
+
+----------------------------------------------------------------------

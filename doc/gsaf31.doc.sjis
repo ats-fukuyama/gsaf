@@ -1,0 +1,195 @@
+-------------------------------
+GSAF V3.1 beta の公開  94/05/22             94/06/04, 00/02/28 改訂
+-------------------------------
+
+グラフィックライブラリ GSAF を機能追加版 V3.1 beta に更新した．
+
+追加された機能は，
+　　線分群表示機能     LINES(X,Y,N)
+　　多角形面塗り機能   POLY(X,Y,N)
+　　多色設定機能       SETRGB(R,G,B)
+　　線幅設定機能       SETLNW(W)
+　　多色問合せ機能     INQRGB(R,G,B)
+　　線幅問合せ機能     INQLNW(W)
+    
+   コマンド gstops にカラー機能オプション -c 
+
+LINES, POLY の引数はいずれも
+    X(N) : 頂点の x 座標を表す実数配列
+    Y(N) : 頂点の y 座標を表す実数配列
+    N    : 頂点の個数 (<=256)
+
+    POLY の場合，最初の頂点と最後の頂点が一致しないと，自動的に閉じる
+    辺が追加される．POLY は多角形の内部だけでなく，辺も塗りつぶすの
+　　で，辺の色を変える場合は POLY の後に LINES を呼び出すこと．
+    SETCLP によるクリッピングを可能にしているが，十分にはチェックされて
+　　いない．
+
+SETRGB の引数 R, G, B は 赤, 緑, 青 の比率を 0 から 1 の範囲の実数で指
+定する．通常の 256 色Ｘ-window では一画面に出力できる色数が 200 色程度
+に限られる．
+
+SETLNW の引数 W には線の幅を cm 単位で指定する．LASER SHOT に出力する
+場合は約 0.01, 0.03, 0.05, 0.07 cm の線幅しか出力できない．線幅として 
+0.0 を指定した場合は，最も狭い線幅で最も高速に作図される．従来の 
+SETLIN では，高速化をはかるためX-window 表示時には線幅は無視されていた
+が，SETLNW は常に有効となる．
+
+INQRGB によって返された値が R < 0 となるのは，SETLIN による指定が有効
+な場合である．また SETRGB で R < 0 を指定すると，SETLIN によって以前に
+指定した値が有効になる．SETLNW/INQLNW において W < 0 の場合も同様．
+
+出力機器としては X-window, LaserShot, Postscript がサポートされている．
+
+-----------------------------------
+GSAF V3.1 beta の追加機能  94/06/02               改訂 94/06/04
+-----------------------------------
+
+グラフィックライブラリ GSAF 機能追加版 V3.1 beta に色塗り等高線図およ
+び可変線種等高線図を追加した．
+
+追加された機能は，色塗り等高線図として
+
+　　直交座標等間隔     CONTF1(Z,NXA,NXMAX,NYMAX,
+                              ZL,RGB,NSTEP,IPRD)
+　　直交座標不等間隔   CONTF2(Z,X,Y,NXA,NXMAX,NYMAX,
+                              ZL,RGB,NSTEP,IPRD)
+　　極座標等角度間隔   CONTF3(Z,R,NXA,NXMAX,NYMAX,
+                              ZL,RGB,NSTEP)
+　　極座標不等角度間隔 CONTF4(Z,R,T,NXA,NXMAX,NYMAX,
+                              ZL,RGB,NSTEP)
+
+　　    引数は  ZL(NSTEP)       等高線高さ指定配列
+                RGB(3,0:NSTEP)  色指定配列
+                NSTEP           等高線本数
+　　　　　　　　IPRD            周期性指定
+
+        ZL(NSTEP) には色の境界となる等高線の高さを指定する．
+　　　　RGB(3,N) には，N 番目の高さに塗る色を，
+              RGB(1,N) = red
+              RGB(2,N) = green
+              RGB(3,N) = blue
+    　　で指定する．red, green, blue はいずれも 0 と 1 の間の単精度実数．
+      　　　　N=0     は             Z < ZL(1)
+              N=1　　 は ZL(1)     < Z < ZL(2)
+              N=NSTEP は ZL(NSTEP) < Z          に塗られる．
+
+
+可変線種等高線図として
+
+　　直交座標等間隔     CONTG1(Z,NXA,NXMAX,NYMAX,
+                              ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
+　　直交座標不等間隔   CONTG2(Z,X,Y,NXA,NXMAX,NYMAX,
+                              ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
+　　極座標等角度間隔   CONTG3(Z,R,NXA,NXMAX,NYMAX,
+                              ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
+　　極座標不等角度間隔 CONTG4(Z,R,T,NXA,NXMAX,NYMAX,
+                              ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
+
+　　    引数は  ZL(NSTEP)       　等高線高さ指定配列
+                RGB(3,NSTEP)    　色指定配列
+                ILN(NSTEP)      　線種指定配列 (0..7)
+                WLN(NSTEP)      　線幅指定配列（cm 単位）
+                NSTEP           　等高線本数
+　　　　　　　　IPRD            　周期性指定
+　　　　　　　　ISPL            　スプライン平滑化
+                KA(2,NXMAX,NYMAX) 作業用配列
+
+        ZL(N) には色の境界となる等高線の高さを指定する．
+　　　　RGB(3,N) には，N 番目の等高線の色を，
+              RGB(1,N) = red
+              RGB(2,N) = green
+              RGB(3,N) = blue
+    　　で指定する．red, green, blue はいずれも 0 と 1 の間の単精度実数．
+        ILN(N) には N 番目の等高線の線種を指定する．
+　　　　　　　(0:実数, 1:点線, 2:短波線...7:長二点鎖線）
+        WLN(N) には N 番目の等高線の線種を指定する．cm 単位
+　　　　ISPL = 0 : スプライン平滑化せず．
+               1 : 平滑化しない場合と同じ節点数で平滑化．
+               M : 平滑化しない場合の M 倍の節点数で平滑化．
+
+-----------------------------------
+GSAF V3.1 beta の追加機能  94/06/05
+-----------------------------------
+
+グラフィックライブラリ GSAF 機能追加版 V3.1 beta に簡易型等高線図を追
+加した．色塗り等高線図と同様に高さ指定配列 ZL(NSTEP) を用いているが，
+それ以外の引数は従来の CONTP/Q と同じである．ただし作業用整数配列 KA 
+の大きさは (2,NXMAX,NYMAX) でよい．
+
+      直交座標等間隔     CONTE1(Z,NXA,NXMAX,NYMAX,ZL,NSTEP,IPRD,IPAT,KA)
+      直交座標不等間隔   CONTE2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,IPRD,KA)
+      極座標等角度間隔   CONTE3(Z,R,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
+      極座標不等角度間隔 CONTE4(Z,R,T,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
+
+
+なお，色塗り等高線図の凡例とするための帯型パレットを作成するサブルーチ
+ンも追加されている．
+
+　　　パレット表示機能   RGBBND(X1,X2,Y1,Y2,RGB,N,IND)
+
+　　　　(x1,y1)-(x2,y2) の長方形内に RGB(3,N) に指定された色を帯で表示する．
+　　　　N は色数，IND=0 は横方向に色分け，IND=1 は縦方向に色分けを指定．
+
+
+仕様は変更される場合がある．
+
+
+参考プログラム
+
+      COMMON /CMCONT/ A(41,41),KA(8,41,41) 
+      DIMENSION RGB(3,11),ZL(10),RGBL(3,10),ILN(10),WLN(10)
+      DATA RGB/0.00,0.00,0.00,
+     &         0.20,0.10,0.00,
+     &         0.40,0.20,0.00,
+     &         0.60,0.30,0.00,
+     &         0.80,0.40,0.00,
+     &         1.00,0.50,0.00,
+     &         1.00,0.60,0.20,
+     &         1.00,0.70,0.40,
+     &         1.00,0.80,0.60,
+     &         1.00,0.90,0.80,
+     &         1.00,1.00,1.00/
+C
+      CALL GSOPEN
+C
+      DO 1000 I=1,41
+      DO 1000 J=1,41
+         FX=0.1*FLOAT(I-21)+0.01
+         FY=0.1*FLOAT(J-21)
+         A(I,J)=FX**4+FY**4-2.0*(FX**2+FY**2)+2.0
+ 1000 CONTINUE
+C
+      ZORG=0.0
+      ZSTEP=0.2
+      NSTEP=10
+      ISPL=0
+C
+      DO 2000 I=1,NSTEP
+         ZL(I)=ZSTEP*(I-1)+ZORG
+         RGBL(1,I)=REAL(NSTEP-I)/REAL(NSTEP-1)
+         RGBL(2,I)=REAL(I-1)/REAL(NSTEP-1)
+         RGBL(3,I)=0.0
+         ILN(I)=MOD(I-1,8)
+         WLN(I)=0.0
+ 2000 CONTINUE
+C
+      CALL PAGES
+      CALL GDEFIN(3.,23.,2.,17.,1.,41.,1.,41.)
+      CALL GFRAME
+      CALL CONTG1(A,41,41,41,ZL,RGBL,ILN,WLN,NSTEP,ISPL,0,KA)
+      CALL PAGEE
+C
+      CALL PAGES
+      CALL GDEFIN(3.,23.,2.,17.,1.,41.,1.,41.)
+      CALL CONTF1(A,41,41,41,ZL,RGB,NSTEP,0)
+      CALL SETLIN(0,0,7)
+      CALL GFRAME
+      CALL RGBBAR(3.,23.,0.5,1.5,RGB,NSTEP+1,0)
+      CALL RGBBAR(23.5,24.5,2.,17.,RGB,NSTEP+1,1)
+      CALL PAGEE
+C
+      CALL GSCLOS
+      STOP
+      END
+

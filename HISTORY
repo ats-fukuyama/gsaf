@@ -1,0 +1,264 @@
+3.78
+2003/10/11  bsc1.f
+                GS_OPENX defined for device number conflict
+            linux-pgf, linux-ifc
+                modified for consistency
+            macosx-xlf 
+                added (not yet dynamic lib)
+            gdp.c 
+                minor change of kid
+            fio1.c 
+                minor change of LOPENT
+            Makefile.body 
+                error in cp *.ps neglected
+
+V3.77
+2003/05/26  apl2.f
+                LINES2D,POLY2D,LINE2D,RGBTRG2D added
+                MOVE2DPT, DRAW2DPT renamed to MOVEPT2D, DRAW2DPT
+            Acompat.f, Acompat3D.f
+                for compatiblity with gsgl (gsaf-OpenGL)
+                contributed by Akutsu                
+
+2002/12/27  bsc2.f
+                LINES,POLY modified for any number of lines
+
+2002/09/20  bsc1.f
+                temp file should be closed (Thanks to Kawamura)
+
+V3.76
+2002/08/15  arch/linux-ixc/*
+                intel compiler (ifc, icc) support
+2002/06/26  arch/sx-nifs/*
+                sx support for NIFS
+
+V3.75
+2002/06/25  gdum.f
+                dummy library should read command char in GSOPEN
+2001/11/12  gdp.c
+                backing_store was changed to Always
+
+V3.74
+2001/10/24  pers.f,Makefile.body,arch/macosx/*
+                conflict between pers.f and Apersn3d.f removed
+                libplot will not be created by default
+                macosx support for f2c, g77, absoft f77
+
+2001/09/16  bsc1.f,apl2.f
+                GUCLIP: avoid overflow error
+                NGULEN: use power of ten format 
+                GVALUE/GVALUL: correct format specification
+V3.73
+2001/06/29  gps.c
+                Courier-Bold conversion error corrected
+                    (Thanks to Akutsu and Takata)
+
+V3.72
+2001/05/27  apl2.f,arch/*/Makefile,Acplot1.f,gdp.c
+                MOVE2D,DRAW2D,MOVE2DPT,DRAW2DPT added
+                Definition of obsolete ps header file deleted
+                CPLOT3D1 paints a rectangle as 4 triangles
+                gdp should not use icls in DVSTLN
+
+V3.71
+2001/05/24  bsc1.f,igl1.f,fio1.f,gps.c,gsview.c,Acplot1.f
+                spelling miss corrected
+                option -g for gsview/gstoeps/gstoeps added
+                if gs filename has .gs, gstops/gstoeps suppress it
+                CPLOT3D1 uses RGBTRG routine
+
+2001/05/15  arch/osx-static/Makefile,gdp.c,Acplot1.f,A3dplot.f
+                MacOSX f2c (static link) supported
+                input focus policy modified
+                DATA statement should follow declarative statements
+
+2001/05/13  apl2.f,igl2.f,igl3.f
+                number position in GVALUE, GVALUL modified
+                order of common variables corrected
+
+2000/08/28  bsc2.f,fio2.f,gdp.c,gps.c,gdum.f,Makefile.body
+                Gouraud shading routine RGBTRG added
+                ps header file renamed
+
+2000/08/23  arch/linux-compaq/Makefile
+                Integer length corrected and optimized
+            igl1.f
+                Zero div error when char width = 0 corrected
+            Makefile.body
+                Link order to make g3dtest corrected
+
+V3.70
+2000/08/02  arch/linux-compaq/Makefile
+                Compaq Fortran on Linux Alpha
+            arch/linux-alpha/Makefile
+                g77 Fortran on Linux Alpha
+            bsc1.f
+                Uninitialized font size error corrected
+
+V3.69
+2000/05/23  Acplot1.f : (updated by T. Akutsu)
+                CPLOT3D1 corrected
+
+V3.68
+2000/04/18  gdp.c
+                Full color support completed
+                Open message modified
+
+2000/04/18  Acplot1.f,Aline3d.f,g3dtest.f : (updated by T. Akutsu)
+                CPLOT3D1 corrected
+                g3dtest.f modified
+
+V3.67
+2000/04/08  gdp.c
+                Full color support temporary
+
+V3.66
+2000/02/28  A*.f,g3dplot.f,doc/gsaf36.doc.sjis: (updated by T. Akutsu)
+                Smooth painting in CPLOT3D1 added
+                GSCALE3D* and GDRWBK corrected
+                g3dplot.f modified
+2000/02/28  gdp.c,bsc*.f,fio2.f,cont2.f,Acplot1.f,Acont3d.f,evtest.f,
+            doc/gsaf36.doc.sjis,doc/gsaf31.doc.sjis:
+                Page end without char input added (PAGEY,PAGEN)
+                Subroutine names changed (GETRGB,GETLNW -> INQRGB,INQLNW)
+                Pixel operation for TRUE COLOR mode corrected
+                Pixel operation can be saved in file
+
+V3.65
+2000/02/25  gdp.c,bsc3.f,unixc.c,unix.f,evtest.f,doc/gsaf36.doc.sjis:
+                Pixel operation added (GF_SET_GCFUNC,GF_INQ_GCFUNC)
+                X Window sync added (GF_SYNC)
+                Sleep added (GU_SLEEP)
+                Random number initialization added (GU_SRAND)
+2000/02/24  gdp.c,bsc3.f,evtest.f:
+                Event handler added (GF_SET_EVENT,GF_INQ_EVENT,GF_GET_EVENT)
+2000/02/21  bsc1.f,gdp.c:
+                Copyright notice now appears when GSAF terminates
+
+V3.64
+2000/02/18  bsc1.f,igl1.f,A3dplot.f:
+                File save in dummy mode corrected
+                X key now on/off page saving
+                F key starts page saving, but not save the present page
+                A3dplot.f corrected: (updated by T. Akutsu)
+
+V3.63
+2000/02/14  fio1.f,fio2.f,bsc1.f,igl1.f,gdp.c,doc/gsaf33.dic.sjis:
+                File save interface rewritten 
+                        (GSTOPN,GSTCLS,GSTON,GSTOFF,GSFOPN,GSFCLS,GSFON,
+                         GSFOFF,GSCODE)
+                Saving to temp graphic file is now default
+                S key saves the present page
+                F key starts to save the present page and the followings
+                X key stops to save the present page and the followings
+                B key on/off the bell sound at the page end
+2000/02/05  A*.f,doc/gsaf36.dic.sjis: (updated by T. Akutsu)
+                Subroutines INQCNR3D, INQANG3D and GDRWBK added
+                GSCALE3DX/Y/Z and GVALUE3DZ corrected
+                Files g3dtest.f and gsaf36.doc.sjis updated
+2000/01/18  f77g.tp:
+                A header line '#!/bin/sh' added
+
+V3.62
+1999/12/12  cont2.f:
+                Infinite loop bug in CONTGX and CONTEX corrected
+                (found by T. Akutsu)
+            A*.f Makefile.body: (updated by T. Akutsu)
+                *T.f renamed to A*.f
+                Arguments of HLINPTP3D corrected
+                Depth sort in cplot1 introduced
+                Alogorithm of hidden line processing changed
+            gsdump:
+                A header line '#!/bin/sh' added
+            doc/:
+                Document is under reconstruction
+
+V3.61
+1999/11/05  gps.c bsc1.f pstest.f:
+                Setline did not set yellow color in postscript file
+                New escape secquence $/ in text for octals in postscript
+
+V3.60
+1999/10/16  *T.f g3dtest.f Makefile.body,doc/gsaf36.doc.sjis:
+                3d package libg3d developed by T. Akustu was added
+                See doc/gsaf36.doc.sjis for detail
+                Sample program is g3dtest.f
+                To use libg3d, link the library, e.g. -L/usr/local/lib -lg3d
+            Makefile.body:
+                Plot package libplot is not linked in default
+                To use libplot, link the library, e.g. -L/usr/local/lib -lplot
+
+V3.55
+1999/10/09  gps.c:
+                Postscript symbol expression corrected
+
+V3.54
+1999/09/04  gps.c bsc1.f igl1.f igl2.f:
+                Postscript output supports tilt, width, and spacing of char
+                Spacing of postscript font corrected
+
+V3.53
+1999/08/30  apl1.f igl1.f igl2.f bsc1.f:
+                Character size should be independent of SETVEW
+
+V3.52
+1999/07/29  bsc1.f igl1.f igl2.f igl3.f gps.c:
+                Postscript font (simulated on screen) IFNT=32..44
+
+V3.51
+1999/07/27  bsc1.f:
+                Font switch to N by $N (N:0..9) in TEXT routine
+                            to original by $#
+                Subspace by $, $; $! $? (1/6, 5/18, -1/6, -5/18)
+                Harware font behaviour corrected
+            apl1.f:
+                Power representation in GNUMBD/R by ind=-100..-115
+            gps.c:
+                Grouping corrected
+            bsc2.f, igl1.f, apl2.f:
+                Grouping applied to text, lines, gscale/l, gplotp etc
+
+V3.50
+1999/07/26  igl2.f igl3.f bsc1.f:
+                New vector font, IFNT=2..19
+                Font switch to Greek by $# in TEXT routine
+            gdp.c:
+                Always white background
+                More selection of resolution
+            gps.c, bsc1.f:
+                Grouping routine (GUGRPS, GUGRPE) added
+            File organization changed
+                src, doc, arch
+
+V3.42
+1999/07/22  gdp.c:
+               Line cap modified to CapProjecting
+            Makefile.body:
+               Corrected making line of gslave.o
+1999/07/06  Makefile.body:
+               Added making line of gslave.o
+               gsdump was not removed by "veryclean"
+
+V3.41
+1999/04/28  gps.c, gsview.c, gslave.f, Makefile.body:
+               gstops support, include page information
+
+1998/10/01  apl1.f: 
+               GQSCAL was corrected for very small value
+
+V3.4
+1998/09/12  unixc.c,gsview.c,gslave.f: 
+               Use an environment variable instead of a file to 
+               transfer parameters to slave routine.
+            bsc1.f,gdp.c,gps.c.gpplips.c,gdum.f:
+               Use fortran read routinte instead of C read routine 
+               in gdp.c.
+V3.3 final
+1998/09/09
+            Makefile.linux-*, Makefile.decosf:
+               New Makefile for linux-alpha, linux-static
+1998/08/25
+            gstoeps.c,Makefile.*:
+               Use gstoeps instead of gstops.
+            gps.c:
+               Change suffix from .ps to .eps

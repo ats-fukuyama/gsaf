@@ -1,0 +1,334 @@
+                                                              2000/02/25
+
+This is a brief description of GSAF.
+
+1. HOW TO USE GSAF
+
+1.1 Compile single source file:
+
+   Use g77g command
+
+	Example) Compile source file gtest.f to create an executable gtest:
+
+		 g77g gtest [compile options]
+
+1.2 Compile multi source files:
+
+   Use Makefile
+
+	Example) Compile source files w1.f, w1sub1.f, w1sub2.f, w1sub3.f 
+                 to create and executable w1.
+
+        	Create Makefile:
+
+		FFLAGS = -O
+		OBJS = w1.o w1sub1.o w1sub2.o w1sub3.o
+		PROGRAM = w1
+		LIBS = /usr/local/lib/libgsp.sl /usr/local/lib/libgdp.sl \
+       			/usr/lib/X11R4/libX11.sl -lvec -lm
+
+	$(PROGRAM):$(OBJS)
+        	g77 $(FFLAGS) $(OBJS) $(LIBS) -o $@
+
+	        Then "make w1"
+
+1.3 Draw graphic data:
+
+    gsview [-a] [-s ps] [-e pe] [-p np] [-t] [filename]
+          -a       : print out all pages
+          -s ps    : print from page ps (default 1)
+          -e pe    : print to page pe (default 999)
+          -p np    : combine np pages into one page (default 1)
+          -t       : print original page title
+          -b       : not print page title
+          filename : output file name
+
+1.4 Convert graphic data to postscript file (all in one file):
+
+    gstops [-a] [-s ps] [-e pe] [-p np] [-t] [filename]
+          -a       : print out all pages
+          -s ps    : print from page ps (default 1)
+          -e pe    : print to page pe (default 999)
+          -p np    : combine np pages into one page (default 1)
+          -t       : print original page title
+          -b       : not print page title
+          -r       : rotate page 90 degree.
+          -c       : color postscript file (default grayscale)
+          -m       : black/white postscript file (default grayscale)
+          filename : output file name
+
+1.5 Convert graphic data to EPS file (one page, one file):
+
+    gstoeps [-a] [-s ps] [-e pe] [-p np] [-t] [filename]
+          -a       : print out all pages
+          -s ps    : print from page ps (default 1)
+          -e pe    : print to page pe (default 999)
+          -p np    : combine np pages into one page (default 1)
+          -t       : print original page title
+          -b       : not to print page title
+          -r       : rotate page 90 degree.
+          -c       : color postscript file (default grayscale)
+          -m       : black/white postscript file (default grayscale)
+          filename : output file name
+
+1.6 Print graphic data on printer
+
+    gsprint [-a] [-s ps] [-e pe] [-p np] [-t] [-b] [filename]
+          -a       : print out all pages
+          -s ps    : print from page ps (default 1)
+          -e pe    : print to page pe (default 999)
+          -p np    : combine np pages into one page (default 1)
+          -t       : print original page title
+          -b       : not to print page title
+          filename : output file name
+
+1.7 Interaction
+
+       At the end of page (when PAGEE is called), 
+       the program beeps and waits chacater input.  You can enter
+          CR  to continue
+          'c' to continue
+          'y' to save this page into graphic data file, if the file is open
+          'n' not to save this page
+          'f' to open graphice data file and start to save pages
+          's' to open graphice data file, if not, and save this page
+          'x' to switch on/off saving pages
+          'b' to switch on/off beep at the end of page
+          'o' to set options
+                 '/' not to change page size
+                 '/' not to set page title
+                 't' to start data storing
+                    'filename' enter name of graphic data file 
+          'h' to display help
+          'q' to quit program
+
+2. LIST OF GSAF SUBROUTINES
+
+       Notice: Most of real number arguments should be single precision.
+
+2.1 Basic routines
+
+	GSOPEN	Start of GSAF
+	GSCLOS	End of GSAF
+
+	GSSIZE(PX,PY)	Real page sizeÅipaper size)
+	GSTITL(KTITL)	Set page title
+	GSOPTN(KOPTDL,IOPT)	Set options
+	GSFILE(NFCS,NFCT)	Set graphic data file
+	GSREAD(NFCR,NPAGE)	Read from graphic data file
+	GSCOMB(NFCR,I,ITL)	Read multi page from graphic data file
+	GSLIST(NFCR,NPAGEA,NA,NP)	Inquire page list of graphic data file
+
+
+2.2 Basic draw routines
+
+	PAGES	Start of page
+	PAGEE	End of page
+
+	SETVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
+		Set virtual coordinate
+	OFFVEW	Reset virtual coordinate
+	INQVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
+		Inquire virtual coordinate
+
+	SETCLP(XMIN,XMAX,YMIN,YMAX)	Set clipping area
+	OFFCLP	Stop clipping
+	SETCLP(XMIN,XMAX,YMIN,YMAX)	Inquire clipping area
+
+	MOVE(X,Y)	Move to the point
+	DRAW(X,Y)	Draw line to the point
+	MARK(X,Y)	Draw mark at the point
+	INQPOS(X,Y)	Inquire present position
+
+	TEXT(KTEXT,NCHAR)	Write character string
+	INQTSZ(KTEXT,NCHAR,SIZE)	Inquire string length
+
+	SETLIN(ILN,IBL,ICL)	Set line attribute
+	INQLIN(ILN,IBL,ICL)	Inquire line attribute
+
+	SETMKS(IMRK,SMRK)	Set mark attribute (simple)
+        SETMRK(IMRK,HMRK,WMRK,ANGL,TILT) 
+		Set mark attribute
+	INQMRK(IMRK,HMRK,WMRK,ANGL,TILT) 
+		Inquire mark attribute
+
+	SETCHS(CHH,ANGL)	Set character attribute (simple)
+	SETCHH(CHH,ANGL)	Set character attribute (hardware)
+	SETCHR(CHH,CHW,CHSP,ANGL,TILT)
+		Set character attribute
+	INQCHR(CHH,CHW,CHSP,ANGL,TILT)
+		Inquire character attribute
+	SETFNT(IFNT)	Set font
+	INQFNT(IFNT)	Inquire font
+
+	PGREAD(NFCR,NPAGE,XFACT,YFACT,XOFS,YOFS,ROT,ITL,NPAGEF)
+		Read modified data from graphic data file
+
+
+2.3 Interactive routines
+
+	CHIN(KTEXT,NCHAR)	Input character string
+	XYIN(X,Y)	Input cursor position
+	ERAS	Erase screen
+	BELL	Ring bell
+	CHMODE	Change to character screen
+	GRMODE	Change to graphic screen
+
+2.4 Miscllaneous routines
+
+	GUDATE(NDY,NDM,NDD,NTH,NTM,NTS)  Inquire date and time
+	GUTIME(T)	Inquire CPU time
+	GUDSTR(KIN,NIN,KOUT,NOUT)	Convert delimited string to string
+	GUCPTL(KID)	Convert to capitals
+	CHRASC(KTEXT,IASC,NCHAR)	Convert string to ascii array
+	ASCCHR(IASC,KTEXT,NCHAR)	Convert ascii array to string
+
+2.5 Application subroutine
+
+	TEXTX(KTEXTX)	Write delimited string
+	GTEXT(X,Y,KTEXT,NCHAR,IJUST)	Write justified string
+	GTEXTX(X,Y,KTEXTX,IJUST)	Write justified delimited string
+
+	NUMBR(R,KFORM,NCHR)	Write single precision real number
+	NUMBD(D,KFORM,NCHR)	Write double precesion real number
+	NUMBI(I,KFORM,NCHR)	Write integer number
+
+	GNUMBR(X,Y,R,IND,IJUST)	Write justified single real number
+	GNUMBD(X,Y,D,IND,IJUST)	Write justified double real number
+	GNUMBI(X,Y,I,IJUST)	Write justified integer number
+	GNUMBP(X,Y,I,J,IJUST)	Write justified power number
+
+	MOVEPT(X,Y,IPAT)	Move to the point and set line pattern
+	DRAWPT(X,Y)	Draw patterned line to the point
+	SETLPT(IPAT,NPAT,PAT)	Define line pattern
+
+	GMNMX1(G,NS,NE,NSTEP,GMIN,GMAX)
+		Inquire minimum and maximum of 1D array
+	GMNMX2(G,NA,NXS,NXE,NXSTEP,NYS,NYE,NYSTEP,GMIN,GMAX)
+		Inquire minimum and maximum of 2D array
+	GQSCAL(GMIN,GMAX,GSMIN,GSMAX,GSCAL)
+		Inquire appropriate minimum, maximum, step size
+
+	GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
+		Define graph area
+	GFRAME	Draw graph boundary
+
+	GSCALE(GXORG,GXSTEP,GYORG,GYSTEP,SLEN,IND)
+		Draw axis tip
+	GVALUE(GXORG,GXSTEP,GYORG,GYSTEP,IND)
+		Draw axis value
+	GSCALL(GXORG,NXSTEP,GYORG,NYSTEP,SLEN,IND)
+		Draw log axis tip
+	GVALUL(GXORG,NXSTEP,GYORG,NYSTEP,IND)
+		Draw log axis value
+
+	GPLOTP(GX,GY,NS,NE,NSTEP,IMARK,ISTEP,IPAT)
+		Draw continuous lines
+
+	CONTR1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD)
+		Contour plot (equi-step mesh)
+	CONTR2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD)
+		Contour plot (non-equi-step mesh)
+	CONTR3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP)
+		Contour plot (equi-angle circular mesh)
+	CONTR4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP)
+		Contour plot (non-equi-angle circular mesh)
+
+	CONTP1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
+		Patterned contour plot (equi-step mesh)
+	CONTP2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
+		Patterned contour plot (non-equi-step mesh)
+	CONTP3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
+		Patterned contour plot (equi-angle circular mesh)
+	CONTP4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
+		Patterned contour plot (non-equi-angle circular mesh)
+
+	CONTQ1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
+		Patterned contour plot (equi-step mesh)
+	CONTQ2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
+		Patterned contour plot (non-equi-step mesh)
+	CONTQ3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
+		Patterned contour plot (equi-angle circular mesh)
+	CONTQ4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
+		Patterned contour plot (non-equi-angle circular mesh)
+
+	CONTPF(Z,X,Y,NNOD,IELM,NELM,ZORG,ZSTEP,NSTEP,IPAT,KA)
+		Contour plot on triangle finite element.
+
+	PERSE1(Z,NXA,NX,NY,ZMIN,ZMAX,IXY,IND,XL,YL,ZL,A,B,C,D,E)
+		Bird's eye view on equi-step mesh 
+
+	SPLN1D(X,F,FX,NX,XG,FG,NXG,IP)
+		1D Spline interpolation
+
+	SPLN2D(X,Y,F,FX,FY,FXY,A,NXA,NX,NY,XG,YG,FG,NXAG,NXG,NYG,IP)
+		2D Spline interpolation
+
+3. PROGRAM EXAMPLE
+
+      IMPLICIT REAL*8 (A-F,H,O-Z)
+      PARAMETER (NXM=101)
+      DIMENSION GX(NXM),GY(NXM,2)
+C
+      CALL GSOPEN
+C
+      NXMAX=101
+      DX=2*3.1415927/(NXMAX-1)
+      Y0=0.0
+      YA=1.0
+C
+    1 WRITE(6,*) '## INPUT Y0,YA ?'
+      READ(5,*,ERR=1,END=9000) Y0,YA
+C
+      DO 100 N=1,NXMAX
+        GX(N)=(N-1)*DX
+        GY(N,1)=Y0+YA*SIN(GX(N))
+        GY(N,2)=Y0+YA*COS(GX(N))
+  100 CONTINUE
+C
+      CALL PAGES
+      CALL GRAPH1(4.0,24.0,2.0,17.0,GX,GY,NXM,NXMAX,2)
+      CALL PAGEE
+      GOTO 1
+C
+ 9000 CALL GSCLOS
+      STOP
+      END
+C
+      SUBROUTINE GRAPH1(PXMIN,PXMAX,PYMIN,PYMAX,GX,GY,NXM,NXMAX,NGMAX)
+C
+      DIMENSION GX(NXM),GY(NXM,NGMAX)
+C
+      CALL GMNMX1(GX,1,NXMAX,1,XMIN,XMAX)
+      CALL GMNMX1(GY(1,1),1,NXMAX,1,YMIN,YMAX)
+      DO 100 NG=2,NGMAX
+         CALL GMNMX1(GY(1,NG),1,NXMAX,1,YMIN1,YMAX1)
+         YMIN=MIN(YMIN,YMIN1)
+         YMAX=MAX(YMAX,YMAX1)
+  100 CONTINUE
+      CALL GQSCAL(XMIN,XMAX,GXMIN,GXMAX,GXSCAL)
+      CALL GQSCAL(YMIN,YMAX,GYMIN,GYMAX,GYSCAL)
+C
+      IF(GXMIN*GXMAX.GT.0.0) THEN
+         GXORG=GXMIN
+      ELSE
+         GXORG=0.0
+      ENDIF
+      IF(GYMIN*GYMAX.GT.0.0) THEN
+         GYORG=GYMIN
+      ELSE
+         GYORG=0.0
+      ENDIF
+C
+      CALL SETCHS(0.35,0.0)
+      CALL GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GXMIN,GXMAX,GYMIN,GYMAX)
+      CALL GFRAME
+      CALL GSCALE(GXORG,GXSCAL,GYORG,GYSCAL,0.3,9)
+      CALL GVALUE(GXORG,2*GXSCAL,GYORG,2*GYSCAL,-2)
+      DO 200 NG=1,NGMAX
+         CALL SETLIN(-1,-1,7-MOD(NG-1,5))
+         CALL GPLOTP(GX,GY(1,NG),1,NXMAX,1,0,0,MOD(NG-1,8))
+  200 CONTINUE
+      CALL SETLIN(-1,-1,7)
+      RETURN
+      END
