@@ -14,10 +14,10 @@ INSTALL:
   6. Create libraries by "make libs"
   7. Create test programs by "make tests"
   8. cd test
-  9  Set environmental variables LD_LIBRARY_PATH=../lib, if necessary.
+  9  Set environmental variables LD_LIBRARY_PATH=../lib
  10. Check test programs in test directory using X window
  11. cd ..
- 12. Install libraries and binaries by "make install"
+ 12. Install libraries and binaries by "make install" (as a root, if necessary)
  13. Set environmental variables LD_LIBRARY_PATH=library path
      or Add library path in /etc/ld.so.conf and run ldconfig as a root.
 
@@ -161,8 +161,6 @@ along with GSAF system; see the file COPYING.
 UPDATE:
 
 The newest version of GSAF system is available from
-        ftp://p-grp.nucleng.kyoto-u.ac.jp/pub/gsaf/
-Home page is located at
         http://p-grp.nucleng.kyoto-u.ac.jp/~fukuyama/gsaf/
 
 Your comments as well as bug information on GSAF system should be mailed to
