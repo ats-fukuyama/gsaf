@@ -4,6 +4,48 @@ C     ****************************************************
 C     ****** GSAF BASIC ROUTINES V3.5 : INTERFACE 2 ******
 C     ****************************************************
 C
+C     ****** DRAW A LINE ******
+C
+      SUBROUTINE LINE1(XS,YS,XE,YE)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSAFLG/ LGSAF,LPAGE,LFIL,LKEEP,NPAGE,NHEAD
+      COMMON /GSAFXY/ XDEL,YDEL,XORG,YORG
+      COMMON /GSAFCL/ LMV,X1,Y1,XL,XR,YL,YR
+      DIMENSION XA(2),YA(2),XB(3),YB(3)
+      DIMENSION IX(3),IY(3)
+C
+      IF(.NOT.LPAGE) RETURN
+C
+         XA(1)=XS
+         YA(1)=YS
+         XA(2)=XE
+         YA(2)=YE
+C
+      CALL GUPCLP(XA,YA,2,XB,YB,M)
+C
+      DO I=1,M
+         IX(I)=NINT(XB(I)*XDEL+XORG)
+         IY(I)=NINT(YB(I)*YDEL+YORG)
+         IF(IX(I).LT.0)     IX(I)=0
+         IF(IX(I).GT.32767) IX(I)=32767
+         IF(IY(I).LT.0)     IY(I)=0
+         IF(IY(I).GT.32767) IY(I)=32767
+      ENDDO
+C
+      IF(M.GT.1) THEN
+         CALL GUGRPS
+         CALL DVLINS(IX,IY,M)
+         IF(LFIL) CALL BUFFXN(11,IX,IY,M)
+         CALL GUGRPE
+      ENDIF
+C
+      X1=XE
+      Y1=YE
+      LMV=.FALSE.
+      RETURN
+      END
+C
 C     ****** DRAW LINES ******
 C
       SUBROUTINE LINES(X,Y,N)
@@ -705,7 +747,7 @@ C
       X1=X(N)
       Y1=Y(N)
       LMV=.FALSE.
- 9000 RETURN
+      RETURN
       END
 C
 C     ****** SET LINE WIDTH ******

@@ -45,6 +45,25 @@ C
      &       1H ,'#     ',1P4E15.7)
       END
 C
+C     ****** INQUIRE GRAPH SIZE ******
+C
+      SUBROUTINE INQ_GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,
+     &                      GXMIN,GXMAX,GYMIN,GYMAX)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
+C
+      PXMIN=PXS
+      PYMIN=PYS
+      PXMAX=PXE
+      PYMAX=PYE
+      GXMIN=GXS
+      GYMIN=GYS
+      GXMAX=GXE
+      GYMAX=GYE
+      RETURN
+      END
+C
 C     ****** INQUIRE POSITION IN GDEFIN COORDINATES ******
 C
       SUBROUTINE INQPOS2D(X,Y)
@@ -186,9 +205,9 @@ C
       COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
 C
       DIMENSION X(*),Y(*),R(*),G(*),B(*)
-      DIMENSION PX(3),PY(3),PZ(3)
+      DIMENSION PX(3),PY(3)
 C
-      IF(.NOT.LPAGE) RETURN
+      IF(.NOT.LGF) RETURN
 C
       DO I=1,3
          PX(I)=DX*(X(I)-GXS)+PXS

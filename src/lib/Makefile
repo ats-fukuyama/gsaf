@@ -10,7 +10,8 @@ default : libs
 libs : libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) libg3d$(SL)
 
 OBJGSP= bsc1.o bsc2.o bsc3.o igl1.o igl2.o igl3.o fio1.o fio2.o \
-        unix.o unixc.o apl1.o apl2.o apl3.o cont1.o cont2.o pers.o spln.o \
+        unix.o unixc.o apl1.o apl2.o apl3.o cont1.o cont2.o cont3.o \
+        pers.o spln.o \
 	Acompat.o
 
 OBJG3D= A3dplot.o Agtseries.o Argbfunc.o Apersen3d.o Acplot1.o \

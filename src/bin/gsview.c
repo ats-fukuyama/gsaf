@@ -55,11 +55,11 @@ char **argv;
   ititle = 0;
   interactive = 1;
   irotate = 0;
-  icolor = 1;
+  icolor = 2;
   igouraud = 0;
   errflg = 0;
 
-  while ((c = getopt(argc, argv, ":abce:gmp:rs:t")) != -1)
+  while ((c = getopt(argc, argv, ":abce:gmp:rs:tz")) != -1)
     switch (c) {
     case 'a':
       istart = 0;
@@ -96,6 +96,9 @@ char **argv;
     case 't':
       ititle = 1;
       break;
+    case 'z':
+      icolor = 1;
+      break;
     case ':':        /* -ens without arguments */
       fprintf(stderr, "Option -%c requires an argument\n",
 	      optopt);
@@ -107,7 +110,7 @@ char **argv;
       errflg++;
     }
   if (errflg) {
-    fprintf(stderr, "usage: %s [-atbrcmg] [-s ps] [-e pe] [-p np] [filename]\n", argv[0]);
+    fprintf(stderr, "usage: %s [-atbrcmgz] [-s ps] [-e pe] [-p np] [filename]\n", argv[0]);
     fprintf(stderr, "           -a    : show all page\n");
     fprintf(stderr, "           -s ps : show from page ps [1]\n");
     fprintf(stderr, "           -e pe : show until page pe [999]\n");
@@ -116,6 +119,7 @@ char **argv;
     fprintf(stderr, "           -b    : no page title\n");
     fprintf(stderr, "           -r    : rotate figure, valid for gstops/eps \n");
     fprintf(stderr, "           -c    : color figure, valid for gstops/eps \n");
+    fprintf(stderr, "           -z    : gray figure, valid for gstops/eps \n");
     fprintf(stderr, "           -m    : monochrome figure, valid for gstops/eps \n");
     fprintf(stderr, "           -g    : gouraud shading (cannot be edited), valid for gstops/eps \n");
     fprintf(stderr, "           filename : if not specified, prompted\n");

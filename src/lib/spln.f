@@ -298,8 +298,9 @@ C
                     YY = 1.E0
                   ENDIF
                   DXY=DBLE(XX)*DBLE(YY)
-                  IF(ABS(DXY).LT.1.E-30) DXY=0.0
-                  FG( IX,IY ) = FG( IX,IY )+GAM( IOM+1,ION+1 )*DXY
+                  IF(ABS(DXY).LT.1.D-30) DXY=0.D0
+                  FG( IX,IY ) = SNGL(DBLE(FG( IX,IY ))
+     &                              +DBLE(GAM( IOM+1,ION+1 ))*DXY)
   140           CONTINUE
   130         CONTINUE
   710       CONTINUE

@@ -52,6 +52,9 @@ g3dtest : g3dtest.o $(LIBSX)
 evtest : evtest.o $(LIBSX)
 	$(FC) $(FFLAGS) -o evtest evtest.o $(LIBS)
 
+pagetest : pagetest.o $(LIBSX)
+	$(FC) $(FFLAGS) -o pagetest pagetest.o $(LIBS)
+
 plottest : plottest.o $(LIBSX)
 	$(FC) $(FFLAGS) -o plottest plottest.o $(LIBS)
 

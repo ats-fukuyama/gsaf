@@ -1,5 +1,5 @@
 ### $Id$ ###
-2001 年 5 月 27 日
+2004 年 5 月 4 日
 
 ＧＳＡＦ　使用手引書　　[Version 3.8]
 
@@ -293,9 +293,9 @@ Postscript プリンタがある場合
           -t       : 各頁の元のタイトルを出力する。
           -b       : タイトルを出力しない。
           -r       : 図を90度回転させる。
-          -c       : カラーの Postscript ファイルを作成する．
+          -c       : カラーの Postscript ファイルを作成する．（標準）
+          -z       : 灰色ハーフトーンの Postscript ファイルを作成する．
           -m       : 白黒の Postscript ファイルを作成する．
-                     標準は灰色ハーフトーンの Postscript ファイルを作成．
           filename : 出力するファイル名。省略時は問い合わせられる。
 
 　　gstops コマンドを用いて，postscript ファイルに変換し，
@@ -362,6 +362,11 @@ ghostscript で GIF ファイルを作成する例
 	PAGEY	１画面の作図終了．入力を待たずに処理続行．ファイル保存
 	PAGEN	１画面の作図終了．入力を待たずに処理続行．ファイル保存せず
 
+	SET_PAGES(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
+		画面のオフセットと倍率を設定
+	INQ_PAGES(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
+		画面のオフセットと倍率を問い合わせ
+
 	SETVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
 		画面上に座標を設定
 	OFFVEW	画面座標に復帰
@@ -374,6 +379,8 @@ ghostscript で GIF ファイルを作成する例
 
 	MOVE(X,Y)	指定座標へ移動
 	DRAW(X,Y)	指定座標へ直線を作図
+	LINE1(XS,YS,XE,YE)	
+			線分表示機能
 	LINES(X,Y,N)	線分群表示機能
 	POLY(X,Y,N)	多角形面塗り機能
 
@@ -484,9 +491,23 @@ ghostscript で GIF ファイルを作成する例
 		最小、最大、目盛り間隔の最適値
 
 	GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
-		グラフ領域の定義
-	GFRAME	枠の作図
+		グラフ領域の設定
+	INQ_GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
+		グラフ領域の問合せ
 
+	INQPOS2D(X,Y)	グラフ領域内位置問合せ
+	MOVE2D(X,Y)	グラフ領域内指定座標へ移動
+	DRAW2D(X,Y)	グラフ領域内指定座標へ直線を作図
+	MOVEPT2D(X,Y,IPAT)
+			グラフ領域内指定座標へ移動、線パターンを指定
+	DRAWPT2D(X,Y)	グラフ領域内指定座標へ指定された線パターンで直線を作図
+	LINE2D(X,Y,N)	グラフ領域内線分表示機能
+	LINES2D(X,Y,N)	グラフ領域内線分群表示機能
+	POLY2D(X,Y,N)	グラフ領域内多角形面塗り機能
+        RGBTRG2D(X,Y,R,G,B)
+			グラフ領域内三角形を連続的色変化で面塗り
+
+	GFRAME	枠の作図
 	GSCALE(GXORG,GXSTEP,GYORG,GYSTEP,SLEN,IND)
 		目盛りあるいは格子の作図
 	GVALUE(GXORG,GXSTEP,GYORG,GYSTEP,IND)
@@ -978,6 +999,12 @@ PAGEE
 図形ファイルにデータを格納している場合には、その頁を格納するかどうかの問い合わせが行われる。
 
 
+SET_PAGES(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
+画面のオフセットと倍率を設定
+
+INQ_PAGES(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
+画面のオフセットと倍率を問い合わせ
+
 SETVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
 画面上に座標系を設定する。
 
@@ -1035,6 +1062,10 @@ DRAW(X,Y)
 
 入力	X	[R]	作図する直線の新しい端の x 座標
 	Y	[R]	作図する直線の新しい端の y 座標
+
+
+LINE1(XS,YS,XE,YE)	
+線分表示機能
 
 
 MARK(X,Y)
@@ -1491,6 +1522,26 @@ GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GXMIN,GXMAX,GYMIN,GYMAX)
 
 GPLOTP, CONTPn, CONTPn, CONTQn, PERSEn  等で描くグラフの作図領域を設定する。
 
+
+INQ_GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
+		グラフ領域の問合せ
+
+INQPOS2D(X,Y)	グラフ領域内位置問合せ
+
+MOVE2D(X,Y)	グラフ領域内指定座標へ移動
+
+DRAW2D(X,Y)	グラフ領域内指定座標へ直線を作図
+
+MOVEPT2D(X,Y,IPAT)
+		グラフ領域内指定座標へ移動、線パターンを指定
+
+DRAWPT2D(X,Y)	グラフ領域内指定座標へ指定された線パターンで直線を作図
+
+LINE2D(X,Y,N)	グラフ領域内線分表示機能
+LINES2D(X,Y,N)	グラフ領域内線分群表示機能
+POLY2D(X,Y,N)	グラフ領域内多角形面塗り機能
+RGBTRG2D(X,Y,R,G,B)
+		グラフ領域内三角形を連続的色変化で面塗り
 
 GFRAME
 グラフの枠を作図する。

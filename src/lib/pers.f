@@ -217,7 +217,6 @@ C
 C ** JP= 3............. START     **
 C ** JP= 0  OR  2  .... CONTINUED **
       COMMON / COMLHL / LHL
-      COMMON / COMDT3 / Z0,ZN,ZW
       COMMON / COMHL1 / CA,SA,ET,EL,XWC,XWS,YWC,YWS,SG,ZM,ZC
       COMMON / COMHL2 / XQ,YQ,ZQ,KPL
       COMMON / COMHL3 / XP0,ZFCTR
@@ -775,7 +774,6 @@ C             K1 : AXIS : 0:Z(UPTO VALUE) 1:X 2:Y 3:Z
 C             K2 : POS  : 1:FROM (0,0,Z0) 2,3,4:ROTATING ORDER
       COMMON / COMDT1 / X0,Y0,HX,HY,NX,NY,MX,MY,XW,YW
       COMMON / COMDT3 / Z0,ZN,ZW
-      COMMON / COMCFT / XFCTR,YFCTR,HXFC,HYFC
       COMMON / COMALT / ALT(101,101),DUMMY
       COMMON / COMZHV / HV
       COMMON / COMJPL / JPL
@@ -900,7 +898,7 @@ C ***
  50    CONTINUE
 C ***
       DO 10 K=1,KH
-      KERR = 0
+C      KERR = 0
       KV = K
       HV = HEIT(KV)
 C ***
@@ -945,7 +943,7 @@ C ** ALT(KX,1) .GT. HV
       ALX = HXFC*FLOAT(IA-1)
       RT = (UA2-HV)/(UA1-UA2)
       ALY = HYFC*(FLOAT(JA)+RT)
-      KERR = 1
+C      KERR = 1
       CALL PLOT3DX( ALX, ALY, 3 )
       CALL PLOT3DX( ALX, ALY, 2 )
       CALL SEAR3DX
@@ -975,7 +973,7 @@ C ** ALT(KX,1) .LT. HV **
       ALX = HXFC*FLOAT(IA-1)
       RT = (UA1-HV)/(UA1-UA2)
       ALY = HYFC*(FLOAT(JA-1)-RT)
-      KERR = 1
+C      KERR = 1
       CALL PLOT3DX( ALX, ALY, 3 )
       CALL PLOT3DX( ALX, ALY, 2 )
       CALL SEAR3DX
