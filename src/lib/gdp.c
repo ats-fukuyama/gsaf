@@ -47,7 +47,7 @@ Colormap	cm;
 int		mapped;
 int		gray,fullcolor,whitezero;
 int		xpos,ypos,ymax;
-float		delta;
+static float	delta;
 int		dxch,dych;
 int		ilns,ibls,icls;
 int		rmode,tmode;
