@@ -41,7 +41,10 @@ C
 C
       SUBROUTINE inqtextbbox (ktext, nchar, size, height, depth)
       CHARACTER*256 KTEXT
+      CALL INQTSZ(KTEXT, NCHAR, SIZE)
+      CALL INQCHR(HEIGHT,CHW,CHSP,ANGL,TILT)
+      HEIGHT=HEIGHT*8.0/9.0
+      DEPTH=0.0
       RETURN
       END
 C
-      
