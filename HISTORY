@@ -1,4 +1,6 @@
 $Id$
+2004/12/10  arch/itbl added
+
 V3.87
 2004/12/02  arch/freebsd/Makefile.arch added (by Mr. G. Kawamura)
             arch/macosx-xlf/Makefile.arch updated
