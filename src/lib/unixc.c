@@ -134,3 +134,33 @@ int4 *iasc,*nchar;
 		}
 	}
 }
+
+static void (*Callback)() = NULL;
+                      
+#ifndef UNDERSCORE
+void setquitcallback (void (*callback)())
+#else
+void setquitcallback_(void (*callback)())
+#endif
+{
+        Callback = callback;
+}
+
+#ifndef UNDERSCORE
+void resetquitcallback ()
+#else
+void resetquitcallback_()
+#endif
+{
+        Callback = NULL;
+}
+
+#ifndef UNDERSCORE
+void callquitcallback ()
+#else
+void callquitcallback_()
+#endif
+{
+	if (Callback != NULL)
+		Callback ();
+}
