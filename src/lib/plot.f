@@ -187,9 +187,9 @@ C
       DELTA=(XMAX-XMIN)/W
       DL=LOG10(DELTA)
       IF(DL.GE.0.0) THEN
-         IDL=DL
+         IDL=INT(DL)
       ELSE
-         IDL=DL-0.999999
+         IDL=INT(DL-0.999999)
       ENDIF
       DDL=10.0**(DL-IDL)
       IF(DDL.LT.1.000001) THEN
@@ -207,9 +207,9 @@ C
       ENDIF
       XN=XMIN/DELTAN
       IF(XN.GE.0.0) THEN
-         IXN=XN
+         IXN=INT(XN)
       ELSE
-         IXN=XN-0.999999
+         IXN=INT(XN-0.999999)
       ENDIF
       XMINN=IXN*DELTAN
 C
@@ -260,7 +260,7 @@ C
       CALL MOVE(X,Y)
       CALL DRAW(X+W*DELX,Y+W*DELY)
 C
-      NW=W+0.000001
+      NW=INT(W+0.000001)
 C
       IF(N.GE.0) THEN
          SG= 0.2
@@ -278,9 +278,9 @@ C
 C
       DL=LOG10(DELTA*W)
       IF(DL.GE.0.0) THEN
-         IDL=DL
+         IDL=INT(DL)
       ELSE
-         IDL=DL-0.999999
+         IDL=INT(DL-0.999999)
       ENDIF
       IF(IDL.GE.-1.AND.IDL.LE.0) IDL=0
       FDL=10.0**IDL

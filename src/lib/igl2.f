@@ -104,7 +104,7 @@ C
       INTEGER XYGRID(5)
 C
       IF(IFNTS.LE.1) THEN
-         DLX=1.D0
+         DLX=1.0
       ELSEIF(IFNTS.LT.32) THEN
          CALL GS_GRCONV(IC,IFNTS,NC)
          IF (NC.LT.NC1.OR.NC.GT.NC2) THEN
@@ -142,7 +142,7 @@ C
                ID=IFNTS-31
                DLX=IWPSFN(IC,ID)/600.0*(8.0/9.0)
             ELSEIF(IFNTS.LT.44) THEN
-               DLX=1.D0
+               DLX=1.0
             ELSE
                ID=IFNTS-35
                DLX=IWPSFN(IC,ID)/600.0*(8.0/9.0)

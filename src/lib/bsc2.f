@@ -763,7 +763,8 @@ C
       IF(.NOT.LPAGE) RETURN
 C
       IF(W.LT.0.0) THEN
-         CALL SETLIN(-1,IBLS,-1)
+         I=IBLS
+         CALL SETLIN(-1,I,-1)
          RETURN
       ENDIF
 C
@@ -800,7 +801,8 @@ C
       IF(.NOT.LPAGE) RETURN
 C
       IF(R.LT.0.0) THEN
-         CALL SETLIN(-1,-1,ICLS)
+         I=ICLS
+         CALL SETLIN(-1,-1,I)
          RETURN
       ENDIF
 C
