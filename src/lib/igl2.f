@@ -14,7 +14,7 @@ C
       INTEGER   INDEX(0:MAXCHR-1),NC1,NC2
       INTEGER*2 BUFFER(MAXBUF)
       COMMON /GSPGC1/ BUFFER,INDEX,NC1,NC2
-      COMMON /GSPGC3/ THXX,THYX,THXY,THYY,THSPX,THSPY,THLY
+      COMMON /GSPGC3/ THXX,THYX,THXY,THYY,THLX,THLY,THSP
       COMMON /GSAFS1/ SIZEXS,SIZEYS,DSIZE
       COMMON /GSAFFN/ IFNTR,LSOFT
 C
@@ -79,8 +79,8 @@ C
          ENDIF
       ENDDO
       CALL GS_GRSIZE(IC,DLX)
-      X=THXX*DLX+THSPX
-      Y=THYX*DLX+THSPY
+      X=THXX*(THLX*DLX+THSP)
+      Y=THYX*(THLX*DLX+THSP)
       IX=IX+NINT(X*DSIZE)
       IY=IY+NINT(Y*DSIZE)
 C
@@ -97,14 +97,13 @@ C
       INTEGER   INDEX(0:MAXCHR-1),NC1,NC2
       INTEGER*2 BUFFER(MAXBUF)
       COMMON /GSPGC1/ BUFFER,INDEX,NC1,NC2
-      COMMON /GSPGC3/ THXX,THYX,THXY,THYY,THSPX,THSPY,THLY
       COMMON /GSAFS7/ IFNTS
       COMMON /GSAFFW/ IWPSFN(32:127,9) 
 C
       INTEGER XYGRID(5)
 C
       IF(IFNTS.LE.1) THEN
-         DLX=THLY
+         DLX=1.D0
       ELSEIF(IFNTS.LT.32) THEN
          CALL GS_GRCONV(IC,IFNTS,NC)
          IF (NC.LT.NC1.OR.NC.GT.NC2) THEN
@@ -131,9 +130,7 @@ C
                IYMAX=XYGRID(3)
                IXMIN=XYGRID(4)
                IXMAX=XYGRID(5)
-C     
-               DL=THLY/(IYMAX-IYBAS)
-               DLX=(IXMAX-IXMIN)*DL
+               DLX=REAL(IXMAX-IXMIN)/REAL(IYMAX-IYBAS)
             ENDIF
          ENDIF
       ELSEIF(IFNTS.LE.44) THEN
@@ -142,12 +139,12 @@ C
          ELSE
             IF(IFNTS.LT.40) THEN
                ID=IFNTS-31
-               DLX=IWPSFN(IC,ID)/600.0*THLY*(8.0/9.0)
+               DLX=IWPSFN(IC,ID)/600.0*(8.0/9.0)
             ELSEIF(IFNTS.LT.44) THEN
-               DLX=THLY
+               DLX=1.D0
             ELSE
                ID=IFNTS-35
-               DLX=IWPSFN(IC,ID)/600.0*THLY*(8.0/9.0)
+               DLX=IWPSFN(IC,ID)/600.0*(8.0/9.0)
             ENDIF
          ENDIF
       ELSE

@@ -944,7 +944,7 @@ C
          SIZE=0.0
          DO N=1,NMAX
             CALL GS_GRSIZE(IASCS(N),DX)
-            SIZE=SIZE+DX
+            SIZE=SIZE+DX*1.5*CHW
          ENDDO
          SIZESP=CHSP-1.5*CHW
          X1=X1+(TFXX*SIZE+TFSPX*SIZESP*NMAX)*FACX
@@ -984,7 +984,7 @@ C
                IESC=1
             ELSE
                CALL GS_GRSIZE(INS,DX)
-               SIZE=SIZE+DX*FACTOR+CHSP-1.5*CHW
+               SIZE=SIZE+(DX*1.5*CHW+CHSP-1.5*CHW)*FACTOR
             ENDIF
          ELSE
             IF(INS.EQ.43.OR.INS.EQ.45) THEN
@@ -1031,7 +1031,7 @@ C
                SIZE=SIZE-CHSP*FACTOR
             ELSE
                CALL GS_GRSIZE(INS,DX)
-               SIZE=SIZE+DX*FACTOR+(CHSP-1.5*CHW)*FACTOR
+               SIZE=SIZE+(DX*1.5*CHW+CHSP-1.5*CHW)*FACTOR
             ENDIF
             IESC=0
          ENDIF
