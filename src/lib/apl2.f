@@ -810,6 +810,8 @@ C
          CALL SETMRK(IMARKS,HMRK,WMRK,ANGL,TILT)
       ELSE
          CALL GUGRPS
+         PX=DX*(GX(NSRT)-GXS)+PXS
+         PY=DY*(GY(NSRT)-GYS)+PYS
          CALL MOVEPT(PX,PY,IPAT)
          DO 3010 N=NSRT+NSTEP,NEND,NSTEP
             PX=DX*(GX(N)-GXS)+PXS
