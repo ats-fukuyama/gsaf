@@ -13,9 +13,12 @@ INSTALL:
   5. Adjust directories and option in Makefile.arch
   6. Create libraries by "make libs"
   7. Create test programs by "make tests"
-  8. Check test programs in test directory with X window
-  9. Install libraries and binaries by "make install"
- 10. Set environmental variables LD_LIBRARY_PATH=library path
+  8. cd test
+  9  Set environmental variables LD_LIBRARY_PATH=../lib, if necessary.
+ 10. Check test programs in test directory using X window
+ 11. cd ..
+ 12. Install libraries and binaries by "make install"
+ 13. Set environmental variables LD_LIBRARY_PATH=library path
      or Add library path in /etc/ld.so.conf and run ldconfig as a root.
 
 DOCUMENTS:

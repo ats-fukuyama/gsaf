@@ -15,7 +15,8 @@ LIBPATH=/usr/local/lib
 
 # Compiler command
 
-FC=ifc
+#FC=ifc
+FC=ifort
 CC=icc
 
 # Compile flags

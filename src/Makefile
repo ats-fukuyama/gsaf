@@ -3,17 +3,17 @@
 # Make for gsaf : V3.80
 #
 
-default : libs install
+default : libs tests install
 
 libs :
 	(cd lib; make)
 
+tests : libs
+	(cd test; make)
+
 install : libs
 	(cd lib; make install)
 	(cd bin; make install)
-
-tests : libs
-	(cd test; make)
 
 clean :
 	rm -f ./*~
