@@ -166,6 +166,9 @@ C
       COMMON /GSAFRB/ NFCR,IRBUFF,IRDATA(150)
       COMMON /GSAFRD/ NPAGER
       COMMON /GSAFFN/ IFNTR,LSOFT
+      COMMON /GSPGC2/ TFXX,TFXY,TFYX,TFYY,TFLX,TFLY
+      COMMON /GSPGC3/ TFSP,TFSPX,TFSPY
+      DATA DEG/0.0174533/
       DIMENSION IASC(256),IXA(1024),IYA(1024)
       DIMENSION IXTR(3),IYTR(3),IR(3),IG(3),IB(3)
 C
@@ -256,6 +259,30 @@ C
                      ELSE
                         CALL DVSTCH(I1,I2,I3,R1,R2,INDD)
                      ENDIF
+C
+                     ICHH=I1
+                     ICHW=I2
+                     ICHSP=I3
+                     ANGL=R1
+                     TILT=R2
+                     CA=COS(ANGL*DEG)
+                     SA=SIN(ANGL*DEG)
+                     CB=COS((ANGL+TILT)*DEG)
+                     SB=SIN((ANGL+TILT)*DEG)
+                     IF(ICHH.EQ.0) THEN
+                        FACT=1.0
+                     ELSE
+                        FACT=1.5*REAL(ICHW)/REAL(ICHH)
+                     ENDIF
+                     TFLX=1.5*ICHW           /DSIZE
+                     TFLY=    ICHH           /DSIZE
+                     TFSP=   (ICHSP-1.5*ICHW)/DSIZE
+                     TFXX= CA*FACT
+                     TFYX= SA*FACT
+                     TFXY=-SB
+                     TFYY= CB
+                     TFSPX=CA
+                     TFSPY=SA
                   ELSEIF(IND.EQ.4) THEN
                      I2=NINT(I2*YFACT)
                      I3=NINT(I3*XFACT)

@@ -70,7 +70,7 @@ igl3.o : igl3.f
 fio1.o : fio1.f
 	$(FC) -c $(FLFLAGS) fio1.f
 
-fio2.o : fio1.f
+fio2.o : fio2.f
 	$(FC) -c $(FLFLAGS) fio2.f
 
 unix.o : unix.f

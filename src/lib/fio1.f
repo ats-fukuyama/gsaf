@@ -442,6 +442,7 @@ C
 C     ++++++ WRITE XY N DATA ++++++
 C        IND=11 : DVLINS
 C        IND=12 : DVPOLY
+C        IND=13 : RGBTRG
 C
       SUBROUTINE BUFFXN(IND,IX,IY,N)
 C

@@ -798,34 +798,15 @@ float		*angl,*tilt;
 	    jchw = *ichw;
 	  }
 	wfact = (jchw * 3.0) / (jchh * 2.0);
-	tfact = cos (*tilt deg);
 
-	if (tfact > 0.0) 
-	    if (tfact > 0.1)
-	      {
-		tfact = 1.0 / tfact;
-	      }
-	    else
-	      {
-		tfact = 10.0;
-	      }
-	else
-	    if (tfact < -0.1)
-	      {
-		tfact = 1.0 / tfact;
-	      }
-	    else
-	      {
-		tfact = -10.0;
-	      }
         if (! irotate)
 	  {
 	    cosch = cos((*angl+90) deg);
 	    sinch = sin((*angl+90) deg);
 	    fxxch = cos((*angl+90) deg) * wfact;
 	    fyxch = sin((*angl+90) deg) * wfact;
-	    fxych =-sin((*angl+*tilt+90) deg) * tfact;
-	    fyych = cos((*angl+*tilt+90) deg) * tfact;
+	    fxych =-sin((*angl+*tilt+90) deg);
+	    fyych = cos((*angl+*tilt+90) deg);
 	  }
 	else
 	  {
@@ -833,8 +814,8 @@ float		*angl,*tilt;
 	    sinch = sin((*angl) deg);
 	    fxxch = cos((*angl) deg) * wfact;
 	    fyxch = sin((*angl) deg) * wfact;
-	    fxych =-sin((*angl+*tilt) deg) * tfact;
-	    fyych = cos((*angl+*tilt) deg) * tfact;
+	    fxych =-sin((*angl+*tilt) deg);
+	    fyych = cos((*angl+*tilt) deg);
 	  }
 
 	dxch = *ichsp * cosch * delta;
@@ -848,7 +829,7 @@ float		*angl,*tilt;
 	    dchs = jchh * delta * 1.466667;
 	  }
 	dchss = dchs * 0.8;
-	dchsp = (*ichsp - *ichh) * delta ;
+	dchsp = (*ichsp - 1.5* *ichw) * delta ;
 	*ind = 0;
 }
 
