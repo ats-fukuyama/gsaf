@@ -1,4 +1,5 @@
 /* $Id$ */
+
 #include <sys/types.h>
 #include <sys/times.h>
 #include <stdio.h>
@@ -24,12 +25,14 @@ extern char *getenv();
 #define		int4	long
 #endif
 
+static void (*Callback)(void);
+
+
 #ifndef UNDERSCORE
-void  dvdate(ndy,ndm,ndd,nth,ntm,nts)
+void  dvdate (int4 *ndy,int4 *ndm,int4 *ndd,int4 *nth,int4 *ntm,int4 *nts)
 #else
-void  dvdate_(ndy,ndm,ndd,nth,ntm,nts)
+void  dvdate_(int4 *ndy,int4 *ndm,int4 *ndd,int4 *nth,int4 *ntm,int4 *nts)
 #endif
-int4 *ndy,*ndm,*ndd,*nth,*ntm,*nts;
 {
 	time_t nseconds;
 	struct tm *ptr;
@@ -45,12 +48,10 @@ int4 *ndy,*ndm,*ndd,*nth,*ntm,*nts;
 }
 
 #ifndef UNDERSCORE
-void  dvtime(i,tick)
+void  dvtime (int4 *i,int4 *tick)
 #else
-void  dvtime_(i,tick)
+void  dvtime_(int4 *i,int4 *tick)
 #endif
-int4 *i;
-int4 *tick;
 {
 	struct tms buffer;
 
@@ -60,24 +61,19 @@ int4 *tick;
 }
 
 #ifndef UNDERSCORE
-void  dvsleep(it)
+void  dvsleep (const int4 *it)
 #else
-void  dvsleep_(it)
+void  dvsleep_(const int4 *it)
 #endif
-int4 *it;
 {
-	long i;
-
-	i=*it;
- 	usleep(i);
+ 	usleep(*it);
 }
 
 #ifndef UNDERSCORE
-void  dvrand(i,k)
+void  dvrand (int4 *i,int4 *k)
 #else
-void  dvrand_(i,k)
+void  dvrand_(int4 *i,int4 *k)
 #endif
-int4 *i,*k;
 {
 #ifndef SONYCISC
  	*i = rand();
@@ -89,11 +85,10 @@ int4 *i,*k;
 }
 
 #ifndef UNDERSCORE
-void  dvsrand(i)
+void  dvsrand (const int4 *i)
 #else
-void  dvsrand_(i)
+void  dvsrand_(const int4 *i)
 #endif
-int4 *i;
 {
 #ifndef SONYCISC
  	srand((unsigned int)*i);
@@ -101,20 +96,19 @@ int4 *i;
 }
 
 #ifndef UNDERSCORE
-void  dvflsh()
+void  dvflsh (void)
 #else
-void  dvflsh_()
+void  dvflsh_(void)
 #endif
 {
 	fflush(stdout);
 }
 
 #ifndef UNDERSCORE
-void  dvrenv(iasc,nchar)
+void  dvrenv (int4 *iasc,const int4 *nchar)
 #else
-void  dvrenv_(iasc,nchar)
+void  dvrenv_(int4 *iasc,const int4 *nchar)
 #endif
-int4 *iasc,*nchar;
 {
 	char *str;
 	int i,len;
@@ -135,32 +129,30 @@ int4 *iasc,*nchar;
 	}
 }
 
-static void (*Callback)() = NULL;
-                      
 #ifndef UNDERSCORE
-void setquitcallback (void (*callback)())
+void setquitcallback (void (*callback)(void))
 #else
-void setquitcallback_(void (*callback)())
+void setquitcallback_(void (*callback)(void))
 #endif
 {
-        Callback = callback;
+	Callback = callback;
 }
 
 #ifndef UNDERSCORE
-void resetquitcallback ()
+void resetquitcallback (void)
 #else
-void resetquitcallback_()
+void resetquitcallback_(void)
 #endif
 {
-        Callback = NULL;
+	Callback = NULL;
 }
 
 #ifndef UNDERSCORE
-void callquitcallback ()
+void callquitcallback (void)
 #else
-void callquitcallback_()
+void callquitcallback_(void)
 #endif
 {
 	if (Callback != NULL)
-		Callback ();
+		Callback();
 }

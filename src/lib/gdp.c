@@ -1,4 +1,7 @@
-/* $Id$ */
+/* $Id$
+ * X Window driver
+ */
+
 #ifdef SONYCISC
 #define BSD
 #endif
@@ -13,6 +16,7 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include <sys/types.h>
 #include <sys/uio.h>
@@ -37,9 +41,11 @@ extern char *getenv();
 #define		int4	long
 #endif
 
+#define STDIN	0
 #define DEG	(M_PI/180)
 #define NBUFMAX	255
 #define NPNTMAX	256
+#define NTXTMAX	10
 
 static Display	        *display;
 static Window	        window,focus,rootw,parentw;
@@ -50,7 +56,7 @@ static Colormap		cm;
 static int		mapped;
 static int		gray,fullcolor,whitezero;
 static int		xpos,ypos,ymax;
-static float		delta;
+static double		delta;
 static int		dxch,dych;
 static int		ilns,ibls,icls;
 static int		rmode,tmode;
@@ -79,7 +85,7 @@ static void tinit(void)
 static void tbuff(void)
 {
 	cbuf[nbuf] = 0;
-	printf("%s",cbuf);
+	fputs(cbuf,stdout);
 	fflush(stdout);
 	nbuf = 0;
 }
@@ -88,18 +94,14 @@ static void toutpt(int i)
 {
 	if(nbuf+1 >= NBUFMAX)
 		tbuff();
-	cbuf[nbuf] = (char)i;
-	nbuf++;;
+	cbuf[nbuf++] = (char)i;
 }
 
 static void toutst(int n,const char ich[])
 {
-	int	i;
-	
 	if(nbuf + n  >= NBUFMAX)
 		tbuff();
-	for(i = 0; i < n; i++)
-		cbuf[nbuf+i] = ich[i];
+	strncpy(&cbuf[nbuf],ich,n);
 	nbuf += n;
 }
 
@@ -137,16 +139,15 @@ static void dvsetwin(Window win,Window fwin)
 }
 
 #ifndef UNDERSCORE
-void dvchin(int4 *iasc,int4 *nchar)
+void dvchin(int4 *iasc,const int4 *nchar)
 #else
-void dvchin_(int4 *iasc,int4 *nchar)
+void dvchin_(int4 *iasc,const int4 *nchar)
 #endif
 {
 	XEvent	        event;
 	KeySym	        key;
-	char		text[10];
-	int		i;
-	int		r;
+	char		text[NTXTMAX];
+	int		i,r;
 #ifndef BSD
 	struct termio	t,st;
 #else
@@ -177,7 +178,7 @@ void dvchin_(int4 *iasc,int4 *nchar)
 		ioctl(0,TIOCSETN,&t);
 #endif
 		for(i = 0; i < *nchar; i++) {
-			read(0,text,1);
+			read(STDIN,text,1);
 			if(text[0] < ' ') {
 				for(;i < *nchar;i++)
 					iasc[i] = ' ';
@@ -227,12 +228,13 @@ void dvchin_(int4 *iasc,int4 *nchar)
 			XRefreshKeyboardMapping((XMappingEvent *)&event);
 			break;
 		case KeyPress:
-			r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
+			r = XLookupString((XKeyEvent *)&event,
+					  text,NTXTMAX,&key,0);
 			if(r == 1) {
 				if(text[0] >= ' ' && text[0] <= '~')
-					iasc[i++] = (int4)text[0];
+					iasc[i++] = text[0];
 				else {
-					if(text[0] == 0x0D) {
+					if(text[0] == 0x0d) {
 						for(;i < *nchar;i++)
 							iasc[i] = ' ';
 						break;
@@ -255,16 +257,15 @@ void dvxyin_(int4 *ix,int4 *iy)
 #endif
 {
 	XEvent	event;
-	int	done;
-	int	ixh,ixl,iyh,iyl;
+	int	done,ixh,ixl,iyh,iyl;
 	static const char	tdata[] = {27,26};
 #ifndef BSD
 	struct termio	t,st;
 #else
 	struct sgttyb	t,st;
 #endif	
-	char    text[10];
-		
+	char    text[1];
+
 	if(rmode) {
 		*ix = 0;
 		*iy = 0;
@@ -289,16 +290,16 @@ void dvxyin_(int4 *ix,int4 *iy)
 		t.sg_flags &= ~ECHO;
 		ioctl(0,TIOCSETN,&t);
 #endif
-		read(0,text,1);
-		read(0,text,1);
+		read(STDIN,text,1);
+		read(STDIN,text,1);
 		ixh = text[0] & 0x1f;
-		read(0,text,1);
+		read(STDIN,text,1);
 		ixl = text[0] & 0x1f;
-		read(0,text,1);
+		read(STDIN,text,1);
 		iyh = text[0] & 0x1f;
-		read(0,text,1);
+		read(STDIN,text,1);
 		iyl = text[0] & 0x1f;
-		if (tmode != 3) read(0,text,1);
+		if (tmode != 3) read(STDIN,text,1);
 
 #ifndef	BSD
 		ioctl(0,TCSETAW,&st);
@@ -332,9 +333,9 @@ void dvxyin_(int4 *ix,int4 *iy)
 }
 
 #ifndef UNDERSCORE
-void dvsetv(int4 *id)
+void dvsetv(const int4 *id)
 #else
-void dvsetv_(int4 *id)
+void dvsetv_(const int4 *id)
 #endif
 {
 	int		i;
@@ -345,10 +346,10 @@ void dvsetv_(int4 *id)
 
         i = *id;
 	event_mask = 0;
-	if((i & 1)) event_mask |= KeyPressMask;
-	if((i & 2)) event_mask |= ButtonReleaseMask;
-	if((i & 4)) event_mask |= ButtonPressMask;
-	if((i & 8)) event_mask |= PointerMotionMask;
+	if(i & 1) event_mask |= KeyPressMask;
+	if(i & 2) event_mask |= ButtonReleaseMask;
+	if(i & 4) event_mask |= ButtonPressMask;
+	if(i & 8) event_mask |= PointerMotionMask;
 	if(event_mask != 0) {
 		dvsetwin(window,window);
 		XDefineCursor(display,window,curs);
@@ -368,7 +369,7 @@ void dvgetv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 {
 	XEvent	event;
 	KeySym	        key;
-	char		text[10];
+	char		text[NTXTMAX];
 	int		r;
 	unsigned int	kidx;
 		
@@ -387,7 +388,8 @@ void dvgetv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 		case KeyPress:
 			*ix = event.xkey.x / delta;
 			*iy = (ymax - event.xkey.y) / delta;
-			r = XLookupString((XKeyEvent *)&event,text,10,&key,0);
+			r = XLookupString((XKeyEvent *)&event,
+					  text,NTXTMAX,&key,0);
 			if(r == 1)  {
 				if(IsModifierKey(key))
 					*id = 0;
@@ -485,7 +487,7 @@ void dvsync_(void)
 	XSync(display,0);
 }
 
-static void dvline(int4 *ix,int4 *iy,int imv)
+static void dvline(const int4 *ix,const int4 *iy,int imv)
 {
 	char	kgs[5];
 	int	ixx,iyy,ix1,ix2,iy1,iy2,ixy,i;
@@ -510,10 +512,10 @@ static void dvline(int4 *ix,int4 *iy,int imv)
 	iyy = *iy;
 	ix1 = ixx >> 10;
 	ix2 = (ixx >> 5) & 0x1f;
-	ixx = (ixx >> 3) & 0x3;
+	ixx = (ixx >> 3) & 0x03;
 	iy1 = iyy >> 10;
 	iy2 = (iyy >> 5) & 0x1f;
-	iyy = (iyy >> 3) & 0x3;
+	iyy = (iyy >> 3) & 0x03;
 	if(ihr)
 		ixy = (iyy << 2) | ixx;
 	else
@@ -543,9 +545,9 @@ static void dvline(int4 *ix,int4 *iy,int imv)
 }
 
 #ifndef UNDERSCORE
-void dvmove(int4 *ix,int4 *iy)
+void dvmove(const int4 *ix,const int4 *iy)
 #else
-void dvmove_(int4 *ix,int4 *iy)
+void dvmove_(const int4 *ix,const int4 *iy)
 #endif
 {
 	if(rmode) return;
@@ -558,9 +560,9 @@ void dvmove_(int4 *ix,int4 *iy)
 }
 
 #ifndef UNDERSCORE
-void dvdraw(int4 *ix,int4 *iy)
+void dvdraw(const int4 *ix,const int4 *iy)
 #else
-void dvdraw_(int4 *ix,int4 *iy)
+void dvdraw_(const int4 *ix,const int4 *iy)
 #endif
 {
 	int		x,y;
@@ -578,9 +580,9 @@ void dvdraw_(int4 *ix,int4 *iy)
 }
 
 #ifndef UNDERSCORE
-void dvlins(int4 ixn[],int4 iyn[],int4 *np)
+void dvlins(const int4 ixn[],const int4 iyn[],const int4 *np)
 #else
-void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
+void dvlins_(const int4 ixn[],const int4 iyn[],const int4 *np)
 #endif
 {
 	int		i,n;
@@ -620,9 +622,9 @@ void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
 }
 
 #ifndef UNDERSCORE
-void dvpoly(int4 ixn[],int4 iyn[],int *np)
+void dvpoly(const int4 ixn[],const int4 iyn[],const int *np)
 #else
-void dvpoly_(int4 ixn[],int4 iyn[],int *np)
+void dvpoly_(const int4 ixn[],const int4 iyn[],const int *np)
 #endif
 {
 	int		i,n;
@@ -657,7 +659,7 @@ void dvpoly_(int4 ixn[],int4 iyn[],int *np)
 		points[i].y = ymax - iyn[i] * delta;
 	}
 	XFillPolygon(display,window,gc,points,n,Complex,CoordModeOrigin);
-	XDrawLines(display,window,gc,points,n,CoordModeOrigin);
+/*	XDrawLines(display,window,gc,points,n,CoordModeOrigin);*/
 	xpos = points[n-1].x;
 	ypos = points[n-1].y;
 }
@@ -670,7 +672,7 @@ void dvtype_(int4 *ich)
 {
 	char *str;
 
-	printf(" # Welcome to GSAF \n");
+	printf(" # Welcome to GSAF\n");
 	str = getenv("GSGDP");
 	if(str)
 		*ich=0;
@@ -687,10 +689,9 @@ void dvopen_(int4 *ich)
 	unsigned long	valuemask;
 	XSetWindowAttributes attributes;
 	Visual		*v;
-	unsigned	width;
-	unsigned	height;
+	unsigned int	width,height;
+	unsigned int	border_width = 2;
 	int		x = 100, y = 50;
-	unsigned	border_width = 2;
 	XSizeHints	size_hints;
 	XWMHints	wmhints;
 	int		revert_to;
@@ -703,7 +704,7 @@ void dvopen_(int4 *ich)
 	c2 = 1;
 	chkeymode = 1;
 
-        cgamma = 1.0;
+        cgamma = 1;
 	str = getenv("GSGAMMA");
 	if(str)
 		cgamma = atof(str);
@@ -756,11 +757,11 @@ void dvopen_(int4 *ich)
 	
 	v = DefaultVisual(display, DefaultScreen(display));
 	switch(v->class) {
-	case StaticGray  : gray = 1; fullcolor = 0; break;
+	case StaticGray  :
 	case GrayScale   : gray = 1; fullcolor = 0; break;
-	case StaticColor : gray = 0; fullcolor = 0; break;
+	case StaticColor :
 	case PseudoColor : gray = 0; fullcolor = 0; break;
-	case TrueColor   : gray = 0; fullcolor = 1; break;
+	case TrueColor   :
 	case DirectColor : gray = 0; fullcolor = 1; break;
 	}
 	
@@ -828,7 +829,7 @@ void dvopen_(int4 *ich)
 
 	XSelectInput(display,window,StructureNotifyMask);
 	
-	delta = (float)width/(1024*32);
+	delta = (double)width/(1024*32);
 	ymax = height + 1;
 
 	mapped = 0;
@@ -846,7 +847,7 @@ void dvclos(int4 *ich)
 void dvclos_(int4 *ich)
 #endif
 {
-		*ich = 1;
+	*ich = 1;
 	if(rmode) return;
 	if(tmode) return;
 
@@ -858,9 +859,9 @@ void dvclos_(int4 *ich)
 }
 
 #ifndef UNDERSCORE
-void dvoptn(char *kopt,int4 *iopt)
+void dvoptn(const char *kopt,const int4 *iopt)
 #else
-void dvoptn_(char *kopt,int4 *iopt)
+void dvoptn_(const char *kopt,const int4 *iopt)
 #endif
 {
 }
@@ -909,17 +910,19 @@ void dvchmd_(void)
 }
 
 #ifndef UNDERSCORE
-void dvpags(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
+void dvpags(const int4 *npage,const float *sizex,const float *sizey,
+	    const int4 *lkeep)
 #else
-void dvpags_(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
+void dvpags_(const int4 *npage,const float *sizex,const float *sizey,
+	     const int4 *lkeep)
 #endif
 {
-  Window root;
-  int x,y;
-  unsigned int width,height,border_width,depth;
-  float ratio;
-  Status status;
-  int i;
+	Window root;
+	int x,y;
+	unsigned int width,height,border_width,depth;
+	double ratio;
+	Status status;
+	int i;
 
 	if(rmode) return;
 	ilns = -1;
@@ -940,13 +943,14 @@ void dvpags_(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
 	dvgrmd_();
 #endif
 	if(!tmode) {
-		status = XGetGeometry(display,window,&root,&x,&y,&width,&height,
+		status = XGetGeometry(display,window,&root,
+				      &x,&y,&width,&height,
 				      &border_width,&depth);
-		ratio = height / width;
+		ratio = (double)height / width;
 		if (ratio >= 760.0/1024.0)
-			delta = (float)width/(1024*32);
+			delta = (double)width/(1024*32);
 		else
-			delta = (float)height/(760*32);
+			delta = (double)height/(760*32);
 		ymax = height + 1;
 	}
 
@@ -1043,14 +1047,14 @@ void dvgrpe_(void)
 }
 
 #ifndef UNDERSCORE
-void dvtext(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
+void dvtext(const int4 *ix,const int4 *iy,const int4 *iasc,const int4 *nchar)
 #else
-void dvtext_(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
+void dvtext_(const int4 *ix,const int4 *iy,const int4 *iasc,const int4 *nchar)
 #endif
 {
 	int		i,x,y,n;
 	char		s[256];
-	
+
 	if(rmode) return;
 
 	n = *nchar;
@@ -1095,7 +1099,7 @@ static void dvsetdcol(XColor *c)
 			dcol[ndcol] = *c;
 			++ndcol;
 		}
-	}else
+	} else
 		c->pixel = dcol[0].pixel;
 }
 
@@ -1145,12 +1149,12 @@ void dvcrgbx(int4 ir,int4 ig,int4 ib)
 }
 
 #ifndef UNDERSCORE
-void dvstln(int4 *iln,int4 *ibl,int4 *icl)
+void dvstln(const int4 *iln,const int4 *ibl,const int4 *icl)
 #else
-void dvstln_(int4 *iln,int4 *ibl,int4 *icl)
+void dvstln_(const int4 *iln,const int4 *ibl,const int4 *icl)
 #endif
 {
-	unsigned int	line_width;
+	unsigned int		line_width;
 	/*	int			cap_style = CapButt;*/
 	int			cap_style = CapProjecting;
 	int			join_style = JoinMiter;
@@ -1288,24 +1292,24 @@ void dvstln_(int4 *iln,int4 *ibl,int4 *icl)
 
 	if(*icl != -1) {
 		if(gray) {
-		switch(*icl) {
-		case 7: dvcrgbx(0,0,0);
-			break;
-		case 6: dvcrgbx(160,160,160);
-			break;
-		case 5: dvcrgbx(176,176,176);
-			break;
-		case 4: dvcrgbx(192,192,192);
-			break;
-		case 3: dvcrgbx(208,208,208);
-			break;
-		case 2: dvcrgbx(224,224,224);
-			break;
-		case 1: dvcrgbx(240,240,240);
-			break;
-		case 0: dvcrgbx(255,255,255);
-			break;
-		}
+			switch(*icl) {
+			case 7: dvcrgbx(0,0,0);
+				break;
+			case 6: dvcrgbx(160,160,160);
+				break;
+			case 5: dvcrgbx(176,176,176);
+				break;
+			case 4: dvcrgbx(192,192,192);
+				break;
+			case 3: dvcrgbx(208,208,208);
+				break;
+			case 2: dvcrgbx(224,224,224);
+				break;
+			case 1: dvcrgbx(240,240,240);
+				break;
+			case 0: dvcrgbx(255,255,255);
+				break;
+			}
 		} else {
 			switch(*icl) {
 			case 7: dvcrgbx(0,0,0);
@@ -1331,16 +1335,16 @@ void dvstln_(int4 *iln,int4 *ibl,int4 *icl)
 }
 
 #ifndef UNDERSCORE
-void dvlwdt(int4 *iw)
+void dvlwdt(const int4 *iw)
 #else
-void dvlwdt_(int4 *iw)
+void dvlwdt_(const int4 *iw)
 #endif
 {
-        unsigned int	        line_width;
-	/*	int			cap_style = CapButt;*/
-	int			cap_style = CapProjecting;
-	int			join_style = JoinMiter;
-	char			tdata[3];
+	unsigned int	line_width;
+	/*	int		cap_style = CapButt;*/
+	int		cap_style = CapProjecting;
+	int		join_style = JoinMiter;
+	char		tdata[3];
 
         line_width = *iw * delta;
         ibls = -2;
@@ -1368,9 +1372,9 @@ void dvlwdt_(int4 *iw)
 }
 
 #ifndef UNDERSCORE
-void dvcrgb(int4 *ir,int4 *ig,int4 *ib)
+void dvcrgb(const int4 *ir,const int4 *ig,const int4 *ib)
 #else
-void dvcrgb_(int4 *ir,int4 *ig,int4 *ib)
+void dvcrgb_(const int4 *ir,const int4 *ig,const int4 *ib)
 #endif
 {
         icls = -2;
@@ -1381,9 +1385,9 @@ void dvcrgb_(int4 *ir,int4 *ig,int4 *ib)
 }
 
 #ifndef UNDERSCORE
-void dvgcfunc(int4 *id)
+void dvgcfunc(const int4 *id)
 #else
-void dvgcfunc_(int4 *id)
+void dvgcfunc_(const int4 *id)
 #endif
 {
   	int     func;
@@ -1423,9 +1427,11 @@ void dvinfo_(int4 *icells,int4 *iplanes,int4 *idepth,int4 *iwhite,int4 *iblack)
 */
 
 #ifndef UNDERSCORE
-void dvstch(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
+void dvstch(const int4 *ichh,const int4 *ichw,const int4 *ichsp,
+	    const float *angl,const float *tilt,int4 *ind)
 #else
-void dvstch_(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
+void dvstch_(const int4 *ichh,const int4 *ichw,const int4 *ichsp,
+	     const float *angl,const float *tilt,int4 *ind)
 #endif
 {
 	*ind = 0;
@@ -1437,9 +1443,9 @@ void dvstch_(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind
 }
 
 #ifndef UNDERSCORE
-void dvfont(int4 *ifnt,int4 *ind)
+void dvfont(const int4 *ifnt,int4 *ind)
 #else
-void dvfont_(int4 *ifnt,int4 *ind)
+void dvfont_(const int4 *ifnt,int4 *ind)
 #endif
 {
 	*ind = 1;
@@ -1447,9 +1453,11 @@ void dvfont_(int4 *ifnt,int4 *ind)
 
 
 #ifndef UNDERSCORE
-void dvrgbtrg(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
+void dvrgbtrg(const int4 ixn[],const int4 iyn[],
+	      const int4 ir[],const int4 ig[],const int4 ib[])
 #else
-void dvrgbtrg_(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
+void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
+	       const int4 ir[],const int4 ig[],const int4 ib[])
 #endif
 {
 	int		i;
@@ -1477,9 +1485,9 @@ void dvrgbtrg_(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
 		return;
 	}
 
-	red   = (ir[0]+ir[1]+ir[2])/3;
-	green = (ig[0]+ig[1]+ig[2])/3;
-	blue  = (ib[0]+ib[1]+ib[2])/3;
+	red   = (ir[0]+ir[1]+ir[2]+1)/3;
+	green = (ig[0]+ig[1]+ig[2]+1)/3;
+	blue  = (ib[0]+ib[1]+ib[2]+1)/3;
 	dvcrgbx(red,green,blue);
 
         for (i = 0; i < 3; i++) {
@@ -1502,7 +1510,7 @@ int main(void)
 	int4		iln,ibl,icl;
 	int		i;
 	float		angl,tilt;
-	
+
 	dvopen(&ich);
 	lkeep = 0;
 	dvpags(&lkeep);
