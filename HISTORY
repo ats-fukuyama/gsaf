@@ -1,7 +1,8 @@
 $Id$
 
 V3.83
-2004/08/13  SETPAGE rewritten to remove bug (thanks to Mr. Akutsu)
+2004/08/13  SETPAGE rewritten to remove bug (thanks to Mr. T. Akutsu)
+            Definition of charcter tilt changed.
 
 V3.82
 2004/06/18  Makefile.dynamic corrected

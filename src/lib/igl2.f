@@ -14,8 +14,7 @@ C
       INTEGER   INDEX(0:MAXCHR-1),NC1,NC2
       INTEGER*2 BUFFER(MAXBUF)
       COMMON /GSPGC1/ BUFFER,INDEX,NC1,NC2
-      COMMON /GSPGC2/ TFXX,TFXY,TFYX,TFYY,TFLX,TFLY
-      COMMON /GSPGC3/ TFSP,TFSPX,TFSPY
+      COMMON /GSPGC3/ THXX,THYX,THXY,THYY,THSPX,THSPY,THLY
       COMMON /GSAFS1/ SIZEXS,SIZEYS,DSIZE
       COMMON /GSAFFN/ IFNTR,LSOFT
 C
@@ -47,7 +46,7 @@ C      IYMIN=XYGRID(1)
       IXMIN=XYGRID(4)
 C      IXMAX=XYGRID(5)
 C
-      DL=TFLY/(IYMAX-IYBAS)
+      DL=THLY/(IYMAX-IYBAS)
       IF(IND.EQ.0) THEN
          IX0=IXMIN
          IY0=IYBAS
@@ -63,8 +62,8 @@ C
          ELSE
             XF=(XYGRID(I  )-IX0)*DL
             YF=(XYGRID(I+1)-IY0)*DL
-            X=TFXX*XF+TFXY*YF
-            Y=TFYX*XF+TFYY*YF
+            X=THXX*XF+THXY*YF
+            Y=THYX*XF+THYY*YF
             IXT=IX+NINT(X*DSIZE)
             IYT=IY+NINT(Y*DSIZE)
             IF(IXT.LT.0)     IXT=0
@@ -80,8 +79,8 @@ C
          ENDIF
       ENDDO
       CALL GS_GRSIZE(IC,DLX)
-      X=TFXX*DLX+TFSPX*TFSP
-      Y=TFYX*DLX+TFSPY*TFSP
+      X=THXX*DLX+THSPX
+      Y=THYX*DLX+THSPY
       IX=IX+NINT(X*DSIZE)
       IY=IY+NINT(Y*DSIZE)
 C
@@ -98,14 +97,14 @@ C
       INTEGER   INDEX(0:MAXCHR-1),NC1,NC2
       INTEGER*2 BUFFER(MAXBUF)
       COMMON /GSPGC1/ BUFFER,INDEX,NC1,NC2
-      COMMON /GSPGC2/ TFXX,TFXY,TFYX,TFYY,TFLX,TFLY
+      COMMON /GSPGC3/ THXX,THYX,THXY,THYY,THSPX,THSPY,THLY
       COMMON /GSAFS7/ IFNTS
       COMMON /GSAFFW/ IWPSFN(32:127,9) 
 C
       INTEGER XYGRID(5)
 C
       IF(IFNTS.LE.1) THEN
-         DLX=TFLY
+         DLX=THLY
       ELSEIF(IFNTS.LT.32) THEN
          CALL GS_GRCONV(IC,IFNTS,NC)
          IF (NC.LT.NC1.OR.NC.GT.NC2) THEN
@@ -133,7 +132,7 @@ C
                IXMIN=XYGRID(4)
                IXMAX=XYGRID(5)
 C     
-               DL=TFLY/(IYMAX-IYBAS)
+               DL=THLY/(IYMAX-IYBAS)
                DLX=(IXMAX-IXMIN)*DL
             ENDIF
          ENDIF
@@ -143,12 +142,12 @@ C
          ELSE
             IF(IFNTS.LT.40) THEN
                ID=IFNTS-31
-               DLX=IWPSFN(IC,ID)/600.0*TFLY*(8.0/9.0)
+               DLX=IWPSFN(IC,ID)/600.0*THLY*(8.0/9.0)
             ELSEIF(IFNTS.LT.44) THEN
-               DLX=TFLY
+               DLX=THLY
             ELSE
                ID=IFNTS-35
-               DLX=IWPSFN(IC,ID)/600.0*TFLY*(8.0/9.0)
+               DLX=IWPSFN(IC,ID)/600.0*THLY*(8.0/9.0)
             ENDIF
          ENDIF
       ELSE
