@@ -16,7 +16,7 @@ tests : libs
 	(cd test; make)
 
 clean :
-	rm -f *.o ./*~ ./#*# core*
+	rm -f ./*~
 	(cd lib; make clean)
 	(cd bin; make clean)
 	(cd test; make clean)

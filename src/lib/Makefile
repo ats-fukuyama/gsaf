@@ -143,7 +143,7 @@ installplot : libplot$(SL)
 	$(LDX) $(LIBPATH)/libplot$(SL)
 
 clean :
-	rm -f *.o ./*~ ./#*# core
+	rm -f *.o ./*~ ./#*# core*
 
 veryclean : clean
 	rm -f *$(SL) 

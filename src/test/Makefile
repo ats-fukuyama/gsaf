@@ -59,7 +59,7 @@ gdumtest : gdumtest.o $(GDUMLIBSX)
 	$(FC) $(FFLAGS) -o gdumtest gdumtest.o $(GDUMLIBS)
 
 clean :
-	rm -f *.o ./*~ ./#*# core
+	rm -f *.o ./*~ ./#*# core*
 
 veryclean : clean
 	rm -f *test

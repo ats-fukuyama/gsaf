@@ -2,7 +2,7 @@
 default :
 	@echo "*** make in the directory src, not here ***"
 	@echo "   cd src"
-	@echo "   cp ../arch/????/Makefile ."
+	@echo "   cp ../arch/????/Makefile.arch ."
 	@echo "   make"
 
 clean:
@@ -20,8 +20,7 @@ veryclean:
 new: veryclean
 	-mkdir ../gsafnew
 	cp -Rf src ../gsafnew
-	-rm ../gsafnew/src/igl3.o
-	-rm ../gsafnew/src/Makefile
+	-rm ../gsafnew/src/Makefile.arch
 	cp -Rf doc ../gsafnew
 	cp -Rf arch ../gsafnew
 	cp -Rf contrib ../gsafnew

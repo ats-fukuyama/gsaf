@@ -50,7 +50,7 @@ install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gsprint gs
 	ln $(BINPATH)/gsview $(BINPATH)/gstops
 
 clean :
-	rm -f *.o ./*~ ./#*# core
+	rm -f *.o ./*~ ./#*# core*
 	-rm -f $(FC)g $(FC)gdum
 
 veryclean : clean
