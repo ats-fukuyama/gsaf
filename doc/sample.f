@@ -1,3 +1,4 @@
+C     $Id$
       IMPLICIT REAL*8 (A-F,H,O-Z)
       PARAMETER (NXM=101)
       DIMENSION GX(NXM),GY(NXM,2)

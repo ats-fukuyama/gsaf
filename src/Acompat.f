@@ -1,3 +1,4 @@
+C     $Id$
       SUBROUTINE ANIMES
       RETURN
       END

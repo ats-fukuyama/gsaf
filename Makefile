@@ -1,3 +1,4 @@
+### $Id$ ###
 default :
 	@echo "*** make in the directory src, not here ***"
 	@echo "   cd src"

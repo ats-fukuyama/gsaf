@@ -1,6 +1,4 @@
-*
-*#RUNH:FDS FLTCHK;
-*#      L=JGFYYV0111/GP/GSP L=JGFYYV0111/GP/GDP
+C     $Id$
 C
       IMPLICIT REAL * 4  ( A - H , O - Z )
       PARAMETER  ( PI = 3.141596 )

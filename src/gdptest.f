@@ -1,3 +1,4 @@
+C     $Id$
 C
 C     ****** TEST PROGRAM FOR GSAF BSC2 ******
 C

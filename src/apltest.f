@@ -1,5 +1,4 @@
-*
-*#RUN :FDS FLTCHK L=/GP/GSP L=/GP/GDP
+C     $Id$
 C
       DIMENSION X(51),Y(51)
 C

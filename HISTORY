@@ -1,4 +1,8 @@
-3.78
+$Id$
+
+2004/05/01  cvs
+
+V3.78
 2003/10/11  bsc1.f
                 GS_OPENX defined for device number conflict
             linux-pgf, linux-ifc

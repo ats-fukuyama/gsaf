@@ -1,3 +1,4 @@
+C     $Id$C
 C
 C     ****** SET EVENT_MASK TYPE ******
 C

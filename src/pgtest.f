@@ -1,3 +1,4 @@
+C     $Id$
 C
       DIMENSION ND1(10),ND2(10),ND3(4)
       DATA ND1/0, 2, 3, 4, 5, 6, 7, 8, 9,10/

@@ -1,3 +1,4 @@
+C     $Id$
 C
 C     ****** READ GRAPHIC DATA FILE ******
 C

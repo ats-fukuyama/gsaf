@@ -1,3 +1,4 @@
+C     $Id$
 C
 C     SAMPLE PROGRAM
 C

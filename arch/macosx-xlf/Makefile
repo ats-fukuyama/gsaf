@@ -1,4 +1,4 @@
-#
+### $Id$ ####
 # Make for gsaf : V3.80 for macosx-xlf [2003/08/31]
 #################################################################
 #        You have to set LD_LIBRARY_PATH=./$(LIBPATH).          #

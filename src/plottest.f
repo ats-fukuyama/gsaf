@@ -1,5 +1,4 @@
-*
-*#RUN:OPT=2 L=/GP/PLOT L=/GP/GSP L=/GP/GDP
+C     $Id$
 C
       DIMENSION XA(33),YA(33)
 C

@@ -1,4 +1,4 @@
-#
+### $Id$ ####
 # Make for gsaf : V3.80 for Linux-pgf77 [2001/10/24]
 #################################################################
 #        You have to set LD_LIBRARY_PATH=./$(LIBPATH).          #

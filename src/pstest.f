@@ -1,3 +1,4 @@
+C     $Id$
 C
       DIMENSION ND3(4)
       DATA ND3/32,33,36,40/

@@ -1,3 +1,4 @@
+/* $Id$ */
 /* 
    GSAF printer driver for LIPS III
    Version V3.51  1999/07/27 
