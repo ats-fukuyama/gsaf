@@ -1,4 +1,10 @@
 $Id$
+
+V3.88
+2004/12/17  Error of color at font-change in TEXT corrected 
+                                                 (thanks to Mr. Akutsu)
+            Slight change of functions of SETLIN and SETRGB
+
 2004/12/10  arch/itbl added
 
 V3.87

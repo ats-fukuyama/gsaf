@@ -15,13 +15,12 @@ LIBPATH=$(HOMEPATH)/lib
 
 # Compiler command
 
-#FC=frt
-FC=f77
-CC=cc
+FC=frt
+CC=fcc
 
 # Compile flags
 
-FLFLAGS=-O -Kpic
+FLFLAGS=-O2 -Kpic
 CLFLAGS=-O -Kpic -DUNDERSCORE
 FFLAGS=-O
 CFLAGS=-O -DUNDERSCORE
@@ -35,7 +34,7 @@ LDFLAGS=-G -o
 # Library extension
 
 LIB-SUFFIX=
-SL=$(LIB-SUFFIX).so
+SL=$(LIB-SUFFIX).a
 
 # X library path
 
