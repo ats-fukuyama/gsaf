@@ -1,4 +1,7 @@
-/* $Id$ */
+/* $Id$
+ * PostScript driver
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -34,18 +37,46 @@ extern char *getenv();
 #define MAX_STR	256
 #define MAX_FUSED	13
 
-static float		xpos,ypos;
-static float		delta;
-static float		dxch,dych,fxxch,fyxch,fxych,fyych;
-static float		lwidth,cred,cgreen,cblue,cblack;
+static double		xpos,ypos;
+static double		delta;
+static double		dxch,dych,fxxch,fyxch,fxych,fyych;
+static double		lwidth,cred,cgreen,cblue,cblack;
 static int		imv,ilns,ifont,ifused[MAX_FUSED];
-static float		dchs,dchss,dchsp;
+static double		dchs,dchss,dchsp;
 static char		file_basename[MAX_STR];
 static char		filename_tail[MAX_STR];
 static FILE		*psfile;
 static int		interactive,istart,iend,inum,ititle,irotate,icolor;
 static int		psmode,igouraud,ipage;
 static double		cgamma;
+static const char 	*fontname[MAX_FUSED]={
+	"Times-Roman ","Times-Italic ","Times-Bold ","Times-BoldItalic ",
+	"Helvetica ","Helvetica-Oblique ","Helvetica-Bold ","Helvetica-BoldOblique ",
+	"Courier ","Courier-Oblique ","Courier-Bold ","Courier-BoldOblique ",
+	"Symbol"
+};
+
+static void getposition(int4 xin,int4 yin,double *xout,double *yout)
+{
+	if (! irotate) {
+		*xout = 570 - yin*delta;
+		*yout = xin*delta + 56;
+	} else {
+		*xout = xin*delta + 56;
+		*yout = yin*delta + 56;
+	}
+}
+
+static void getpositioninv(double xin,double yin,int4 *xout,int4 *yout)
+{
+	if (! irotate) {
+		*xout = (yin - 56)/delta;
+		*yout = (570 - xin)/delta;
+	} else {
+		*xout = (xin - 56)/delta;
+		*yout = (yin - 56)/delta;
+	}
+}
 
 static void dvheader(int4 npage)
 {
@@ -69,7 +100,7 @@ static void dvheader(int4 npage)
 		psfile = fopen(filename,"w");
 		fprintf(psfile,"%%!PS-Adobe-2.0 EPSF-1.2\n");
 	}
-	fprintf(psfile,"%%%%Creator: GSAF gps.c V3.86\n");
+	fprintf(psfile,"%%%%Creator: GSAF gps.c V3.89\n");
 	sprintf(filename,"%s#%d",file_basename,(int)npage);
 	fprintf(psfile,"%%%%Title: (%s)\n",filename);
 	nseconds = time(NULL);
@@ -95,11 +126,8 @@ static void dvheader(int4 npage)
 		printf("file gsaf_header1.ps cannot be found.\n");
 		exit(0);
 	}
-	fgets(buffer,MAX_STR,hdfile);
- 	while(!feof(hdfile)){
+ 	while(fgets(buffer,MAX_STR,hdfile))
 		fputs(buffer,psfile);
-		fgets(buffer,MAX_STR,hdfile);
-	}
 	fclose(hdfile);
 
 	if (igouraud == 1) {
@@ -109,11 +137,8 @@ static void dvheader(int4 npage)
 			printf("file gsaf_header2.ps cannot be found.\n");
 			exit(0);
 		}
-		fgets(buffer,MAX_STR,hdfile);
-		while(!feof(hdfile)){
+		while(fgets(buffer,MAX_STR,hdfile))
 			fputs(buffer,psfile);
-			fgets(buffer,MAX_STR,hdfile);
-		}
 		fclose(hdfile);
 	}
 
@@ -123,21 +148,14 @@ static void dvheader(int4 npage)
 
 static void dvtrailer(int4 ipage)
 {
+	int i;
+
 	fprintf(psfile,"%%%%Trailer\n");
 	fprintf(psfile,"%%%%DocumentFonts: ");
-	if (ifused[0]) fprintf(psfile,"Times-Roman ");
-	if (ifused[1]) fprintf(psfile,"Times-Italic ");
-	if (ifused[2]) fprintf(psfile,"Times-Bold ");
-	if (ifused[3]) fprintf(psfile,"Times-BoldItalic ");
-	if (ifused[4]) fprintf(psfile,"Helvetica ");
-	if (ifused[5]) fprintf(psfile,"Helvetica-Oblique ");
-	if (ifused[6]) fprintf(psfile,"Helvetica-Bold ");
-	if (ifused[7]) fprintf(psfile,"Helvetica-BoldOblique ");
-	if (ifused[8]) fprintf(psfile,"Courier ");
-	if (ifused[9]) fprintf(psfile,"Courier-Oblique ");
-	if (ifused[10]) fprintf(psfile,"Courier-Bold ");
-	if (ifused[11]) fprintf(psfile,"Courier-BoldOblique ");
-	if (ifused[12]) fprintf(psfile,"Symbol ");
+	for (i=0;i<MAX_FUSED;i++) {
+		if(ifused[i])
+			fprintf(psfile,fontname[i]);
+	}
 	fprintf(psfile,"\n");
 
 	fprintf(psfile,"%%%%Pages: %d\n",(int)ipage);
@@ -150,73 +168,81 @@ static void dvcolor(int ind)
 /* move, draw */
 	case 0:
 		if (icolor == 2) {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
+/*			fprintf(psfile,"%1.3f G\n",1-cblack);*/
 			fprintf(psfile,"%1.3f %1.3f %1.3f 0 K\n",
-				1.0-cred,1.0-cgreen,1.0-cblue);
+				1-cred,1-cgreen,1-cblue);
 		} else if (icolor == 0) {
 			fprintf(psfile,"0 G\n");
-			fprintf(psfile,"0 0 0 1 K\n");
+/*			fprintf(psfile,"0 0 0 1 K\n");*/
 		} else {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
-			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);
+			fprintf(psfile,"%1.3f G\n",1-cblack);
+/*			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);*/
 		}
 		break;
 /* lines */
 	case 1:
 		if (icolor == 2) {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
+/*			fprintf(psfile,"%1.3f G\n",1-cblack);*/
 			fprintf(psfile,"%1.3f %1.3f %1.3f 0 K\n",
-				1.0-cred,1.0-cgreen,1.0-cblue);
+				1-cred,1-cgreen,1-cblue);
 			fprintf(psfile,"1 g\n");
-			fprintf(psfile,"0 0 0 0 k\n");
+/*			fprintf(psfile,"0 0 0 0 k\n");*/
 		} else if (icolor == 0) {
 			fprintf(psfile,"0 G\n");
-			fprintf(psfile,"0 0 0 1 K\n");
+/*			fprintf(psfile,"0 0 0 1 K\n");*/
 			fprintf(psfile,"1 g\n");
-			fprintf(psfile,"0 0 0 0 k\n");
+/*			fprintf(psfile,"0 0 0 0 k\n");*/
 		} else {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
-			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);
+			fprintf(psfile,"%1.3f G\n",1-cblack);
+/*			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);*/
 			fprintf(psfile,"1 g\n");
-			fprintf(psfile,"0 0 0 0 k\n");
+/*			fprintf(psfile,"0 0 0 0 k\n");*/
 		}
 		break;
 /* polygon */
 	case 2:
 		if (icolor == 2) {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
+/*			fprintf(psfile,"%1.3f G\n",1-cblack);*/
 			fprintf(psfile,"%1.3f %1.3f %1.3f 0 K\n",
-				1.0-cred,1.0-cgreen,1.0-cblue);
-			fprintf(psfile,"%1.3f g\n",1.0-cblack);
+				1-cred,1-cgreen,1-cblue);
+/*			fprintf(psfile,"%1.3f g\n",1-cblack);*/
 			fprintf(psfile,"%1.3f %1.3f %1.3f 0 k\n",
-				1.0-cred,1.0-cgreen,1.0-cblue);
+				1-cred,1-cgreen,1-cblue);
 		} else if (icolor == 0) {
 			fprintf(psfile,"0 G\n");
-			fprintf(psfile,"0 0 0 1 K\n");
+/*			fprintf(psfile,"0 0 0 1 K\n");*/
 			fprintf(psfile,"0 g\n");
-			fprintf(psfile,"0 0 0 1 k\n");
+/*			fprintf(psfile,"0 0 0 1 k\n");*/
 		} else {
-			fprintf(psfile,"%1.3f G\n",1.0-cblack);
-			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);
-			fprintf(psfile,"%1.3f g\n",1.0-cblack);
-			fprintf(psfile,"0 0 0 %1.3f k\n",cblack);
+			fprintf(psfile,"%1.3f G\n",1-cblack);
+/*			fprintf(psfile,"0 0 0 %1.3f K\n",cblack);*/
+			fprintf(psfile,"%1.3f g\n",1-cblack);
+/*			fprintf(psfile,"0 0 0 %1.3f k\n",cblack);*/
 		}
 		break;
 /* text */
 	case 3:
 		if (icolor == 2) {
-			fprintf(psfile,"%1.3f g\n",1.0-cblack);
+/*			fprintf(psfile,"%1.3f g\n",1-cblack);*/
 			fprintf(psfile,"%1.3f %1.3f %1.3f 0 k\n",
-				1.0-cred,1.0-cgreen,1.0-cblue);
+				1-cred,1-cgreen,1-cblue);
 		} else if (icolor == 0) {
 			fprintf(psfile,"0 g\n");
-			fprintf(psfile,"0 0 0 1 k\n");
+/*			fprintf(psfile,"0 0 0 1 k\n");*/
 		} else {
-			fprintf(psfile,"%1.3f g\n",1.0-cblack);
-			fprintf(psfile,"0 0 0 %1.3f k\n",cblack);
+			fprintf(psfile,"%1.3f g\n",1-cblack);
+/*			fprintf(psfile,"0 0 0 %1.3f k\n",cblack);*/
 		}
 		break;
 	}
+}
+
+static double cconv(double c)
+{
+	if (cgamma != 1 && cgamma > 0)
+		return pow(c/255.0, 1/cgamma);
+	else
+		return c/255.0;
 }
 
 #ifndef UNDERSCORE
@@ -294,17 +320,17 @@ void dvclos_(int4 *ich)
 }
 
 #ifndef UNDERSCORE
-void dvoptn(char *kopt,int4 *iopt)
+void dvoptn(const char *kopt,const int4 *iopt)
 #else
-void dvoptn_(char *kopt,int4 *iopt)
+void dvoptn_(const char *kopt,const int4 *iopt)
 #endif
 {
 }
 
 #ifndef UNDERSCORE
-void dvpags(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
+void dvpags(const int4 *npage,const float *sizex,const float *sizey,const int4 *lkeep)
 #else
-void dvpags_(int4 *npage,float *sizex,float *sizey,int4 *lkeep)
+void dvpags_(const int4 *npage,const float *sizex,const float *sizey,const int4 *lkeep)
 #endif
 {
 	ipage=ipage+1;
@@ -360,9 +386,9 @@ void dvgrpe_(void)
 
 
 #ifndef UNDERSCORE
-void dvmove(int4 *ix,int4 *iy)
+void dvmove(const int4 *ix,const int4 *iy)
 #else
-void dvmove_(int4 *ix,int4 *iy)
+void dvmove_(const int4 *ix,const int4 *iy)
 #endif
 {
 	if (imv)
@@ -371,22 +397,15 @@ void dvmove_(int4 *ix,int4 *iy)
 	fprintf(psfile,"%1.3f w\n",lwidth);
 	dvcolor(0);
 
-	if (! irotate) {
-		xpos = 570 - *iy * delta;
-		ypos = *ix * delta + 56;
-	} else {
-		xpos = *ix * delta + 56;
-		ypos = *iy * delta + 56;
-	}
-
+	getposition(*ix,*iy,&xpos,&ypos);
 	fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
 	imv = 1;
 }
 
 #ifndef UNDERSCORE
-void dvdraw(int4 *ix,int4 *iy)
+void dvdraw(const int4 *ix,const int4 *iy)
 #else
-void dvdraw_(int4 *ix,int4 *iy)
+void dvdraw_(const int4 *ix,const int4 *iy)
 #endif
 {
 	if (!imv) {
@@ -397,21 +416,14 @@ void dvdraw_(int4 *ix,int4 *iy)
 		imv = 1;
 	}
 
-	if (! irotate) {
-		xpos = 570 - *iy * delta;
-		ypos = *ix * delta + 56;
-	} else {
-		xpos = *ix * delta + 56;
-		ypos = *iy * delta + 56;
-	}
-
+	getposition(*ix,*iy,&xpos,&ypos);
 	fprintf(psfile,"%1.3f %1.3f L\n",xpos,ypos);
 }
 
 #ifndef UNDERSCORE
-void dvlins(int4 ixn[],int4 iyn[],int4 *np)
+void dvlins(const int4 ixn[],const int4 iyn[],const int4 *np)
 #else
-void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
+void dvlins_(const int4 ixn[],const int4 iyn[],const int4 *np)
 #endif
 {
 	int		i;
@@ -423,13 +435,7 @@ void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
 	dvcolor(1);
 
 	for (i = 0; i < *np; i++) {
-		if (! irotate) {
-			xpos = 570 - iyn[i] * delta;
-			ypos = ixn[i] * delta + 56;
-		} else {
-			xpos = ixn[i] * delta + 56;
-			ypos = iyn[i] * delta + 56;
-		}
+		getposition(ixn[i],iyn[i],&xpos,&ypos);
 		if (i == 0)
 			fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
 		else
@@ -444,9 +450,9 @@ void dvlins_(int4 ixn[],int4 iyn[],int4 *np)
 }
 
 #ifndef UNDERSCORE
-void dvpoly(int4 ixn[],int4 iyn[],int4 *np)
+void dvpoly(const int4 ixn[],const int4 iyn[],const int4 *np)
 #else
-void dvpoly_(int4 ixn[],int4 iyn[],int4 *np)
+void dvpoly_(const int4 ixn[],const int4 iyn[],const int4 *np)
 #endif
 {
 	int		i;
@@ -458,34 +464,20 @@ void dvpoly_(int4 ixn[],int4 iyn[],int4 *np)
 	dvcolor(2);
 
 	for (i = 0; i < *np; i++) {
-		if (! irotate) {
-			xpos = 570 - iyn[i] * delta;
-			ypos = ixn[i] * delta + 56;
-		} else {
-			xpos = ixn[i] * delta + 56;
-			ypos = iyn[i] * delta + 56;
-		}
+		getposition(ixn[i],iyn[i],&xpos,&ypos);
 		if (i == 0)
 			fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
 		else
 			fprintf(psfile,"%1.3f %1.3f L\n",xpos,ypos);
 	}
-	fprintf(psfile,"b\n");
+	fprintf(psfile,"f\n");
 	imv = 0;
 }
 
-static double cconv(double c)
-{
-	if (cgamma != 1 && cgamma > 0)
-		return pow(c/255.0, 1/cgamma);
-	else
-		return c/255.0;
-}
-
 #ifndef UNDERSCORE
-void dvcrgb(int4 *ir,int4 *ig,int4 *ib)
+void dvcrgb(const int4 *ir,const int4 *ig,const int4 *ib)
 #else
-void dvcrgb_(int4 *ir,int4 *ig,int4 *ib)
+void dvcrgb_(const int4 *ir,const int4 *ig,const int4 *ib)
 #endif
 {
 	cred   = cconv(*ir);
@@ -500,38 +492,36 @@ void dvcrgb_(int4 *ir,int4 *ig,int4 *ib)
 }
 
 #ifndef UNDERSCORE
-void dvrgbtrg(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
+void dvrgbtrg(const int4 ixn[],const int4 iyn[],
+	      const int4 ir[],const int4 ig[],const int4 ib[])
 #else
-void dvrgbtrg_(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
+void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
+	       const int4 ir[],const int4 ig[],const int4 ib[])
 #endif
 {
 	if (igouraud == 1) {
 		int	i;
-		int	smooth;
+/*		int	smooth;*/
 		int4	ired,igreen,iblue;
 		int4	ixtmp[3],iytmp[3];
 
-		smooth=0;
+/*		smooth=0;*/
 		ired=ir[0]; igreen=ig[0]; iblue=ib[0];
 
-		for (i = 1; i < 3; i++) {
+/*		for (i = 1; i < 3; i++) {
 			if (ired != ir[i] || igreen != ig[i] || iblue != ib[i]) {
 				smooth = 1;
 				break;
 			}
 		}
+ */
 		for (i = 0; i < 3; i++) {
-			if (! irotate) {
-				ixtmp[i] = 570 - iyn[i] * delta;
-				iytmp[i] = ixn[i] * delta + 56;
-			} else {
-				ixtmp[i] = ixn[i] * delta + 56;
-				iytmp[i] = iyn[i] * delta + 56;
-			}
+			getposition(ixn[i],iyn[i],&xpos,&ypos);
+			ixtmp[i] = (int4)floor(xpos+0.5);
+			iytmp[i] = (int4)floor(ypos+0.5);
 		}
 		xpos=ixtmp[2]; ypos=iytmp[2];
-	
-	
+
 		if (imv)
 			fprintf(psfile,"S\n");
 		fprintf(psfile,"%% gouraudtriangle\n");
@@ -566,60 +556,34 @@ void dvrgbtrg_(int4 ixn[],int4 iyn[],int4 ir[],int4 ig[],int4 ib[])
 		dvcolor(2);
 
 		for (i = 0; i < 3; i++) {
-			if (! irotate) {
-				xpos = 570 - iyn[i] * delta;
-				ypos = ixn[i] * delta + 56;
-			} else {
-				xpos = ixn[i] * delta + 56;
-				ypos = iyn[i] * delta + 56;
-			}
+			getposition(ixn[i],iyn[i],&xpos,&ypos);
 			if (i == 0)
 				fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
 			else
 				fprintf(psfile,"%1.3f %1.3f L\n",xpos,ypos);
 		}
-		fprintf(psfile,"b\n");
+		fprintf(psfile,"f\n");
 		imv = 0;
 	}
 }
 
 
 #ifndef UNDERSCORE
-void dvtext(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
+void dvtext(const int4 *ix,const int4 *iy,const int4 *iasc,const int4 *nchar)
 #else
-void dvtext_(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
+void dvtext_(const int4 *ix,const int4 *iy,const int4 *iasc,const int4 *nchar)
 #endif
 {
-	int		i;
-	
+	int i;
+
 	if (imv)
 		fprintf(psfile,"S\n");
 
-	if (! irotate) {
-		xpos = 570 - *iy * delta;
-		ypos = *ix * delta + 56;
-	} else {
-		xpos = *ix * delta + 56;
-		ypos = *iy * delta + 56;
-	}
+	getposition(*ix,*iy,&xpos,&ypos);
 
 	fprintf(psfile,"u\n");
 	dvcolor(3);
-	switch(ifont) {
-	case  0: fprintf(psfile,"/Times-Roman %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  1: fprintf(psfile,"/Times-Italic %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  2: fprintf(psfile,"/Times-Bold %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  3: fprintf(psfile,"/Times-BoldItalic %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  4: fprintf(psfile,"/Helvetica %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  5: fprintf(psfile,"/Helvetica-Oblique %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  6: fprintf(psfile,"/Helvetica-Bold %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  7: fprintf(psfile,"/Helvetica-BoldOblique %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  8: fprintf(psfile,"/Courier %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case  9: fprintf(psfile,"/Courier-Oblique %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case 10: fprintf(psfile,"/Courier-Bold %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case 11: fprintf(psfile,"/Courier-BoldOblique %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	case 12: fprintf(psfile,"/Symbol %f %f %f 0 z\n",dchs,dchss,dchsp); break;
-	}
+	fprintf(psfile,"/%s%f %f %f 0 z\n",fontname[ifont],dchs,dchss,dchsp);
 	fprintf(psfile,"[%1.3f %1.3f %1.3f %1.3f %1.3f %1.3f ] e\n(",
 		fxxch,fyxch,fxych,fyych,xpos,ypos);
 	for(i=0; i<*nchar; i++) {
@@ -643,11 +607,10 @@ void dvtext_(int4 *ix,int4 *iy,int4 *iasc,int4 *nchar)
 }
 
 #ifndef UNDERSCORE
-void dvstln(iln,ibl,icl)
+void dvstln(const int4 *iln,const int4 *ibl,const int4 *icl)
 #else
-void dvstln_(iln,ibl,icl)
+void dvstln_(const int4 *iln,const int4 *ibl,const int4 *icl)
 #endif
-int4		*iln,*ibl,*icl;
 {
 	if (*iln != -1)
 		ilns = *iln;
@@ -659,17 +622,17 @@ int4		*iln,*ibl,*icl;
 	}
 	if (*icl != -1) {
 		switch(*icl) { 
-		case 7: cred = 0.0; cgreen = 0.0; cblue = 0.0; break;
-		case 5: cred = 0.0; cgreen = 0.0; cblue = 1.0; break;
-		case 6: cred = 1.0; cgreen = 0.0; cblue = 0.0; break;
-		case 3: cred = 1.0; cgreen = 0.0; cblue = 1.0; break;
-		case 4: cred = 0.0; cgreen = 1.0; cblue = 0.0; break;
-		case 1: cred = 0.0; cgreen = 1.0; cblue = 1.0; break;
-		case 2: cred = 1.0; cgreen = 1.0; cblue = 0.0; break;
-		case 0: cred = 1.0; cgreen = 1.0; cblue = 1.0; break;
+		case 7: cred = 0; cgreen = 0; cblue = 0; break;
+		case 5: cred = 0; cgreen = 0; cblue = 1; break;
+		case 6: cred = 1; cgreen = 0; cblue = 0; break;
+		case 3: cred = 1; cgreen = 0; cblue = 1; break;
+		case 4: cred = 0; cgreen = 1; cblue = 0; break;
+		case 1: cred = 0; cgreen = 1; cblue = 1; break;
+		case 2: cred = 1; cgreen = 1; cblue = 0; break;
+		case 0: cred = 1; cgreen = 1; cblue = 1; break;
 		}
 		/* ? */
-		/* cblack = 1.0 - (0.15 * cblue + 0.30 * cred + 0.55 * cgreen); */
+		/* cblack = 1 - (0.15 * cblue + 0.30 * cred + 0.55 * cgreen); */
 		/* ITU-R BT.601-2 (NTSC) */
 		/* cblack = 1 - (0.299 * cred + 0.587 * cgreen + 0.114 * cblue); */
 		/* ITU-R BT.709 (sRGB) */
@@ -678,19 +641,20 @@ int4		*iln,*ibl,*icl;
 }
 
 #ifndef UNDERSCORE
-void dvlwdt(iw)
+void dvlwdt(const int4 *iw)
 #else
-void dvlwdt_(iw)
+void dvlwdt_(const int4 *iw)
 #endif
-int4		*iw;
 {
 	lwidth = *iw * delta;
 }
 
 #ifndef UNDERSCORE
-void dvstch(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
+void dvstch(const int4 *ichh,const int4 *ichw,const int4 *ichsp,
+	    const float *angl,const float *tilt,int4 *ind)
 #else
-void dvstch_(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind)
+void dvstch_(const int4 *ichh,const int4 *ichw,const int4 *ichsp,
+	     const float *angl,const float *tilt,int4 *ind)
 #endif
 {
 	int		jchh,jchw;
@@ -734,9 +698,9 @@ void dvstch_(int4 *ichh,int4 *ichw,int4 *ichsp,float *angl,float *tilt,int4 *ind
 }
 
 #ifndef UNDERSCORE
-void dvfont(int4 *ifnt,int4 *ind)
+void dvfont(const int4 *ifnt,int4 *ind)
 #else
-void dvfont_(int4 *ifnt,int4 *ind)
+void dvfont_(const int4 *ifnt,int4 *ind)
 #endif
 {
 	if (*ifnt == 0) {
@@ -754,7 +718,7 @@ void dvfont_(int4 *ifnt,int4 *ind)
 #ifndef UNDERSCORE
 void dvchin(int4 *iasc,int4 *nchar)
 #else
-void dvchin_(int4 *iasc,int4 *nchar)
+void dvchin_(int4 *iasc,const int4 *nchar)
 #endif
 {
 	int		i;
@@ -769,19 +733,13 @@ void dvxyin(int4 *ix,int4 *iy)
 void dvxyin_(int4 *ix,int4 *iy)
 #endif
 {
-	if (! irotate) {
-		*iy = (570 - xpos) / delta;
-		*ix = (ypos - 56) / delta;
-	} else {
-		*ix = (xpos - 56) / delta;
-		*iy = (ypos - 56) / delta;
-	}
+	getpositioninv(xpos,ypos,ix,iy);
 }
 
 #ifndef UNDERSCORE
-void dvsetv(int4 *id)
+void dvsetv(const int4 *id)
 #else
-void dvsetv_(int4 *id)
+void dvsetv_(const int4 *id)
 #endif
 {
 }
@@ -848,9 +806,9 @@ void dvsync_(void)
 }
 
 #ifndef UNDERSCORE
-void dvgcfunc(int4 *id)
+void dvgcfunc(const int4 *id)
 #else
-void dvgcfunc_(int4 *id)
+void dvgcfunc_(const int4 *id)
 #endif
 {
 }
