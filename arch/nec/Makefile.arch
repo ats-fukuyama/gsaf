@@ -1,0 +1,55 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for NEC EWS RISC [2004/05/03]
+#################################################################
+#
+# Default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
+
+# Home install path
+
+#HOMEPATH=/SOFT/uhome/user/jgfv0111
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=f77
+CC=cc
+
+# Compile flags
+
+FLFLAGS=-O -G
+CLFLAGS=-O -G -DUNDERSCORE
+FFLAGS=-O
+CFLAGS=-O -DUNDERSCORE
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-G -o
+
+# Library extension
+
+LIB-SUFFIX=
+SL=$(LIB-SUFFIX).so
+
+# X library path
+
+XINCPATH=/usr/include/X11R5
+XLIBPATH=/usr/lib
+XLIBS=$(XLIBPATH)/libX11$(SL).1 \
+      $(XLIBPATH)/libsocket$(SL) \
+      $(XLIBPATH)/libnsl$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lp -opure
+
+include ../Makefile.dynamic

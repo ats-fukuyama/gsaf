@@ -1,0 +1,54 @@
+### $Id$ ####
+# Make for gsaf : V3.80 for DEC ALPHA OSF static [2004/05/03]
+#################################################################
+
+# default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
+
+# home install path
+
+#HOMEPATH=/home/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=f77
+CC=cc
+
+# Compile flags
+
+FLFLAGS=-O -fpe1
+CLFLAGS=-O -DUNDERSCORE -DLONGINT
+FFLAGS=-O -fpe1
+CFLAGS=-O -DUNDERSCORE -DLONGINT
+
+# Make library command and options
+
+LD=ar
+LDX=ranlib
+LDFLAGS=ru
+
+# Library extension
+
+LIB-SUFFIX=
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/usr/include/X11
+XLIBPATH=/usr/lib
+XLIBS=$(XLIBPATH)/libX11$(SL) /usr/lib/libdnet_stub.a
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.static
+
