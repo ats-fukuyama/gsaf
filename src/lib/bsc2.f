@@ -762,11 +762,11 @@ C
 C
       IF(.NOT.LPAGE) RETURN
 C
-C      IF(W.LT.0.0) THEN
-C         I=IBLS
-C         CALL SETLIN(-1,I,-1)
-C         RETURN
-C      ENDIF
+      IF(W.LT.0.0) THEN
+         I=IBLS
+         CALL SETLIN(-1,I,-1)
+         RETURN
+      ENDIF
 C
       IW=NINT(MIN(W*XDEL,W*YDEL))
       CALL DVLWDT(IW)
@@ -800,11 +800,11 @@ C
 C
       IF(.NOT.LPAGE) RETURN
 C
-C      IF(R.LT.0.0) THEN
-C         I=ICLS
-C         CALL SETLIN(-1,-1,I)
-C         RETURN
-C      ENDIF
+      IF(R.LT.0.0) THEN
+         I=ICLS
+         CALL SETLIN(-1,-1,I)
+         RETURN
+      ENDIF
 C
       IR=NINT(R*255)
       IF(IR.LT.0) THEN

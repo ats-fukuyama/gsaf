@@ -162,7 +162,7 @@ C
       ENDIF
       CALL GUTIME(T)
       IF(ICH.NE.0) WRITE(6,601) T-TOPEN
-  601 FORMAT(1H ,'# GSAF V3.87 : ',
+  601 FORMAT(1H ,'# GSAF V3.88 : ',
      &           'Copyright (C) 1983-2004 A. Fukuyama and T. Akutsu'/
      &       1H ,'#              CLOSED.  USED CPU TIME =',
      &           F10.3,' SEC')
@@ -1082,8 +1082,8 @@ C
          RS=-1.0
          ICLS=ICL
       ENDIF
-      CALL DVSTLN(ILNS,IBLS,ICLS)
-      IF(LFIL) CALL BUFFST(1,ILNS,IBLS,ICLS,0.0,0.0)
+      CALL DVSTLN(ILN,IBL,ICL)
+      IF(LFIL) CALL BUFFST(1,ILN,IBL,ICL,0.0,0.0)
       RETURN
       END
 C

@@ -54,4 +54,4 @@ clean :
 	-rm -f $(FC)g $(FC)gdum
 
 veryclean : clean
-	rm -f *$(SL) *test gsview *.slave gsprint $(FC)g $(FC)gdum gsdata*
+	rm -f *$(SL) *test gsview *.slave gsprint *g *gdum gsdata*

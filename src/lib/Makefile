@@ -147,7 +147,7 @@ clean :
 	rm -f *.o ./*~ ./#*# core*
 
 veryclean : clean
-	rm -f *$(SL) 
+	rm -f *$(SL) *.so *.a
 
 #check:	
 #	ftnchek bsc*.f fio*.f igl*.f unix.f | less
