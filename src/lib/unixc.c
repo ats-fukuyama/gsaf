@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <sys/times.h>
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -36,7 +37,7 @@ int4 *ndy,*ndm,*ndd,*nth,*ntm,*nts;
 	nseconds = time(NULL);
 	ptr = localtime(&nseconds);
 	*ndy = (int4)(ptr->tm_year);
-	*ndm = (int4)(ptr->tm_mon)+1;
+	*ndm = (int4)(ptr->tm_mon+1);
 	*ndd = (int4)(ptr->tm_mday);
 	*nth = (int4)(ptr->tm_hour);
 	*ntm = (int4)(ptr->tm_min);
@@ -52,11 +53,9 @@ int4 *i;
 int4 *tick;
 {
 	struct tms buffer;
-	clock_t j;
 
  	times(&buffer);
-	j =  buffer.tms_utime;
-	*i = (int4)j; 
+	*i = (int4)buffer.tms_utime;
 	*tick = (int4)CLK_TCK;
 }
 
@@ -81,12 +80,10 @@ void  dvrand_(i,k)
 int4 *i,*k;
 {
 #ifndef SONYCISC
-	unsigned j;
- 	*i =  rand();
+ 	*i = rand();
 	*k = RAND_MAX;
 #else
-	long j;
- 	*i =  random();
+ 	*i = random();
 	*k = 2147483647;
 #endif
 }
@@ -99,9 +96,7 @@ void  dvsrand_(i)
 int4 *i;
 {
 #ifndef SONYCISC
-	unsigned int k;
-	k = *i;
- 	srand(k);
+ 	srand((unsigned int)*i);
 #endif
 }
 
@@ -126,19 +121,16 @@ int4 *iasc,*nchar;
         int4 k;
 
 	for(i = 0; i < *nchar; i++)
-	   iasc[i] = ' ';
+		iasc[i] = ' ';
 	str = getenv("GSAF_PARM_TEMP");
-        if(str){
-	   len = strlen(str);
-	   if(len > *nchar)
-	     len = *nchar;
-	   for(i = 0; i < len; ++i)
-             {    
-               k = (int4)str[i];
-               if(k < 32)
-                 k = 32;
-               iasc[i] = k;
-             }
-	 }
+        if(str) {
+		len = strlen(str);
+		if(len > *nchar)
+			len = *nchar;
+		for(i = 0; i < len; ++i) {
+			k = (int4)str[i];
+			if(k > ' ')
+				iasc[i] = k;
+		}
+	}
 }
-
