@@ -1,17 +1,17 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for Linux-pgf77 [2004/05/03]
+# Make for gsaf : V3.82 for opteron-pgf [2004/06/18]
 #################################################################
 
 # default install path
 
-#BINPATH=/usr/local/bin
-#LIBPATH=/usr/local/lib
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
 
 # home install path
 
-HOMEPATH=/home/hpc/fukuyama
-BINPATH=$(HOMEPATH)/bin
-LIBPATH=$(HOMEPATH)/lib
+#HOMEPATH=/home/hpc/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
 
 # Compiler command
 
