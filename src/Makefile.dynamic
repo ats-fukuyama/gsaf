@@ -7,13 +7,15 @@ XLIBS=$(XLIBPATH)/libX11$(SL)
 
 LIBS=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdp$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
+LIBSDUM=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
+
 GDPLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdp$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
 GPPLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgpp$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
 GPSLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgps$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
-GDUMLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
+GDUMLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
 
 # Necessary dependence for static link
 

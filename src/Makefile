@@ -1,9 +1,10 @@
+
 ### $Id$ ###
 #
 # Make for gsaf : V3.80
 #
 
-default : libs tests install
+default : libs tests
 
 libs :
 	(cd lib; make)
