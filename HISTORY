@@ -1,8 +1,12 @@
 $Id$
 
 V3.83
+2004/08/14  SETPAGE correction
+            Original definition of charcter tilt reproduced
+            Character position of stroke font adjusted
+
 2004/08/13  SETPAGE rewritten to remove bug (thanks to Mr. T. Akutsu)
-            Definition of charcter tilt changed.
+            Definition of charcter tilt changed
 
 V3.82
 2004/06/18  Makefile.dynamic corrected

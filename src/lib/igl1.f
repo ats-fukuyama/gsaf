@@ -360,12 +360,18 @@ C
          IXY=IXCHY
          IYX=IYCHX
          IYY=IYCHY
+         IXSP=NINT(0.166667*IXCHSP)
+         IYSP=NINT(0.166667*IYCHSP)
       ELSE
          IXX=IXMKX
          IXY=IXMKY
          IYX=IYMKX
          IYY=IYMKY
+         IXSP=0
+         IYSP=0
       ENDIF
+      IX=IX+IXSP
+      IY=IY+IYSP
 C
   100 CONTINUE
          IL=IS(J)
@@ -410,8 +416,8 @@ C
          J=J+1
       GO TO 100
 C
-  200 IX=IX+IXCHSP
-      IY=IY+IYCHSP
+  200 IX=IX+IXCHSP-IXSP
+      IY=IY+IYCHSP-IYSP
       RETURN
       END
 C
@@ -427,17 +433,18 @@ C
       A=DEG*ANGL
       T=DEG*TILT
       B=A+T
-      COST=COS(T)
-      IF(COST.GE.0.0.AND.COST.LT. 0.1) COST= 0.1
-      IF(COST.LT.0.0.AND.COST.GT.-0.1) COST=-0.1
-      CHX=0.25*REAL(IMKW)
-      CHY=0.25*REAL(IMKH)/COST
       CA=COS(A)
       SA=SIN(A)
-      IXMKX=NINT( CHX*CA    )
-      IXMKY=NINT(-CHY*SIN(B))
-      IYMKX=NINT( CHX*SA    )
-      IYMKY=NINT( CHY*COS(B))
+      CB=COS(B)
+      SB=SIN(B)
+      CC=COS(T)
+C
+      CHX=0.25*REAL(IMKW)
+      CHY=0.25*REAL(IMKH)
+      IXMKX=NINT( CHX*CA)
+      IYMKX=NINT( CHX*SA)
+      IXMKY=NINT(-CHY*SB)
+      IYMKY=NINT( CHY*CB)
       RETURN
       END
 C
@@ -458,13 +465,14 @@ C
       SA=SIN(A)
       CB=COS(B)
       SB=SIN(B)
+      CC=COS(T)
 C
       CHX=0.25*REAL(ICHW)
       CHY=0.166667*REAL(ICHH)
       IXCHX=NINT( CHX*CA)
       IYCHX=NINT( CHX*SA)
-      IXCHY=NINT(-CHY*SB)
-      IYCHY=NINT( CHY*CB)
+      IXCHY=NINT(-CHY*SB/CC)
+      IYCHY=NINT( CHY*CB/CC)
 C
       CHSP=REAL(ICHSP)
       IXCHSP=NINT(CHSP*CA)
@@ -476,8 +484,8 @@ C
 C
       THXX= CA
       THYX= SA
-      THXY=-SB
-      THYY= CB
+      THXY=-SB/CC
+      THYY= CB/CC
 C
       RETURN
       END

@@ -798,15 +798,15 @@ float		*angl,*tilt;
 	    jchw = *ichw;
 	  }
 	wfact = (jchw * 3.0) / (jchh * 2.0);
-
+	tfact = 1.0 / cos (*tilt deg);
         if (! irotate)
 	  {
 	    cosch = cos((*angl+90) deg);
 	    sinch = sin((*angl+90) deg);
 	    fxxch = cos((*angl+90) deg) * wfact;
 	    fyxch = sin((*angl+90) deg) * wfact;
-	    fxych =-sin((*angl+*tilt+90) deg);
-	    fyych = cos((*angl+*tilt+90) deg);
+	    fxych =-sin((*angl+*tilt+90) deg) * tfact;
+	    fyych = cos((*angl+*tilt+90) deg) * tfact;
 	  }
 	else
 	  {
@@ -814,8 +814,8 @@ float		*angl,*tilt;
 	    sinch = sin((*angl) deg);
 	    fxxch = cos((*angl) deg) * wfact;
 	    fyxch = sin((*angl) deg) * wfact;
-	    fxych =-sin((*angl+*tilt) deg);
-	    fyych = cos((*angl+*tilt) deg);
+	    fxych =-sin((*angl+*tilt) deg) * tfact;
+	    fyych = cos((*angl+*tilt) deg) * tfact;
 	  }
 
 	dxch = *ichsp * cosch * delta;

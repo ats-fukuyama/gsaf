@@ -46,7 +46,8 @@ C      IYMIN=XYGRID(1)
       IXMIN=XYGRID(4)
 C      IXMAX=XYGRID(5)
 C
-      DL=THLY/(IYMAX-IYBAS)
+      DLX=THLX/(IYMAX-IYBAS)
+      DLY=THLY/(IYMAX-IYBAS)
       IF(IND.EQ.0) THEN
          IX0=IXMIN
          IY0=IYBAS
@@ -60,8 +61,8 @@ C
          IF(XYGRID(I).EQ.-64) THEN
             LMV=.TRUE.
          ELSE
-            XF=(XYGRID(I  )-IX0)*DL
-            YF=(XYGRID(I+1)-IY0)*DL
+            XF=(XYGRID(I  )-IX0)*DLX
+            YF=(XYGRID(I+1)-IY0)*DLY
             X=THXX*XF+THXY*YF
             Y=THYX*XF+THYY*YF
             IXT=IX+NINT(X*DSIZE)
@@ -78,9 +79,9 @@ C
             LMV=.FALSE.
          ENDIF
       ENDDO
-      CALL GS_GRSIZE(IC,DLX)
-      X=THXX*(THLX*DLX+THSP)
-      Y=THYX*(THLX*DLX+THSP)
+      CALL GS_GRSIZE(IC,DX)
+      X=THXX*(THLX*DX+THSP)
+      Y=THYX*(THLX*DX+THSP)
       IX=IX+NINT(X*DSIZE)
       IY=IY+NINT(Y*DSIZE)
 C
