@@ -7,7 +7,7 @@ PSHEADER2=$(LIBPATH)/gsaf_header2.ps
 
 default : libs
 
-libs : libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) libg3d$(SL)
+libs : libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) libg3d$(SL) libgtgif$(SL)
 
 OBJGSP= bsc1.o bsc2.o bsc3.o igl1.o igl2.o igl3.o fio1.o fio2.o \
         unix.o unixc.o apl1.o apl2.o apl3.o cont1.o cont2.o cont3.o \
@@ -141,12 +141,19 @@ libgdum$(SL) : gdum.o
 	$(LD) $(LDFLAGS) libgdum$(SL) gdum.o
 	$(LDX) libgdum$(SL)
 
+gtgif.o : gtgif.c
+	$(CC) -c $(CLFLAGS) gtgif.c
+
+libgtgif$(SL) : gtgif.o
+	$(LD) $(LDFLAGS) libgtgif$(SL) gtgif.o
+	$(LDX) libgtgif$(SL)
+
 install : libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) \
-	  libg3d$(SL)
+	  libg3d$(SL) libgtgif$(SL)
 	cp libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) \
-	   libg3d$(SL) $(LIBPATH)
+	   libg3d$(SL) libgtgif$(SL) $(LIBPATH)
 	-cp gsaf_header?.ps $(LIBPATH)
-	$(LDX) $(LIBPATH)/libgsp$(SL) $(LIBPATH)/libgdp$(SL) $(LIBPATH)/libgpp$(SL) $(LIBPATH)/libgps$(SL) $(LIBPATH)/libgdum$(SL) $(LIBPATH)/libg3d$(SL)
+	$(LDX) $(LIBPATH)/libgsp$(SL) $(LIBPATH)/libgdp$(SL) $(LIBPATH)/libgpp$(SL) $(LIBPATH)/libgps$(SL) $(LIBPATH)/libgdum$(SL) $(LIBPATH)/libg3d$(SL)  $(LIBPATH)/libgtgif$(SL)
 
 installplot : libplot$(SL)
 	cp libplot$(SL) $(LIBPATH)
