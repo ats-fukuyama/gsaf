@@ -16,7 +16,10 @@ LIBPATH=/usr/local/lib
 # Compiler command
 
 FC=g77
-CC=cc
+### MacOSX 10.3
+CC=gcc
+### MacOSX 10.4
+#CC=gcc-3.3
 
 # Compile flags
 

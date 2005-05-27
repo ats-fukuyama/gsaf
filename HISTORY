@@ -1,4 +1,9 @@
 $Id$
+V3.90
+2005/05/27  CLOCKS_PER_SEC instead of CLK_TCK in unixc.c 
+            macosx-xlf/Makefile.arch now uses gcc rather than xlc
+            macosx-XXX/Makefile.arch: select gcc-3.3 for MacOSX 10.4.X
+
 V3.89
 2005/03/02  lib/Makefile corrected (three objs without pic option)
             arch/hp-nifs added

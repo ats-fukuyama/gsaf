@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for macosx-xlf-static [2004/05/03]
+# Make for gsaf : V3.80 for macosx-xlf-static [2005/05/28]
 #################################################################
 
 # default install path
@@ -16,7 +16,10 @@ LIBPATH=/usr/local/lib
 # Compiler command
 
 FC=xlf
-CC=xlc
+### MacOSX 10.3
+CC=gcc
+### MacOSX 10.4
+#CC=gcc-3.3
 
 # Compile flags
 

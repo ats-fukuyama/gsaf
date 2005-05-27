@@ -57,7 +57,10 @@ void  dvtime_(int4 *i,int4 *tick)
 
  	times(&buffer);
 	*i = (int4)buffer.tms_utime;
+	/*
 	*tick = (int4)CLK_TCK;
+	*/
+	*tick = (int4)CLOCKS_PER_SEC;
 }
 
 #ifndef UNDERSCORE
