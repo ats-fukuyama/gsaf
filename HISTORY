@@ -1,4 +1,7 @@
 $Id$
+V3.91
+2005/06/30  TICKS_PER_SECOND instead of CLK_TCK in unixc.c 
+
 V3.90
 2005/05/27  CLOCKS_PER_SEC instead of CLK_TCK in unixc.c 
             macosx-xlf/Makefile.arch now uses gcc rather than xlc

@@ -15,6 +15,16 @@ extern char *getenv();
 #include <stdlib.h>
 #endif
 
+#if HAVE_SYSCONF && defined _SC_CLK_TCK
+#  define TICKS_PER_SECOND sysconf (_SC_CLK_TCK) /* POSIX 1003.1-1996 */
+#else
+#  ifdef CLK_TCK
+#    define TICKS_PER_SECOND CLK_TCK /* POSIX 1003.1-1988; obsolescent */
+#  else
+#    define TICKS_PER_SECOND HZ /* traditional UNIX */
+#  endif
+#endif
+
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
@@ -59,8 +69,9 @@ void  dvtime_(int4 *i,int4 *tick)
 	*i = (int4)buffer.tms_utime;
 	/*
 	*tick = (int4)CLK_TCK;
-	*/
 	*tick = (int4)CLOCKS_PER_SEC;
+	*/
+	*tick = (int4) TICKS_PER_SECOND;
 }
 
 #ifndef UNDERSCORE
