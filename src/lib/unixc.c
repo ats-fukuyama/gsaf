@@ -15,7 +15,7 @@ extern char *getenv();
 #include <stdlib.h>
 #endif
 
-#if HAVE_SYSCONF && defined _SC_CLK_TCK
+#ifdef _SC_CLK_TCK
 #  define TICKS_PER_SECOND sysconf (_SC_CLK_TCK) /* POSIX 1003.1-1996 */
 #else
 #  ifdef CLK_TCK
