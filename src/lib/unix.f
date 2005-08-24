@@ -73,6 +73,14 @@ C
       RETURN
       END
 C
+C     ****** FLUSH X ******
+C
+      SUBROUTINE GU_XFLUSH
+C
+      CALL DVXFLUSH
+      RETURN
+      END
+C
 C     ****** SLEEP in SEC ******
 C
       SUBROUTINE GU_SLEEP(T)

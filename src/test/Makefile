@@ -5,7 +5,8 @@ include ../Makefile.arch
 default : test
 
 test : bsctest apltest conttest perstest splntest \
-       gdptest gdumtest pgtest pstest sptest g3dtest evtest pagetest
+       gdptest gdumtest pgtest pstest sptest g3dtest evtest pagetest \
+       imagetest
 
 gtest : gtest.o bsc1.o fio1.o fio2.o igl1.o igl2.o igl3.o gdp.o unix.o unixc.o
 	$(FC) $(FFLAGS) -o gtest gtest.o bsc1.o fio1.o fio2.o \
@@ -54,6 +55,9 @@ evtest : evtest.o $(LIBSX)
 
 pagetest : pagetest.o $(LIBSX)
 	$(FC) $(FFLAGS) -o pagetest pagetest.o $(LIBS)
+
+imagetest : imagetest.o $(LIBSX)
+	$(FC) $(FFLAGS) -o imagetest imagetest.o $(LIBS)
 
 plottest : plottest.o $(LIBSX)
 	$(FC) $(FFLAGS) -o plottest plottest.o $(LIBS)

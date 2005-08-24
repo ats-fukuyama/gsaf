@@ -279,3 +279,33 @@ C
 C
       RETURN
       END
+C
+C     ++++++ XFLUSH ++++++
+C
+      SUBROUTINE DVXFLUSH
+C
+      RETURN
+      END
+C
+C     ****** DEFINE IMAGE ******
+C
+      SUBROUTINE DVDEFIMAGE(ID,IWIDTH,IHEIGHT,IMAGE)
+C
+      DIMENSION IMAGE(IWIDTH,IHEIGHT)
+C
+      RETURN
+      END
+C
+C     ****** UNDEFINE IMAGE ******
+C
+      SUBROUTINE DVUNDEFIMAGE(ID)
+C
+      RETURN
+      END
+C
+C     ****** PUT IMAGE ******
+C
+      SUBROUTINE DVPUTIMAGE(ID,X,Y)
+C
+      RETURN
+      END

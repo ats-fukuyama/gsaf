@@ -1,4 +1,10 @@
 $Id$
+V3.92
+2005/08/24  Image primitives:
+            bsc4.f with GF_DEFIMAGE,GF_UNDEFIMAGE,GF_PUTIMAGE added
+            imagetest.f added
+            GU_XFLASH added
+
 V3.91
 2005/06/30  TICKS_PER_SECOND instead of CLK_TCK in unixc.c 
 

@@ -46,6 +46,7 @@ extern char *getenv();
 #define NBUFMAX	255
 #define NPNTMAX	256
 #define NTXTMAX	10
+#define NIMGMAX	10
 
 static Display	        *display;
 static Window	        window,focus,rootw,parentw;
@@ -68,6 +69,10 @@ static int		nbuf;
 static char		cbuf[NBUFMAX+1];
 
 static XPoint		points[NPNTMAX];
+static Pixmap		pixmap[NIMGMAX];
+static XImage		*image[NIMGMAX];
+static unsigned int	image_width[NIMGMAX];
+static unsigned int	image_height[NIMGMAX];
 
 #define CCOLSIZE 8
 static XColor ccol[CCOLSIZE];
@@ -1503,7 +1508,74 @@ void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
 	ypos = points[2].y;
 }
 
+
+
+#ifndef UNDERSCORE
+void dvdefimage(const int4 *id, const int4 *x, const int4 *y, const int4 imagedata[])
+#else
+void dvdefimage_(const int4 *id, const int4 *x, const int4 *y, const int4 imagedata[])
+#endif
+{
+  unsigned int width;
+  unsigned int height;
+  unsigned int depth;
+  int format; 
+  int bitmap_pad;
+  Visual *visual;
+
+  if ((*id < 0) || (*id > NIMGMAX)) return;
+
+  image_width[*id] = *x;
+  image_height[*id] = *y;
+  depth = DefaultDepth(display, screen);
+  pixmap[*id] = XCreatePixmap(display, window, image_width[*id], image_height[*id], depth);
+  format = ZPixmap;
+  bitmap_pad = 8;
+  visual = DefaultVisual(display,screen);
+  image[*id] = XCreateImage(display, visual, depth, format, 0, 0, image_width[*id], image_height[*id], bitmap_pad, 0);
+  image[*id]->data = (char*)imagedata;
+  image[*id]->byte_order = BYTE_ORDER;
+  XPutImage(display, pixmap[*id], gc, image[*id], 0, 0, 0, 0, image_width[*id], image_height[*id]);
+}
+
+#ifndef UNDERSCORE
+void dvundefimage(const int4 *id)
+#else
+void dvundefimage_(const int4 *id)
+#endif
+{
+  if ((*id < 0) || (*id > NIMGMAX)) return;
+  XFree(image[*id]);
+  XFreePixmap(display, pixmap[*id]);
+}
+
+#ifndef UNDERSCORE
+void dvputimage(const int4 *id, const int4 *ix, const int4 *iy)
+#else
+void dvputimage_(const int4 *id, const int4 *ix, const int4 *iy)
+#endif
+{
+  unsigned int xl;
+  unsigned int yl;
+
+  if ((*id < 0) || (*id > NIMGMAX)) return;
+
+  xl = *ix * delta;
+  yl = *iy * delta;
+  XCopyArea(display, pixmap[*id], window, gc, 0, 0, image_width[*id], image_height[*id], xl, yl);
+}
+
+#ifndef UNDERSCORE
+void dvxflush()
+#else
+void dvxflush_()
+#endif
+{
+  XFlush(display);
+}
+
 /*
+
 int main(void)
 {
 	int4		ich,ix,iy,iasc[8],lkeep,nchar,ichh,ichw,ichsp;

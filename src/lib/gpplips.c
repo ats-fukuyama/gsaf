@@ -598,3 +598,36 @@ int4		ixn[],iyn[];
 int4		ir[],ig[],ib[];
 {
 }
+
+#ifndef UNDERSCORE
+void dvdefimage(const int4 *id, const int4 *x, const int4 *y, const int4 imagedata[])
+#else
+void dvdefimage_(const int4 *id, const int4 *x, const int4 *y, const int4 imagedata[])
+#endif
+{
+}
+
+#ifndef UNDERSCORE
+void dvundefimage(const int4 *id)
+#else
+void dvundefimage_(const int4 *id)
+#endif
+{
+}
+
+#ifndef UNDERSCORE
+void dvputimage(const int4 *id, const int4 *x, const int4 *y)
+#else
+void dvputimage_(const int4 *id, const int4 *x, const int4 *y)
+#endif
+{
+}
+
+#ifndef UNDERSCORE
+void dvxflush()
+#else
+void dvxflush_()
+#endif
+{
+}
+

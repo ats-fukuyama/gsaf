@@ -429,6 +429,11 @@ ghostscript で GIF ファイルを作成する例
 	GF_SET_GCFUNC(ID)	描画する際の書き込み属性を設定する
 	GF_INQ_GCFUNC(ID)	描画する際の書き込み属性を問い合わせる．
 
+	GF_DEF_IMAGE(ID,IW,IH,DATA)	
+				pixel map の定義
+	GF_UNDEF_IMAGE(ID)	pixel map の削除
+	GF_PUT_IMAGE(ID,X,Y)	pixel map の表示
+
 ２．３　対話型入出力サブルーチン
 
 	CHIN(KTEXT,NCHAR)	文字列入力
@@ -2822,3 +2827,44 @@ GSAF V3.71  01/05/28
 
 	入力	X	[R]	移動先の X 座標
 		Y	[R]	移動先の Y 座標
+----------------------
+GSAF V3.92  2005/08/24
+----------------------
+
+@ GF_DEFIMAGE
+
+   pixel map の定義
+
+   SUBROUTINE GF_DEFIMAGE(ID,IW,IH,DATA)
+
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
+		IW	[I]	pixel map の幅
+		IH	[I]	pixel map の高さ
+		DATA(IW,IH)	[R]	pixel map データ
+
+　　　　pixel map データは、IR,IG,IB を赤、緑、青を表す (0..255) の
+　　　　の範囲の整数として
+　　　　　　　　DATA=IR*256*256+IG*256+IB
+			
+@ GF_UNDEFIMAGE
+
+   pixel map の削除
+
+   SUBROUTINE GF_UDEFIMAGE(ID)
+
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
+
+@ GF_PUTIMAGE
+
+   pixel map の表示
+
+   SUBROUTINE GF_PUTIMAGE(ID,X,Y)
+
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
+		X	[R]	pixel map の左上隅の X 座標
+		Y	[R]	pixel map の左上隅の Y 座標
+@ GU_XFLUSH
+
+   X11 のバッファ内にある命令の即時実行
+
+   SUBROUTINE GU_XFLUSH

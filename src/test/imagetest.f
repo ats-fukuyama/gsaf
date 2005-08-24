@@ -1,0 +1,118 @@
+C     $Id$
+C
+C     ****** IMAGE TEST PROGRAM ******
+C
+      CALL GSOPEN
+C
+    1 WRITE(6,*) '## INPUT : TYPE (0,1,9) ?'
+      READ(5,*,ERR=1,END=9000) ID
+C
+      
+      IF(ID.EQ.0) THEN
+         CALL ITEST0
+      ELSEIF(ID.EQ.1) THEN
+         CALL ITEST1
+      ELSEIF(ID.EQ.9) THEN
+         GOTO 9000
+      ENDIF
+      GOTO 1
+C
+ 9000 CALL GSCLOS
+      STOP
+      END
+C
+      SUBROUTINE ITEST0
+C
+      DIMENSION IDATA0(10,10)
+      DIMENSION IDATA1(10,10)
+      DIMENSION IDATA2(10,10)
+      DIMENSION IDATA3(10,10)
+C
+      CALL PAGES
+      DO IX=1,10
+      DO IY=1,10
+         IDATA0(IX,IY)=255
+         IDATA1(IX,IY)=255*256
+         IDATA2(IX,IY)=255*256*256
+         IDATA3(IX,IY)=255*256*256*256
+      ENDDO
+      ENDDO
+C
+      CALL GF_DEFIMAGE(0,10,10,IDATA0)
+      CALL GF_DEFIMAGE(1,10,10,IDATA1)
+      CALL GF_DEFIMAGE(2,10,10,IDATA2)
+      CALL GF_DEFIMAGE(3,10,10,IDATA3)
+      CALL GF_SET_GCFUNC(6)
+      X=0.0
+      Y=0.0
+      DO I=1,150
+         X=X+0.1
+         Y=Y+0.1
+         CALL GF_PUTIMAGE(0,X,Y)
+         CALL GF_PUTIMAGE(1,X+1.0,Y)
+         CALL GF_PUTIMAGE(2,X,Y+1.0)
+         CALL GF_PUTIMAGE(3,X+1.0,Y+1.0)
+         CALL GU_XFLUSH
+         CALL GU_SLEEP(0.01)
+         CALL GF_PUTIMAGE(0,X,Y)
+         CALL GF_PUTIMAGE(1,X+1.0,Y)
+         CALL GF_PUTIMAGE(2,X,Y+1.0)
+         CALL GF_PUTIMAGE(3,X+1.0,Y+1.0)
+         CALL GU_XFLUSH
+      ENDDO
+      CALL GF_SET_GCFUNC(3)
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL GF_UNDEFIMAGE(2)
+      CALL GF_UNDEFIMAGE(3)
+      CALL PAGEE
+      RETURN
+      END
+C
+      SUBROUTINE ITEST1
+C
+      DIMENSION IDATA0(11,11)
+C
+      CALL PAGES
+      DO IX=1,11
+      DO IY=1,11
+         X=0.2*(IX-6)
+         Y=0.2*(IY-6)
+         R=SQRT(X**2+Y**2)
+         IF(R.GE.1.0) THEN
+            IDATA0(IX,IY)=255*256*256+255*256+255
+         ELSE
+            IR=255*R*R
+            IDATA0(IX,IY)=255*256*256+IR*256+IR
+         ENDIF
+      ENDDO
+      ENDDO
+C
+      CALL GF_DEFIMAGE(0,11,11,IDATA0)
+      CALL GF_SET_GCFUNC(6)
+C
+      DT=0.01D0
+      TMAX=2.0
+      NTMAX=TMAX/DT
+      ANGL=0.0
+      DANGL=6.2831/50
+C
+      X=12.8+5.0*COS(ANGL)
+      Y= 8.5+5.0*SIN(ANGL)
+      CALL GF_PUTIMAGE(0,X,Y)
+      CALL GU_XFLUSH
+C
+      DO I=1,NTMAX
+         CALL GU_SLEEP(0.01)
+         CALL GF_PUTIMAGE(0,X,Y)
+         ANGL=ANGL+DANGL
+         X=12.8+5.0*COS(ANGL)
+         Y= 8.5+5.0*SIN(ANGL)
+         CALL GF_PUTIMAGE(0,X,Y)
+         CALL GU_XFLUSH
+      ENDDO
+      CALL GF_SET_GCFUNC(3)
+      CALL GF_UNDEFIMAGE(0)
+      CALL PAGEE
+      RETURN
+      END
