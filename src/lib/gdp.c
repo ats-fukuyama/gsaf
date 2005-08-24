@@ -41,6 +41,12 @@ extern char *getenv();
 #define		int4	long
 #endif
 
+#ifdef LSB
+#define		GSAF_BYTE_ORDER	LSBFirst
+#else
+#define		GSAF_BYTE_ORDER	MSBFirst
+#endif
+
 #define STDIN	0
 #define DEG	(M_PI/180)
 #define NBUFMAX	255
@@ -1534,7 +1540,7 @@ void dvdefimage_(const int4 *id, const int4 *x, const int4 *y, const int4 imaged
   visual = DefaultVisual(display,screen);
   image[*id] = XCreateImage(display, visual, depth, format, 0, 0, image_width[*id], image_height[*id], bitmap_pad, 0);
   image[*id]->data = (char*)imagedata;
-  image[*id]->byte_order = BYTE_ORDER;
+  image[*id]->byte_order = GSAF_BYTE_ORDER;
   XPutImage(display, pixmap[*id], gc, image[*id], 0, 0, 0, 0, image_width[*id], image_height[*id]);
 }
 
