@@ -21,9 +21,9 @@ CC=cc
 # Compile flags
 
 FLFLAGS=-O 
-CLFLAGS=-O -DUNDERSCORE
+CLFLAGS=-O -DUNDERSCORE -DLSB
 FFLAGS=-O
-CFLAGS=-O -DUNDERSCORE
+CFLAGS=-O -DUNDERSCORE -DLSB
 
 # Make library command and options
 

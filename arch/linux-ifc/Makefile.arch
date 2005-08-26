@@ -22,9 +22,9 @@ CC=icc
 # Compile flags
 
 FLFLAGS=-O -Kpic
-CLFLAGS=-O -Kpic -DUNDERSCORE
+CLFLAGS=-O -Kpic -DUNDERSCORE -DLSB
 FFLAGS=-O
-CFLAGS=-O -DUNDERSCORE
+CFLAGS=-O -DUNDERSCORE -DLSB
 
 # Make library command and options
 

@@ -1567,7 +1567,7 @@ void dvputimage_(const int4 *id, const int4 *ix, const int4 *iy)
   if ((*id < 0) || (*id > NIMGMAX)) return;
 
   xl = *ix * delta;
-  yl = *iy * delta;
+  yl = ymax - *iy * delta;
   XCopyArea(display, pixmap[*id], window, gc, 0, 0, image_width[*id], image_height[*id], xl, yl);
 }
 

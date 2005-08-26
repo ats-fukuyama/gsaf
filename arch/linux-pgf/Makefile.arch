@@ -24,8 +24,8 @@ CC=cc
 #FFLAGS=-g -Mbounds -Ktrap=fp 
 FLFLAGS=-O -r
 FFLAGS=-O
-CLFLAGS=-O -r -DUNDERSCORE
-CFLAGS=-O -DUNDERSCORE
+CLFLAGS=-O -r -DUNDERSCORE -DLSB
+CFLAGS=-O -DUNDERSCORE -DLSB
 
 # Make library command and options
 
