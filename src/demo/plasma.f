@@ -3,14 +3,19 @@ C
 C     ****** PLASMA DEMO ******
 C
       CALL GSOPEN
+      CALL DEF_IMAGE
 C
       CALL INIT_PLASMA
 C
-    1 WRITE(6,*) '## INPUT : TYPE (0,9) ?'
+    1 WRITE(6,*) '## INPUT : TYPE (0,1,2,9) ?'
       READ(5,*,ERR=1,END=9000) ID
 C
       IF(ID.EQ.0) THEN
          CALL PLASMA0
+      ELSEIF(ID.EQ.1) THEN
+         CALL PLASMA1
+      ELSEIF(ID.EQ.2) THEN
+         CALL PLASMA2
       ELSEIF(ID.EQ.9) THEN
          GOTO 9000
       ENDIF
@@ -28,31 +33,115 @@ C
       DO IY=1,11
          X=0.2*(IX-6)
          Y=0.2*(IY-6)
-         R=SQRT(X**2+Y**2)
-         IF(R.GE.1.0) THEN
-            IDATA0(IX,IY)=255*256*256+255*256+255
-            IDATA1(IX,IY)=255*256*256+255*256+255
-            IDATA2(IX,IY)=255*256*256+255*256+255
+         R1=SQRT(X**2+Y**2)
+         R2=SQRT((X+0.3)**2+(Y+0.3)**2)
+C
+         IF(R2.LT.0.5) THEN
+            IB=255-NINT(255*4*R2*R2)
+            IR=255
          ELSE
-            IR=NINT(255*R*R)
-            IDATA0(IX,IY)=255*256*256+IR*256+IR
-            IDATA1(IX,IY)=255*256+IR*256*256+IR
-            IDATA2(IX,IY)=255+IR*256*256+IR*256
+            IR=255-NINT(255*(R2-0.5)**2)
+            IF(IR.LE.0) IR=0
+            IB=0
          ENDIF
+C         
+         IF(R1.GE.1.0) THEN
+            IR=255
+            IB=255
+         ELSEIF(R1.GE.0.9) THEN
+            IR=IR+(255-IR)*(R1-0.9)/0.1
+            IB=IB+(255-IB)*(R1-0.9)/0.1
+         ENDIF
+C
+         IDATA1R(IX,IY)=IR*256*256+IB*256+IB
+         IDATA1G(IX,IY)=IB*256*256+IR*256+IB
+         IDATA1B(IX,IY)=IB*256*256+IB*256+IR
       ENDDO
       ENDDO
 C
-      CALL GF_DEFIMAGE(0,11,11,IDATA0)
-      CALL GF_DEFIMAGE(1,11,11,IDATA1)
-      CALL GF_DEFIMAGE(2,11,11,IDATA2)
+      DO IX=1,21
+      DO IY=1,21
+         X=0.1*(IX-11)
+         Y=0.1*(IY-11)
+         R1=SQRT(X**2+Y**2)
+         R2=SQRT((X+0.3)**2+(Y+0.3)**2)
+C
+         IF(R2.LT.0.5) THEN
+            IB=255-NINT(255*4*R2*R2)
+            IR=255
+         ELSE
+            IR=255-NINT(255*(R2-0.5)**2)
+            IF(IR.LE.0) IR=0
+            IB=0
+         ENDIF
+C         
+         IF(R1.GE.1.0) THEN
+            IR=255
+            IB=255
+         ELSEIF(R1.GE.0.9) THEN
+            IR=IR+(255-IR)*(R1-0.9)/0.1
+            IB=IB+(255-IB)*(R1-0.9)/0.1
+         ENDIF
+C
+         IDATA2R(IX,IY)=IR*256*256+IB*256+IB
+         IDATA2G(IX,IY)=IB*256*256+IR*256+IB
+         IDATA2B(IX,IY)=IB*256*256+IB*256+IR
+      ENDDO
+      ENDDO
+C
+      DO IX=1,41
+      DO IY=1,41
+         X=0.05*(IX-21)
+         Y=0.05*(IY-21)
+         R1=SQRT(X**2+Y**2)
+         R2=SQRT((X+0.3)**2+(Y+0.3)**2)
+C
+         IF(R2.LT.0.5) THEN
+            IB=255-NINT(255*4*R2*R2)
+            IR=255
+         ELSE
+            IR=255-NINT(255*(R2-0.5)**2)
+            IF(IR.LE.0) IR=0
+            IB=0
+         ENDIF
+C         
+         IF(R1.GE.1.0) THEN
+            IR=255
+            IB=255
+         ELSEIF(R1.GE.0.9) THEN
+            IR=IR+(255-IR)*(R1-0.9)/0.1
+            IB=IB+(255-IB)*(R1-0.9)/0.1
+         ENDIF
+C
+         IDATA4R(IX,IY)=IR*256*256+IB*256+IB
+         IDATA4G(IX,IY)=IB*256*256+IR*256+IB
+         IDATA4B(IX,IY)=IB*256*256+IB*256+IR
+      ENDDO
+      ENDDO
+C
       RETURN
       END
 C
-      SUBROUTINE UNDEF_IMAGE
+      SUBROUTINE INIT_PLASMA
 C
-      CALL GF_UNDEFIMAGE(0)
-      CALL GF_UNDEFIMAGE(1)
-      CALL GF_UNDEFIMAGE(2)
+      INCLUDE 'plasma.inc'
+C
+      DT=0.1
+      VT=0.3
+C
+      TINTV=0.05
+C
+      NTMAX=100
+      NPMAX=100
+C
+      XMIN=0.0
+      XMAX=1.5
+      YMIN=0.0
+      YMAX=1.0
+C
+      DELP=0.3
+      MRSEED=1
+C
       RETURN
       END
 C
@@ -145,29 +234,6 @@ C
       RETURN
       END
 C
-      SUBROUTINE INIT_PLASMA
-C
-      INCLUDE 'plasma.inc'
-C
-      DT=0.1
-      VT=0.3
-C
-      TINTV=0.05
-C
-      NTMAX=100
-      NPMAX=100
-C
-      XMIN=0.0
-      XMAX=1.5
-      YMIN=0.0
-      YMAX=1.0
-C
-      DELP=0.3
-      MRSEED=1
-C
-      RETURN
-      END
-C
       SUBROUTINE PLASMA0
 C
       INCLUDE 'plasma.inc'
@@ -193,7 +259,9 @@ C
       CALL DRAW( 5.0, 5.0-DELP)
       CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
 C
-      CALL DEF_IMAGE
+      CALL GF_DEFIMAGE(0,11,11,IDATA1R)
+      CALL GF_DEFIMAGE(1,11,11,IDATA1G)
+C
       CALL INITDRAW_PARTICLES
 C
       DO NT=1,NTMAX
@@ -201,10 +269,97 @@ C
          CALL DRAW_PARTICLES
          CALL GU_SLEEP(TINTV)
       ENDDO
-      CALL UNDEF_IMAGE
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
       CALL PAGEE
 C
- 9000 RETURN
+ 9000 CONTINUE
+      RETURN
+      END
+C
+      SUBROUTINE PLASMA1
+C
+      INCLUDE 'plasma.inc'
+C
+      WRITE(6,'(A,1PE12.4)') '  DT    = ',DT
+      WRITE(6,'(A,1PE12.4)') '  VT    = ',VT
+      WRITE(6,'(A,1PE12.4)') '  TINTV = ',TINTV
+      WRITE(6,'(A,I12    )') '  NTMAX = ',NTMAX
+      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
+      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
+      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
+C
+      XLEN=XMAX-XMIN
+      YLEN=YMAX-YMIN
+      CALL INIT_PARTICLES
+C
+      CALL PAGES
+C      
+      CALL MOVE( 5.0, 5.0-DELP)
+      CALL DRAW(20.0+DELP, 5.0-DELP)
+      CALL DRAW(20.0+DELP,15.0)
+      CALL DRAW( 5.0,15.0)
+      CALL DRAW( 5.0, 5.0-DELP)
+      CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
+C
+      CALL GF_DEFIMAGE(0,41,41,IDATA4R)
+      CALL GF_DEFIMAGE(1,41,41,IDATA4G)
+C
+      CALL INITDRAW_PARTICLES
+C
+      DO NT=1,NTMAX
+         CALL PUSH_PARTICLES
+         CALL DRAW_PARTICLES
+         CALL GU_SLEEP(TINTV)
+      ENDDO
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL PAGEE
+C
+ 9000 CONTINUE
+      END
+C
+      SUBROUTINE PLASMA2
+C
+      INCLUDE 'plasma.inc'
+C
+      WRITE(6,'(A,1PE12.4)') '  DT    = ',DT
+      WRITE(6,'(A,1PE12.4)') '  VT    = ',VT
+      WRITE(6,'(A,1PE12.4)') '  TINTV = ',TINTV
+      WRITE(6,'(A,I12    )') '  NTMAX = ',NTMAX
+      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
+      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
+      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
+C
+      XLEN=XMAX-XMIN
+      YLEN=YMAX-YMIN
+      CALL INIT_PARTICLES
+C
+      CALL PAGES
+C      
+      CALL MOVE( 5.0, 5.0-DELP)
+      CALL DRAW(20.0+DELP, 5.0-DELP)
+      CALL DRAW(20.0+DELP,15.0)
+      CALL DRAW( 5.0,15.0)
+      CALL DRAW( 5.0, 5.0-DELP)
+      CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
+C
+      CALL GF_DEFIMAGE(0,11,11,IDATA1B)
+      CALL GF_DEFIMAGE(1,21,21,IDATA2R)
+C
+      CALL INITDRAW_PARTICLES
+C
+      DO NT=1,NTMAX
+         CALL PUSH_PARTICLES
+         CALL DRAW_PARTICLES
+         CALL GU_SLEEP(TINTV)
+      ENDDO
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL PAGEE
+C
+ 9000 CONTINUE
+      RETURN
       END
 C
 C     ****** UNIFORM RANDOM NUMBER GENERATION ******
