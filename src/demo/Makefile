@@ -2,8 +2,6 @@
 
 include ../Makefile.arch
 
-FFLAGS= -g -C -qflttrap=enable:zerodivide:overflow:invalid
-
 default : all
 
 all : plasma plasmax demo
