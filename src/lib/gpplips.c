@@ -136,6 +136,16 @@ int4		*iopt;
 }
 
 #ifndef UNDERSCORE
+void dvinqres(int4 *width, int4 *height)
+#else
+void dvinqres_(int4 *width, int4 *height)
+#endif
+{
+  *width =  25600; /* 0.01 mm */
+  *height = 19200; /* 0.01 mm */
+}
+
+#ifndef UNDERSCORE
 void dvpags(npage,sizex,sizey,lkeep)
 #else
 void dvpags_(npage,sizex,sizey,lkeep)

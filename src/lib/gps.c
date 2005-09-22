@@ -328,6 +328,16 @@ void dvoptn_(const char *kopt,const int4 *iopt)
 }
 
 #ifndef UNDERSCORE
+void dvinqres(int4 *width, int4 *height)
+#else
+void dvinqres_(int4 *width, int4 *height)
+#endif
+{
+  *width =  3024; /* 300 DPI : 300 dot * 256 mm / 25.4 mm */
+  *height = 2268; /* 300 DPI : 300 dot * 192 mm / 25.4 mm */
+}
+
+#ifndef UNDERSCORE
 void dvpags(const int4 *npage,const float *sizex,const float *sizey,const int4 *lkeep)
 #else
 void dvpags_(const int4 *npage,const float *sizex,const float *sizey,const int4 *lkeep)

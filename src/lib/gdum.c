@@ -65,6 +65,16 @@ void dvchmd_()
 }
 
 #ifndef UNDERSCORE
+void dvinqres(int4 *width, int4 *height)
+#else
+void dvinqres_(int4 *width, int4 *height)
+#endif
+{
+  *width =  3024; /* 300 DPI : 300 dot * 256 mm / 25.4 mm */
+  *height = 2268; /* 300 DPI : 300 dot * 192 mm / 25.4 mm */
+}
+
+#ifndef UNDERSCORE
 void dvpags(npage,sizex,sizey,lkeep)
 #else
 void dvpags_(npage,sizex,sizey,lkeep)

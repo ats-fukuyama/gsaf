@@ -921,6 +921,36 @@ void dvchmd_(void)
 }
 
 #ifndef UNDERSCORE
+void dvinqres(int4 *width, int4 *height)
+#else
+void dvinqres_(int4 *width, int4 *height)
+#endif
+{
+	Window root;
+	int x,y;
+	unsigned int widthx,heightx,border_width,depth;
+	Status status;
+
+	if(rmode) {
+	  *width = 1024;
+	  *height = 768;
+	  return;
+	}
+
+        if(tmode) {
+	  *width = 1024;
+	  *height = 768;
+	  return;
+	}
+
+	status = XGetGeometry(display,window,&root,
+			      &x,&y,&widthx,&heightx,
+			      &border_width,&depth);
+	*width = (int4) widthx;
+	*height = (int4) heightx;
+}
+
+#ifndef UNDERSCORE
 void dvpags(const int4 *npage,const float *sizex,const float *sizey,
 	    const int4 *lkeep)
 #else
