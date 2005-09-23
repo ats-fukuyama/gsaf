@@ -192,6 +192,27 @@ C
       DO NP=1,NPMAX
          PVN(1,NP)=PV(1,NP)
          PVN(2,NP)=PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
+         DO NP1=NP+1,NPMAX
+            XD=PX(1,NP1)-PX(1,NP)
+            YD=PX(2,NP1)-PX(2,NP)
+            R=SQRT(XD*XD+YD*YD)
+            IF(R.LT.0.02) THEN
+               FX=-FG*XD/R
+               FY=-FG*YD/R
+               FXP=FX
+               FYP=FY
+               PVN(1,NP)=PVN(1,NP)+FXP*DT
+               PVN(2,NP)=PVN(2,NP)+FYP*DT
+               PVN(1,NP1)=PVN(1,NP1)-FXP*DT
+               PVN(2,NP1)=PVN(2,NP1)-FYP*DT
+            ENDIF
+         ENDDO
+      ENDDO
+C
+      DO NP=1,NPMAX
          PXN(1,NP)=PX(1,NP)+PVN(1,NP)*DT
          PXN(2,NP)=PX(2,NP)+PVN(2,NP)*DT
          IF(PXN(1,NP).LT.XMIN) THEN
@@ -217,6 +238,19 @@ C
       INCLUDE 'plasma.inc'
 C
       DO NP=1,NPMAX
+         FBX=0.5D0*FB*DT
+         IF(IPD(NP).EQ.0) THEN 
+            FBX=-FBX
+         ELSE
+            FBX=FBX/9.0
+         ENDIF
+         FB1=(1-0.25*FBX*FBX)/(1+0.25*FBX*FBX)
+         FB2=FBX/(1+0.25*FBX*FBX)
+         PVN(1,NP)= FB1*PV(1,NP)+FB2*PV(2,NP)
+         PVN(2,NP)=-FB2*PV(1,NP)+FB1*PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
          DO NP1=NP+1,NPMAX
             XD=PX(1,NP1)-PX(1,NP)
             YD=PX(2,NP1)-PX(2,NP)
@@ -234,8 +268,8 @@ C
                FXP=FX/9.0
                FYP=FY/9.0
             ENDIF
-            PVN(1,NP)=PV(1,NP)+FXP*DT
-            PVN(2,NP)=PV(2,NP)+FYP*DT
+            PVN(1,NP)=PVN(1,NP)+FXP*DT
+            PVN(2,NP)=PVN(2,NP)+FYP*DT
             IF(IPD(NP1).EQ.0) THEN
                FXP=FX
                FYP=FY
@@ -243,9 +277,26 @@ C
                FXP=FX/9.0
                FYP=FY/9.0
             ENDIF
-            PVN(1,NP1)=PV(1,NP1)-FXP*DT
-            PVN(2,NP1)=PV(2,NP1)-FYP*DT
+            PVN(1,NP1)=PVN(1,NP1)-FXP*DT
+            PVN(2,NP1)=PVN(2,NP1)-FYP*DT
          ENDDO
+      ENDDO
+C
+      DO NP=1,NPMAX
+         PV(1,NP)=PVN(1,NP)
+         PV(2,NP)=PVN(2,NP)
+      ENDDO
+      DO NP=1,NPMAX
+         FBX=0.5D0*FB*DT
+         IF(IPD(NP).EQ.0) THEN 
+            FBX=-FBX
+         ELSE
+            FBX=FBX/9.0
+         ENDIF
+         FB1=(1-0.25*FBX*FBX)/(1+0.25*FBX*FBX)
+         FB2=FBX/(1+0.25*FBX*FBX)
+         PVN(1,NP)= FB1*PV(1,NP)+FB2*PV(2,NP)
+         PVN(2,NP)=-FB2*PV(1,NP)+FB1*PV(2,NP)
       ENDDO
 C
       DO NP=1,NPMAX

@@ -51,14 +51,14 @@ C
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'P'
-            BUTTON_NCHAR(NB)= 1
+            BUTTON_TEXT(NB)= 'P1'
+            BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.7) THEN
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'I'
-            BUTTON_NCHAR(NB)= 1
+            BUTTON_TEXT(NB)= 'P2'
+            BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.8) THEN
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7

@@ -2,7 +2,7 @@ C     $Id$
 C
       INCLUDE 'button.inc'
       INTEGER IW,IH,ID,KID,KEY
-      ChARACTER KIN*(80)
+      CHARACTER KIN*(1)
 C
       CALL GSOPEN
       CALL GSTOFF
@@ -29,6 +29,7 @@ C         WRITE(6,'(I5,1P2E12.4,I5)') ID,X,Y,KID
          ELSEIF(ID.EQ.1) THEN
             CALL ASCCHR(KID,KIN,1)
             CALL GUCPTL(KIN)
+C            WRITE(6,*) KIN
             IF(KIN.EQ.'Q') GOTO 9000
          ELSEIF(ID.EQ.2) THEN
             DO NB=1,NBMAX
@@ -47,10 +48,10 @@ C                     IF(MODE.EQ.2) CALL LIQUID
                      IF(MODE.EQ.3) CALL GAS
 C                     IF(MODE.EQ.4) CALL XATOM
 C                     IF(MODE.EQ.5) CALL XION
-                     IF(MODE.EQ.6) CALL PLASMA
-C                     IF(MODE.EQ.7) CALL IONIZE
-C                     IF(MODE.EQ.8) CALL MAGNETIZE
-C                     IF(MODE.EQ.9) CALL MAGNETIZE
+                     IF(MODE.EQ.6) CALL PLASMA1
+                     IF(MODE.EQ.7) CALL PLASMA2
+                     IF(MODE.EQ.8) CALL MAGNETIZE1
+                     IF(MODE.EQ.9) CALL MAGNETIZE2
                      IF(MODE.EQ.10) GOTO 9000
                      GOTO 10
                   ELSE
@@ -101,6 +102,8 @@ C
       DELP=0.3
       MRSEED=0
       FE=1.0
+      FB=0.0
+      FG=0.0
 C
       RETURN
       END
@@ -118,7 +121,8 @@ C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
 C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
 C
       DT=0.05
-      NTMAX=100
+      FG=3.0
+      NTMAX=200
 C
       XLEN=XMAX-XMIN
       YLEN=YMAX-YMIN
@@ -147,7 +151,7 @@ C 9000 CONTINUE
       RETURN
       END
 C
-      SUBROUTINE PLASMA
+      SUBROUTINE PLASMA1
 C
       INCLUDE 'plasma.inc'
 C
@@ -159,10 +163,152 @@ C      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
 C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
 C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
 C
-      DT=0.005
+      DT=0.002
+      FE=3.0
+      FB=0.0
+      NTMAX=200
+      NPMAX=20
+C
+      XLEN=XMAX-XMIN
+      YLEN=YMAX-YMIN
+      CALL INIT_PLASMA_PARTICLES
+C      
+      CALL MOVE( 5.0, 5.0-DELP)
+      CALL DRAW(20.0+DELP, 5.0-DELP)
+      CALL DRAW(20.0+DELP,15.0)
+      CALL DRAW( 5.0,15.0)
+      CALL DRAW( 5.0, 5.0-DELP)
+      CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
+C
+      CALL GF_DEFIMAGE(0,11,11,IDATA1B)
+      CALL GF_DEFIMAGE(1,21,21,IDATA2R)
+C
+      CALL INITDRAW_PARTICLES
+C
+      DO NT=1,NTMAX
+         CALL PUSH_PLASMA_PARTICLES
+         CALL DRAW_PARTICLES
+         CALL GU_SLEEP(TINTV)
+      ENDDO
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL OFFVEW
+C
+C 9000 CONTINUE
+      RETURN
+      END
+C
+      SUBROUTINE PLASMA2
+C
+      INCLUDE 'plasma.inc'
+C
+C      WRITE(6,'(A,1PE12.4)') '  DT    = ',DT
+C      WRITE(6,'(A,1PE12.4)') '  VT    = ',VT
+C      WRITE(6,'(A,1PE12.4)') '  TINTV = ',TINTV
+C      WRITE(6,'(A,I12    )') '  NTMAX = ',NTMAX
+C      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
+C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
+C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
+C
+      DT=0.002
       FE=9.0
-      NTMAX=500
+      FB=0.0
+      NTMAX=300
       NPMAX=100
+C
+      XLEN=XMAX-XMIN
+      YLEN=YMAX-YMIN
+      CALL INIT_PLASMA_PARTICLES
+C      
+      CALL MOVE( 5.0, 5.0-DELP)
+      CALL DRAW(20.0+DELP, 5.0-DELP)
+      CALL DRAW(20.0+DELP,15.0)
+      CALL DRAW( 5.0,15.0)
+      CALL DRAW( 5.0, 5.0-DELP)
+      CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
+C
+      CALL GF_DEFIMAGE(0,11,11,IDATA1B)
+      CALL GF_DEFIMAGE(1,21,21,IDATA2R)
+C
+      CALL INITDRAW_PARTICLES
+C
+      DO NT=1,NTMAX
+         CALL PUSH_PLASMA_PARTICLES
+         CALL DRAW_PARTICLES
+         CALL GU_SLEEP(TINTV)
+      ENDDO
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL OFFVEW
+C
+C 9000 CONTINUE
+      RETURN
+      END
+C
+      SUBROUTINE MAGNETIZE1
+C
+      INCLUDE 'plasma.inc'
+C
+C      WRITE(6,'(A,1PE12.4)') '  DT    = ',DT
+C      WRITE(6,'(A,1PE12.4)') '  VT    = ',VT
+C      WRITE(6,'(A,1PE12.4)') '  TINTV = ',TINTV
+C      WRITE(6,'(A,I12    )') '  NTMAX = ',NTMAX
+C      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
+C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
+C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
+C
+      DT=0.1
+      FE=0.0
+      FB=2.0
+      NTMAX=200
+      NPMAX=2
+C
+      XLEN=XMAX-XMIN
+      YLEN=YMAX-YMIN
+      CALL INIT_PLASMA_PARTICLES
+C      
+      CALL MOVE( 5.0, 5.0-DELP)
+      CALL DRAW(20.0+DELP, 5.0-DELP)
+      CALL DRAW(20.0+DELP,15.0)
+      CALL DRAW( 5.0,15.0)
+      CALL DRAW( 5.0, 5.0-DELP)
+      CALL SETVEW(5.0,20.0,5.0,15.0,XMIN,XMAX,YMIN,YMAX)
+C
+      CALL GF_DEFIMAGE(0,11,11,IDATA1B)
+      CALL GF_DEFIMAGE(1,21,21,IDATA2R)
+C
+      CALL INITDRAW_PARTICLES
+C
+      DO NT=1,NTMAX
+         CALL PUSH_PLASMA_PARTICLES
+         CALL DRAW_PARTICLES
+         CALL GU_SLEEP(TINTV)
+      ENDDO
+      CALL GF_UNDEFIMAGE(0)
+      CALL GF_UNDEFIMAGE(1)
+      CALL OFFVEW
+C
+C 9000 CONTINUE
+      RETURN
+      END
+C
+      SUBROUTINE MAGNETIZE2
+C
+      INCLUDE 'plasma.inc'
+C
+C      WRITE(6,'(A,1PE12.4)') '  DT    = ',DT
+C      WRITE(6,'(A,1PE12.4)') '  VT    = ',VT
+C      WRITE(6,'(A,1PE12.4)') '  TINTV = ',TINTV
+C      WRITE(6,'(A,I12    )') '  NTMAX = ',NTMAX
+C      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
+C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
+C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
+C
+      DT=0.1
+      FE=0.1
+      FB=2.0
+      NTMAX=200
+      NPMAX=50
 C
       XLEN=XMAX-XMIN
       YLEN=YMAX-YMIN
