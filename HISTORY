@@ -1,4 +1,9 @@
 $Id$
+V3.93
+2005/10/27  CONTPF in cont3.f corrected (Thanks to Dr. Takeno)
+
+2005/10/19  arch/sx-nisf/Makefile.arch corrected
+
 2005/09/22  DVINQRES added
             demo/plasma.f, plasmax.f added
 

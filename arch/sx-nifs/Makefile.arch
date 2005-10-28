@@ -33,7 +33,7 @@ LDFLAGS=ru
 
 # Library extension
 
-LIB-SUFFIX=-pgf
+LIB-SUFFIX=
 SL=$(LIB-SUFFIX).a
 
 # X library path

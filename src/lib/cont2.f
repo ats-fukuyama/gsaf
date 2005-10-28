@@ -24,6 +24,7 @@ C
       X(2)=GXS
       Y(2)=GYS
       ILN(1)=IPAT
+      CALL INQLNW(WLN(1))
 C
       CALL CONTG0(Z,X,Y,NXA,NXMAX,NYMAX,
      &            ZL,RGB,ILN,WLN,NSTEP,-1,IPRD,0,CONTV1,KA)
@@ -42,6 +43,7 @@ C
       DIMENSION ZL(NSTEP),RGB(3,1),ILN(1),WLN(1)
 C
       ILN(1)=IPAT
+      CALL INQLNW(WLN(1))
       CALL CONTG0(Z,X,Y,NXA,NXMAX,NYMAX,
      &            ZL,RGB,ILN,WLN,NSTEP,-1,IPRD,3,CONTV1,KA)
 C
@@ -234,6 +236,7 @@ C
       ELSE
          DO 50 I=1,KMAX
             ILNS(I)=ILN(1)
+            WLNS(I)=WLN(1)
    50    CONTINUE
       ENDIF
 C

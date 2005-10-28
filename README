@@ -6,8 +6,8 @@
 
 INSTALL:
 
-  1. Copy gsafXX.tar.Z to an appropriate directory.
-  2. Defreeze it "zcat gsafXX.tar.Z | tar xvf -"
+  1. Copy gsafXX.tar.gz to an appropriate directory.
+  2. Defreeze it "gzcat gsafXX.tar.gz | tar xvf -"
   3. Change to the new directory by "cd gsaf/src"
   4. Copy Makefile.arch "cp ../arch/XXX/Makefile.arch ."
   5. Adjust directories and option in Makefile.arch
