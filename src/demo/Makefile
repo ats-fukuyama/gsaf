@@ -19,7 +19,7 @@ clean :
 	rm -f *.o ./*~ ./#*# core*
 
 veryclean : clean
-	rm -f *test
+	rm -f plasma plasmax demo
 
 plasma.o: plasma.f particle.f random.f plasma.inc
 plasmax.o: plasmax.f plasma.inc
