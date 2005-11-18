@@ -65,6 +65,9 @@ plottest : plottest.o $(LIBSX)
 gdumtest : gdumtest.o $(GDUMLIBSX)
 	$(FC) $(FFLAGS) -o gdumtest gdumtest.o $(LIBSDUM)
 
+frtest : frtest.o $(LIBSX)
+	$(FC) $(FFLAGS) -o frtest frtest.o $(LIBS)
+
 clean :
 	rm -f *.o ./*~ ./#*# core*
 
