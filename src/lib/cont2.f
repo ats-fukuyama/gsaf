@@ -662,7 +662,7 @@ C
 C
                KA(1,IEL)=KA(1,IEL)+1
                IF(IEL.EQ.IE.AND..NOT.LINV) LEND=.TRUE.
-               IF(IEL.EQ.IE1.AND..NOT.LINV) LEND=.TRUE.
+C               IF(IEL.EQ.IE1.AND..NOT.LINV) LEND=.TRUE.
             ENDIF
 C
 C      WRITE(6,'(A,6I5,2I7)') 'step 3: K,NY,NX,NYL,NXL,MODEL,IE,IEL',
@@ -1026,7 +1026,7 @@ C
 C
          IMAX=INT(SQRT((XS-XT)**2+(YS-YT)**2)*8/RMAX+1)
          DELR=(RS-RT)/IMAX
-         DELT=TS-TT
+         DELT= TS-TT
          IF(DELT.GT. 4.0) DELT=DELT-2*3.1415926
          IF(DELT.LT.-4.0) DELT=DELT+2*3.1415926
          DELT=DELT/IMAX
@@ -1036,11 +1036,9 @@ C
             XI=DX*(RI*COS(TI)-GXS)+PXS
             YI=DY*(RI*SIN(TI)-GYS)+PYS
             IF(J.GE.M) THEN
-               DO 70 N=1,M/2
-                  XB(N)=XB(2*N-1)
-                  YB(N)=YB(2*N-1)
-   70          CONTINUE
-               J=M/2
+               WRITE(6,*) 'XX GSAF CONTV2 ERROR: BUFFER OVER'
+               NN=J
+               RETURN
             ENDIF
             J=J+1
             XB(J)=XI
@@ -1052,6 +1050,23 @@ C
          YT=YS
   100 CONTINUE
       NN=J
+C
+C     ***** slightly expand the region *****
+C
+      X0=0.D0
+      Y0=0.D0
+      DO J=1,NN
+         X0=X0+XB(J)
+         Y0=Y0+YB(J)
+      ENDDO
+      X0=X0/NN
+      Y0=Y0/NN
+      DO J=1,NN
+         S=SQRT((XB(J)-X0)**2+(YB(J)-Y0)**2)
+         IF(S.EQ.0.D0) S=1.D0
+         XB(J)=XB(J)+0.02*(XB(J)-X0)/S
+         YB(J)=YB(J)+0.02*(YB(J)-Y0)/S
+      ENDDO
       RETURN
       END
 C
