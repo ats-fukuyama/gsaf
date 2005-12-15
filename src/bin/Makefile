@@ -46,7 +46,7 @@ install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.s
 	$(FC)g $(FC)gdum
 	chmod 755 gsdump
 	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif
-	cp gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gsprint gsdump \
+	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gsprint gsdump \
 	   $(FC)g $(FC)gdum $(BINPATH)
 	ln $(BINPATH)/gsview $(BINPATH)/gsfile
 	ln $(BINPATH)/gsview $(BINPATH)/gstoeps

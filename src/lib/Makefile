@@ -153,13 +153,13 @@ libgtgif$(SL) : gtgif.o
 
 install : libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) \
 	  libg3d$(SL) libgtgif$(SL)
-	cp libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) \
+	cp -f libgsp$(SL) libgdp$(SL) libgpp$(SL) libgps$(SL) libgdum$(SL) \
 	   libg3d$(SL) libgtgif$(SL) $(LIBPATH)
-	-cp gsaf_header?.ps $(LIBPATH)
+	cp -f gsaf_header?.ps $(LIBPATH)
 	$(LDX) $(LIBPATH)/libgsp$(SL) $(LIBPATH)/libgdp$(SL) $(LIBPATH)/libgpp$(SL) $(LIBPATH)/libgps$(SL) $(LIBPATH)/libgdum$(SL) $(LIBPATH)/libg3d$(SL)  $(LIBPATH)/libgtgif$(SL)
 
 installplot : libplot$(SL)
-	cp libplot$(SL) $(LIBPATH)
+	cp -f libplot$(SL) $(LIBPATH)
 	$(LDX) $(LIBPATH)/libplot$(SL)
 
 clean :
