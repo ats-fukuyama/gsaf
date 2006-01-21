@@ -20,16 +20,19 @@ CC=sxcc
 
 # Compile flags
 
-FLFLAGS=
+FLFLAGS=-Cvsafe
 CLFLAGS=-DUNDERSCORE
-FFLAGS=
+FFLAGS=-Cvsafe
 CFLAGS=-DUNDERSCORE
 
 # Make library command and options
 
-LD=sxar
+#LD=sxar
+#LDX=echo
+#LDFLAGS=ru
+LD=sxld
 LDX=echo
-LDFLAGS=ru
+LDFLAGS=-r -o
 
 # Library extension
 
