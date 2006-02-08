@@ -593,7 +593,7 @@ void dvtext_(const int4 *ix,const int4 *iy,const int4 *iasc,const int4 *nchar)
 
 	fprintf(psfile,"u\n");
 	dvcolor(3);
-	fprintf(psfile,"/%s%f %f %f 0 z\n",fontname[ifont],dchs,dchss,dchsp);
+	fprintf(psfile,"/%s %f %f %f 0 z\n",fontname[ifont],dchs,dchss,dchsp);
 	fprintf(psfile,"[%1.3f %1.3f %1.3f %1.3f %1.3f %1.3f ] e\n(",
 		fxxch,fyxch,fxych,fyych,xpos,ypos);
 	for(i=0; i<*nchar; i++) {
