@@ -1,5 +1,8 @@
 $Id$
 
+V3.95
+2006/02/08  gps.c fontname corrected (Thanks to Mr. Akutsu) 
+2006/01/21  arch/nifs-sx/Makefile.arch update
 2005/12/15  Makefiles: cp changed to cp -f
 
 V3.94
