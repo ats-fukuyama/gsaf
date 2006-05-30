@@ -69,7 +69,7 @@ C
             BUTTON_RED(NB)=   0.7
             BUTTON_GREEN(NB)= 1.0
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M32'
+            BUTTON_TEXT(NB)= 'MN'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.10) THEN
             BUTTON_RED(NB)=   0.8

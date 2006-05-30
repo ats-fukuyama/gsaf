@@ -173,7 +173,7 @@ C
             VTP=VT
          ELSE
             IPD(NP)=1
-            VTP=VT/3.D0
+            VTP=VT/3.0
          ENDIF
          CALL WFRNDU(2,R)
          PX(1,NP)=XMIN+GUCLIP(R(1))*XLEN
@@ -238,7 +238,7 @@ C
       INCLUDE 'plasma.inc'
 C
       DO NP=1,NPMAX
-         FBX=0.5D0*FB*DT
+         FBX=0.50*FB*DT
          IF(IPD(NP).EQ.0) THEN 
             FBX=-FBX
          ELSE
@@ -280,6 +280,12 @@ C
             PVN(1,NP1)=PVN(1,NP1)-FXP*DT
             PVN(2,NP1)=PVN(2,NP1)-FYP*DT
          ENDDO
+         XPL=PX(1,NP)
+         ARG=(PX(1,NP)-0.50*(XMIN+XMAX))/XLE
+         FXP=FEX*EXP(-ARG**2)
+         FYP=0.0
+         PVN(1,NP)=PVN(1,NP)+FXP*DT
+         PVN(2,NP)=PVN(2,NP)+FYP*DT
       ENDDO
 C
       DO NP=1,NPMAX
@@ -287,7 +293,7 @@ C
          PV(2,NP)=PVN(2,NP)
       ENDDO
       DO NP=1,NPMAX
-         FBX=0.5D0*FB*DT
+         FBX=0.50*FB*DT
          IF(IPD(NP).EQ.0) THEN 
             FBX=-FBX
          ELSE
