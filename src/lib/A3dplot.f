@@ -716,11 +716,11 @@ C
          WORK(NX,IY,8)=WMIN
  200  CONTINUE
       DO 300 I=1,NX
-         XMIN=WORK(I,1,2)
-         XMAX=WORK(I,1,2)
+         XMIN=WORK(I,1,1)
+         XMAX=WORK(I,1,1)
          DO 301 J=1,NY
-            XMIN=MIN(WORK(I,J,2),XMIN)
-            XMAX=MAX(WORK(I,J,2),XMAX)
+            XMIN=MIN(WORK(I,J,1),XMIN)
+            XMAX=MAX(WORK(I,J,1),XMAX)
  301     CONTINUE
          XHDATA(I,1)=XMIN
          XHDATA(I,2)=XMAX
@@ -905,8 +905,10 @@ C
       IF (ABS(DPX)/(GXE-GXS).LT.EPS) GOTO 9999
       PX0=GXS-XORG
       PX1=GXE-XORG
-      NS=INT((PX0-EPS)/DPX)
-      NE=INT((PX1+EPS)/DPX)
+C      NS=INT((PX0-EPS)/DPX)
+C      NE=INT((PX1+EPS)/DPX)
+      NS=INT(PX0/DPX-EPS)
+      NE=INT(PX1/DPX+EPS)
 C
       IF (IYZ.EQ.0) THEN
          PY=YPOS
@@ -1059,8 +1061,10 @@ C
       IF (ABS(DPY)/(GYE-GYS).LT.EPS) GOTO 9999
       PY0=GYS-YORG
       PY1=GYE-YORG
-      NS=INT((PY0-EPS)/DPY)
-      NE=INT((PY1+EPS)/DPY)
+C      NS=INT((PY0-EPS)/DPY)
+C      NE=INT((PY1+EPS)/DPY)
+      NS=INT(PY0/DPY-EPS)
+      NE=INT(PY1/DPY+EPS)
 C
       IF (IXZ.EQ.0) THEN
          PX=XPOS
@@ -1239,8 +1243,10 @@ C
       IF (ABS(DPZ/(ZMAX-ZMIN)).LT.EPS) GOTO 9999
       PZ0=ZMIN-ZORG
       PZ1=ZMAX-ZORG
-      NS=INT((PZ0-EPS)/DPZ)
-      NE=INT((PZ1+EPS)/DPZ)
+C      NS=INT((PZ0-EPS)/DPZ)
+C      NE=INT((PZ1+EPS)/DPZ)
+      NS=INT(PZ0/DPZ-EPS)
+      NE=INT(PZ1/DPZ+EPS)
 C
       PX=XPOS
       PY=YPOS
@@ -1382,8 +1388,10 @@ C
       IF (ABS(DPX/(GXE-GXS)).LT.EPS) GOTO 9999
       PX0=GXS-XORG
       PX1=GXE-XORG
-      NS=INT((PX0-EPS)/DPX)
-      NE=INT((PX1+EPS)/DPX)
+C      NS=INT((PX0-EPS)/DPX)
+C      NE=INT((PX1+EPS)/DPX)
+      NS=INT(PX0/DPX-EPS)
+      NE=INT(PX1/DPX+EPS)
 C
       IF (IYZ.EQ.0) THEN
          PY=YPOS
@@ -1639,8 +1647,10 @@ C
       IF (ABS(DPY/(GYE-GYS)).LT.EPS) GOTO 9999
       PY0=GYS-YORG
       PY1=GYE-YORG
-      NS=INT((PY0-EPS)/DPY)
-      NE=INT((PY1+EPS)/DPY)
+C      NS=INT((PY0-EPS)/DPY)
+C      NE=INT((PY1+EPS)/DPY)
+      NS=INT(PY0/DPY-EPS)
+      NE=INT(PY1/DPY+EPS)
 C
       IF (IXZ.EQ.0) THEN
          PX=XPOS
@@ -1873,8 +1883,10 @@ C
       PZ0=ZMIN-ZORG
       PZ1=ZMAX-ZORG
       IF (ABS(DPZ/(ZMAX-ZMIN)).LT.EPS) GOTO 9999
-      NS=INT((PZ0-EPS)/DPZ)
-      NE=INT((PZ1+EPS)/DPZ)
+C      NS=INT((PZ0-EPS)/DPZ)
+C      NE=INT((PZ1+EPS)/DPZ)
+      NS=INT(PZ0/DPZ-EPS)
+      NE=INT(PZ1/DPZ+EPS)
 C
       PX=XPOS
       PY=YPOS

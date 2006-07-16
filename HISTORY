@@ -1,4 +1,13 @@
 $Id$
+V3.96
+2006/07/16  arch/macosxi-gfortran added
+            arch/macosxi-g95 added
+            arch/macosxi-ifc added
+            A3dplot.f minor error corrected
+            Acplot1.f array allocation error corrected
+            Aline3d.f minor modification
+
+2006/04/19  arch/hp-nifs updated
 
 V3.95
 2006/02/08  gps.c fontname corrected (Thanks to Mr. Akutsu) 

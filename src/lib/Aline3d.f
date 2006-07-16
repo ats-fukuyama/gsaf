@@ -283,11 +283,15 @@ C     BETWEEN P1 AND P2
 C
       D=(DBLE(YP2)-DBLE(YP1))*(DBLE(X2)-DBLE(X1))
      & -(DBLE(XP2)-DBLE(XP1))*(DBLE(Y2)-DBLE(Y1))
+      DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X1)
+     &      +(DBLE(XP2)-DBLE(XP1))*DBLE(Y1)
       IF(ABS(D).LT.EPSD) THEN
-         G21=1.E7
+         IF(ABS(DD).LT.EPSD) THEN
+            G21=0.0
+         ELSE
+            G21=1.E7
+         ENDIF
       ELSE
-         DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X1)
-     &         +(DBLE(XP2)-DBLE(XP1))*DBLE(Y1)
          G21=REAL(DD/D)
          IF(ABS(G21).LT.EPS) G21=0.0
          IF(ABS(G21-1.0).LT.EPS) G21=1.0
@@ -297,11 +301,15 @@ C     BETWEEN P2 AND P3
 C
       D=(DBLE(YP2)-DBLE(YP1))*(DBLE(X3)-DBLE(X2))
      & -(DBLE(XP2)-DBLE(XP1))*(DBLE(Y3)-DBLE(Y2))
+      DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X2)
+     &      +(DBLE(XP2)-DBLE(XP1))*DBLE(Y2)
       IF(ABS(D).LT.EPSD) THEN
-         G32=1.E7
+         IF(ABS(DD).LT.EPSD) THEN
+            G32=0.0
+         ELSE
+            G32=1.E7
+         ENDIF
       ELSE
-         DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X2)
-     &         +(DBLE(XP2)-DBLE(XP1))*DBLE(Y2)
          G32=REAL(DD/D)
          IF(ABS(G32).LT.EPS) G32=0.0
          IF(ABS(G32-1.0).LT.EPS) G32=1.0
@@ -311,11 +319,15 @@ C     BETWEEN P3 AND P1
 C
       D=(DBLE(YP2)-DBLE(YP1))*(DBLE(X1)-DBLE(X3))
      & -(DBLE(XP2)-DBLE(XP1))*(DBLE(Y1)-DBLE(Y3))
+      DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X3)
+     &      +(DBLE(XP2)-DBLE(XP1))*DBLE(Y3)
       IF(ABS(D).LT.EPSD) THEN
-         G13=1.E7
+         IF(ABS(DD).LT.EPSD) THEN
+            G13=0.0
+         ELSE
+            G13=1.E7
+         ENDIF
       ELSE
-         DD=XYP-(DBLE(YP2)-DBLE(YP1))*DBLE(X3)
-     &         +(DBLE(XP2)-DBLE(XP1))*DBLE(Y3)
          G13=REAL(DD/D)
          IF(ABS(G13).LT.EPS) G13=0.0
          IF(ABS(G13-1.0).LT.EPS) G13=1.0

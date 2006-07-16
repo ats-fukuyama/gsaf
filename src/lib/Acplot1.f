@@ -19,7 +19,7 @@ C
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
       COMMON /TDATA1/ XDATA(1001),YDATA(1001),ZDATA(1001,1001)
       dimension  x(5),y(5),z(5)
-      dimension  xtmp(3),ytmp(3),ztmp(3)
+      dimension  xtmp(5),ytmp(5),ztmp(5)
       dimension  rgb(3)
       external   rgbfunc
 C
