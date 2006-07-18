@@ -34,7 +34,7 @@ C
          IDATA0(IX,IY)=255
          IDATA1(IX,IY)=255*256
          IDATA2(IX,IY)=255*256*256
-         IDATA3(IX,IY)=255*256*256*256
+         IDATA3(IX,IY)=-127*256*256*256
       ENDDO
       ENDDO
 C
