@@ -570,8 +570,11 @@ void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
 			if (i == 0)
 				fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
 			else
-				fprintf(psfile,"%1.3f %1.3f L\n",xpos,ypos);
+				fprintf(psfile,"%1.3f %1.3f l\n",xpos,ypos);
 		}
+		i = 0;
+		getposition(ixn[i],iyn[i],&xpos,&ypos);
+		fprintf(psfile,"%1.3f %1.3f l\n",xpos,ypos);
 		fprintf(psfile,"f\n");
 		imv = 0;
 	}

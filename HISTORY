@@ -1,5 +1,7 @@
 $Id$
 
+2006/07/24  gps.c: dvrgbtrg updated
+
 2006/07/22  Argbfunc.f: R2Y2W, W2G2B, W2R2K, K2B2W, WRKBW, WRGBW added
 
 2006/07/18  arch/macosx-gfortran added
