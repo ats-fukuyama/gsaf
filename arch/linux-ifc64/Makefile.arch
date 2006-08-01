@@ -1,0 +1,54 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for Linux-ifc [2004/05/03]
+#################################################################
+
+# default install path
+
+#BINPATH=/usr/local/bin
+#LIBPATH=/usr/local/lib
+
+# home install path
+
+HOMEPATH=/home/j024
+BINPATH=$(HOMEPATH)/bin
+LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+#FC=ifc
+FC=ifort
+CC=icc
+
+# Compile flags
+
+FLFLAGS=-O -Kpic
+CLFLAGS=-O -Kpic -DUNDERSCORE -DLSB -DLONGINT
+FFLAGS=-O
+CFLAGS=-O -DUNDERSCORE -DLSB -DLONGINT
+
+# Make library command and options
+
+LD=ifort
+LDX=echo Created:
+LDFLAGS=-shared -o
+
+# Library extension
+
+LIB-SUFFIX=-ifc64
+SL=$(LIB-SUFFIX).so
+
+# X library path
+
+XINCPATH=/usr/X11R6/include
+XLIBPATH=/usr/X11R6/lib
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.dynamic
