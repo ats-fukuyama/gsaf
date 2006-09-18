@@ -459,6 +459,7 @@ ghostscript で GIF ファイルを作成する例
 
 	GUFLSH	文字バッファに蓄積されたデータを画面に表示
 	GF_SYNC	図形バッファに蓄積されたデータを画面に表示
+	GU_XFLUSH	X11 のバッファ内にある命令の即時実行
 	GU_SLEEP(T)	プログラム実行を一定時間停止
 
 	GURAND(X)	0..X の範囲の乱数を返す関数
@@ -609,7 +610,11 @@ ghostscript で GIF ファイルを作成する例
 		２次元データを３次元表示するための視点を設定する。
 
 	GDATA3D1(Z,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
-		等間隔格子２次元データを３次元表示するためのデータを与える。
+		等間隔格子２次元データを３次元表示するためのデータを与
+		える。
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
 
 	CPLOT3D1(IND,RGBFUNC)
 		等間隔格子２次元データをカラーの面で３次元表示する。
@@ -653,7 +658,7 @@ ghostscript で GIF ファイルを作成する例
 		格子２次元データをGDEFIN3D等で定義された平面へ射影する。
 
 	INQCNR3D(POS)
-		グラq領域をなす直方体の8つの角の座標を求める．
+		グラフ領域をなす直方体の8つの角の座標を求める．
 	INQANG3D(THETA,PHI)
 		視線のなす角度を求める．
 
@@ -2847,7 +2852,7 @@ GSAF V3.92  2005/08/24
 	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
 		IW	[I]	pixel map の幅
 		IH	[I]	pixel map の高さ
-		DATA(IW,IH)	[R]	pixel map データ
+		IDATA(IW,IH)	[I]	pixel map データ
 
 　　　　pixel map データは、IR,IG,IB を赤、緑、青を表す (0..255) の
 　　　　の範囲の整数として

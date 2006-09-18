@@ -1,5 +1,12 @@
 $Id$
 
+V3.98
+2006/09/21  Parameters introduced in A*.f
+            Matrix size in A*.f reduced from 1000 to 300
+            Adjust A3dcomm.inc if any trouble ocuurs
+            Size of vector fonts reduced
+
+V3.97
 2006/08/01  arch/linux-ia64 added
 
 2006/07/24  gps.c: dvrgbtrg updated

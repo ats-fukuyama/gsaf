@@ -162,7 +162,7 @@ C
       ENDIF
       CALL GUTIME(T)
       IF(ICH.NE.0) WRITE(6,601) T-TOPEN
-  601 FORMAT(1H ,'# GSAF V3.97 : ',
+  601 FORMAT(1H ,'# GSAF V3.98 : ',
      &           'Copyright (C) 1983-2006 A. Fukuyama and T. Akutsu'/
      &       1H ,'#              CLOSED.  USED CPU TIME =',
      &           F10.3,' SEC')

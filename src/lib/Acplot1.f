@@ -16,8 +16,9 @@ C ------------------------------------------
 C ------------------------------------------
       subroutine gtGradationColor_Square(i,j,rgbfunc)
 C
+      INCLUDE 'A3dcomm.inc'
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
-      COMMON /TDATA1/ XDATA(1001),YDATA(1001),ZDATA(1001,1001)
+      COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
       dimension  x(5),y(5),z(5)
       dimension  xtmp(5),ytmp(5),ztmp(5)
       dimension  rgb(3)
@@ -110,8 +111,9 @@ C ---- 三角形をグラデーションで塗る --------
 C ------------------------------------------
       subroutine gtGradationColor_Triangle(x,y,z,rgbfunc)
 C
+      INCLUDE 'A3dcomm.inc'
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
-      COMMON /TDATA1/ XDATA(1001),YDATA(1001),ZDATA(1001,1001)
+      COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
       dimension  rgb(3),r(3),g(3),b(3)
       dimension  x(3),y(3),z(3),xt(3),yt(3)
       external   rgbfunc
@@ -134,13 +136,14 @@ C ----            バッファー            -----
 C -------------------------------------------
       SUBROUTINE gtMkZBuffer
 
+      INCLUDE 'A3dcomm.inc'
       COMMON /FRAG3D/ NTRN,NDFN,NZBUF
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
-      COMMON /TDATA1/ XDATA(1001),YDATA(1001),ZDATA(1001,1001)
-      COMMON /TDATA2/ WORK(1001,1001,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
+      COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &     NNMX(2560,2),AFACTER
-      COMMON /ZBUFUR/ IXINDEX(10000),IYINDEX(10000),ZVALUE(1000,1000)
+      COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
 C
       IF (NZBUF.EQ.1) RETURN 
       NZBUF=1
@@ -220,9 +223,10 @@ C     ****** HIDE ******
 C
       SUBROUTINE GTZBUF(I,J,IXPMIN,IXPMAX)
 C
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      INCLUDE 'A3dcomm.inc'
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &     NNMX(2560,2),AFACTER
-      COMMON /ZBUFUR/ IXINDEX(10000),IYINDEX(10000),ZVALUE(1000,1000)
+      COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
 C     
       IFLAG=0
       DO IX=IXPMIN,IXPMAX
@@ -242,7 +246,8 @@ C     ****** HIDE ******
 C
       SUBROUTINE GTZBUFP(IX1,IX2,IY1,IY2)
 C
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      INCLUDE 'A3dcomm.inc'
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &     NNMX(2560,2),AFACTER
 C
       IF (IX2.EQ.IX1) THEN
@@ -278,14 +283,15 @@ C     if IND=1, draw poly only
 C     if IND=2, draw poly and x-lines only
 C     if IND=3, draw poly and y-lines only
 C
+      INCLUDE 'A3dcomm.inc'
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
-      COMMON /TDATA1/ XDATA(1001),YDATA(1001),ZDATA(1001,1001)
-      COMMON /TDATA2/ WORK(1001,1001,8),XTMIN,XTMAX,YTMIN,YTMAX
+      COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
+      COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
       COMMON /ANGL3D/ PHI,THETA
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &                NNMX(2560,2),AFACTER
-      COMMON /ZBUFUR/ IXINDEX(10000),IYINDEX(10000),ZVALUE(1000,1000)
-      DIMENSION RGB(3,1001,1001)
+      COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
+      DIMENSION RGB(3,NXDMP,NYDMP)
       EXTERNAL  RGBFUNC
 C
       CALL GTTTDATA
@@ -329,8 +335,9 @@ C     if I=1, draw poly only
 C     if I=2, draw poly and x-lines only
 C     if I=3, draw poly and y-lines only
 C     
-      COMMON /TDATA2/ WORK(1001,1001,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      INCLUDE 'A3dcomm.inc'
+      COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &     NNMX(2560,2),AFACTER
 C
       DIMENSION X1(5),Y1(5)
@@ -382,8 +389,9 @@ C     if NF=1, draw poly and x-lines only
 C     if NF=2, draw poly and y-lines only
 C     if NF=3, draw poly and lines
 C     
-      COMMON /TDATA2/ WORK(1001,1001,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(1000,1000),DPMX(2560,1810),
+      INCLUDE 'A3dcomm.inc'
+      COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
      &     NNMX(2560,2),AFACTER
 C
       DIMENSION X1(5),Y1(5)
