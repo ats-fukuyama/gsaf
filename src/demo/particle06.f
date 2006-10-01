@@ -167,6 +167,96 @@ C
       RETURN
       END
 C
+      SUBROUTINE PUSH_GAS_PARTICLESX
+C
+      INCLUDE 'PLASMA.INC'
+C
+      DO NP=1,NPMAX
+         PVN(1,NP)=PV(1,NP)
+         PVN(2,NP)=PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
+         DO NP1=NP+1,NPMAX
+            XD=PX(1,NP1)-PX(1,NP)
+            YD=PX(2,NP1)-PX(2,NP)
+            R=SQRT(XD*XD+YD*YD)
+            IF(R.LT.0.02) THEN
+               FX=-FG*XD/R
+               FY=-FG*YD/R
+               FXP=FX
+               FYP=FY
+               PVN(1,NP)=PVN(1,NP)+FXP*DT
+               PVN(2,NP)=PVN(2,NP)+FYP*DT
+               PVN(1,NP1)=PVN(1,NP1)-FXP*DT
+               PVN(2,NP1)=PVN(2,NP1)-FYP*DT
+            ENDIF
+         ENDDO
+      ENDDO
+C
+      DO NP=1,NPMAX
+         PXN(1,NP)=PX(1,NP)+PVN(1,NP)*DT
+         PXN(2,NP)=PX(2,NP)+PVN(2,NP)*DT
+         IF(PXN(1,NP).LT.XMIN) THEN
+            PXN(1,NP)=PXN(1,NP)+XMAX-XMIN
+         ELSEIF(PXN(1,NP).GT.XMAX) THEN
+            PXN(1,NP)=PXN(1,NP)-XMAX+XMIN
+         ENDIF
+         IF(PXN(2,NP).LT.YMIN) THEN
+            PXN(2,NP)=PXN(2,NP)+YMAX-YMIN
+         ELSEIF(PXN(2,NP).GT.YMAX) THEN
+            PXN(2,NP)=PXN(2,NP)-YMAX+YMIN
+            PVN(2,NP)=-PVN(2,NP)
+         ENDIF
+      ENDDO
+      RETURN
+      END
+C
+      SUBROUTINE PUSH_GAS_PARTICLESY
+C
+      INCLUDE 'plasma.inc'
+C
+      DO NP=1,NPMAX
+         PVN(1,NP)=PV(1,NP)
+         PVN(2,NP)=PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
+         DO NP1=NP+1,NPMAX
+            XD=PX(1,NP1)-PX(1,NP)
+            YD=PX(2,NP1)-PX(2,NP)
+            R=SQRT(XD*XD+YD*YD)
+            IF(R.LT.0.02) THEN
+               FX=-FG*XD/R
+               FY=-FG*YD/R
+               FXP=FX
+               FYP=FY
+               PVN(1,NP)=PVN(1,NP)+FXP*DT
+               PVN(2,NP)=PVN(2,NP)+FYP*DT
+               PVN(1,NP1)=PVN(1,NP1)-FXP*DT
+               PVN(2,NP1)=PVN(2,NP1)-FYP*DT
+            ENDIF
+         ENDDO
+      ENDDO
+C
+      DO NP=1,NPMAX
+         PXN(1,NP)=PX(1,NP)+PVN(1,NP)*DT
+         PXN(2,NP)=PX(2,NP)+PVN(2,NP)*DT
+         IF(PXN(1,NP).LT.XMIN) THEN
+            PXN(1,NP)=PXN(1,NP)+XMAX-XMIN
+         ELSEIF(PXN(1,NP).GT.XMAX) THEN
+            PXN(1,NP)=PXN(1,NP)-XMAX+XMIN
+         ENDIF
+         IF(PXN(2,NP).LT.YMIN) THEN
+            PXN(2,NP)=PXN(2,NP)+YMAX-YMIN
+         ELSEIF(PXN(2,NP).GT.YMAX) THEN
+            PXN(2,NP)=PXN(2,NP)-YMAX+YMIN
+            PVN(2,NP)=-PVN(2,NP)
+         ENDIF
+      ENDDO
+      RETURN
+      END
+C
       SUBROUTINE PUSH_PLASMA_PARTICLES
 C
       INCLUDE 'plasma.inc'
@@ -255,6 +345,95 @@ C
          ELSEIF(PXN(2,NP).GT.YMAX) THEN
             PXN(2,NP)=2*YMAX-PXN(2,NP)
             PVN(2,NP)=-PVN(2,NP)
+         ENDIF
+      ENDDO
+      RETURN
+      END
+C
+      SUBROUTINE PUSH_PLASMA_PARTICLESX
+C
+      INCLUDE 'plasma.inc'
+C
+      DO NP=1,NPMAX
+         FBX=0.50*FB*DT
+         IF(IPD(NP).EQ.0) THEN 
+            FBX=-FBX
+         ELSE
+            FBX=FBX/9.0
+         ENDIF
+         FB1=(1-0.25*FBX*FBX)/(1+0.25*FBX*FBX)
+         FB2=FBX/(1+0.25*FBX*FBX)
+         PVN(1,NP)= FB1*PV(1,NP)+FB2*PV(2,NP)
+         PVN(2,NP)=-FB2*PV(1,NP)+FB1*PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
+         DO NP1=NP+1,NPMAX
+            XD=PX(1,NP1)-PX(1,NP)
+            YD=PX(2,NP1)-PX(2,NP)
+            R=SQRT(XD*XD+YD*YD)
+            FX=FE*XD/(R*R)
+            FY=FE*YD/(R*R)
+            IF(IPD(NP).EQ.IPD(NP1)) THEN
+               FX=-FX
+               FY=-FY
+            ENDIF
+            IF(IPD(NP).EQ.0) THEN
+               FXP=FX
+               FYP=FY
+            ELSE
+               FXP=FX/9.0
+               FYP=FY/9.0
+            ENDIF
+            PVN(1,NP)=PVN(1,NP)+FXP*DT
+            PVN(2,NP)=PVN(2,NP)+FYP*DT
+            IF(IPD(NP1).EQ.0) THEN
+               FXP=FX
+               FYP=FY
+            ELSE
+               FXP=FX/9.0
+               FYP=FY/9.0
+            ENDIF
+            PVN(1,NP1)=PVN(1,NP1)-FXP*DT
+            PVN(2,NP1)=PVN(2,NP1)-FYP*DT
+         ENDDO
+         XPL=PX(1,NP)
+         ARG=(PX(1,NP)-0.50*(XMIN+XMAX))/XLE
+         FXP=FEX*EXP(-ARG**2)
+         FYP=0.0
+         PVN(1,NP)=PVN(1,NP)+FXP*DT
+         PVN(2,NP)=PVN(2,NP)+FYP*DT
+      ENDDO
+C
+      DO NP=1,NPMAX
+         PV(1,NP)=PVN(1,NP)
+         PV(2,NP)=PVN(2,NP)
+      ENDDO
+      DO NP=1,NPMAX
+         FBX=0.50*FB*DT
+         IF(IPD(NP).EQ.0) THEN 
+            FBX=-FBX
+         ELSE
+            FBX=FBX/9.0
+         ENDIF
+         FB1=(1-0.25*FBX*FBX)/(1+0.25*FBX*FBX)
+         FB2=FBX/(1+0.25*FBX*FBX)
+         PVN(1,NP)= FB1*PV(1,NP)+FB2*PV(2,NP)
+         PVN(2,NP)=-FB2*PV(1,NP)+FB1*PV(2,NP)
+      ENDDO
+C
+      DO NP=1,NPMAX
+         PXN(1,NP)=PX(1,NP)+PVN(1,NP)*DT
+         PXN(2,NP)=PX(2,NP)+PVN(2,NP)*DT
+         IF(PXN(1,NP).LT.XMIN) THEN
+            PXN(1,NP)=PXN(1,NP)+XMAX-XMIN
+         ELSEIF(PXN(1,NP).GT.XMAX) THEN
+            PXN(1,NP)=PXN(1,NP)-XMAX+XMIN
+         ENDIF
+         IF(PXN(2,NP).LT.YMIN) THEN
+            PXN(2,NP)=PXN(2,NP)+YMAX-YMIN
+         ELSEIF(PXN(2,NP).GT.YMAX) THEN
+            PXN(2,NP)=PXN(2,NP)-YMAX+YMIN
          ENDIF
       ENDDO
       RETURN

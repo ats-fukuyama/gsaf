@@ -27,9 +27,9 @@ C
             IB=IB+(255-IB)*(R1-0.9)/0.1
          ENDIF
 C
-         IDATA1R(IX,IY)=(IB*256*256+IB*256+IR)*256
+         IDATA1R(IX,IY)=(IR*256*256+IB*256+IR)*256
          IDATA1G(IX,IY)=(IB*256*256+IR*256+IB)*256
-         IDATA1B(IX,IY)=(IR*256*256+IB*256+IB)*256
+         IDATA1B(IX,IY)=(IB*256*256+IB*256+IR)*256
       ENDDO
       ENDDO
 C
@@ -57,9 +57,9 @@ C
             IB=IB+(255-IB)*(R1-0.9)/0.1
          ENDIF
 C
-         IDATA2R(IX,IY)=(IB*256*256+IB*256+IR)*256
+         IDATA2R(IX,IY)=(IR*256*256+IB*256+IB)*256
          IDATA2G(IX,IY)=(IB*256*256+IR*256+IB)*256
-         IDATA2B(IX,IY)=(IR*256*256+IB*256+IB)*256
+         IDATA2B(IX,IY)=(IB*256*256+IB*256+IR)*256
       ENDDO
       ENDDO
 C
@@ -87,9 +87,9 @@ C
             IB=IB+(255-IB)*(R1-0.9)/0.1
          ENDIF
 C
-         IDATA4R(IX,IY)=(IB*256*256+IB*256+IR)*256
+         IDATA4R(IX,IY)=(IR*256*256+IB*256+IB)*256
          IDATA4G(IX,IY)=(IB*256*256+IR*256+IB)*256
-         IDATA4B(IX,IY)=(IR*256*256+IB*256+IB)*256
+         IDATA4B(IX,IY)=(IB*256*256+IB*256+IR)*256
       ENDDO
       ENDDO
 C
