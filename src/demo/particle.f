@@ -150,6 +150,7 @@ C
          CALL WFRNDN(2,R)
          PV(1,NP)=GUCLIP(R(1))*VT
          PV(2,NP)=GUCLIP(R(2))*VT
+         PR(NP)=GUCLIP(R(2))*VT
       ENDDO
       RETURN
       END

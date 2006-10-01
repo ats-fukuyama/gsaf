@@ -32,68 +32,68 @@ C
          ELSEIF(NB.EQ.3) THEN
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7
-            BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'P0'
+            BUTTON_BLUE(NB)=  0.7
+            BUTTON_TEXT(NB)= 'G2'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.4) THEN
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7
-            BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'P1'
+            BUTTON_BLUE(NB)=  0.7
+            BUTTON_TEXT(NB)= 'G3'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.5) THEN
             BUTTON_RED(NB)=   1.0
             BUTTON_GREEN(NB)= 0.7
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'P2'
+            BUTTON_TEXT(NB)= 'P0'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.6) THEN
-            BUTTON_RED(NB)=   0.0
-            BUTTON_GREEN(NB)= 0.0
-            BUTTON_BLUE(NB)=  0.0
-            BUTTON_TEXT(NB)= '--'
+            BUTTON_RED(NB)=   1.0
+            BUTTON_GREEN(NB)= 0.7
+            BUTTON_BLUE(NB)=  1.0
+            BUTTON_TEXT(NB)= 'P1'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.7) THEN
-            BUTTON_RED(NB)=   0.7
-            BUTTON_GREEN(NB)= 1.0
+            BUTTON_RED(NB)=   1.0
+            BUTTON_GREEN(NB)= 0.7
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M0'
+            BUTTON_TEXT(NB)= 'P2'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.8) THEN
-            BUTTON_RED(NB)=   0.7
-            BUTTON_GREEN(NB)= 1.0
+            BUTTON_RED(NB)=   1.0
+            BUTTON_GREEN(NB)= 0.7
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M1'
+            BUTTON_TEXT(NB)= 'P3'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.9) THEN
             BUTTON_RED(NB)=   0.7
             BUTTON_GREEN(NB)= 1.0
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M2'
+            BUTTON_TEXT(NB)= 'M0'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.10) THEN
             BUTTON_RED(NB)=   0.7
             BUTTON_GREEN(NB)= 1.0
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M3'
+            BUTTON_TEXT(NB)= 'M1'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.11) THEN
             BUTTON_RED(NB)=   0.7
             BUTTON_GREEN(NB)= 1.0
             BUTTON_BLUE(NB)=  1.0
-            BUTTON_TEXT(NB)= 'M4'
+            BUTTON_TEXT(NB)= 'M2'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.12) THEN
-            BUTTON_RED(NB)=   0.0
-            BUTTON_GREEN(NB)= 0.0
-            BUTTON_BLUE(NB)=  0.0
-            BUTTON_TEXT(NB)= '--'
+            BUTTON_RED(NB)=   0.7
+            BUTTON_GREEN(NB)= 1.0
+            BUTTON_BLUE(NB)=  1.0
+            BUTTON_TEXT(NB)= 'M3'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.13) THEN
-            BUTTON_RED(NB)=   0.0
-            BUTTON_GREEN(NB)= 0.0
-            BUTTON_BLUE(NB)=  0.0
-            BUTTON_TEXT(NB)= '--'
+            BUTTON_RED(NB)=   0.7
+            BUTTON_GREEN(NB)= 1.0
+            BUTTON_BLUE(NB)=  1.0
+            BUTTON_TEXT(NB)= 'M4'
             BUTTON_NCHAR(NB)= 2
          ELSEIF(NB.EQ.14) THEN
             BUTTON_RED(NB)=   0.0
