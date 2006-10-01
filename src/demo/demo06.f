@@ -43,16 +43,22 @@ C            WRITE(6,*) KIN
                      MODE=NB
                      CALL ERAS
                      CALL SET_BUTTON
-                     IF(MODE.EQ.1) CALL GAS
-                     IF(MODE.EQ.2) CALL PLASMA1
-                     IF(MODE.EQ.3) CALL PLASMA2
-                     IF(MODE.EQ.4) CALL PLASMA3
-                     IF(MODE.EQ.5) CALL PLASMA4
-                     IF(MODE.EQ.6) CALL PLASMA5
-                     IF(MODE.EQ.7) CALL MAGNETIZE1
-                     IF(MODE.EQ.8) CALL MAGNETIZE2
-                     IF(MODE.EQ.9) CALL MANUAL
-                     IF(MODE.EQ.10) GOTO 9000
+                     IF(MODE.EQ. 1) CALL GAS
+                     IF(MODE.EQ. 2) CALL PLASMA1
+                     IF(MODE.EQ. 3) CALL PLASMA2
+                     IF(MODE.EQ. 4) CALL PLASMA3
+                     IF(MODE.EQ. 5) CALL PLASMA4
+                     IF(MODE.EQ. 6) CALL PLASMA5
+                     IF(MODE.EQ. 7) CALL MAGNETIZE1
+                     IF(MODE.EQ. 8) CALL MAGNETIZE2
+                     IF(MODE.EQ. 9) CALL MANUAL
+                     IF(MODE.EQ.10) CALL MANUAL
+                     IF(MODE.EQ.11) CALL MANUAL
+                     IF(MODE.EQ.12) CALL MANUAL
+                     IF(MODE.EQ.13) CALL MANUAL
+                     IF(MODE.EQ.14) CALL MANUAL
+                     IF(MODE.EQ.15) CALL MANUAL
+                     IF(MODE.EQ.16) GOTO 9000
                      GOTO 10
                   ELSE
                      BUTTON_CLICK(NB)=0
@@ -109,6 +115,8 @@ C
       RETURN
       END
 C
+C      SUBROUTINE COLLISION_GAS
+C
       SUBROUTINE GAS
 C
       INCLUDE 'plasma.inc'
@@ -156,11 +164,11 @@ C      WRITE(6,'(A,I12    )') '  NPMAX = ',NPMAX
 C      WRITE(6,*) '## DT,VT,TINTV,NTMAX,NPMAX ?'
 C      READ(5,*,END=9000) DT,VT,TINTV,NTMAX,NPMAX
 C
-      DT=0.002
-      FE=3.0
+      DT=0.01
+      FE=1.0
       FB=0.0
       NTMAX=200
-      NPMAX=20
+      NPMAX=30
 C
       XLEN=XMAX-XMIN
       YLEN=YMAX-YMIN
