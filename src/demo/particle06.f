@@ -88,6 +88,37 @@ C
       RETURN
       END
 C
+      SUBROUTINE INIT_PLASMA_PARTICLESX
+C
+      INCLUDE 'plasma.inc'
+      REAL*8 R(2)
+C
+      IF(MRSEED.EQ.0) THEN
+         CALL GUDATE(NDY1,NDM1,NDD1,NTH1,NTM1,NTS1)
+         IR=((NDD1*24+NTH1)*60+NTM1)*60+NTS1
+      ELSE
+         IR=MRSEED
+      ENDIF
+      CALL WFRNDI(IR)
+C
+      DO NP=1,NPMAX
+         IF(NP.LE.NPMAX/2) THEN
+            IPD(NP)=0
+            VTP=VT
+         ELSE
+            IPD(NP)=1
+            VTP=VT/3.0
+         ENDIF
+         CALL WFRNDU(2,R)
+         PX(1,NP)=XMIN+0.4*XLEN+0.2*GUCLIP(R(1))*XLEN
+         PX(2,NP)=YMIN+0.4*YLEN+0.2*GUCLIP(R(2))*YLEN
+         CALL WFRNDN(2,R)
+         PV(1,NP)=GUCLIP(R(1))*VTP
+         PV(2,NP)=GUCLIP(R(2))*VTP
+      ENDDO
+      RETURN
+      END
+C
       SUBROUTINE PUSH_GAS_PARTICLES
 C
       INCLUDE 'plasma.inc'
