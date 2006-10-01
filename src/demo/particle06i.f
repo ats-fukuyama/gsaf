@@ -95,7 +95,8 @@ C
 C
       RETURN
       END
-C
+
+C     
       SUBROUTINE INITDRAW_PARTICLES
 C
       INCLUDE 'plasma.inc'

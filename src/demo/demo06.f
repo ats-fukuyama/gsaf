@@ -124,6 +124,7 @@ C
       DT=0.05
       FG=3.0
       NTMAX=200
+      NPMAX=50
 C
       XLEN=XMAX-XMIN
       YLEN=YMAX-YMIN

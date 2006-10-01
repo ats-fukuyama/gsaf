@@ -16,11 +16,11 @@ plasmax : plasmax.o
 demo : demo.o particle.o button.o random.o
 	$(FC) $(FFLAGS) -o demo demo.o particle.o button.o random.o $(GDPLIBS) 
 
-demo06 : demo06.o particle06.o button06.o random.o
-	$(FC) $(FFLAGS) -o demo06 demo06.o particle06.o button06.o random.o $(GDPLIBS) 
+demo06 : demo06.o particle06.o button06.o image.o random.o
+	$(FC) $(FFLAGS) -o demo06 demo06.o particle06.o button06.o image.o random.o $(GDPLIBS) 
 
-demo06i : demo06.o particle06i.o button06.o random.o
-	$(FC) $(FFLAGS) -o demo06i demo06.o particle06i.o button06.o random.o $(GDPLIBS) 
+demo06i : demo06.o particle06.o button06.o imagei.o random.o
+	$(FC) $(FFLAGS) -o demo06i demo06.o particle06.o button06.o imagei.o random.o $(GDPLIBS) 
 
 clean :
 	rm -f *.o ./*~ ./#*# core*
@@ -36,4 +36,6 @@ button.o: button.f button.inc
 demo06.o: demo06.f plasma.inc button.inc
 particle06.o: particle06.f plasma.inc 
 button06.o: button06.f button.inc
+image.o: image.f plasma.inc 
+imagei.o: imagei.f plasma.inc 
 random.o: random.f
