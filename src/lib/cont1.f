@@ -476,8 +476,8 @@ C
          IF(J.EQ.NY) JJ=1
          U1=(Z(1,J )-ZORG)/ZSTEP+ZBIAS
          U4=(Z(1,JJ)-ZORG)/ZSTEP+ZBIAS
-         K1=INT(MAX(U1,0.0))
-         K4=INT(MAX(U4,0.0))
+         K1=INTCLIP(MAX(U1,0.0))
+         K4=INTCLIP(MAX(U4,0.0))
 C
       DO 100 IDO=1,NXMAX
          I=IDO
@@ -485,8 +485,8 @@ C
          IF(I.EQ.NX) II=1
          U2=(Z(II,J )-ZORG)/ZSTEP+ZBIAS
          U3=(Z(II,JJ)-ZORG)/ZSTEP+ZBIAS
-         K2=INT(MAX(U2,0.0))
-         K3=INT(MAX(U3,0.0))
+         K2=INTCLIP(MAX(U2,0.0))
+         K3=INTCLIP(MAX(U3,0.0))
 C
          LJ1=ABS(U2-U1).GE.EPS
          LJ2=ABS(U3-U2).GE.EPS
@@ -608,13 +608,13 @@ C
          NYP=NY+1
          IF(NXP.GT.NXMAX) NXP=1
          IF(NYP.GT.NYMAX) NYP=1
-         K1=INT((Z(NX ,NY )-ZORG)/ZSTEP+ZBIAS)
-         K2=INT((Z(NXP,NYP)-ZORG)/ZSTEP+ZBIAS)
-         K3=INT((Z(NX ,NYP)-ZORG)/ZSTEP+ZBIAS)
+         K1=INTCLIP((Z(NX ,NY )-ZORG)/ZSTEP+ZBIAS)
+         K2=INTCLIP((Z(NXP,NYP)-ZORG)/ZSTEP+ZBIAS)
+         K3=INTCLIP((Z(NX ,NYP)-ZORG)/ZSTEP+ZBIAS)
          KA(1,IE)=MAX(MIN(K1,K2,K3),1)
          KA(2,IE)=MAX(K1,K2,K3,1)
          IE=IE+1
-         K3=INT((Z(NXP,NY )-ZORG)/ZSTEP+ZBIAS)
+         K3=INTCLIP((Z(NXP,NY )-ZORG)/ZSTEP+ZBIAS)
          KA(1,IE)=MAX(MIN(K1,K2,K3),1)
          KA(2,IE)=MAX(K1,K2,K3,1)
   100 CONTINUE
@@ -868,12 +868,12 @@ C
          NYP=NY+1
          IF(NXP.GT.NXMAX) NXP=1
          IF(NYP.GT.NYMAX) NYP=1
-         K1=INT((Z(NX ,NY )-ZORG)/ZSTEP+ZBIAS)
-         K2=INT((Z(NXP,NY )-ZORG)/ZSTEP+ZBIAS)
-         K3=INT((Z(NXP,NYP)-ZORG)/ZSTEP+ZBIAS)
-         K4=INT((Z(NX ,NYP)-ZORG)/ZSTEP+ZBIAS)
+         K1=INTCLIP((Z(NX ,NY )-ZORG)/ZSTEP+ZBIAS)
+         K2=INTCLIP((Z(NXP,NY )-ZORG)/ZSTEP+ZBIAS)
+         K3=INTCLIP((Z(NXP,NYP)-ZORG)/ZSTEP+ZBIAS)
+         K4=INTCLIP((Z(NX ,NYP)-ZORG)/ZSTEP+ZBIAS)
          ZC=0.25*(Z(NX,NY)+Z(NXP,NY)+Z(NXP,NYP)+Z(NX,NYP))
-         KC=INT((ZC        -ZORG)/ZSTEP+ZBIAS)
+         KC=INTCLIP((ZC        -ZORG)/ZSTEP+ZBIAS)
          IE=IE+1
          KA(1,IE)=MAX(MIN(K1,K2,KC),1)
          KA(2,IE)=MAX(K1,K2,KC,1)
@@ -1159,5 +1159,18 @@ C
 C
          ENDIF
  1000 CONTINUE
+      RETURN
+      END
+C
+      FUNCTION INTCLIP(G)
+      INTEGER INTCLIP
+      REAL G
+      IF(G.GT.1.D5) then
+         INTCLIP= 100000
+      ELSEIF(G.LT.-1.D5) then
+         INTCLIP=-100000
+      ELSE
+         INTCLIP=INT(G)
+      ENDIF
       RETURN
       END

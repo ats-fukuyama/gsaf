@@ -1,6 +1,6 @@
 $Id$
-V3.99
-2007/04/12  arch/macosxi-pgf added
+
+2007/05/31  INTCLIP intrduced in cont1.f
 
 V3.98
 2006/09/21  Parameters introduced in A*.f
@@ -11,6 +11,7 @@ V3.98
 V3.97
 2006/08/01  arch/linux-ia64 added
 
+V3.97
 2006/07/24  gps.c: dvrgbtrg updated
 
 2006/07/22  Argbfunc.f: R2Y2W, W2G2B, W2R2K, K2B2W, WRKBW, WRGBW added
