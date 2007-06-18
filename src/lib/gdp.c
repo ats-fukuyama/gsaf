@@ -685,7 +685,7 @@ void dvtype_(int4 *ich)
 
 	printf(" # Welcome to GSAF\n");
 	str = getenv("GSGDP");
-	if(str)
+	if(str && strlen (str) > 0)
 		*ich=0;
 	else
 		*ich=1;
@@ -721,7 +721,7 @@ void dvopen_(int4 *ich)
 		cgamma = atof(str);
 
 	str = getenv("GSGDP");
-	if(str) {
+	if(str && strlen (str) > 0) {
 		c1 = str[0];
 		if(c1 == '-'){
 			chkeymode = 0;
