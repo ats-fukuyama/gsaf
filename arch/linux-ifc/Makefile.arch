@@ -28,7 +28,8 @@ CFLAGS=-O -DUNDERSCORE -DLSB
 
 # Make library command and options
 
-LD=ifc
+#LD=ifc
+LD=ifort
 LDX=echo Created:
 LDFLAGS=-shared -o
 
