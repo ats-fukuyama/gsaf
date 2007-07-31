@@ -55,7 +55,7 @@ install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.s
 
 clean :
 	rm -f *.o ./*~ ./#*# core*
-	-rm -f $(FC)g $(FC)gdum
+	-rm -f gsview $(FC)g $(FC)gdum
 
 veryclean : clean
-	rm -f *$(SL) *test gsview *.slave gsprint *g *gdum gsdata*
+	rm -f *$(SL) *test *.slave gsprint *g *gdum gsdata*
