@@ -2,6 +2,9 @@ $Id$
 
 2007/06/27  Fujistu compiler f95 and fcc supported for linux-64
 
+2007/11/10  LINESC and LINESC2D added
+            Bugs in POLY and LINES2D corrected (Thanks to Dr. Honda)
+
 2007/05/31  INTCLIP intrduced in cont1.f
 
 V3.98
