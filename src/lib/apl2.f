@@ -164,10 +164,35 @@ C
          N1=MIN(N-N0,1024)
 C
          DO I=1,N1
-            PX(I)=DX*(X(I)-GXS)+PXS
-            PY(I)=DY*(Y(I)-GYS)+PYS
+            PX(I)=DX*(X(N0+I)-GXS)+PXS
+            PY(I)=DY*(Y(N0+I)-GYS)+PYS
          ENDDO
          CALL LINES(PX,PY,N1)
+      ENDDO
+      RETURN
+      END
+C
+C     ****** DRAW CLOSED LINES IN GDEFIN COORDINATES ******
+C
+      SUBROUTINE LINESC2D(X,Y,N)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
+C
+      DIMENSION X(*),Y(*),PX(1024),PY(1024)
+C
+      IF(.NOT.LGF) RETURN
+C
+      NAMAX=(N-1)/1024+1
+      DO NA=1,NAMAX
+         N0=(NA-1)*1024
+         N1=MIN(N-N0,1024)
+C
+         DO I=1,N1
+            PX(I)=DX*(X(N0+I)-GXS)+PXS
+            PY(I)=DY*(Y(N0+I)-GYS)+PYS
+         ENDDO
+         CALL LINESC(PX,PY,N1)
       ENDDO
       RETURN
       END
@@ -189,8 +214,8 @@ C
          N1=MIN(N-N0,1024)
 C
          DO I=1,N1
-            PX(I)=DX*(X(I)-GXS)+PXS
-            PY(I)=DY*(Y(I)-GYS)+PYS
+            PX(I)=DX*(X(N0+I)-GXS)+PXS
+            PY(I)=DY*(Y(N0+I)-GYS)+PYS
          ENDDO
          CALL POLY(PX,PY,N1)
       ENDDO

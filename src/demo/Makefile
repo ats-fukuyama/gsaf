@@ -19,6 +19,9 @@ demo : demo.o particle.o button.o random.o
 demo06 : demo06.o particle06.o button06.o image.o random.o
 	$(FC) $(FFLAGS) -o demo06 demo06.o particle06.o button06.o image.o random.o $(GDPLIBS) 
 
+demo07 : demo07.o particle06.o button06.o image.o random.o
+	$(FC) $(FFLAGS) -o demo07 demo07.o particle06.o button06.o image.o random.o $(GDPLIBS) 
+
 demo06i : demo06.o particle06.o button06.o imagei.o random.o
 	$(FC) $(FFLAGS) -o demo06i demo06.o particle06.o button06.o imagei.o random.o $(GDPLIBS) 
 

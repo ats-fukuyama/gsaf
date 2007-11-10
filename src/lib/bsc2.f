@@ -93,16 +93,16 @@ C
       RETURN
       END
 C
-C     ****** FILL POLYGON ******
+C     ****** DRAW CLOSED LINES ******
 C
-      SUBROUTINE POLY(X,Y,N)
+      SUBROUTINE LINESC(X,Y,N)
 C
       IMPLICIT LOGICAL(L)
       COMMON /GSAFLG/ LGSAF,LPAGE,LFIL,LKEEP,NPAGE,NHEAD
       COMMON /GSAFXY/ XDEL,YDEL,XORG,YORG
       COMMON /GSAFCL/ LMV,X1,Y1,XL,XR,YL,YR
-      DIMENSION X(*),Y(*),XA(1024),YA(1024),XB(2048),YB(2048)
-      DIMENSION IX(2048),IY(2048)
+      DIMENSION X(*),Y(*),XA(1025),YA(1025),XB(2050),YB(2050)
+      DIMENSION IX(2050),IY(2050)
 C
       IF(.NOT.LPAGE) RETURN
 C
@@ -115,10 +115,65 @@ C
          XA(I)=X(N0+I)
          YA(I)=Y(N0+I)
       ENDDO
-      XA(N1+1)=X(1)
-      YA(N1+1)=Y(1)
+      IF(N0+N1.EQ.N) THEN
+         N1=N1+1
+         XA(N1)=X(1)
+         YA(N1)=Y(1)
+      ENDIF
 C
-      CALL GUPCLP(XA,YA,N1+1,XB,YB,M)
+      CALL GUPCLP(XA,YA,N1,XB,YB,M)
+C
+      DO I=1,M
+         IX(I)=NINT(XB(I)*XDEL+XORG)
+         IY(I)=NINT(YB(I)*YDEL+YORG)
+         IF(IX(I).LT.0)     IX(I)=0
+         IF(IX(I).GT.32767) IX(I)=32767
+         IF(IY(I).LT.0)     IY(I)=0
+         IF(IY(I).GT.32767) IY(I)=32767
+      ENDDO
+C
+      IF(M.GT.1) THEN
+         CALL GUGRPS
+         CALL DVLINS(IX,IY,M)
+         IF(LFIL) CALL BUFFXN(11,IX,IY,M)
+         CALL GUGRPE
+      ENDIF
+      ENDDO
+      X1=X(N)
+      Y1=Y(N)
+      LMV=.FALSE.
+      RETURN
+      END
+C
+C     ****** FILL POLYGON ******
+C
+      SUBROUTINE POLY(X,Y,N)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSAFLG/ LGSAF,LPAGE,LFIL,LKEEP,NPAGE,NHEAD
+      COMMON /GSAFXY/ XDEL,YDEL,XORG,YORG
+      COMMON /GSAFCL/ LMV,X1,Y1,XL,XR,YL,YR
+      DIMENSION X(*),Y(*),XA(1025),YA(1025),XB(2050),YB(2050)
+      DIMENSION IX(2050),IY(2050)
+C
+      IF(.NOT.LPAGE) RETURN
+C
+      NBMAX=(N-1)/1024+1
+      DO NB=1,NBMAX
+         N0=(NB-1)*1024
+         N1=MIN(N-N0,1024)
+C
+      DO I=1,N1
+         XA(I)=X(N0+I)
+         YA(I)=Y(N0+I)
+      ENDDO
+      IF(N0+N1.EQ.N) THEN
+         N1=N1+1
+         XA(N1)=X(1)
+         YA(N1)=Y(1)
+      ENDIF
+C
+      CALL GUPCLP(XA,YA,N1,XB,YB,M)
 C
       DO 2000 I=1,M
          IX(I)=NINT(XB(I)*XDEL+XORG)
