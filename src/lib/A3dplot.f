@@ -245,6 +245,90 @@ C
       RETURN
       END
 C
+C     ****** PUT DATA FOR 3D PLOT TO COMMON VARIABLE ******
+C
+      SUBROUTINE GDATA3D2(Z,X,Y,NXA,NX1,NY1,ZMIN1,ZMAX1)
+C
+      INCLUDE 'A3dcomm.inc'
+      COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
+      COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
+      COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
+      COMMON /WFCTR/  XFCTR,YFCTR,ZFCTR,DOX,DOY
+      COMMON /POSSCL/ I1X,I1Y,I1Z,SCLX,SCLY,SCLZ
+      COMMON /GDFN2D/ XMIN,XMAX,YMIN,YMAX
+      COMMON /FRAG3D/ NTRN,NDFN,NZBUF
+      COMMON /GTRN3D/ R,IAXIS
+C      COMMON /FSCL3D/ NSCLX(4),NSCLY(4),NSCLZ(4)
+C      COMMON /FVAL3D/ NVALX(4),NVALY(4),NVALZ(4)
+      COMMON /GTTTX/  XTMIN1,YTMIN1,DELX1,DELY1,RXY1
+C
+      DIMENSION Z(NXA,*),X(*),Y(*)
+C
+      NX=NX1
+      NY=NY1
+      XMIN=X(1)
+      XMAX=X(NX)
+      YMIN=Y(1)
+      YMAX=Y(NY)
+      ZMIN=ZMIN1
+      ZMAX=ZMAX1
+      XFCTR=XL/(XMAX-XMIN)
+      YFCTR=YL/(YMAX-YMIN)
+      ZFCTR=ZL/(ZMAX-ZMIN)
+C
+      DO 10 IX=1,NX
+      DO 10 IY=1,NY
+         IF (Z(IX,IY).GT.ZMAX) THEN
+            ZDATA(IX,IY)=ZMAX
+         ELSE IF(Z(IX,IY).LT.ZMIN) THEN
+            ZDATA(IX,IY)=ZMIN
+         ELSE
+            ZDATA(IX,IY)=Z(IX,IY)
+         ENDIF
+ 10   CONTINUE
+      DO 20 IX=1,NX
+         XDATA(IX)=X(IX)
+ 20   CONTINUE
+      DO 30 IY=1,NY
+         YDATA(IY)=Y(IY)
+ 30   CONTINUE
+C
+      NTRN=0
+      NZBUF=0
+      I1X=0
+      I1Y=0
+      I1Z=0
+      SCLX=0
+      SCLY=0
+      SCLZ=0
+C      DO I=1,4
+C         NSCLX(I)=0
+C         NSCLY(I)=0
+C         NSCLZ(I)=0
+C         NVALX(I)=0
+C         NVALY(I)=0
+C         NVALZ(I)=0
+C      ENDDO
+C
+C     if gview3d is already called, next is to be done.
+C
+      NDFN=NDFN+1
+      IF (NDFN.EQ.2) THEN
+         XTMIN1=0.0
+         YTMIN1=0.0
+         DELX1=0.0
+         DELY1=0.0
+         RXY1=1.0
+         CALL GTTTB(XDATA(1),YDATA(1),ZDATA(1,1),XTMIN,YTMIN)
+         XTMAX=XTMIN
+         YTMAX=YTMIN
+         CALL GTRNS3D(R,IAXIS,1)
+         CALL GTPREPFP
+      ENDIF
+C
+      RETURN
+      END
+C
 C     ****** TRANSLATE,MAGNIFICATE or REDUCE DATA & AXISES ******
 C
       SUBROUTINE GTRNS3D(R1,IAXIS1,IDATA)
