@@ -15,8 +15,11 @@
 #define		int4	long
 #endif
 
-#ifdef SONYCISC
+#ifndef M_PI
 #define M_PI	3.14159265358979323846
+#endif
+
+#ifdef SONYCISC
 extern char *getenv();
 #else
 #include <stdlib.h>
@@ -44,26 +47,6 @@ static double		cgamma,charwidth;
 static int		id,charangle,groupid,ondraw,glevel,gnext,terminated;
 static int4		polyx[MAX_POLY],polyy[MAX_POLY],polyn;
 
-extern struct {
-	char khead[40];
-#ifndef UNDERSCORE
-} gsafhd;
-#define gsafhd_	gsafhd
-#else
-} gsafhd_;
-#endif
-
-extern struct {
-	float xdel;
-	float ydel;
-	float xorg;
-	float yorg;
-#ifndef UNDERSCORE
-} gsafxy;
-#define gsafxy_	gsafxy
-#else
-} gsafxy_;
-#endif
 
 static void terminate(void)
 {
@@ -214,7 +197,7 @@ void dvopen_(int4 *ich)
 #endif
 {	
 	char	filename[MAX_STR],*parm,*str;
-	int	len; 
+	int	len;
 
 	str = getenv("GSGAMMATGIF");
 	cgamma = (str!=NULL)? atof(str) : 1;
@@ -227,7 +210,7 @@ void dvopen_(int4 *ich)
 		       filename,&interactive,&istart,&iend,
 		       &inum,&ititle,&irotate,&icolor);
 		if (filename[0] == '\0') {
-			fprintf(stderr,"## Illegal file name ! \n");
+			fprintf(stderr,"## Invalid file name!\n");
 			exit(1);
 		}
 		len = strlen(filename);
@@ -238,7 +221,7 @@ void dvopen_(int4 *ich)
 		strcat(filename,".obj");
 		igouraud = interactive&4;
 	} else {
-		fprintf(stderr," ## Parameter env var not found ! \n");
+		fprintf(stderr," ## Parameter env var not found!\n");
 		exit(1);
 	}
 	ipage = 0;
@@ -294,19 +277,10 @@ void dvpags(const int4 *npage,const float *sizex,const float *sizey,const int4 *
 void dvpags_(const int4 *npage,const float *sizex,const float *sizey,const int4 *lkeep)
 #endif
 {
-	char title[41];
-	int i;
-
-	ipage=ipage+1;
+	ipage++;
 	if (ipage != 1)
 		terminate();
-
-	strncpy(title,gsafhd_.khead,40);
-	for(i=39;i>=0;i--)
-		if (title[i]!=' ')
-			break;
-	title[i+1] = 0;
-	fprintf(tgiffile,"page(%d,\"%s\")",ipage,title);
+	fprintf(tgiffile,"page(%d,\"\")",ipage);
 	terminated = 0;
 	ifont = 0;
 }
@@ -382,7 +356,7 @@ void dvdraw(const int4 *ix,const int4 *iy)
 void dvdraw_(int4 *ix,int4 *iy)
 #endif
 {
-	if (ondraw && polyn > MAX_POLY)
+	if (ondraw && polyn >= MAX_POLY)
 		draw();
 	if (!ondraw) {
 		getpositioninv(xpos,ypos,&polyx[0],&polyy[0]);
@@ -400,7 +374,7 @@ void dvlins(const int4 ixn[],const int4 iyn[],const int4 *np)
 void dvlins_(const int4 ixn[],const int4 iyn[],const int4 *np)
 #endif
 {
-	static const int dash[8]={0,5,2,7,4,4,6,6};
+	static const int style[8]={0,5,2,7,4,4,6,6};
 	int i,lw;
 	
 	if (ondraw)
@@ -418,8 +392,9 @@ void dvlins_(const int4 ixn[],const int4 iyn[],const int4 *np)
 		}
 	}
 	lw = getlinewidth();
-	fprintf(tgiffile,"],0,%d,1,%d,0,0,%d,0,%d,%d,0,\n"
-		"    \"",lw,id++,(ilns>=0 && ilns<=7)?dash[ilns]:0,getah(lw),getaw(lw));
+	fprintf(tgiffile,"],0,%d,1,%d,0,0,%d,0,%d,%d,0,\n    \"",
+		lw,id++,(ilns>=0 && ilns<=7)?style[ilns]:0,
+		getah(lw),getaw(lw));
 	for (i = 0; i < (*np-1)/4+1; i++) {
 		if((i&0x3f)==0 && i!=0)
 			fprintf(tgiffile,"\n     ");
@@ -923,4 +898,3 @@ void dvxflush_()
 #endif
 {
 }
-
