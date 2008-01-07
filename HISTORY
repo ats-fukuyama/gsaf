@@ -1,5 +1,9 @@
 $Id$
 
+2008/01/07  Bugfix in gtgif.c (by Kawamura)
+            Collapse bug for a long line corrected
+            Link error on absoft compilers fixed
+
 V3.99
 2007/11/10  LINESC and LINESC2D added
             Bugs in POLY and LINES2D corrected (Thanks to Dr. Honda)
