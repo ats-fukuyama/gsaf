@@ -265,6 +265,20 @@ int4		*id,*ix,*iy,*kd,*kid;
 }
 
 #ifndef UNDERSCORE
+void dvcheckv(id,ix,iy,kd,kid)
+#else
+void dvcheckv_(id,ix,iy,kd,kid)
+#endif
+int4		*id,*ix,*iy,*kd,*kid;
+{
+	*id = 0;
+	*ix = 0;
+	*iy = 0;
+	*kd = 0;
+	*kid= 0;
+}
+
+#ifndef UNDERSCORE
 void dveras()
 #else
 void dveras_()

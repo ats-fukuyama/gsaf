@@ -44,7 +44,7 @@ C
 C        ID : 1 KeyPressed
 C        ID : 2 MousePressed
 C        ID : 4 MouseReleased
-C        ID : 8 MouseMoution
+C        ID : 8 MouseMotion
 C
 C        X   : Mouse X Positon
 C        Y   : Mouse Y Positon
@@ -62,6 +62,38 @@ C
       CALL DVGETV(ID,IX,IY,KEY,KID)
       X=(REAL(IX)+0.5-XORG)/XDEL
       Y=(REAL(IY)+0.5-YORG)/YDEL
+C
+      RETURN
+      END
+C
+C     ****** CHECK EVENT DATA ******
+C
+      SUBROUTINE GF_CHECK_EVENT(ID,X,Y,KID,KEY)
+C
+C        ID : 0 No event
+C        ID : 1 KeyPressed
+C        ID : 2 MousePressed
+C        ID : 4 MouseReleased
+C        ID : 8 MouseMotion
+C
+C        X   : Mouse X Positon
+C        Y   : Mouse Y Positon
+C        KID : Key   : Character Code in ASCII
+C              Mouse : Mouse Button Number
+C        KEY : Key   : Key Number
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSAFLG/ LGSAF,LPAGE,LFIL,LKEEP,NPAGE,NHEAD
+      COMMON /GSAFXY/ XDEL,YDEL,XORG,YORG
+C
+      IF(.NOT.LGSAF) RETURN
+      IF(.NOT.LPAGE) RETURN
+C
+      CALL DVCHECKV(ID,IX,IY,KEY,KID)
+      IF(ID.GT.0) THEN
+         X=(REAL(IX)+0.5-XORG)/XDEL
+         Y=(REAL(IY)+0.5-YORG)/YDEL
+      ENDIF
 C
       RETURN
       END

@@ -812,6 +812,19 @@ void dvgetv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 }
 
 #ifndef UNDERSCORE
+void dvcheckv(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
+#else
+void dvcheckv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
+#endif
+{
+	*id = 0;
+	*ix = 0;
+	*iy = 0;
+	*kd = 0;
+	*kid= 0;
+}
+
+#ifndef UNDERSCORE
 void dvgrmd(void)
 #else
 void dvgrmd_(void)

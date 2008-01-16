@@ -44,6 +44,43 @@ C
       CALL PAGEY
 C
       CALL PAGES
+C         CALL DVINFO(I1,I2,I3,I4,I5)
+C         WRITE(6,*) '# cells,planes,depth,white,black =',
+C     &                 I1,I2,I3,I4,I5
+      XMIN=1.0+GURAND(22.6)
+      YMIN=1.0+GURAND(14.0)
+      XMAX=XMIN+2.0
+      YMAX=YMIN+2.0
+      CALL MOVE(XMIN,YMIN)
+      CALL DRAW(XMAX,YMIN)
+      CALL DRAW(XMAX,YMAX)
+      CALL DRAW(XMIN,YMAX)
+      CALL DRAW(XMIN,YMIN)
+      WRITE(6,'(4F10.4)') XMIN,XMAX,YMIN,YMAX
+C
+      CALL GF_SET_EVENT(15)
+ 1001 CONTINUE
+         CALL GF_CHECK_EVENT(ID,X,Y,KID,KEY)
+         if(ID.GT.0) THEN
+            CALL ASCCHR(KID,KIN,1)
+            WRITE(6,'(I6,2F10.4,2I6,4X,A1)') ID,X,Y,KEY,KID,KIN
+            CALL GUCPTL(KIN)
+            IF(ID.EQ.1.AND.KIN.EQ.'Q') GOTO 1010
+            IF(ID.EQ.4.AND.
+     &           (X.GT.XMIN).AND.
+     &           (X.LT.XMAX).AND.
+     &           (Y.GT.YMIN).AND.
+     &           (Y.LT.YMAX)) GOTO 1010
+         ELSE
+            write(6,'(I6)') ID
+         ENDIF
+         GOTO 1001
+C
+ 1010    CONTINUE
+      CALL GF_SET_EVENT(0)
+      CALL PAGEY
+C
+      CALL PAGES
       X0=12.8
       Y0= 8.5
       R = 5.0

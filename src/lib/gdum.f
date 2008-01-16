@@ -244,6 +244,18 @@ C
       RETURN
       END
 C
+C     ++++++ CHECK EVENT DATA ++++++
+C
+      SUBROUTINE DVCHECKV(ID,IX,IY,KID,KEY)
+C
+      ID=0
+      IX=0
+      IY=0
+      KID=0
+      KEY=0
+      RETURN
+      END
+C
 C     ++++++ ERASE SCREEN ++++++
 C
       SUBROUTINE DVERAS

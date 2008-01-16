@@ -58,6 +58,7 @@ static Display	        *display;
 static Window	        window,focus,rootw,parentw;
 static GC		gc;
 static int		screen;
+static long		event_mask;
 static Cursor	        curs;
 static Colormap		cm;
 static int		mapped;
@@ -350,7 +351,6 @@ void dvsetv_(const int4 *id)
 #endif
 {
 	int		i;
-	long		event_mask;
 
 	if(rmode) return;
 	if(tmode) return;
@@ -390,7 +390,73 @@ void dvgetv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
 
 	*id = 0;
 	while(*id == 0) {
-		XNextEvent(display,&event);
+	  /*		XNextEvent(display,&event);*/
+	  XWindowEvent(display,window,event_mask,&event);
+		switch(event.type) {
+		case MappingNotify:
+			XRefreshKeyboardMapping((XMappingEvent *)&event);
+			*id = 0;
+			break;
+		case KeyPress:
+			*ix = event.xkey.x / delta;
+			*iy = (ymax - event.xkey.y) / delta;
+			r = XLookupString((XKeyEvent *)&event,
+					  text,NTXTMAX,&key,0);
+			if(r == 1)  {
+				if(IsModifierKey(key))
+					*id = 0;
+				else {
+					kidx = (unsigned char)text[0];
+					*kid = (int4)kidx;
+					*kd = event.xkey.keycode;
+					*id = 1;
+				}
+			} else
+				*id = 0;
+			break;
+		case ButtonRelease:
+			*ix = event.xbutton.x / delta;
+			*iy = (ymax - event.xbutton.y) / delta;
+			*kid = event.xbutton.button;
+			*id = 2;
+			break;
+		case ButtonPress:
+			*ix = event.xbutton.x / delta;
+			*iy = (ymax - event.xbutton.y) / delta;
+			*kid = event.xbutton.button;
+			*id = 4;
+			break;
+		case MotionNotify:
+			*ix = event.xmotion.x / delta;
+			*iy = (ymax - event.xmotion.y) / delta;
+			*kid = 0;
+			*id =  8;
+			break;
+		default:
+			*id = 0;
+			break;
+		}
+	}
+}
+
+#ifndef UNDERSCORE
+void dvcheckv(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
+#else
+void dvcheckv_(int4 *id,int4 *ix,int4 *iy,int4 *kd,int4 *kid)
+#endif
+{
+	XEvent	event;
+	KeySym	        key;
+	char		text[NTXTMAX];
+	int		r;
+	unsigned int	kidx;
+		
+	*id = -1;
+	if(rmode) return;
+	if(tmode) return;
+
+	*id = 0;
+	if(XCheckWindowEvent(display,window,event_mask,&event)) {
 		switch(event.type) {
 		case MappingNotify:
 			XRefreshKeyboardMapping((XMappingEvent *)&event);

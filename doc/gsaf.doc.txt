@@ -447,6 +447,7 @@ ghostscript で GIF ファイルを作成する例
 	GF_SET_EVENT(ID)	待ち受けるイベントの種類を設定する．
 	GF_INQ_EVENT(ID)	待ち受けているイベントの種類を問い合わせる．
 	GF_GET_EVENT(ID,X,Y,KID,KEY)	イベントを待ち受ける．
+	GF_CHECK_EVENT(ID,X,Y,KID,KEY)	イベントを読み込む．
 
 ２．４　補助サブルーチン
 
@@ -2691,6 +2692,20 @@ GSAF V3.65  00/02/25
    SUBROUTINE GF_GET_EVENT(ID,X,Y,KID,KEY)
 
 	出力	ID	[I]	イベントの種類
+		X	[R]	イベントが生じたときのマウスのＸ座標
+		Y	[R]	イベントが生じたときのマウスのＹ座標
+		KID	[I]	Key Event の場合は入力文字の ASCII コード
+				Mouse Event の場合はマウスボタンの番号
+		KEY	[I]	Key Event の場合は押されたキー番号
+				（Shift, Control, Alt キーは無視する）
+
+@ GF_CHECK_EVENT
+
+   イベントを読み込む．
+
+   SUBROUTINE GF_GET_EVENT(ID,X,Y,KID,KEY)
+
+	出力	ID	[I]	イベントの種類：ID=0 イベントなし
 		X	[R]	イベントが生じたときのマウスのＸ座標
 		Y	[R]	イベントが生じたときのマウスのＹ座標
 		KID	[I]	Key Event の場合は入力文字の ASCII コード

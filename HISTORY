@@ -1,5 +1,7 @@
 $Id$
 
+2008/01/16  GF_CHECK_EVENT added
+
 2008/01/07  Bugfix in gtgif.c (by Kawamura)
             Collapse bug for a long line corrected
             Link error on absoft compilers fixed
