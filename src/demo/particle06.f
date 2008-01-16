@@ -72,7 +72,6 @@ C
          PV(2,NP)=GUCLIP(R(2))*VT
          PR(NP)=PR0
       ENDDO
-      WRITE(6,*) 'IG:',PR(1)
       RETURN
       END
 C
@@ -101,7 +100,6 @@ C
          PV(2,NP)=GUCLIP(R(2))*VT
          PR(NP)=PR0
       ENDDO
-      WRITE(6,*) 'IG:',PR(1)
       RETURN
       END
 C
