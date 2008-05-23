@@ -1,5 +1,7 @@
 $Id$
 
+2008/05/23  cygwin-g95/Makefile.arch added
+
 2008/01/16  GF_CHECK_EVENT added
 
 2008/01/07  Bugfix in gtgif.c (by Kawamura)

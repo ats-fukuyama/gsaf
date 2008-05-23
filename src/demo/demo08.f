@@ -25,7 +25,11 @@ C
 C
    10 CONTINUE
 C
-         CALL GF_CHECK_EVENT(ID,X,Y,KID,KEY)
+         IF(IND.EQ.1) THEN
+            CALL GF_CHECK_EVENT(ID,X,Y,KID,KEY)
+         ELSE
+            CALL GF_GET_EVENT(ID,X,Y,KID,KEY)
+         ENDIF
 C         IF(ID.NE.0) WRITE(6,'(I5,1P2E12.4,2I5)') ID,X,Y,KID,IND
          IF(ID.EQ.-1) THEN
             GOTO 9000
