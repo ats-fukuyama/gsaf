@@ -21,9 +21,9 @@ CC=gcc
 # Compile flags
 
 FLFLAGS=-g -O 
-CLFLAGS=-g -O -DUNDERSCORE -DBSD
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLSB
 FFLAGS=-g -O
-CFLAGS=-g -O -DUNDERSCORE-DBSD
+CFLAGS=-g -O -DUNDERSCORE-DBSD -DLSB
 
 # Make library command and options
 
