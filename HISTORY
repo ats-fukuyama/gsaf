@@ -1,5 +1,7 @@
 $Id$
 
+2008/10/06  GDATA3D3 was added
+
 2008/06/06  macosxi-ifc/Makefile.arch corrected (LSB)
 
 2008/05/23  cygwin-g95/Makefile.arch added

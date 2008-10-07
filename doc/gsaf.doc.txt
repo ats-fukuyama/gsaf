@@ -619,6 +619,20 @@ ghostscript で GIF ファイルを作成する例
 　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
 　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
 
+	GDATA3D2(Z,X,Y,NXA,NX,NY,ZMIN,ZMAX)
+		不等間隔格子２次元データを３次元表示するためのデータを与
+		える。データ範囲＝表示範囲
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
+
+	GDATA3D3(Z,X,Y,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
+		不等間隔格子２次元データを３次元表示するためのデータを与
+		える。
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
+
 	CPLOT3D1(IND,RGBFUNC)
 		等間隔格子２次元データをカラーの面で３次元表示する。
 
@@ -2357,6 +2371,40 @@ GDRWBK のあとにグラフを表示するサブルーチン CPLOT3D1 を呼ぶ必要があり，
    GDATA3D1(Z,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
 
 	引数	Z	[R(NXA,*)]	データの2次元配列
+		NXA	[I]	2次元データの第1添字の上限
+		NX	[I]	x方向のデータ数
+		NY	[I]	y方向のデータ数
+		XMIN	[R]	xの下限
+		XMAX	[R]	xの上限
+		YMIN	[R]	yの下限
+		YMAX	[R]	yの上限
+		ZMIN	[R]	表示するデータの下限
+		ZMAX	[R]	表示するデータの上限
+
+@ GDATA3D2
+
+   不等間隔格子2次元データを3次元表示するためのデータを与える。
+	
+   GDATA3D2(Z,X,Y,NXA,NX,NY,ZMIN,ZMAX)
+
+	引数	Z	[R(NXA,*)]	データの2次元配列
+		X	[R(NX)]	x方向の格子データの１次元配列
+		Y	[R(NY)]	Y方向の格子データの１次元配列
+		NXA	[I]	2次元データの第1添字の上限
+		NX	[I]	x方向のデータ数
+		NY	[I]	y方向のデータ数
+		ZMIN	[R]	表示するデータの下限
+		ZMAX	[R]	表示するデータの上限
+
+@ GDATA3D3
+
+   不等間隔格子2次元データを3次元表示するためのデータを与える。
+	
+   GDATA3D3(Z,X,Y,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
+
+	引数	Z	[R(NXA,*)]	データの2次元配列
+		X	[R(NX)]	x方向の格子データの１次元配列
+		Y	[R(NY)]	Y方向の格子データの１次元配列
 		NXA	[I]	2次元データの第1添字の上限
 		NX	[I]	x方向のデータ数
 		NY	[I]	y方向のデータ数
