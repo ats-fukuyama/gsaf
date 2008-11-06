@@ -661,7 +661,8 @@ C
                YF(J)=(YB-YA)*RT+YA
 C
                KA(1,IEL)=KA(1,IEL)+1
-               IF(IEL.EQ.IE.AND..NOT.LINV) LEND=.TRUE.
+               IF(IEL.EQ.IE) LEND=.TRUE.
+C               IF(IEL.EQ.IE.AND..NOT.LINV) LEND=.TRUE.
 C               IF(IEL.EQ.IE1.AND..NOT.LINV) LEND=.TRUE.
             ENDIF
 C
