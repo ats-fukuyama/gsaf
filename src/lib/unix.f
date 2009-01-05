@@ -42,8 +42,10 @@ C     ****** GET CPUTIME ******
 C
       SUBROUTINE GUTIME(T)
 C
+      write(6,*) T
       CALL DVTIME(NT,NTICK)
       T=REAL(DBLE(NT)/DBLE(NTICK))
+      write(6,*) T
       RETURN
       END
 C

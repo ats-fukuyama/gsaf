@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.99 for Linux-ifc-64bit [2009/01/05]
+# Make for gsaf : V3.99 for Linux-pgf95-64bit [2009/01/05]
 #################################################################
 
 # default install path
@@ -9,31 +9,35 @@ LIBPATH=/usr/local/lib64
 
 # home install path
 
-#HOMEPATH=$(HOME)
+#HOMEPATH=/home/fukuyama
 #BINPATH=$(HOMEPATH)/bin
 #LIBPATH=$(HOMEPATH)/lib
 
 # Compiler command
 
-FC=ifort
-CC=icc
+FC=pgf95
+CC=cc
 
 # Compile flags
 
-FLFLAGS=-O -Kpic
-CLFLAGS=-O -Kpic -DUNDERSCORE -DLSB -DLONGINT
-FFLAGS=-O
-CFLAGS=-O -DUNDERSCORE -DLSB -DLONGINT
+#FLFLAGS=-g -Mbounds -Ktrap=fp -r -fPIC
+#FFLAGS=-g -Mbounds -Ktrap=fp -fPIC
+#CLFLAGS=-g -r -fPIC -DUNDERSCORE -DLSB -DLONGINT
+#CFLAGS=-g -fPIC -DUNDERSCORE -DLSB -DLONGINT
+FLFLAGS=-O -r -fPIC
+FFLAGS=-O -fPIC
+CLFLAGS=-O -r -fPIC -DUNDERSCORE -DLSB -DLONGINT
+CFLAGS=-O -fPIC -DUNDERSCORE -DLSB -DLONGINT
 
 # Make library command and options
 
-LD=ifort
+LD=pgf95
 LDX=echo Created:
 LDFLAGS=-shared -o
 
 # Library extension
 
-LIB-SUFFIX=-ifc64
+LIB-SUFFIX=-pgf64
 SL=$(LIB-SUFFIX).so
 
 # X library path

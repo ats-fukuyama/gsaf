@@ -1,8 +1,10 @@
 $Id$
 
+2009/01/05  arch/linux-pgf64 added
+
 2008/11/07  CONTG? in cont2.f corrected
 
-2008/10/31  arch/intel-ifc64 added
+2008/10/31  arch/linux-ifc64 added
 
 2008/10/06  GDATA3D3 was added
 
