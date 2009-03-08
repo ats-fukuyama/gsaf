@@ -36,7 +36,7 @@ clean :
 	rm -f *.o ./*~ ./#*# core*
 
 veryclean : clean
-	rm -f plasma plasmax demo
+	rm -f plasma plasmax demo demo06 demo06i demo07 demo08 pp08
 
 plasma.o: plasma.f particle.f random.f plasma.inc
 plasmax.o: plasmax.f plasma.inc
