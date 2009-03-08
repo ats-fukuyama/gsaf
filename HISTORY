@@ -1,5 +1,9 @@
 $Id$
 
+V4.00
+2009/03/08  g77 support ended
+            arch/linux-g77, arch/macosx-g77 removed
+
 2009/01/05  arch/linux-pgf64 added
 
 2008/11/07  CONTG? in cont2.f corrected
