@@ -29,6 +29,9 @@ demo06i : demo06.o particle06.o button06.o imagei.o random.o
 demo08 : demo08.o particle06.o button08.o image.o random.o
 	$(FC) $(FFLAGS) -o demo08 demo08.o particle06.o button08.o image.o random.o $(GDPLIBS) 
 
+pp08 : pp08.o particle-pp08.o button-pp08.o image.o random.o
+	$(FC) $(FFLAGS) -o pp08 pp08.o particle-pp08.o button-pp08.o image.o random.o $(GDPLIBS) 
+
 clean :
 	rm -f *.o ./*~ ./#*# core*
 
