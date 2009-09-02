@@ -151,10 +151,10 @@ static void dvtrailer(int4 ipage)
 	int i;
 
 	fprintf(psfile,"%%%%Trailer\n");
-	fprintf(psfile,"%%%%DocumentFonts: ");
+	fprintf(psfile,"%%%%DocumentFonts:");
 	for (i=0;i<MAX_FUSED;i++) {
 		if(ifused[i])
-			fprintf(psfile,fontname[i]);
+		  fprintf(psfile," %s",fontname[i]);
 	}
 	fprintf(psfile,"\n");
 
