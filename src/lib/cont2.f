@@ -636,6 +636,8 @@ C
                   YA=Y(1)*(NAY-1)+Y(2)
                   YB=Y(1)*(NBY-1)+Y(2)
                ELSE
+                  IF(NAY.GE.NYM) NAY=NYM
+                  IF(NBY.GE.NYM) NBY=NYM
                   YA=Y(NAY)
                   YB=Y(NBY)
                ENDIF
