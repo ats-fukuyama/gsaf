@@ -1,5 +1,7 @@
 $Id$
 
+2009/09/22  arch/macosxi-ifc updated
+
 V4.00
 2009/03/08  g77 support ended
             arch/linux-g77, arch/macosx-g77 removed

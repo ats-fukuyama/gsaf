@@ -16,20 +16,22 @@ LIBPATH=/usr/local/lib
 # Compiler command
 
 FC=ifort
-CC=gcc
+CC=gcc -m32
 
 # Compile flags
 
 FLFLAGS=-g -O 
 CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLSB
 FFLAGS=-g -O
-CFLAGS=-g -O -DUNDERSCORE-DBSD -DLSB
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLSB
 
 # Make library command and options
 
-LD=ld
+#LD=ld
+LD=ifort
 LDX=echo Created:
-LDFLAGS=-r -o
+#LDFLAGS=-r -o
+LDFLAGS=-staticlib -o
 
 # Library extension
 
