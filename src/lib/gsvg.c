@@ -410,7 +410,7 @@ void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
 	if (imv)
 		fprintf(svgfile,"\" />\n");
 	fprintf(svgfile,"<polyline");
-	fprintf(svgfile," stroke-width=\"1.3f\"",lwidth);
+	fprintf(svgfile," stroke-width=\"%1.3f\"",lwidth);
 	fprintf(svgfile," fill=\"rgb(%d,%d,%d)\"",ired,igreen,iblue);
 	fprintf(svgfile," points=\"");
 

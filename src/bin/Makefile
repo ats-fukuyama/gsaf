@@ -45,8 +45,7 @@ $(FC)gdum : f77g.tp
 	sed "s@GSLIBS@$(GDUMLIBS)@" > $(FC)gdum
 	chmod 755 $(FC)gdum
 
-install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump
-	$(FC)g $(FC)gdum
+install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump $(FC)g $(FC)gdum
 	chmod 755 gsdump
 	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif $(BINPATH)/gstosvg
 	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump \
