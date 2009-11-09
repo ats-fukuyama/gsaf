@@ -1,0 +1,53 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for Linux-g77-dynamic [2004/05/03]
+#################################################################
+
+# default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib64
+
+# home install path
+
+#HOMEPATH=/home/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=g95
+CC=gcc -m64
+
+# Compile flags
+
+FLFLAGS=-g -O -i4 -fpic
+CLFLAGS=-g -O -fpic -DUNDERSCORE -DLSB -DLONGINT
+FFLAGS=-g -O -i4 
+CFLAGS=-g -O -DUNDERSCORE -DLSB -DLONGINT
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-shared -o
+
+# Library extension
+
+LIB-SUFFIX=-g95L
+SL=$(LIB-SUFFIX).so
+
+# X library path
+
+XINCPATH=/usr/X11R6/include
+XLIBPATH=/usr/X11R6/lib64
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.dynamic
