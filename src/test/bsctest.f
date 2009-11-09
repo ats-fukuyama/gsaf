@@ -27,6 +27,11 @@ C
          CALL PAGES
          CALL SETVEW(0.0,25.6,0.0,18.1,XMIN,XMAX,YMIN,YMAX)
          CALL SETCLP(XCMIN,XCMAX,YCMIN,YCMAX)
+         CALL MOVE( 0.1, 0.1)
+         CALL DRAW(25.5, 0.1)
+         CALL DRAW(25.5,18.0)
+         CALL DRAW( 0.1,18.0)
+         CALL DRAW( 0.1, 0.1)
          CALL XMARK
          CALL PAGEE
       ELSEIF(KMENU.EQ.'T') THEN
@@ -176,7 +181,13 @@ C
          X=J+5.0
          Y=18.0-I
          CALL MOVE(X,Y)
-         CALL TEXT(CHAR(16*I+J),1)
+         IF(16*I+J.EQ.36) THEN
+            CALL TEXT(CHAR(16*I+J)//CHAR(16*I+J),2)
+         ELSEIF(16*I+J.EQ.127) THEN
+            CALL TEXT(' ',1)
+         ELSE
+            CALL TEXT(CHAR(16*I+J),1)
+         ENDIF
   100 CONTINUE
       CALL SETCHS(0.4,0.0)
       DO 200 I=0,7
@@ -184,7 +195,13 @@ C
          X=J+5.0
          Y=9.0-I
          CALL MOVE(X,Y)
-         CALL TEXT(CHAR(16*I+J),1)
+         IF(16*I+J.EQ.36) THEN
+            CALL TEXT(CHAR(16*I+J)//CHAR(16*I+J),2)
+         ELSEIF(16*I+J.EQ.127) THEN
+            CALL TEXT(' ',1)
+         ELSE
+            CALL TEXT(CHAR(16*I+J),1)
+         ENDIF
   200 CONTINUE
       RETURN
       END

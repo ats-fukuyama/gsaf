@@ -162,7 +162,7 @@ C
       ENDIF
       CALL GUTIME(T)
       IF(ICH.NE.0) WRITE(6,601) T-TOPEN
-  601 FORMAT(1H ,'# GSAF V4.00 : ',
+  601 FORMAT(1H ,'# GSAF V4.02 : ',
      &           'Copyright (C) 1983-2009 A. Fukuyama and T. Akutsu'/
      &       1H ,'#              CLOSED.  USED CPU TIME =',
      &           F10.3,' SEC')
@@ -1529,6 +1529,9 @@ C
     2 IF(KIN(I:I).EQ.KDL) THEN
          KOUT(1:I-2)=KIN(2:I-1)
          NOUT=I-2
+      ELSE
+         KOUT(1:I-1)=KIN(2:I)
+         NOUT=I-1
       ENDIF
       RETURN
       END

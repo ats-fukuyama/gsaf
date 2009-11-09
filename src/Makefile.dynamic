@@ -17,6 +17,8 @@ GPSLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgps$(LIB-SUFFIX) -L
 
 GTGIFLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgtgif$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
+GSVGLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgsvg$(LIB-SUFFIX) $(MLIBS)
+
 GDUMLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
 
 # Necessary dependence for static link

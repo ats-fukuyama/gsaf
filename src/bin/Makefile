@@ -4,7 +4,7 @@ include ../Makefile.arch
 
 default : bin
 
-bin : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave
+bin : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave
 
 gsview : gsview.c
 	$(CC) $(CFLAGS) -o gsview gsview.c
@@ -27,6 +27,9 @@ gstops.slave : gslave.o $(GPSLIBSX)
 gstotgif.slave : gslave.o $(GTGIFLIBSX)
 	$(FC) $(FFLAGS) -o gstotgif.slave gslave.o $(GTGIFLIBS)
 
+gstosvg.slave : gslave.o $(GSVGLIBSX)
+	$(FC) $(FFLAGS) -o gstosvg.slave gslave.o $(GSVGLIBS)
+
 gsprint : gsprint.tp
 	sed "s@BINPATH@$(BINPATH)@" gsprint.tp | \
 	sed "s@LP@$(LP)@" > gsprint
@@ -42,16 +45,17 @@ $(FC)gdum : f77g.tp
 	sed "s@GSLIBS@$(GDUMLIBS)@" > $(FC)gdum
 	chmod 755 $(FC)gdum
 
-install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gsprint gsdump \
+install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump
 	$(FC)g $(FC)gdum
 	chmod 755 gsdump
-	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif
-	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gsprint gsdump \
+	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif $(BINPATH)/gstosvg
+	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump \
 	   $(FC)g $(FC)gdum $(BINPATH)
 	ln $(BINPATH)/gsview $(BINPATH)/gsfile
 	ln $(BINPATH)/gsview $(BINPATH)/gstoeps
 	ln $(BINPATH)/gsview $(BINPATH)/gstops
 	ln $(BINPATH)/gsview $(BINPATH)/gstotgif
+	ln $(BINPATH)/gsview $(BINPATH)/gstosvg
 
 clean :
 	rm -f *.o ./*~ ./#*# core*
