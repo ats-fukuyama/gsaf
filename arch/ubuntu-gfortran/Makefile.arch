@@ -39,7 +39,7 @@ SL=$(LIB-SUFFIX).so
 # X library path
 
 #XINCPATH=/usr/X11R6/include
-XINCPATH=/usr/include/X11
+XINCPATH=/usr/include
 #XLIBPATH=/usr/X11R6/lib
 XLIBPATH=/usr/lib
 XLIBS=$(XLIBPATH)/libX11$(SL)
