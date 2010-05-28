@@ -452,7 +452,7 @@ C
 C
       IEND=0
       DO 1000 N=1,10
-         READ(NFCR,501,END=9000) KK
+         READ(NFCR,501,ERR=9000,END=9000) KK
   501    FORMAT(A80)
          CALL CHRASC(KK,IK,80)
          DO 100 M=1,5
