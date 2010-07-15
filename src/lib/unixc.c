@@ -2,6 +2,7 @@
 
 #include <sys/types.h>
 #include <sys/times.h>
+#include <sys/time.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -67,11 +68,28 @@ void  dvtime_(int4 *i,int4 *tick)
 
  	times(&buffer);
 	*i = (int4)buffer.tms_utime;
-	/*
-	*tick = (int4)CLK_TCK;
-	*tick = (int4)CLOCKS_PER_SEC;
-	*/
 	*tick = (int4) TICKS_PER_SECOND;
+}
+
+#ifndef UNDERSCORE
+void  dvtimes (int4 *iu,int4 *is,int4 *icu,int4 *ics,int4 *tick,int4 *ts,int4 *tus)
+#else
+void  dvtimes_(int4 *iu,int4 *is,int4 *icu,int4 *ics,int4 *tick,int4 *ts,int4 *tus)
+#endif
+{
+	struct tms buffer;
+	struct timeval tv;
+	struct timezone tz;
+
+ 	times(&buffer);
+	*iu = (int4)buffer.tms_utime;
+	*is = (int4)buffer.tms_stime;
+	*icu = (int4)buffer.tms_cutime;
+	*ics = (int4)buffer.tms_cstime;
+	*tick = (int4) TICKS_PER_SECOND;
+	gettimeofday(&tv,&tz);
+	*ts = (int4)tv.tv_sec;
+	*tus = (int4)tv.tv_usec;
 }
 
 #ifndef UNDERSCORE

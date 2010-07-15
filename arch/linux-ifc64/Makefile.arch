@@ -38,8 +38,8 @@ SL=$(LIB-SUFFIX).so
 
 # X library path
 
-XINCPATH=/usr/X11R6/include
-XLIBPATH=/usr/X11R6/lib64
+XINCPATH=/usr/include
+XLIBPATH=/usr/lib64
 XLIBS=$(XLIBPATH)/libX11$(SL)
 
 # Libraries for C mathematical functions in Fortran compile

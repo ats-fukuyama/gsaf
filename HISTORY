@@ -1,5 +1,18 @@
 $Id$
 
+V4.03
+2010/07/15  GUTIMES added
+            GSAF closing message updated
+
+2010/05/28  fio2.f correct (end-of-file behavior in gsview)
+
+2010/04/07  arch/linux-ifc (change of X11 paths)
+            arch/linux-ifc64 (change of X11 paths)
+            arch/linux-f95-64 (change of X11 paths)
+            arch/linux-g95-64 (added)
+            arch/linux-gfortran (added)
+            arch/ubuntu-gfortran (added)
+
 V4.02
 2009/11/09  SVG support: lib/gsvg.c added
 
