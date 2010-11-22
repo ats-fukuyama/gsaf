@@ -1,0 +1,55 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for MacOSXi-pgf64 [2010/11/22]
+#################################################################
+
+# default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
+
+# home install path
+
+#HOMEPATH=/home/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=pgf90
+CC=cc
+
+# Compile flags
+
+#FLFLAGS=-g -Mbounds -Ktrap=fp -r
+#FFLAGS=-g -Mbounds -Ktrap=fp 
+FLFLAGS=-O -r -m64
+FFLAGS=-O -m64
+CLFLAGS=-g -O -r -DUNDERSCORE -DBSD -DLSB -DLONGINT -m64
+CFLAGS=-g -O -DUNDERSCORE-DBSD -DLSB -DLONGINT -m64
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-r -arch x86_64 -o
+
+# Library extension
+
+LIB-SUFFIX=-pgf64
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/usr/X11/include
+XLIBPATH=/usr/X11/lib
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.static

@@ -1,0 +1,55 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for MacOSX-intel-ifort-static [2006/07/16]
+#################################################################
+
+# default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
+
+# home install path
+
+#HOMEPATH=/home/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=ifort
+CC=gcc
+
+# Compile flags
+
+FLFLAGS=-g -O -m64
+FFLAGS=-g -O -m64
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -DLSB -m64
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -DLSB -m64
+
+# Make library command and options
+
+#LD=ld
+LD=ifort
+LDX=echo Created:
+#LDFLAGS=-r -o
+LDFLAGS=-staticlib -o
+
+# Library extension
+
+LIB-SUFFIX=-ifc64
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/usr/X11/include
+XLIBPATH=/usr/X11/lib
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.static
