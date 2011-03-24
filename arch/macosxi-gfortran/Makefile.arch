@@ -20,10 +20,10 @@ CC=gcc
 
 # Compile flags
 
-FLFLAGS=-g -O
-CLFLAGS=-g -O -DUNDERSCORE -DBSD
-FFLAGS=-g -O
-CFLAGS=-g -O -DUNDERSCORE-DBSD
+FLFLAGS=-g -O -m32
+CLFLAGS=-g -O -m32 -DUNDERSCORE -DBSD
+FFLAGS=-g -O -m32
+CFLAGS=-g -O -m32 -DUNDERSCORE-DBSD
 
 # Make library command and options
 
@@ -33,7 +33,7 @@ LDFLAGS=-r -o
 
 # Library extension
 
-LIB-SUFFIX=
+LIB-SUFFIX=-gfortran
 SL=$(LIB-SUFFIX).a
 
 # X library path
