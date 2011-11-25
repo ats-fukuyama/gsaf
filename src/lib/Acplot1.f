@@ -305,7 +305,8 @@ C
             IF (HXY(IX,IY).EQ.1) GOTO 50
             call gtGradationColor_Square(IX,IY,rgbfunc)
             call gtCLines1(ix,iy)
- 50      ENDDO
+         ENDDO
+   50    CONTINUE
       ELSE
          NF=IND
          DO I=1,(NX-1)*(NY-1)
@@ -319,7 +320,8 @@ C
             CALL RGBFUNC(R,RGB(1,IX,IY))
             CALL SETRGB(RGB(1,IX,IY),RGB(2,IX,IY),RGB(3,IX,IY))
             CALL GTCPOLY1(IX,IY)
- 150     ENDDO
+         ENDDO
+ 150     CONTINUE
       ENDIF
 C
       CALL SETRGB(CR,CG,CB)
