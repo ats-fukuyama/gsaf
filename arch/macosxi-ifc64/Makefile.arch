@@ -28,10 +28,12 @@ CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -DLSB -m64
 # Make library command and options
 
 #LD=ld
-LD=ifort
+#LD=ifort
+LD=libtool
 LDX=echo Created:
 #LDFLAGS=-r -o
-LDFLAGS=-staticlib -o
+#LDFLAGS=-staticlib -o
+LDFLAGS=-static -o
 
 # Library extension
 

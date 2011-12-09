@@ -1,0 +1,53 @@
+### $Id$ ###
+# Make for gsaf : V3.99 for AIX-srf-static-64bit [2011/12/09]
+#################################################################
+
+# default install path
+
+#BINPATH=/usr/local/bin
+#LIBPATH=/usr/local/lib64
+
+# home install path
+
+HOMEPATH=$(HOME)
+BINPATH=$(HOMEPATH)/bin
+LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=f90
+CC=cc
+
+# Compile flags
+
+FLFLAGS=-O -i,L
+CLFLAGS=-O -q64 -DLSB -DLONGINT
+FFLAGS=-O -i,L
+CFLAGS=-O -q64 -DLSB -DLONGINT
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-b64 -r -o
+
+# Library extension
+
+LIB-SUFFIX=-aix64
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/usr/include
+XLIBPATH=/usr/lib
+XLIBS=$(XLIBPATH)/libX11.a
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=-lm
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.static
