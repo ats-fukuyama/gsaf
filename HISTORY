@@ -1,5 +1,6 @@
 $Id$
 
+2013/11/23  bug in Acplot1.f corrected
 2013/11/14  arch/linux-gfortran64 (added)
 2011/12/09  arch/aix-nifs (added)
 2011/07/23  arch/macosxi-gfortran64 (added)

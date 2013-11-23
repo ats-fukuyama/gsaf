@@ -302,24 +302,25 @@ C
          DO I=1,(NX-1)*(NY-1)
             IX=IXINDEX(I)
             IY=IYINDEX(I)
-            IF (HXY(IX,IY).EQ.1) GOTO 50
-            call gtGradationColor_Square(IX,IY,rgbfunc)
-            call gtCLines1(ix,iy)
+            IF (HXY(IX,IY).NE.1) THEN
+               call gtGradationColor_Square(IX,IY,rgbfunc)
+               call gtCLines1(ix,iy)
+            END IF
          ENDDO
-   50    CONTINUE
       ELSE
          NF=IND
          DO I=1,(NX-1)*(NY-1)
             IX=IXINDEX(I)
             IY=IYINDEX(I)
-            IF (HXY(IX,IY).EQ.1) GOTO 150
-            ZC=ZDATA(IX,IY)+ZDATA(IX+1,IY)+ZDATA(IX,IY+1)
+            IF (HXY(IX,IY).NE.1) THEN
+               ZC=ZDATA(IX,IY)+ZDATA(IX+1,IY)+ZDATA(IX,IY+1)
      &           +ZDATA(IX+1,IY+1)
-            ZC=0.25*ZC-ZMIN
-            R=ZC/(ZMAX-ZMIN)
-            CALL RGBFUNC(R,RGB(1,IX,IY))
-            CALL SETRGB(RGB(1,IX,IY),RGB(2,IX,IY),RGB(3,IX,IY))
-            CALL GTCPOLY1(IX,IY)
+               ZC=0.25*ZC-ZMIN
+               R=ZC/(ZMAX-ZMIN)
+               CALL RGBFUNC(R,RGB(1,IX,IY))
+               CALL SETRGB(RGB(1,IX,IY),RGB(2,IX,IY),RGB(3,IX,IY))
+               CALL GTCPOLY1(IX,IY)
+            END IF
          ENDDO
  150     CONTINUE
       ENDIF
