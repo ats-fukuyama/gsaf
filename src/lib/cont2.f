@@ -636,8 +636,8 @@ C
                   YA=Y(1)*(NAY-1)+Y(2)
                   YB=Y(1)*(NBY-1)+Y(2)
                ELSE
-                  IF(NAY.GE.NYM) NAY=NYM
-                  IF(NBY.GE.NYM) NBY=NYM
+C                  IF(NAY.GE.NYM) NAY=NYM
+C                  IF(NBY.GE.NYM) NBY=NYM
                   YA=Y(NAY)
                   YB=Y(NBY)
                ENDIF
@@ -656,7 +656,7 @@ C
                      CALL GUSP2D(XF(J),YF(J),NFMAX-J+1,
      &                           XP,YP,NFMAX,NP,ISPL)
                      CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
-                     CALL LINEPT(XG,YG,NN,ILNS(K))
+                     CALL LINEPT(XG,YG,NN,-ILNS(K))
                      J=NFMAX
                      XF(NFMAX)=XF(1)
                      YF(NFMAX)=YF(1)
@@ -686,7 +686,11 @@ C
                CALL GUSP2D(XF(J),YF(J),NFMAX-J+1,XP,YP,NFMAX,NP,ISPL)
             ENDIF
             CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
-            CALL LINEPT(XG,YG,NN,ILNS(K))            
+            IF(.NOT.LINV) THEN
+               CALL LINEPT(XG,YG,NN,ILNS(K))
+            ELSE
+               CALL LINEPT(XG,YG,NN,-ILNS(K))
+            END IF
 C
 C            IF(.NOT.LINV) THEN
 C               WRITE(6,*) J,NP,NN
