@@ -1,5 +1,8 @@
 $Id$
 
+V4.05
+2014/12/28  transfer from CVS to git
+
 V4.04
 2014/01/05  bug in cont2.f:CONTG? corrected
 2013/11/23  bug in Acplot1.f corrected
