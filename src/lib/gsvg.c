@@ -41,22 +41,22 @@ static FILE		*svgfile;
 static int		interactive,istart,iend,inum,ititle,irotate,icolor;
 static int		psmode,igouraud,ipage;
 static const char 	*fontname[MAX_FUSED]={
-	"serif","serif","serif","serif",
-	"sans-serif","sans-serif","sans-serif","sans-serif",
+	"Times","Times","Times","TImes",
+	"Helvetica","Helvetica","Helvetica","Helvetica",
 	"Courier","Courier","Courier","Courier",
 	"Symbol"
 };
 static const char 	*fontstyle[MAX_FUSED]={
-	"normal","italic","normal","italic",
-	"normal","oblique","normal","oblique",
-	"normal","oblique","normal","oblique",
-	"normal"
+	"Regular","Italic","Regular","Italic",
+	"Regular","Oblique","Regular","Oblique",
+	"Regular","Italic","Regular","Italic",
+	"Regular"
 };
 static const char 	*fontweight[MAX_FUSED]={
-	"normal","normal","bold","bold",
-	"normal","normal","bold","bold",
-	"normal","normal","bold","bold",
-	"normal"
+	"Rebular","Regular","Bold","Bold",
+	"Regular","Regular","Bold","Bold",
+	"Regular","Regular","Bold","Bold",
+	"Regular"
 };
 	static const char	*dash_list[7] = {
 		"1.333,4","3.333,2","8,2.667","6.667,1.333,1.333,1.333",
@@ -308,7 +308,7 @@ void dvmove_(const int4 *ix,const int4 *iy)
 	dvstrokecolor();
 
 	getposition(*ix,*iy,&xpos,&ypos);
-	fprintf(svgfile," d=\"M %1.3f %1.3f\n",xpos,ypos);
+	fprintf(svgfile," d=\"M %1.3f,%1.3f\n",xpos,ypos);
 	imv = 1;
 }
 
@@ -324,12 +324,12 @@ void dvdraw_(const int4 *ix,const int4 *iy)
 		dvlinestyle();
 		fprintf(svgfile," fill=\"none\"");
 		dvstrokecolor();
-		fprintf(svgfile," d=\"M %1.3f %1.3f\n",xpos,ypos);
+		fprintf(svgfile," d=\"M %1.3f,%1.3f\n",xpos,ypos);
 		imv = 1;
 	}
 
 	getposition(*ix,*iy,&xpos,&ypos);
-	fprintf(svgfile," L %1.3f %1.3f\n",xpos,ypos);
+	fprintf(svgfile," L %1.3f,%1.3f\n",xpos,ypos);
 }
 
 #ifndef UNDERSCORE
