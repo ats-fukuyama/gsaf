@@ -1,9 +1,7 @@
 $Id$
 
-V4.06
-2015/05/06  gsvg.c updated for acceptable .svg for Illustrator
-
 V4.05
+2015/05/06  gsvg.c updated for acceptable .svg for Illustrator
 2014/12/28  transfer from CVS to git
 
 V4.04
