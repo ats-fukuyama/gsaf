@@ -1,5 +1,11 @@
 $Id$
 
+2017/01/13  nifs-psfx/Makefile.arch added
+
+V4.06
+2016/04/20  minor update in bsc1.f and igl1.f
+2016/02/12  character strings definition modified
+
 V4.05
 2015/05/06  gsvg.c updated for acceptable .svg for Illustrator
 2014/12/28  transfer from CVS to git
