@@ -1,0 +1,53 @@
+### $Id$ ###
+# Make for gsaf : V3.99 
+#################################################################
+
+# default install path
+
+#BINPATH=/usr/local/bin
+#LIBPATH=/usr/local/lib64
+
+# home install path
+
+HOMEPATH=/home/nuga/TASK/16_1212
+BINPATH=$(HOMEPATH)/bin
+LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=frtpx
+CC=fccpx
+
+# Compile flags
+
+FLFLAGS=-O 
+CLFLAGS=-O -fpic -Xg -DUNDERSCORE -DLSB -DLONGINT
+FFLAGS=-O
+CFLAGS=-O -DUNDERSCORE -DLSB -DLONGINT
+
+# Make library command and options
+
+LD=frtpx
+LDX=echo Created:
+LDFLAGS=-shared -o
+
+# Library extension
+
+LIB-SUFFIX=-xcb
+SL=$(LIB-SUFFIX).so
+
+# X library path
+
+XINCPATH=.
+XLIBPATH=/usr/lib64
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.dynamic
