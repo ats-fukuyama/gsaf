@@ -9,7 +9,7 @@
 
 # home install path
 
-HOMEPATH=/home/nuga/TASK/16_1212
+HOMEPATH=/home/fukuyama
 BINPATH=$(HOMEPATH)/bin
 LIBPATH=$(HOMEPATH)/lib
 
