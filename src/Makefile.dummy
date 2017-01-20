@@ -1,0 +1,31 @@
+### $Id$ ###
+#
+# Makefile for dynamic libraries
+#
+
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+LIBSDUM=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
+
+LIBS=$(LIBSDUM)
+
+GDPLIBS=$(LIBSDUM)
+
+GPPLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgpp$(LIB-SUFFIX)
+
+GPSLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgps$(LIB-SUFFIX)
+
+GTGIFLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgtgif$(LIB-SUFFIX)
+
+GSVGLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgsvg$(LIB-SUFFIX) $(MLIBS)
+
+GDUMLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
+
+# Necessary dependence for static link
+
+LIBSX=
+GDPLIBSX=
+GPPLIBSX=
+GPSLIBSX=
+GTGIFLIBSX=
+GDUMLIBSX=

@@ -20,10 +20,10 @@ CC=fccpx
 
 # Compile flags
 
-FLFLAGS=-O 
-CLFLAGS=-O -fpic -Xg -DUNDERSCORE -DLSB -DLONGINT
+FLFLAGS=-O -Kpic -Ntl_notrt
+CLFLAGS=-O -Kpic -Xg -DUNDERSCORE -DLONGINT
 FFLAGS=-O
-CFLAGS=-O -DUNDERSCORE -DLSB -DLONGINT
+CFLAGS=-O -Xg -DUNDERSCORE -DLONGINT
 
 # Make library command and options
 
@@ -50,4 +50,4 @@ MLIBS=
 
 LP=lpr
 
-include ../Makefile.dynamic
+include ../Makefile.dummy
