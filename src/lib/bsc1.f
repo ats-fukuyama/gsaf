@@ -43,8 +43,14 @@ C
       COMMON /GSAFBL/ LBELL
       COMMON /GSAFS8/ PXOFFSET,PYOFFSET,PXSCALE,PYSCALE
       CHARACTER KID*1
-      DATA LGOPEN/.FALSE./
+      DATA LINIT/.TRUE./
       REAL(8):: TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
+C
+      IF(LINIT) THEN
+         LGOPEN = .FALSE.
+         LGSAF = .FALSE.
+         LINIT = .FALSE.
+      END IF
 C
       IF(LGOPEN.AND.LGSAF) RETURN
 C
@@ -166,7 +172,7 @@ C
       CALL GUTIMES(TU,TS,TCU,TCS,TELP)
       IF(ICH.NE.0) WRITE(6,601) TELP-TELPOPEN,TU-TUOPEN,TS-TSOPEN,
      &                          TCU-TCUOPEN,TCS-TCSOPEN
-  601 FORMAT(1H ,'# GSAF V4.06 : ',
+  601 FORMAT(1H ,'# GSAF V4.05 : ',
      &           'Copyright (C) 1983-2014 A. Fukuyama and T. Akutsu'/
      &       1H ,'# CLOSED.      ELAPSED TIME =',
      &            F10.3,' SEC'/
