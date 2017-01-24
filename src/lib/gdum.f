@@ -23,7 +23,7 @@ C     ++++++ TERMINATE DEVICE ++++++
 C
       SUBROUTINE DVCLOS(ICH)
 C
-      ICH=0
+      ICH=1
       RETURN
       END
 C
