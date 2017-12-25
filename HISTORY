@@ -1,5 +1,9 @@
 $Id$
 
+2017/12/25  Ubuntu gfortran64 supported
+
+2017/01/24  gdum final outpu recovered
+2017/01/20  bsc1: Intialization sequence updated
 2017/01/13  nifs-psfx/Makefile.arch added
 
 V4.06
