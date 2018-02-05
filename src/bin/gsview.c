@@ -42,7 +42,7 @@ char **argv;
 {
 	int c,len,errflg;
 	int istart,iend,inum,ititle,interactive,irotate,icolor;
-	int igouraud;
+	int igouraud,status;
 	char filename[MAX_STR];
 	char progname[MAX_STR];
 	char str[MAX_STR];
@@ -158,7 +158,7 @@ char **argv;
 					filename,interactive,istart,iend,
 					inum,ititle,irotate,icolor);
 				putenv(str);
-				system(progname);
+				status=system(progname);
 			} else {
 				fprintf(stderr, "File %s not found\n",filename);
 			}
@@ -170,7 +170,7 @@ char **argv;
 					argv[optind],interactive,istart,iend,
 					inum,ititle,irotate,icolor);
 				putenv(str);
-				system(progname);
+				status=system(progname);
 			} else {
 				fprintf(stderr, "File %s not found\n",argv[optind]);
 			}
