@@ -87,7 +87,7 @@ static XColor ccol[CCOLSIZE];
 static XColor dcol[DCOLSIZE];
 static unsigned long dpixel[DCOLSIZE];
 static int	nccol,ndcol;
-
+static int      status;
 
 static void tinit(void)
 {
@@ -190,7 +190,7 @@ void dvchin_(int4 *iasc,const int4 *nchar)
 		ioctl(0,TIOCSETN,&t);
 #endif
 		for(i = 0; i < *nchar; i++) {
-			read(STDIN,text,1);
+			status=read(STDIN,text,1);
 			if(text[0] < ' ') {
 				for(;i < *nchar;i++)
 					iasc[i] = ' ';
@@ -302,16 +302,16 @@ void dvxyin_(int4 *ix,int4 *iy)
 		t.sg_flags &= ~ECHO;
 		ioctl(0,TIOCSETN,&t);
 #endif
-		read(STDIN,text,1);
-		read(STDIN,text,1);
+		status=read(STDIN,text,1);
+		status=read(STDIN,text,1);
 		ixh = text[0] & 0x1f;
-		read(STDIN,text,1);
+		status=read(STDIN,text,1);
 		ixl = text[0] & 0x1f;
-		read(STDIN,text,1);
+		status=read(STDIN,text,1);
 		iyh = text[0] & 0x1f;
-		read(STDIN,text,1);
+		status=read(STDIN,text,1);
 		iyl = text[0] & 0x1f;
-		if (tmode != 3) read(STDIN,text,1);
+		if (tmode != 3) status=read(STDIN,text,1);
 
 #ifndef	BSD
 		ioctl(0,TCSETAW,&st);
@@ -1077,9 +1077,9 @@ static void dupwin(void)
 	XStoreName(display,window,s);
 	XFlush(display);
 	sprintf(cmd,"xwd -name %s -out %s",s,s);
-	system(cmd);
+	status=system(cmd);
 	sprintf(cmd,"xwud -noclick -in %s &",s);
-	system(cmd);
+	status=system(cmd);
 	XStoreName(display,window,"GSAF");
 }
 
@@ -1120,11 +1120,12 @@ void dvpage_(int4 *ich)
 			dvsetwin(window,focus);
 		}
 		if(*ich != 0) {
-			fgets(s,20,stdin);
+		  if(fgets(s,20,stdin) != NULL) {
 			if(s[0])
 				*ich = (int4)s[0];
 			else
 				*ich = 32;
+		  }
 		}
 	}
 	if(!tmode)
