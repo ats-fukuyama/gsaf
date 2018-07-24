@@ -264,6 +264,7 @@ C
          UMAX=MAX(U1,U2,U3,U4)
          UMIN=MIN(U1,U2,U3,U4)
          KA(1,IE)=1
+         KA(2,IE)=0
          DO 60 K=1,KMAX
             IF(ZLS(K).LT.UMIN) KA(1,IE)=K+1
             IF(ZLS(K).LE.UMAX) KA(2,IE)=K
@@ -279,7 +280,7 @@ C
       DO 1000 NY=1,NYM
       DO 1000 NX=1,NXM
          IE=NXM*(NY-1)+NX
-         IF(KA(1,IE).LE.K.AND.KA(2,IE).GE.K) THEN
+         IF(ABS(KA(1,IE)).LE.K.AND.ABS(KA(2,IE)).GE.K) THEN
             N1X=NX
             N1Y=NY
             N2X=NX+1
@@ -305,6 +306,7 @@ C
             IF(I4X.GT.NXMAX) I4X=1
             IF(I4Y.GT.NYMAX) I4Y=1
             U4=Z(I4X,I4Y)-ZORG
+            LDBL=.FALSE.
 C
             IF((U1.GT.U0.AND.U2.LE.U0).OR.
      &         (U1.LE.U0.AND.U2.GT.U0)) THEN
@@ -324,6 +326,8 @@ C
                   NSBY=N3Y
                   USB=U3
                   MODES=2
+                  IF((U3.GT.U0.AND.U4.LE.U0).OR.
+     &               (U3.LE.U0.AND.U4.GT.U0)) LDBL=.TRUE.
                ELSEIF((U3.GT.U0.AND.U4.LE.U0).OR.
      &                (U3.LE.U0.AND.U4.GT.U0)) THEN
                   NSAX=N3X
@@ -343,6 +347,7 @@ C
                   USB=U1
                   MODES=4
                ELSE
+                  WRITE(6,*) 'XX GSAF:CONT2 Logical error 1'
                   GOTO 1000
                ENDIF
             ELSEIF((U2.GT.U0.AND.U3.LE.U0).OR.
@@ -373,6 +378,7 @@ C
                   USB=U1
                   MODES=4
                ELSE
+                  WRITE(6,*) 'XX GSAF:CONT2 Logical error 2'
                   GOTO 1000
                ENDIF
             ELSEIF((U3.GT.U0.AND.U4.LE.U0).OR.
@@ -394,12 +400,15 @@ C
                   USB=U1
                   MODES=4
                ELSE
+                  WRITE(6,*) 'XX GSAF:CONT2 Logical error 3'
                   GOTO 1000
                ENDIF
             ELSE
-               GOTO 1000
+               GOTO 1000   ! no equi-contour in this element
             ENDIF
-C
+
+!    Initial element found
+
             IF(INDX.EQ.0.OR.INDX.EQ.2) THEN
                XA=X(1)*(NAX-1)+X(2)
                XB=X(1)*(NBX-1)+X(2)
@@ -418,6 +427,8 @@ C
             RT=(U0-UA)/(UB-UA)
             XF(J)=(XB-XA)*RT+XA
             YF(J)=(YB-YA)*RT+YA
+            XF0=XF(J)
+            YF0=YF(J)
 C
             IEL=IE
             NXL=NX
@@ -425,6 +436,8 @@ C
             MODEL=MODE
             LINV=.FALSE.
             LEND=.FALSE.
+
+  100       CONTINUE
 C
             NXL1=NX
             NYL1=NY
@@ -472,6 +485,7 @@ C
                IF(I4X.GT.NXMAX) I4X=1
                IF(I4Y.GT.NYMAX) I4Y=1
                U4=Z(I4X,I4Y)-ZORG
+               LDBL=.FALSE.
 C
                IF(MODEL.EQ.1) THEN
                   IF((U4.GT.U0.AND.U1.LE.U0).OR.
@@ -483,6 +497,8 @@ C
                      NBY=N1Y
                      UB=U1
                      MODEL=4
+                     IF((U1.GT.U0.AND.U2.LE.U0).OR.
+     &                  (U1.LE.U0.AND.U2.GT.U0)) LDBL=.TRUE.
                   ELSEIF((U1.GT.U0.AND.U2.LE.U0).OR.
      &                   (U1.LE.U0.AND.U2.GT.U0)) THEN
                      NAX=N1X
@@ -502,6 +518,7 @@ C
                      UB=U3
                      MODEL=2
                   ELSE
+                     WRITE(6,*) 'XX GSAF:CONT2 Logical error 5'
                      LEND=.TRUE.
                   ENDIF
                ELSE IF(MODEL.EQ.2) THEN
@@ -514,6 +531,8 @@ C
                      NBY=N2Y
                      UB=U2
                      MODEL=1
+                     IF((U2.GT.U0.AND.U3.LE.U0).OR.
+     &                  (U2.LE.U0.AND.U3.GT.U0)) LDBL=.TRUE.
                   ELSEIF((U2.GT.U0.AND.U3.LE.U0).OR.
      &                   (U2.LE.U0.AND.U3.GT.U0)) THEN
                      NAX=N2X
@@ -533,6 +552,7 @@ C
                      UB=U4
                      MODEL=3
                   ELSE
+                     WRITE(6,*) 'XX GSAF:CONT2 Logical error 6'
                      LEND=.TRUE.
                   ENDIF
                ELSEIF(MODEL.EQ.3) THEN
@@ -545,6 +565,8 @@ C
                      NBY=N3Y
                      UB=U3
                      MODEL=2
+                     IF((U3.GT.U0.AND.U4.LE.U0).OR.
+     &                  (U3.LE.U0.AND.U4.GT.U0)) LDBL=.TRUE.
                   ELSEIF((U3.GT.U0.AND.U4.LE.U0).OR.
      &                   (U3.LE.U0.AND.U4.GT.U0)) THEN
                      NAX=N3X
@@ -564,6 +586,7 @@ C
                      UB=U1
                      MODEL=4
                   ELSE
+                     WRITE(6,*) 'XX GSAF:CONT2 Logical error 7'
                      LEND=.TRUE.
                   ENDIF
                ELSEIF(MODEL.EQ.4) THEN
@@ -576,6 +599,8 @@ C
                      NBY=N4Y
                      UB=U4
                      MODEL=3
+                     IF((U4.GT.U0.AND.U1.LE.U0).OR.
+     &                  (U4.LE.U0.AND.U1.GT.U0)) LDBL=.TRUE.
                   ELSEIF((U4.GT.U0.AND.U1.LE.U0).OR.
      &                   (U4.LE.U0.AND.U1.GT.U0)) THEN
                      NAX=N4X
@@ -595,19 +620,18 @@ C
                      UB=U2
                      MODEL=1
                   ELSE
+                     WRITE(6,*) 'XX GSAF:CONT2 Logical error 8'
                      LEND=.TRUE.
                   ENDIF
                ENDIF
             ELSE
-               IF(LINV) THEN
+               IF(LINV) THEN   ! Both ends on boundary
                   LEND=.TRUE.
-               ELSE
+               ELSE    ! One end on boundary, draw and restart from initial
 C
-                  DO 300 NF=NFMAX,NFMAX-J+1,-1
-                     XF(NF)=XF(NF-NFMAX+J)
-                     YF(NF)=YF(NF-NFMAX+J)
-  300             CONTINUE
-                  J=NFMAX-J+1
+                  CALL GUSP2D(XF(1),YF(1),J,XP,YP,NFMAX,NP,ISPL)
+                  CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
+                  CALL LINEPT(XG,YG,NN,ILNS(K))
 C
                   IEL=IE
                   NAX=NSAX
@@ -620,10 +644,14 @@ C
                   NYL=NY
                   MODEL=MODES
                   LINV=.TRUE.
+                  J=1
+                  XF(J)=XF0
+                  YF(J)=YF0
+                  GO TO 100
                ENDIF
             ENDIF
 C
-            IF(.NOT.LEND) THEN
+            IF(.NOT.LEND) THEN  ! One point extended
 C
                IF(INDX.EQ.0.OR.INDX.EQ.2) THEN
                   XA=X(1)*(NAX-1)+X(2)
@@ -641,64 +669,41 @@ C                  IF(NBY.GE.NYM) NBY=NYM
                   YA=Y(NAY)
                   YB=Y(NBY)
                ENDIF
-               IF(.NOT.LINV) THEN
-                  IF(J.EQ.NFMAX) THEN
-                     CALL GUSP2D(XF(1),YF(1),J,XP,YP,NFMAX,NP,ISPL)
-                     CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
-                     CALL LINEPT(XG,YG,NN,ILNS(K))            
-                     J=1
-                     XF(1)=XF(NFMAX)
-                     YF(1)=YF(NFMAX)
-                  ENDIF
-                  J=J+1
-               ELSE
-                  IF(J.EQ.1) THEN
-                     CALL GUSP2D(XF(J),YF(J),NFMAX-J+1,
-     &                           XP,YP,NFMAX,NP,ISPL)
-                     CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
+               IF(J.EQ.NFMAX) THEN ! Buffer full and draw
+                  CALL GUSP2D(XF(1),YF(1),J,XP,YP,NFMAX,NP,ISPL)
+                  CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
+                  IF(.NOT.LINV) THEN
+                     CALL LINEPT(XG,YG,NN,ILNS(K))
+                  ELSE
                      CALL LINEPT(XG,YG,NN,-ILNS(K))
-                     J=NFMAX
-                     XF(NFMAX)=XF(1)
-                     YF(NFMAX)=YF(1)
-                  ENDIF
-                  J=J-1
+                  END IF
+                  J=1
+                  XF(J)=XF(NFMAX)
+                  YF(J)=YF(NFMAX)
                ENDIF
+               J=J+1
                RT=(U0-UA)/(UB-UA)
                XF(J)=(XB-XA)*RT+XA
                YF(J)=(YB-YA)*RT+YA
 C
-               KA(1,IEL)=KA(1,IEL)+1
-               IF(IEL.EQ.IE) LEND=.TRUE.
-C               IF(IEL.EQ.IE.AND..NOT.LINV) LEND=.TRUE.
-C               IF(IEL.EQ.IE1.AND..NOT.LINV) LEND=.TRUE.
+               IF(KA(1,IEL).GE.0.AND.LDBL) THEN
+                  KA(1,IEL)=-KA(1,IEL)
+               ELSE
+                  KA(1,IEL)=ABS(KA(1,IEL))+1
+                  IF(IEL.EQ.IE) LEND=.TRUE.
+               END IF
             ENDIF
-C
-C      WRITE(6,'(A,6I5,2I7)') 'step 3: K,NY,NX,NYL,NXL,MODEL,IE,IEL',
-C     &                                K,NY,NX,NYL,NXL,MODEL,IE,IEL
-C      WRITE(6,'(A,1P5E12.4)') 'U0..4: ',U0,U1,U2,U3,U4
-C      CALL GUFLSH
 C
             IF(.NOT.LEND) GOTO 200
 C
-            IF(.NOT.LINV) THEN
-               CALL GUSP2D(XF(1),YF(1),J,XP,YP,NFMAX,NP,ISPL)
-            ELSE
-               CALL GUSP2D(XF(J),YF(J),NFMAX-J+1,XP,YP,NFMAX,NP,ISPL)
-            ENDIF
+            CALL GUSP2D(XF(1),YF(1),J,XP,YP,NFMAX,NP,ISPL)
             CALL SUBV(XP,YP,NP,XG,YG,NGMAX,NN)
             IF(.NOT.LINV) THEN
                CALL LINEPT(XG,YG,NN,ILNS(K))
             ELSE
                CALL LINEPT(XG,YG,NN,-ILNS(K))
             END IF
-C
-C            IF(.NOT.LINV) THEN
-C               WRITE(6,*) J,NP,NN
-C            ELSE
-C               WRITE(6,*) NFMAX-J+1,NP,NN
-C            ENDIF
-C            CALL GUFLSH
-C
+
          ENDIF
  1000 CONTINUE
       IF(ISPL.GE.0) THEN
@@ -1003,11 +1008,15 @@ C
       COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
       DIMENSION XA(N),YA(N),XB(M),YB(M)
 C
-      DO 100 I=1,N
+      NN=N
+      IF(NN.GT.M) THEN
+         WRITE(6,*) 'XX GSAF CONTV1 ERROR: N .GT. M'
+         NN=M
+      END IF
+      DO 100 I=1,NN
          XB(I)=DX*(XA(I)-GXS)+PXS
          YB(I)=DY*(YA(I)-GYS)+PYS
   100 CONTINUE
-      NN=N
       RETURN
       END
 C
