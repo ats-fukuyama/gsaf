@@ -27,7 +27,7 @@ CFLAGS=-O -m64 -DUNDERSCORE -DLSB -DLONGINT
 
 # Make library command and options
 
-LD=gfortran
+LD=ld
 LDX=echo Created:
 LDFLAGS=-r -o
 
