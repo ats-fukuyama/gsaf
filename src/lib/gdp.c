@@ -89,6 +89,9 @@ static unsigned long dpixel[DCOLSIZE];
 static int	nccol,ndcol;
 static int      status;
 
+static unsigned long cpixel[256][256][256];
+static int idpix[256][256][256];
+
 static void tinit(void)
 {
 	nbuf = 0;
@@ -776,6 +779,11 @@ void dvopen_(int4 *ich)
 		                            27,76,48,27,77,66,27,89};
 	char *str;
 	int c1,c2;
+	int i,j,k;
+
+	for(i=0; i<256; i++){
+	  for(j=0; j<256; j++){
+	    for(k=0; k<256; k++){idpix[i][j][k]=0;}}}
 
 	c1 = *ich;
 	c2 = 1;
@@ -1244,17 +1252,21 @@ static int cconv(int i)
 
 void dvcrgbx(int4 ir,int4 ig,int4 ib)
 {
-	XColor		c;
+  XColor	c;
 
-	c.red   = cconv(ir);
-       	c.green = cconv(ig);
-	c.blue  = cconv(ib);
-	if(fullcolor == 1)
-		XAllocColor(display,cm,&c);
-	else
-		dvsetccol(&c);
-	XSetForeground(display,gc,c.pixel);
+  if(idpix[ir][ig][ib] == 0){
+    c.red   = cconv(ir);
+    c.green = cconv(ig);
+    c.blue  = cconv(ib);
+    XAllocColor(display,cm,&c);
+    cpixel[ir][ig][ib]=c.pixel;
+    idpix[ir][ig][ib]=1;
+  } else {
+    c.pixel=cpixel[ir][ig][ib];
+  }
+  XSetForeground(display,gc,c.pixel);
 }
+
 
 #ifndef UNDERSCORE
 void dvstln(const int4 *iln,const int4 *ibl,const int4 *icl)
