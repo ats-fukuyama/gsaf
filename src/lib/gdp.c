@@ -89,8 +89,9 @@ static unsigned long dpixel[DCOLSIZE];
 static int	nccol,ndcol;
 static int      status;
 
-static unsigned long cpixel[256][256][256];
-static int idpix[256][256][256];
+int4 *cpixel;
+short int *idpix;
+int4 ncpix,ncshift;
 
 static void tinit(void)
 {
@@ -781,10 +782,6 @@ void dvopen_(int4 *ich)
 	int c1,c2;
 	int i,j,k;
 
-	for(i=0; i<256; i++){
-	  for(j=0; j<256; j++){
-	    for(k=0; k<256; k++){idpix[i][j][k]=0;}}}
-
 	c1 = *ich;
 	c2 = 1;
 	chkeymode = 1;
@@ -810,6 +807,36 @@ void dvopen_(int4 *ich)
 		}
 	}
 	*ich = c2;
+
+        ncpix = 64;
+	ncshift = 2;
+	str = getenv("NGDPIX");
+	if(str)	ncpix = atoi(str);
+	if(ncpix >= 256){
+	  ncpix = 256;
+	  ncshift = 0;
+	}
+	if(ncpix < 32){
+	  ncpix = 16;
+	  ncshift = 4;
+	} else {
+	  if(ncpix < 64){
+	    ncpix = 32;
+	    ncshift = 3;
+	  } else {
+	    if(ncpix < 128){
+	      ncpix = 64;
+	      ncshift = 2;
+	    } else {
+	      if(ncpix < 256){
+		ncpix = 128;
+		ncshift = 1;
+	      }}}}
+	cpixel=malloc(sizeof(int4)*ncpix*ncpix*ncpix);
+	idpix=malloc(sizeof(short int)*ncpix*ncpix*ncpix);
+	for(i=0; i<ncpix; i++){
+	  for(j=0; j<ncpix; j++){
+	    for(k=0; k<ncpix; k++){idpix[(i*ncpix+j)*ncpix+k]=0;}}}
 
 	switch(c1) {
 	case '0' : rmode = 1; *ich = - *ich; return;
@@ -1253,16 +1280,22 @@ static int cconv(int i)
 void dvcrgbx(int4 ir,int4 ig,int4 ib)
 {
   XColor	c;
+  int4 jr,jg,jb,id;
 
-  if(idpix[ir][ig][ib] == 0){
+  jr = ir >> ncshift;
+  jg = ig >> ncshift;
+  jb = ib >> ncshift;
+  id=(jr * ncpix + jg) * ncpix + jb;
+
+  if(idpix[id] == 0){
     c.red   = cconv(ir);
     c.green = cconv(ig);
     c.blue  = cconv(ib);
     XAllocColor(display,cm,&c);
-    cpixel[ir][ig][ib]=c.pixel;
-    idpix[ir][ig][ib]=1;
+    cpixel[id]=c.pixel;
+    idpix[id]=1;
   } else {
-    c.pixel=cpixel[ir][ig][ib];
+    c.pixel=cpixel[id];
   }
   XSetForeground(display,gc,c.pixel);
 }

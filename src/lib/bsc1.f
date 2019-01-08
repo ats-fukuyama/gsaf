@@ -1,8 +1,8 @@
 C     $Id$C
 C
-C     ****************************************************
-C     ****** GSAF BASIC ROUTINES V3.8 : INTERFACE 1 ******
-C     ****************************************************
+C     *****************************************************
+C     ****** GSAF BASIC ROUTINES V4.08 : INTERFACE 1 ******
+C     *****************************************************
 C
 C     ****** SYSTEM INITIALIZE ******
 C
@@ -180,8 +180,8 @@ C
       CALL GUTIMES(TU,TS,TCU,TCS,TELP)
       IF(ICH.NE.0) WRITE(6,601) TELP-TELPOPEN,TU-TUOPEN,TS-TSOPEN,
      &                          TCU-TCUOPEN,TCS-TCSOPEN
-  601 FORMAT(1H ,'# GSAF V4.07 : ',
-     &           'Copyright (C) 1983-2018 A. Fukuyama and T. Akutsu'/
+  601 FORMAT(1H ,'# GSAF V4.08 : ',
+     &           'Copyright (C) 1983-2019 A. Fukuyama and T. Akutsu'/
      &       1H ,'# CLOSED.      ELAPSED TIME =',
      &            F10.3,' SEC'/
      &       1H ,'# USED CPU TIME (u,s,cu,cs) =',
