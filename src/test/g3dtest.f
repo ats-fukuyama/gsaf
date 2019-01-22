@@ -20,14 +20,15 @@ C
       XL=10.0
       YL=12.0
       ZL=5.0
+      ID=1
       PHI=50.0
       THETA=60.0
       RADIUS=100.0
     1 CONTINUE
 
-    2 write(6,*) 'Input id(1..2,9),phi,theta'
+    2 write(6,*) 'Input id(1..2),phi,theta  (id=0 for end)'
       read(5,*,END=9999,ERR=2) id,phi,theta
-      if(id.eq.9) goto 9999
+      if(id.eq.0) goto 9999
 C
       if(id.eq.1) then
          CALL PAGES
