@@ -1233,13 +1233,13 @@ C
       DIMENSION RGB(3,N),X(5),Y(5)
 C
       IF(IND.EQ.0) THEN
-         DX=(X2-X1)/N
+         DX=(X2-X1)/(N-1)
          DY=0.0
          DXL=0.0
          DYL=Y2-Y1
       ELSE
          DX=0.0
-         DY=(Y2-Y1)/N
+         DY=(Y2-Y1)/(N-1)
          DXL=X2-X1
          DYL=0.0
       ENDIF
