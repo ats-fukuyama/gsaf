@@ -1,7 +1,7 @@
 C     $Id$C
 C
 C     *****************************************************
-C     ****** GSAF BASIC ROUTINES V4.08 : INTERFACE 1 ******
+C     ****** GSAF BASIC ROUTINES V4.09 : INTERFACE 1 ******
 C     *****************************************************
 C
 C     ****** SYSTEM INITIALIZE ******
@@ -180,7 +180,7 @@ C
       CALL GUTIMES(TU,TS,TCU,TCS,TELP)
       IF(ICH.NE.0) WRITE(6,601) TELP-TELPOPEN,TU-TUOPEN,TS-TSOPEN,
      &                          TCU-TCUOPEN,TCS-TCSOPEN
-  601 FORMAT(1H ,'# GSAF V4.08 : ',
+  601 FORMAT(1H ,'# GSAF V4.09 : ',
      &           'Copyright (C) 1983-2019 A. Fukuyama and T. Akutsu'/
      &       1H ,'# CLOSED.      ELAPSED TIME =',
      &            F10.3,' SEC'/
@@ -1092,6 +1092,7 @@ C
       COMMON /GSAFLG/ LGSAF,LPAGE,LFIL,LKEEP,NPAGE,NHEAD
       COMMON /GSAFS3/ ILNS,IBLS,ICLS
       COMMON /GSAFS6/ WS,RS,GS,BS
+      COMMON /GSAFS9/ ICRS,ICGS,ICBS
 C
       IF(.NOT.LPAGE) RETURN
 C
@@ -1103,6 +1104,9 @@ C
       IF(ICL.GE.0) THEN
          RS=-1.0
          ICLS=ICL
+         ICRS=-1
+         ICGS=-1
+         ICBS=-1
       ENDIF
       CALL DVSTLN(ILN,IBL,ICL)
       IF(LFIL) CALL BUFFST(1,ILN,IBL,ICL,0.0,0.0)
