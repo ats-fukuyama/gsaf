@@ -4,7 +4,7 @@ V4.09
 2019/08/13  SETRGB bug when mixed with SETLIN corrected
 
 V4.08
-2018/01/08  env NGDPIX added for pixel color range [16..256] (default: 64)
+2019/01/08  env NGDPIX added for pixel color range [16..256] (default: 64)
 	    gdp.c updated for setrgb speedup
 	    linux-gfortran64/Makefile.arch added
 
