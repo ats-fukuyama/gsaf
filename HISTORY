@@ -1,5 +1,8 @@
 $Id$
 
+V4.10
+2020/01/07  jfrs/cray (without X11) supported 
+
 V4.09
 2019/08/13  SETRGB bug when mixed with SETLIN corrected
 

@@ -1,0 +1,53 @@
+### $Id$ ###
+# Make for gsaf : V3.99 for Cray fortran on JFRS-1 [2020/01/07]
+#################################################################
+
+# default install path
+
+#BINPATH=/usr/local/bin
+#LIBPATH=/usr/local/lib64
+
+# home install path
+
+HOMEPATH=$(HOME)
+BINPATH=$(HOMEPATH)/bin
+LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=ftn
+CC=cc
+
+# Compile flags
+
+FLFLAGS=
+CLFLAGS=-DLSB -DLONGINT -DUNDERSCORE
+FFLAGS=
+CFLAGS=-DLSB -DLONGINT -DUNDERSCORE
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-r -o
+
+# Library extension
+
+LIB-SUFFIX=
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/usr/include
+XLIBPATH=/usr/lib
+XLIBS=/usr/lib
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=-lm
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.dummy
