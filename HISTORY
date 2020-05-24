@@ -1,5 +1,8 @@
 $Id$
 
+V4.11
+2020/05/24  gps.c: bug fixed: color change during draw sequence
+
 V4.10
 2020/01/07  jfrs/cray (without X11) supported 
 
