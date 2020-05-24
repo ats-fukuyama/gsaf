@@ -42,7 +42,7 @@ static double		delta;
 static double		dxch,dych,fxxch,fyxch,fxych,fyych;
 static double		lwidth,cred,cgreen,cblue,cblack;
 static int		imv,ilns,ifont,ifused[MAX_FUSED];
-static int		irgb;
+static int		irgb,ilnw;
 static double		dchs,dchss,dchsp;
 static char		file_basename[MAX_STR];
 static char		filename_tail[MAX_STR];
@@ -352,6 +352,7 @@ void dvpags_(const int4 *npage,const float *sizex,const float *sizey,const int4 
 	fprintf(psfile,"0 i 2 J 0 j 1 w 4 M []0 d\n");
 	ifont = 0;
 	imv = 0;
+	ilnw = 0;
 	irgb = 0;
 }
 
@@ -408,6 +409,7 @@ void dvmove_(const int4 *ix,const int4 *iy)
 		fprintf(psfile,"S\n");
 	fprintf(psfile,"%% Line\n");
 	fprintf(psfile,"%1.3f w\n",lwidth);
+	ilnw = 0;
 	dvcolor(0);
 
 	getposition(*ix,*iy,&xpos,&ypos);
@@ -421,11 +423,12 @@ void dvdraw(const int4 *ix,const int4 *iy)
 void dvdraw_(const int4 *ix,const int4 *iy)
 #endif
 {
-  if(irgb)
+  if(irgb || ilnw)
     fprintf(psfile,"S\n");
-  if(!imv || irgb){
+  if(!imv || irgb || ilnw){
     fprintf(psfile,"%% Line\n");
     fprintf(psfile,"%1.3f w\n",lwidth);
+    ilnw = 0;
     dvcolor(0);
     fprintf(psfile,"%1.3f %1.3f m\n",xpos,ypos);
     imv = 1;
@@ -447,6 +450,7 @@ void dvlins_(const int4 ixn[],const int4 iyn[],const int4 *np)
 		fprintf(psfile,"S\n");
 	fprintf(psfile,"%% Lines\n");
 	fprintf(psfile,"%1.3f w\n",lwidth);
+	ilnw = 0;
 	dvcolor(1);
 
 	for (i = 0; i < *np; i++) {
@@ -476,6 +480,7 @@ void dvpoly_(const int4 ixn[],const int4 iyn[],const int4 *np)
 		fprintf(psfile,"S\n");
 	fprintf(psfile,"%% Poly\n");
 	fprintf(psfile,"%1.3f w\n",lwidth);
+	ilnw = 0;
 	dvcolor(2);
 
 	for (i = 0; i < *np; i++) {
@@ -542,6 +547,7 @@ void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
 			fprintf(psfile,"S\n");
 		fprintf(psfile,"%% gouraudtriangle\n");
 		fprintf(psfile,"%1.3f w\n",lwidth);
+		ilnw = 0;
 		dvcolor(2);
 		fprintf(psfile, "[%d %d %d %d %d %d]",
 			(int)ixtmp[0], (int)ixtmp[1], (int)ixtmp[2],
@@ -560,7 +566,7 @@ void dvrgbtrg_(const int4 ixn[],const int4 iyn[],
 			fprintf(psfile,"S\n");
 		fprintf(psfile,"%% Poly\n");
 		fprintf(psfile,"%1.3f w\n",lwidth);
-
+		ilnw = 0;
 		ired   = (ir[0]+ir[1]+ir[2])/3;
 		igreen = (ig[0]+ig[1]+ig[2])/3;
 		iblue  = (ib[0]+ib[1]+ib[2])/3;
@@ -638,6 +644,7 @@ void dvstln_(const int4 *iln,const int4 *ibl,const int4 *icl)
 			lwidth = *ibl*0.5;
 		else
 			lwidth = 0.25;
+		ilnw = 1;
 	}
 	if (*icl != -1) {
 		switch(*icl) { 
@@ -667,6 +674,7 @@ void dvlwdt_(const int4 *iw)
 #endif
 {
 	lwidth = *iw * delta;
+	ilnw = 1;
 }
 
 #ifndef UNDERSCORE
