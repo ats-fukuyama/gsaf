@@ -6,7 +6,7 @@ default : test
 
 test : bsctest apltest conttest perstest splntest \
        gdptest gdumtest pgtest pstest sptest g3dtest evtest pagetest \
-       imagetest
+       imagetest gpstest
 
 gtest : gtest.o bsc1.o fio1.o fio2.o igl1.o igl2.o igl3.o gdp.o unix.o unixc.o
 	$(FC) $(FFLAGS) -o gtest gtest.o bsc1.o fio1.o fio2.o \
@@ -64,6 +64,9 @@ plottest : plottest.o $(LIBSX)
 
 gdumtest : gdumtest.o $(GDUMLIBSX)
 	$(FC) $(FFLAGS) -o gdumtest gdumtest.o $(LIBSDUM)
+
+gpstest : gpstest.o $(LIBSX)
+	$(FC) $(FFLAGS) -o gpstest gpstest.o $(LIBS)
 
 frtest : frtest.o $(LIBSX)
 	$(FC) $(FFLAGS) -o frtest frtest.o $(LIBS)
