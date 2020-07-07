@@ -1,137 +1,137 @@
 ### $Id$ ###
-2004 �N 8 �� 18 ��
+2020 年 7 月 6 日 (coding system: utf-8)
 
-�f�r�`�e�@�g�p������@�@[Version 3.84]
+ＧＳＡＦ　使用手引書　　[Version 3.84]
 
 A. Fukuyama
 
-���O�D�@�T�v
+§０．　概要
 
-���P�D�@�g�p�@
-	�P�D�P�@�C���X�g�[������D
-	�P�D�Q�@�v���O�����̍\��
-	�P�D�R�@�v���O�������R���p�C������D
-	�P�D�S�@�f�B�X�v���C�ɕ\������D
-	�P�D�T�@�}�`�t�@�C���ɕۑ�����D
-�@�@�@�@�P�D�U�@�|�X�g�X�N���v�g�E�t�@�C���ɕϊ�����D
-�@�@�@�@�P�D�V�@�v�����^�ň������D
-	�P�D�W�@�r�b�g�}�b�v�E�t�@�C���ɕۑ�����D�@
+§１．　使用法
+	１．１　インストールする．
+	１．２　プログラムの構成
+	１．３　プログラムをコンパイルする．
+	１．４　ディスプレイに表示する．
+	１．５　図形ファイルに保存する．
+　　　　１．６　ポストスクリプト・ファイルに変換する．
+　　　　１．７　プリンタで印刷する．
+	１．８　ビットマップ・ファイルに保存する．　
 
-�� �Q�D�@�T�u���[�`���ꗗ
-	�Q�D�P�@��{����T�u���[�`��
-	�Q�D�Q�@��{��}�T�u���[�`��
-	�Q�D�R�@�Θb�^���o�̓T�u���[�`��
-	�Q�D�S�@�⏕�T�u���[�`��
-	�Q�D�T�@���p�T�u���[�`��
-	�Q�D�U�@���Ր}�\���T�u���[�`��
+§ ２．　サブルーチン一覧
+	２．１　基本制御サブルーチン
+	２．２　基本作図サブルーチン
+	２．３　対話型入出力サブルーチン
+	２．４　補助サブルーチン
+	２．５　応用サブルーチン
+	２．６　鳥瞰図表示サブルーチン
 
-���R�D�@�T�u���[�`���ڍ�
-	�R�D�P�@��{�T�u���[�`��
-	�R�D�Q�@��{��}�T�u���[�`��
-	�R�D�R�@�Θb�^���o�̓T�u���[�`��
-	�R�D�S�@�⏕�T�u���[�`��
-	�R�D�T�@���p�T�u���[�`��
-	�R�D�U�@���Ր}�\���T�u���[�`��
-
-
-���O�D�@�T�v
+§３．　サブルーチン詳細
+	３．１　基本サブルーチン
+	３．２　基本作図サブルーチン
+	３．３　対話型入出力サブルーチン
+	３．４　補助サブルーチン
+	３．５　応用サブルーチン
+	３．６　鳥瞰図表示サブルーチン
 
 
-GSAF�̎�ȋ@�\
-
-��{�@�\
-�@�@�ŒP�ʂ̍�}�iA4���p����B5���̗̈�����W���j
-�@�@�����C������C���p�`�C�p��������C�L��
-�@�@�}�`�����F����C�����C�F
-�@�@�F�w��F�W�F�w��܂��� RGB �w��
-�@�@���������F���C�����C�Ԋu�C�p�x�C�X���C����
-�@�@�������́F�������C�ȈՏ��́CCourier, Times, Helvetica, Symbol
-�@�@�����������F��t�^���t�Y���C�����󔒁C���̕ύX
-�@�@�����̉�ʕ\���͊ȈՏ��́C������� postscript ���̂��\
-
-���p�@�\
-�@�@�O���t�F�ڐ���C�ڐ��萔�l�C�܂���O���t�C�U�z�O���t
-�@�@�������F�������C�ϐ���C�F�h��
-�@�@�������f�[�^�F���Ԋu�i�q�C�s���Ԋu�i�q�C���p�Ԋu�~�`�C�s���Ԋu��^
-�@�@�Q�����f�[�^�̂R�����\���F���Ԋu�i�q�C�������C�F�h��
-�@�@�Q�����f�[�^�̂R�����\���F�ڐ���C�ڐ��萔�l
-
-�o�͋@�\
-�@�@��ʏo�́FX Window ���W���i�ꕔ�̋@�\��Tektro�݊��\�����\�j
-�@�@�P��ʕ\����ɓ��͑҂����W���F���s�Ȃǂ̓��͂ŏ������s
-�@�@�}�`�t�@�C���ւ̊i�[��Ŗ��Ɏw�肷�邱�Ƃ��\
-�@�@��ʕ\�������ɑS�ł�}�`�t�@�C���Ɋi�[���邱�Ƃ��\
-�@�@��ʃ_���v�\�ixwd�`���j
-�@�@1bit, 8bit, 16/24/32 bit ���F�\���Ή�
-
-�}�`�t�@�C��
-�@�@���k�e�L�X�g�`���F�T�C�Y���������C�@��ˑ������Ȃ��C�]�����e��
-�@�@cat �R�}���h�Ńt�@�C���̍��̂��\
-�@�@gsview �R�}���h�ŉ�ʕ\���\
-�@�@gstops �R�}���h�� postscript file �ɕϊ��\
-�@�@gstoeps �R�}���h�� EPSF (Illustrator �`���j�ɕϊ��\
-�@�@�Ŗ��ɕ\���^�ϊ����\
-�@�@�����ł��ꊇ���ĂP�łɕ\���^�ϊ����\
-�@�@postscript file/EPSF ����� ghostscript �Ŋe��t�@�C���ɕϊ��\
-�@�@postscript file/EPSF �́Cmonochrome, gray, color ���I���\
-
-���͋@�\
-�@�@�L�[�{�[�h����
-�@�@�J�[�\������
-�@�@�L�[�����C�}�E�X�{�^�������^�J���C�}�E�X�ړ��̃C�x���g����
-
-�⏕�@�\
-�@�@���Z���ԁC�����C���t
-�@�@�����C����������
-�@�@�o�b�t�@���f�[�^�\���C���ԑ҂�
-
-�����
-�@�@Fortran77, C, X Window �̊J����
-�@�@gcc �� g77 ���܂ޒʏ�� Linux Distribution �œ���\
-�@�@Linux, HP, Sun, IBM/RS, Compac/Alpha ���œ���m�F
+§０．　概要
 
 
-���P�D�@�g�p�@
+GSAFの主な機能
+
+基本機能
+　　頁単位の作図（A4横用紙のB5横の領域内が標準）
+　　線分，線分列，多角形，英数文字列，記号
+　　図形属性：線種，線幅，色
+　　色指定：８色指定または RGB 指定
+　　文字属性：幅，高さ，間隔，角度，傾き，書体
+　　文字書体：線文字，簡易書体，Courier, Times, Helvetica, Symbol
+　　文字列内制御：上付／下付添字，微小空白，書体変更
+　　文字の画面表示は簡易書体，印刷時は postscript 書体が可能
+
+応用機能
+　　グラフ：目盛り，目盛り数値，折れ線グラフ，散布グラフ
+　　等高線：同一線種，可変線種，色塗り
+　　等高線データ：等間隔格子，不等間隔格子，等角間隔円形，不等間隔扇型
+　　２次元データの３次元表示：等間隔格子，等高線，色塗り
+　　２次元データの３次元表示：目盛り，目盛り数値
+
+出力機能
+　　画面出力：X Window が標準（一部の機能はTektro互換表示も可能）
+　　１画面表示後に入力待ちが標準：改行などの入力で処理続行
+　　図形ファイルへの格納を頁毎に指定することが可能
+　　画面表示せずに全頁を図形ファイルに格納することも可能
+　　画面ダンプ可能（xwd形式）
+　　1bit, 8bit, 16/24/32 bit 多色表示対応
+
+図形ファイル
+　　圧縮テキスト形式：サイズが小さく，機種依存性がなく，転送が容易
+　　cat コマンドでファイルの合体も可能
+　　gsview コマンドで画面表示可能
+　　gstops コマンドで postscript file に変換可能
+　　gstoeps コマンドで EPSF (Illustrator 形式）に変換可能
+　　頁毎に表示／変換が可能
+　　複数頁を一括して１頁に表示／変換が可能
+　　postscript file/EPSF からは ghostscript で各種ファイルに変換可能
+　　postscript file/EPSF は，monochrome, gray, color が選択可能
+
+入力機能
+　　キーボード入力
+　　カーソル入力
+　　キー押下，マウスボタン押下／開放，マウス移動のイベント入力
+
+補助機能
+　　演算時間，時刻，日付
+　　乱数，乱数初期化
+　　バッファ内データ表示，時間待ち
+
+動作環境
+　　Fortran77, C, X Window の開発環境
+　　gcc と g77 を含む通常の Linux Distribution で動作可能
+　　Linux, HP, Sun, IBM/RS, Compac/Alpha 等で動作確認
 
 
-�P�D�R�@�v���O�������R���p�C������D
+§１．　使用法
 
-1) �P��̃\�[�X�t�@�C���̏ꍇ
 
-	f77g �R�}���h���g�p����
+１．３　プログラムをコンパイルする．
 
-		f77 �ȊO�̃R���p�C����p���Ă���ꍇ�́C���̃R���p�C����
-		�R�}���h���� g ��t�������R�}���h���g�p����D
+1) 単一のソースファイルの場合
 
-	��j�\�[�X�t�@�C�� sample.f ���̃v���O�������R���p�C�����Ď��s�t�@
-            �C�� sample ���쐬����B./sample �Ɠ��͂��邱�Ƃɂ����s�t�@�C
-            �����N�������B
+	f77g コマンドを使用する
 
-		f77g sample [�I�v�V����]
+		f77 以外のコンパイラを用いている場合は，そのコンパイラの
+		コマンド名に g を付加したコマンドを使用する．
+
+	例）ソースファイル sample.f 中のプログラムをコンパイルして実行ファ
+            イル sample を作成する。./sample と入力することにより実行ファイ
+            ルが起動される。
+
+		f77g sample [オプション]
 		./sample
 
-	�I�v�V������	-g	�f�o�b�O�����܂߂�D
-			-O	�œK�����s���D
+	オプション例	-g	デバッグ情報を含める．
+			-O	最適化を行う．
 
 
 
-2) �����̃\�[�X�t�@�C���̏ꍇ
+2) 複数のソースファイルの場合
 
-	make �R�}���h���g�p����
+	make コマンドを使用する
 
-	��j�\�[�X�t�@�C�� w1.f, w1sub1.f, w1sub2.f, w1sub3.f ���̃v��
-	    �O�������R���p�C�����āA���s�t�@�C�� w1 ���쐬����B
+	例）ソースファイル w1.f, w1sub1.f, w1sub2.f, w1sub3.f 中のプロ
+	    グラムをコンパイルして、実行ファイル w1 を作成する。
 
-	���炩���߁A���̂悤�� Makefile ���\�[�X�t�@�C���Ɠ����f�B���N
-	�g���ɍ���Ă����B
-		FFLAGS �̉E�ӂɂ͕K�v�ȃI�v�V������ݒ肷��B
-		OBJS �̉E�ӂɂ̓\�[�X�t�@�C������ .o ��t���ė񋓂���B
-		AOUT �̉E�ӂɂ͎��s�t�@�C������ݒ肷��B
-		LIBS �̉E�ӂɂ̓��C�u��������񋓂���F���e�� OS �Ɉˑ�����D
-		�s���p�����邽�߂ɁA���s�̒��O��\������B
-		$(FC) �Ŏn�܂�s�́A�󔒂ł͂Ȃ� TAB �Ŏn�߂Ȃ���΂Ȃ�
-		�Ȃ����Ƃɒ��ӁB
-	Makefile �̓��e�̏ڍׂ� make �R�}���h�̃}�j���A�����Q�Ƃ̂��ƁB
+	あらかじめ、次のような Makefile をソースファイルと同じディレク
+	トリに作っておく。
+		FFLAGS の右辺には必要なオプションを設定する。
+		OBJS の右辺にはソースファイル名に .o を付けて列挙する。
+		AOUT の右辺には実行ファイル名を設定する。
+		LIBS の右辺にはライブラリ名を列挙する：内容は OS に依存する．
+		行を継続するために、改行の直前に\を入れる。
+		$(FC) で始まる行は、空白ではなく TAB で始めなければなら
+		ないことに注意。
+	Makefile の内容の詳細は make コマンドのマニュアルを参照のこと。
 
 FFLAGS = -O
 OBJS = w1.o w1sub1.o w1sub2.o w1sub3.o
@@ -142,187 +142,187 @@ FC = f77
 $(PROGRAM):$(OBJS)
         $(FC) $(FFLAGS) $(OBJS) $(LIBS) -o $@
 
-	������ make w1 �Ɠ��͂���ƁA�K�v�ȃt�@�C���������R���p�C����
-	��āA���s�t�@�C��w1 ���쐬�����B�v���O���������s���邽�߂�
-	�́Aw1 �Ɠ��͂���΂悢�B
+	ここで make w1 と入力すると、必要なファイルだけがコンパイルさ
+	れて、実行ファイルw1 が作成される。プログラムを実行するために
+	は、w1 と入力すればよい。
 
-	���s�t�@�C�������Â��v���O�����t�@�C���̓R���p�C������Ȃ���
-	�ŁA�ύX����Ă��Ȃ��t�@�C���̖��ʂȃR���p�C������������B
+	実行ファイルよりも古いプログラムファイルはコンパイルされないの
+	で、変更されていないファイルの無駄なコンパイルが避けられる。
 
-	Makefile �̃I�v�V��������ύX�������߂ɍăR���p�C�����K�v�ɂȂ�
-	���ꍇ�́Atouch *.f �ɂ���ăv���O�����t�@�C���̕ύX������V��
-	�����邩�A*.o �t�@�C�����폜����΂悢�B
+	Makefile のオプション等を変更したために再コンパイルが必要になっ
+	た場合は、touch *.f によってプログラムファイルの変更日時を新し
+	くするか、*.o ファイルを削除すればよい。
 
-�P�D�S�@�f�B�X�v���C�ɕ\������D
+１．４　ディスプレイに表示する．
 
   600    FORMAT(' # INPUT DISPLAY TYPE : ',
      &          '1)512x380 2)640x475 3)768x570 4)896x665 5)1024x760'/
      &          '6)1280x950 7)xterm 8)versaterm 9)online 0)quiet)')
 
-�@�@��ʕ\���ɂ�����𑜓x�̎�ނ𑝉� (512,640,768,896,1024,1280)
+　　画面表示における解像度の種類を増加 (512,640,768,896,1024,1280)
 
-�@�@X window ���̎g�p�J�n���ɗv��������ʑI������уI�v�V�����̐ݒ����
-�@�@���ϐ� GSGDP �Ŏw�肷�邱�Ƃ��ł���D�Ⴆ��
-    �@  GSGDP=5c; export GSGDP
-�@�@�Ɛݒ肵�Ă����ƁA
-    �@  ��ʃT�C�Y 760�~564�A�w�i���F
-      �@�I�v�V�����̐ݒ�͂��Ȃ�
-�@�@�Ƃ��āA�₢���킹���ȗ������B
+　　X window 等の使用開始時に要求される画面選択およびオプションの設定を環
+　　境変数 GSGDP で指定することができる．例えば
+    　  GSGDP=5c; export GSGDP
+　　と設定しておくと、
+    　  画面サイズ 760×564、背景白色
+      　オプションの設定はしない
+　　として、問い合わせが省略される。
 
-�@�@�܂��C���ϐ� GSGAMMA �ɂ���āC�f�B�X�v���C�̃K���}�l��ݒ�ł���D
-�@�@X Window �̕W���� 1 �ł��邪�CMacintosh ���ł� 1.8 �����ʂł���D
+　　また，環境変数 GSGAMMA によって，ディスプレイのガンマ値を設定できる．
+　　X Window の標準は 1 であるが，Macintosh 等では 1.8 が普通である．
 
-�@�@�܂��C���ϐ� NGDPIX �ɂ���āCX window �ɂ�����RGB �e�F��
-�@�@�K������ݒ�ł���D
-�@�@�W���� 64 �ł��邪�C16 ���� 256 �̊ԂŐݒ�\�D
-�@�@NGDPIX ��傫������ƁC�F�K�������炩�ɂȂ邪�C
-�@�@���̐F���ŏ��Ɏg�p����ۂɏ������Ԃ�������D
-�@�@ XAllocColor �� X server�i�[���j�ɐF����₢���킹�邽�߁D
-�@�@�Q��ڈȍ~�͖₢���킹�Ȃ��̂ŁC�ĕ`��͍����ɂȂ�iv4.08 �ȍ~�j�D
-�@�@�P�Z�b�V�����̊Ԃ͐F���͕ۑ������D
+　　また，環境変数 NGDPIX によって，X window におけるRGB 各色の
+　　階調数を設定できる．
+　　標準は 64 であるが，16 から 256 の間で設定可能．
+　　NGDPIX を大きくすると，色階調が滑らかになるが，
+　　その色を最初に使用する際に少し時間がかかる．
+　　 XAllocColor で X server（端末）に色情報を問い合わせるため．
+　　２回目以降は問い合わせないので，再描画は高速になる（v4.08 以降）．
+　　１セッションの間は色情報は保存される．
 
-�@�@�P�ŕ`��I�����F
-	�f�B�X�v���C�̏ꍇ�ɂ̓x������A�P�������͑҂��ƂȂ�B������
-	C �܂��� 
-	CR����͂����	���������s�����B
-	D ����͂����	��ʂ̃r�b�g�}�b�v�t�@�C�����쐬����A
-			�ʃE�B���h�E�ɕ\�������B
-	O ����͂����	�I�v�V�����ݒ���J�n����B
-	F ����͂����	�}�`�f�[�^�t�@�C���̎w�肨��ъi�[�J�n
-	X ����͂����	�}�`�f�[�^�t�@�C���ւ̊i�[�J�n�^��~�؂�ւ�
-	S ����͂����	���̉�ʂ̃f�[�^��ۑ��D�t�@�C�����w��Ȃ�Ζ₢���킹
-	Y ����͂����	�t�@�C���i�[�w�莞�ɂ́A���̉�ʂ̃f�[�^��ۑ�����B
-	N ����͂����	�t�@�C���i�[�w�莞�ł��A���̉�ʂ̃f�[�^��ۑ����Ȃ��B
-	H ����͂����	���͉\������\������B
-	B ����͂����	�`��I�����̃x������ ON/OFF �؂�ւ�
-	Q ����͂����	�m�F�̏�A�v���O�������I������B
-�@�@�����ĕ����\����ʂɐ؂�ւ��B
+　　１頁描画終了時：
+	ディスプレイの場合にはベルが鳴り、１文字入力待ちとなる。ここで
+	C または 
+	CRを入力すると	処理が続行される。
+	D を入力すると	画面のビットマップファイルが作成され、
+			別ウィンドウに表示される。
+	O を入力すると	オプション設定を開始する。
+	F を入力すると	図形データファイルの指定および格納開始
+	X を入力すると	図形データファイルへの格納開始／停止切り替え
+	S を入力すると	その画面のデータを保存．ファイル未指定ならば問い合わせ
+	Y を入力すると	ファイル格納指定時には、その画面のデータを保存する。
+	N を入力すると	ファイル格納指定時でも、その画面のデータを保存しない。
+	H を入力すると	入力可能文字を表示する。
+	B を入力すると	描画終了時のベル音の ON/OFF 切り替え
+	Q を入力すると	確認の上、プログラムが終了する。
+　　そして文字表示画面に切り替わる。
 
-�P�D�T�@�}�`�t�@�C���ɕۑ�����D
+１．５　図形ファイルに保存する．
 
-�Θb���F
-	�K�v�ȉ�ʂ̂ݕۑ�����ꍇ�F
-		�K�v�ȉ�ʕ`���C'S' �������ƕۑ������D
-		�ۑ��t�@�C��������`����Ă��Ȃ���΁C�₢���킹������D
-	�e��ʖ��ɑI������ꍇ�F
-		�ۑ��J�n�����ʕ`���C'F' �������D
-		�ۑ��t�@�C��������`����Ă��Ȃ���΁C�₢���킹������D
-		�e��ʕ`��I���� 'Y' �������΁C�ۑ������D
-				 'N' �������΁C�ۑ�����Ȃ��D
-		�ۑ����ꎞ���f����ꍇ����эĊJ����ꍇ�� 'X' �������D
-		�ۑ��t�@�C����ύX����ꍇ�́C�Ă� 'F' �������D
-��Θb���F
-	��ʃ��[�h�Ƃ��� '0' ����͂���D
-	���̖₢���킹�ɑ΂��� 'F' ����͂���ƁC
-	�ۑ��t�@�C�����̖₢���킹������D
-	���̎��̖₢���킹�ɑ΂��� 'C' ����͂���Ə��������s����C
-	�`�悳��邷�ׂẲ�ʂ̃f�[�^���t�@�C���ɕۑ������D
+対話式：
+	必要な画面のみ保存する場合：
+		必要な画面描画後，'S' を押すと保存される．
+		保存ファイル名が定義されていなければ，問い合わせがある．
+	各画面毎に選択する場合：
+		保存開始する画面描画後，'F' を押す．
+		保存ファイル名が定義されていなければ，問い合わせがある．
+		各画面描画終了後 'Y' を押せば，保存される．
+				 'N' を押せば，保存されない．
+		保存を一時中断する場合および再開する場合は 'X' を押す．
+		保存ファイルを変更する場合は，再び 'F' を押す．
+非対話式：
+	画面モードとして '0' を入力する．
+	次の問い合わせに対して 'F' を入力すると，
+	保存ファイル名の問い合わせがある．
+	その次の問い合わせに対して 'C' を入力すると処理が続行され，
+	描画されるすべての画面のデータがファイルに保存される．
 
-	���̓t�@�C����F�t�@�C�� gsdata �ɕۑ�����ꍇ
+	入力ファイル例：ファイル gsdata に保存する場合
 		0
 		F
 		gsdata
 		C
-		�ȉ��C�v���O�����̓��̓f�[�^
+		以下，プログラムの入力データ
 	
 
-4) �}�`�f�[�^�t�@�C���̕\��
+4) 図形データファイルの表示
 
-	gsview �R�}���h���g�p����
+	gsview コマンドを使用する
 
-	��j�}�`�f�[�^�t�@�C�� gsdata �Ɋ܂܂�Ă���}��\������B
+	例）図形データファイル gsdata に含まれている図を表示する。
 
 		gsview gsdata
 
-		�Ŕԍ�����͂��邱�Ƃɂ��A�C�ӂ̕ł�\���ł���B
-		�V���ɐ}�`�f�[�^�t�@�C�����쐬���A�\�����ꂽ�}�����̃t�@
-		�C���ɕۑ����邱�Ƃɂ���āA�K�v�Ȑ}�������܂ރt�@�C��
-		���쐬���邱�Ƃ��ł���B
+		頁番号を入力することにより、任意の頁を表示できる。
+		新たに図形データファイルを作成し、表示された図をそのファ
+		イルに保存することによって、必要な図だけを含むファイル
+		を作成することができる。
 
     gsview [-a] [-s ps] [-e pe] [-p np] [-tb] [filename]
-          -a       : ���ׂĂ̕ł��o�͂���B
-          -s ps    : ps �ł���o�͂����B�ȗ��l 1�B  
-          -e pe    : pe �ł܂ŏo�͂����B�ȗ��l 999�B
-          -p np    : �A������ np �ł��P���ɂ܂Ƃ߂ďo�͂���B�ȗ��l 1�B
-          -t       : �e�ł̌��̃^�C�g�����o�͂���B
-          -b       : �^�C�g�����o�͂��Ȃ��B
-          filename : �o�͂���t�@�C�����B�ȗ����͖₢���킹����B
+          -a       : すべての頁を出力する。
+          -s ps    : ps 頁から出力される。省略値 1。  
+          -e pe    : pe 頁まで出力される。省略値 999。
+          -p np    : 連続する np 頁を１枚にまとめて出力する。省略値 1。
+          -t       : 各頁の元のタイトルを出力する。
+          -b       : タイトルを出力しない。
+          filename : 出力するファイル名。省略時は問い合わせられる。
 
-	-a, -s, -e �I�v�V�������w�肵�Ȃ��ꍇ�́C
-	�\������ł̖₢���킹������D
-		0 ����͂���ƁC����ȍ~�̂��ׂĂ̕ł�\������D
-		-1 ����͂���ƁC�t�@�C���̐擪�ɖ߂�D
-		Control-D �ŏI��
+	-a, -s, -e オプションを指定しない場合は，
+	表示する頁の問い合わせがある．
+		0 を入力すると，それ以降のすべての頁を表示する．
+		-1 を入力すると，ファイルの先頭に戻る．
+		Control-D で終了
 
-�P�D�U�@�|�X�g�X�N���v�g�E�t�@�C���ɕϊ�����D
+１．６　ポストスクリプト・ファイルに変換する．
 
-gstops ��  PostScript �t�@�C���쐬�R�}���h
+gstops は  PostScript ファイル作成コマンド
 
-	�S�̂��P�� Postscript �t�@�C�����쐬�����D
-	Postscript �t�@�C�����́C���̃t�@�C����.ps
-	���̂܂܂� lpr �R�}���h���ɂ���ăv�����^�o�͉\
+	全体が１つの Postscript ファイルが作成される．
+	Postscript ファイル名は，元のファイル名.ps
+	そのままで lpr コマンド等によってプリンタ出力可能
 
     gstops [-a] [-s ps] [-e pe] [-p np] [-tbrcm] [filename]
-          -a       : ���ׂĂ̕ł��o�͂���B
-          -s ps    : ps �ł���o�͂����B�ȗ��l 1�B  
-          -e pe    : pe �ł܂ŏo�͂����B�ȗ��l 999�B
-          -p np    : �A������ np �ł��P���ɂ܂Ƃ߂ďo�͂���B�ȗ��l 1�B
-          -t       : �e�ł̌��̃^�C�g�����o�͂���B
-          -b       : �^�C�g�����o�͂��Ȃ��B
-          -r       : �}��90�x��]������B
-          -c       : �J���[�� Postscript �t�@�C�����쐬����D
-          -m       : ������ Postscript �t�@�C�����쐬����D
-                     �W���͊D�F�n�[�t�g�[���� Postscript �t�@�C�����쐬�D
-          filename : �o�͂���t�@�C�����B�ȗ����͖₢���킹����B
+          -a       : すべての頁を出力する。
+          -s ps    : ps 頁から出力される。省略値 1。  
+          -e pe    : pe 頁まで出力される。省略値 999。
+          -p np    : 連続する np 頁を１枚にまとめて出力する。省略値 1。
+          -t       : 各頁の元のタイトルを出力する。
+          -b       : タイトルを出力しない。
+          -r       : 図を90度回転させる。
+          -c       : カラーの Postscript ファイルを作成する．
+          -m       : 白黒の Postscript ファイルを作成する．
+                     標準は灰色ハーフトーンの Postscript ファイルを作成．
+          filename : 出力するファイル名。省略時は問い合わせられる。
 
-	-a, -s, -e �I�v�V�������w�肵�Ȃ��ꍇ�́C
-	�\������ł̖₢���킹������D
-		0 ����͂���ƁC����ȍ~�̂��ׂĂ̕ł�\������D
-		-1 ����͂���ƁC�t�@�C���̐擪�ɖ߂�D
-		Control-D �ŏI��
+	-a, -s, -e オプションを指定しない場合は，
+	表示する頁の問い合わせがある．
+		0 を入力すると，それ以降のすべての頁を表示する．
+		-1 を入力すると，ファイルの先頭に戻る．
+		Control-D で終了
 
-gstoeps �� Encapsulated PostScript (EPS) File �쐬�R�}���h
+gstoeps は Encapsulated PostScript (EPS) File 作成コマンド
 
-	�e�Ŗ��ɂP�� EPS �t�@�C�����쐬�����D
-	Adobe Illustrator 1.1 �`���Ȃ̂ŁCFreehand �� Illustrator �ŕҏW�\
-	Postscript �t�@�C�����́C���̃t�@�C����-n.eps�in �͕Ŕԍ�)
-	�t�@�C���̖����� showpage �R�}���h��t�����Ȃ��ƃv�����^�o�͂ł��Ȃ��D
-	�R�}���h�I�v�V������ gstops �R�}���h�Ɠ���
+	各頁毎に１つの EPS ファイルが作成される．
+	Adobe Illustrator 1.1 形式なので，Freehand や Illustrator で編集可能
+	Postscript ファイル名は，元のファイル名-n.eps（n は頁番号)
+	ファイルの末尾に showpage コマンドを付加しないとプリンタ出力できない．
+	コマンドオプションは gstops コマンドと同じ
 
-�P�D�V�@�v�����^�ň������D
+１．７　プリンタで印刷する．
 
-Postscript �v�����^������ꍇ
+Postscript プリンタがある場合
 
-	gsprint �R�}���h�͐}�`�f�[�^�t�@�C����W���v�����^�ɏo�͂���D
+	gsprint コマンドは図形データファイルを標準プリンタに出力する．
 
     gsprint [-s ps] [-e pe] [-p np] [-tbrcm] [filename]
-          -s ps    : ps �ł���o�͂����B�ȗ��l 1�B  
-          -e pe    : pe �ł܂ŏo�͂����B�ȗ��l 999�B
-          -p np    : �A������ np �ł��P���ɂ܂Ƃ߂ďo�͂���B�ȗ��l 1�B
-          -t       : �e�ł̌��̃^�C�g�����o�͂���B
-          -b       : �^�C�g�����o�͂��Ȃ��B
-          -r       : �}��90�x��]������B
-          -c       : �J���[�� Postscript �t�@�C�����쐬����D�i�W���j
-          -z       : �D�F�n�[�t�g�[���� Postscript �t�@�C�����쐬����D
-          -m       : ������ Postscript �t�@�C�����쐬����D
-          filename : �o�͂���t�@�C�����B�ȗ����͖₢���킹����B
+          -s ps    : ps 頁から出力される。省略値 1。  
+          -e pe    : pe 頁まで出力される。省略値 999。
+          -p np    : 連続する np 頁を１枚にまとめて出力する。省略値 1。
+          -t       : 各頁の元のタイトルを出力する。
+          -b       : タイトルを出力しない。
+          -r       : 図を90度回転させる。
+          -c       : カラーの Postscript ファイルを作成する．（標準）
+          -z       : 灰色ハーフトーンの Postscript ファイルを作成する．
+          -m       : 白黒の Postscript ファイルを作成する．
+          filename : 出力するファイル名。省略時は問い合わせられる。
 
-�@�@gstops �R�}���h��p���āCpostscript �t�@�C���ɕϊ����C
-�@�@lpr �R�}���h�Ńv�����^�ɏo�͂��Ă��悢�D
+　　gstops コマンドを用いて，postscript ファイルに変換し，
+　　lpr コマンドでプリンタに出力してもよい．
 	gsprint gsdata | lpr
 
-Postscrit �v�����^���Ȃ��ꍇ
-	gstops �R�}���h�� postscript �t�@�C�����쐬��
-		ghostscript �Ńv�����^�ɏo�͂���D
-		ghostscript �Ńv�����^�ɏo�͉\�ȃt�@�C���ɕϊ�����D
-		Macintosh ��� Adobe Distiller �ɂ�� PDF �t�@�C���ɕϊ��D���
-	gstoeps �R�}���h�� EPS �t�@�C�����쐬��
-		ghostscript �Ńv�����^�ɏo�͂���D
-		ghostscript �Ńv�����^�ɏo�͉\�ȃt�@�C���ɕϊ�����D
-		Macintosh ��� Freehand, Illustrator ���ŏo�͂���D
+Postscrit プリンタがない場合
+	gstops コマンドで postscript ファイルを作成し
+		ghostscript でプリンタに出力する．
+		ghostscript でプリンタに出力可能なファイルに変換する．
+		Macintosh 上で Adobe Distiller により PDF ファイルに変換．印刷
+	gstoeps コマンドで EPS ファイルを作成し
+		ghostscript でプリンタに出力する．
+		ghostscript でプリンタに出力可能なファイルに変換する．
+		Macintosh 上で Freehand, Illustrator 等で出力する．
 
-ghostscript �� GIF �t�@�C�����쐬�����
-	�i300dpi �� antialiasing ���� 75dpi �ɗ��Ƃ��Ă���j
+ghostscript で GIF ファイルを作成する例
+	（300dpi を antialiasing して 75dpi に落としている）
 
 	cat gsdata.ps | \
 	gs -sDEVICE=pnmraw -sPAPERSIZE=a4 -sOutputFile=- -q \
@@ -331,431 +331,431 @@ ghostscript �� GIF �t�@�C�����쐬�����
 	ppmtogif > $1.gif
 
 
-�P�D�W�@�r�b�g�}�b�v�E�t�@�C���ɕۑ�����D�@
+１．８　ビットマップ・ファイルに保存する．　
 
-	�P��ʕ`��I������ d �R�}���h����͂��邱�Ƃɐ}�`�r�b�g�}�b�v
-	�t�@�C�����쐬�����D
+	１画面描画終了時に d コマンドを入力することに図形ビットマップ
+	ファイルが作成される．
 
-	���̐}�`�r�b�g�t�@�C���}�b�v�̌`���� X windows �A�v���P�[�V������
-	���ʂł���B
+	この図形ビットファイルマップの形式は X windows アプリケーションで
+	共通である。
 
-	xwud �R�}���h�ɂ���āA�}�`�r�b�g�}�b�v�t�@�C����\���ł���D
+	xwud コマンドによって、図形ビットマップファイルを表示できる．
 
-	��j�}�`�r�b�g�}�b�v�t�@�C�� gsdump1 �Ɋ܂܂�Ă���}��\������B
+	例）図形ビットマップファイル gsdump1 に含まれている図を表示する。
 
 		xwud < gsdump1
 
 
-�� �Q�D�@�T�u���[�`���ꗗ
+§ ２．　サブルーチン一覧
 
 
-�Q�D�P�@��{����T�u���[�`��
+２．１　基本制御サブルーチン
 
-	GSOPEN	GSAF �̊J�n
-	GSCLOS	GSAF �̏I��
+	GSOPEN	GSAF の開始
+	GSCLOS	GSAF の終了
 
-	GSSIZE(PX,PY)	�����W�i�p���T�C�Y�̐ݒ�j
-	GSTITL(KTITL)	��ʃ^�C�g���̐ݒ� 
-	GSOPTN(KOPTDL,IOPT)	�I�v�V�����̐ݒ�
-	GSFILE(NFCS,NFCT)	�}�`�f�[�^�i�[�t�@�C���̐ݒ�
-	GSREAD(NFCR,NPAGE)	�}�`�f�[�^�t�@�C������Ǎ�
-	GSCOMB(NFCR,I,ITL)	�}�`�f�[�^�t�@�C�����畡���œǍ�
-	GSLIST(NFCR,NPAGEA,NA,NP)	�}�`�f�[�^�t�@�C���̕Ń��X�g�⍇��
+	GSSIZE(PX,PY)	実座標（用紙サイズの設定）
+	GSTITL(KTITL)	画面タイトルの設定 
+	GSOPTN(KOPTDL,IOPT)	オプションの設定
+	GSFILE(NFCS,NFCT)	図形データ格納ファイルの設定
+	GSREAD(NFCR,NPAGE)	図形データファイルから読込
+	GSCOMB(NFCR,I,ITL)	図形データファイルから複数頁読込
+	GSLIST(NFCR,NPAGEA,NA,NP)	図形データファイルの頁リスト問合せ
 
 
-�Q�D�Q�@��{��}�T�u���[�`��
+２．２　基本作図サブルーチン
 
-	PAGES	�P��ʂ̍�}�J�n
-	PAGEE	�P��ʂ̍�}�I��
+	PAGES	１画面の作図開始
+	PAGEE	１画面の作図終了
 
-	PAGEY	�P��ʂ̍�}�I���D���͂�҂����ɏ������s�D�t�@�C���ۑ�
-	PAGEN	�P��ʂ̍�}�I���D���͂�҂����ɏ������s�D�t�@�C���ۑ�����
+	PAGEY	１画面の作図終了．入力を待たずに処理続行．ファイル保存
+	PAGEN	１画面の作図終了．入力を待たずに処理続行．ファイル保存せず
 
 	SETPAGE(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
-		��ʂ̃I�t�Z�b�g�Ɣ{����ݒ�
+		画面のオフセットと倍率を設定
 	INQPAGE(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
-		��ʂ̃I�t�Z�b�g�Ɣ{����₢���킹
+		画面のオフセットと倍率を問い合わせ
 
 	SETVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
-		��ʏ�ɍ��W��ݒ�
-	OFFVEW	��ʍ��W�ɕ��A
+		画面上に座標を設定
+	OFFVEW	画面座標に復帰
 	INQVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
-		�ݒ���W��⍇��
+		設定座標を問合せ
 
-	SETCLP(XMIN,XMAX,YMIN,YMAX)	�N���b�s���O�̈��ݒ�
-	OFFCLP	�N���b�s���O���~
-	SETCLP(XMIN,XMAX,YMIN,YMAX)	�N���b�s���O�̈��⍇��
+	SETCLP(XMIN,XMAX,YMIN,YMAX)	クリッピング領域を設定
+	OFFCLP	クリッピングを停止
+	SETCLP(XMIN,XMAX,YMIN,YMAX)	クリッピング領域を問合せ
 
-	MOVE(X,Y)	�w����W�ֈړ�
-	DRAW(X,Y)	�w����W�֒�������}
+	MOVE(X,Y)	指定座標へ移動
+	DRAW(X,Y)	指定座標へ直線を作図
 	LINE1(XS,YS,XE,YE)	
-			�����\���@�\
-	LINES(X,Y,N)	�����Q�\���@�\
-	LINESC(X,Y,N)	�����Q�\���@�\�i�Ȑ��j
-	POLY(X,Y,N)	���p�`�ʓh��@�\
+			線分表示機能
+	LINES(X,Y,N)	線分群表示機能
+	LINESC(X,Y,N)	線分群表示機能（閉曲線）
+	POLY(X,Y,N)	多角形面塗り機能
 
-        RGBTRG(X,Y,R,G,B)	�O�p�`��A���I�F�ω��Ŗʓh��
+        RGBTRG(X,Y,R,G,B)	三角形を連続的色変化で面塗り
 
-	SETLIN(ILN,IBL,ICL)	���̎�ށA�����A�F�̐ݒ�
-	INQLIN(ILN,IBL,ICL)	���̎�ށA�����A�F�̖⍇��
+	SETLIN(ILN,IBL,ICL)	線の種類、太さ、色の設定
+	INQLIN(ILN,IBL,ICL)	線の種類、太さ、色の問合せ
 
-	SETRGB(R,G,B)	���F�ݒ�@�\
-	SETLNW(W)	�����ݒ�@�\
-	INQRGB(R,G,B)	���F�⍇���@�\
-	INQLNW(W)	�����⍇���@�\
+	SETRGB(R,G,B)	多色設定機能
+	SETLNW(W)	線幅設定機能
+	INQRGB(R,G,B)	多色問合せ機能
+	INQLNW(W)	線幅問合せ機能
 
-	MARK(X,Y)	�w����W�Ƀ}�[�N����}
-	INQPOS(X,Y)	���݂̍��W�̖⍇��
+	MARK(X,Y)	指定座標にマークを作図
+	INQPOS(X,Y)	現在の座標の問合せ
 
-	TEXT(KTEXT,NCHAR)	���������}
-	INQTSZ(KTEXT,NCHAR,SIZE)	������̒����̖⍇��
+	TEXT(KTEXT,NCHAR)	文字列を作図
+	INQTSZ(KTEXT,NCHAR,SIZE)	文字列の長さの問合せ
 
-	SETMKS(IMRK,SMRK)	�}�[�N�̎�ށA�傫���̐ݒ�
+	SETMKS(IMRK,SMRK)	マークの種類、大きさの設定
         SETMRK(IMRK,HMRK,WMRK,ANGL,TILT) 
-		�}�[�N�̎�ށA�����A���A�p�x�A�X���̐ݒ�
+		マークの種類、高さ、幅、角度、傾きの設定
 	INQMRK(IMRK,HMRK,WMRK,ANGL,TILT) 
-		�}�[�N�̎�ށA�����A���A�p�x�A�X���̖⍇��
+		マークの種類、高さ、幅、角度、傾きの問合せ
 
-	SETCHS(CHH,ANGL)	�����̍����A�p�x�̐ݒ�
-	SETCHH(CHH,ANGL)	�����̍����A�p�x�̐ݒ�i�n�[�h�E�F�A�����j
+	SETCHS(CHH,ANGL)	文字の高さ、角度の設定
+	SETCHH(CHH,ANGL)	文字の高さ、角度の設定（ハードウェア文字）
 	SETCHR(CHH,CHW,CHSP,ANGL,TILT)
-		�����̍����A���A�Ԋu�A�p�x�A�X���̐ݒ�
+		文字の高さ、幅、間隔、角度、傾きの設定
 	INQCHR(CHH,CHW,CHSP,ANGL,TILT)
-		�����̍����A���A�Ԋu�A�p�x�A�X���̖⍇��
-	SETFNT(IFNT)	������ނ̐ݒ�
-	INQFNT(IFNT)	������ނ̖⍇��
+		文字の高さ、幅、間隔、角度、傾きの問合せ
+	SETFNT(IFNT)	文字種類の設定
+	INQFNT(IFNT)	文字種類の問合せ
 
 	PGREAD(NFCR,NPAGE,XFACT,YFACT,XOFS,YOFS,ROT,ITL,NPAGEF)
-		�}�`�f�[�^�t�@�C���̕œǍ��i�ό`�\�j
+		図形データファイルの頁読込（変形可能）
 
-	GSFOPN(FILENAME,IND)     �}�`�f�[�^�t�@�C���̎w��ƕۑ��̊J�n
-	GSFCLS                   �}�`�f�[�^�t�@�C���̐ڑ�����
-	GSFON                    �}�`�f�[�^�t�@�C���ւ̊i�[�J�n
-	GSFOFF                   �}�`�f�[�^�t�@�C���ւ̊i�[��~
+	GSFOPN(FILENAME,IND)     図形データファイルの指定と保存の開始
+	GSFCLS                   図形データファイルの接続解除
+	GSFON                    図形データファイルへの格納開始
+	GSFOFF                   図形データファイルへの格納停止
 
-	GUGRPS  �O���[�v���J�n
-	GUGRPE  �O���[�v���I��
+	GUGRPS  グループ化開始
+	GUGRPE  グループ化終了
 
-	GF_SET_GCFUNC(ID)	�`�悷��ۂ̏������ݑ�����ݒ肷��
-	GF_INQ_GCFUNC(ID)	�`�悷��ۂ̏������ݑ�����₢���킹��D
+	GF_SET_GCFUNC(ID)	描画する際の書き込み属性を設定する
+	GF_INQ_GCFUNC(ID)	描画する際の書き込み属性を問い合わせる．
 
 	GF_DEF_IMAGE(ID,IW,IH,DATA)	
-				pixel map �̒�`
-	GF_UNDEF_IMAGE(ID)	pixel map �̍폜
-	GF_PUT_IMAGE(ID,X,Y)	pixel map �̕\��
+				pixel map の定義
+	GF_UNDEF_IMAGE(ID)	pixel map の削除
+	GF_PUT_IMAGE(ID,X,Y)	pixel map の表示
 
-�Q�D�R�@�Θb�^���o�̓T�u���[�`��
+２．３　対話型入出力サブルーチン
 
-	CHIN(KTEXT,NCHAR)	���������
-	XYIN(X,Y)	���W����
-	ERAS	��ʏ���
-	BELL	�����o��
-	CHMODE	������ʂɏo��
-	GRMODE	�}�`��ʂɏo��
+	CHIN(KTEXT,NCHAR)	文字列入力
+	XYIN(X,Y)	座標入力
+	ERAS	画面消去
+	BELL	音響出力
+	CHMODE	文字画面に出力
+	GRMODE	図形画面に出力
 
-	GF_SET_EVENT(ID)	�҂��󂯂�C�x���g�̎�ނ�ݒ肷��D
-	GF_INQ_EVENT(ID)	�҂��󂯂Ă���C�x���g�̎�ނ�₢���킹��D
-	GF_GET_EVENT(ID,X,Y,KID,KEY)	�C�x���g��҂��󂯂�D
-	GF_CHECK_EVENT(ID,X,Y,KID,KEY)	�C�x���g��ǂݍ��ށD
+	GF_SET_EVENT(ID)	待ち受けるイベントの種類を設定する．
+	GF_INQ_EVENT(ID)	待ち受けているイベントの種類を問い合わせる．
+	GF_GET_EVENT(ID,X,Y,KID,KEY)	イベントを待ち受ける．
+	GF_CHECK_EVENT(ID,X,Y,KID,KEY)	イベントを読み込む．
 
-�Q�D�S�@�⏕�T�u���[�`��
+２．４　補助サブルーチン
 
 	GUDATE(NDY,NDM,NDD,NTH,NTM,NTS)
-		���t�A�����̖⍇��
-	GUTIME(T)	CPU �������Ԃ̖⍇��
-	GUDSTR(KIN,NIN,KOUT,NOUT)	���p�^������𕶎���ɕϊ�
-	GUCPTL(KID)	������啶���ɕϊ�
-	CHRASC(KTEXT,IASC,NCHAR)	������𐮐��z��ɕϊ�
-	ASCCHR(IASC,KTEXT,NCHAR)	�����z��𕶎���ɕϊ�
+		日付、時刻の問合せ
+	GUTIME(T)	CPU 処理時間の問合せ
+	GUDSTR(KIN,NIN,KOUT,NOUT)	引用型文字列を文字列に変換
+	GUCPTL(KID)	文字を大文字に変換
+	CHRASC(KTEXT,IASC,NCHAR)	文字列を整数配列に変換
+	ASCCHR(IASC,KTEXT,NCHAR)	整数配列を文字列に変換
 
-	GUFLSH	�����o�b�t�@�ɒ~�ς��ꂽ�f�[�^����ʂɕ\��
-	GF_SYNC	�}�`�o�b�t�@�ɒ~�ς��ꂽ�f�[�^����ʂɕ\��
-	GU_XFLUSH	X11 �̃o�b�t�@���ɂ��閽�߂̑������s
-	GU_SLEEP(T)	�v���O�������s����莞�Ԓ�~
+	GUFLSH	文字バッファに蓄積されたデータを画面に表示
+	GF_SYNC	図形バッファに蓄積されたデータを画面に表示
+	GU_XFLUSH	X11 のバッファ内にある命令の即時実行
+	GU_SLEEP(T)	プログラム実行を一定時間停止
 
-	GURAND(X)	0..X �͈̗̔͂�����Ԃ��֐�
-	GU_SRAND(I)	�^����ꂽ�������V�[�h�Ƃ��ė�����������
+	GURAND(X)	0..X の範囲の乱数を返す関数
+	GU_SRAND(I)	与えられた整数をシードとして乱数を初期化
 
-	GUCLIP(D)	�{���x����P���x�ւ̕ϊ����s���֐�
-	NGULEN(GSTEP)	�O���t���������l�̍œK�����s���֐�
+	GUCLIP(D)	倍精度から単精度への変換を行う関数
+	NGULEN(GSTEP)	グラフメモリ数値の最適化を行う関数
 
 
 
-�Q�D�T�@���p�T�u���[�`��
+２．５　応用サブルーチン
 
-	TEXTX(KTEXTX)	���p�^������̍�}
-	GTEXT(X,Y,KTEXT,NCHAR,IJUST)	��������w��ʒu�ɑ����č�}
-	GTEXTX(X,Y,KTEXTX,IJUST)	���p�^��������w��ʒu�ɑ����č�}
+	TEXTX(KTEXTX)	引用型文字列の作図
+	GTEXT(X,Y,KTEXT,NCHAR,IJUST)	文字列を指定位置に揃えて作図
+	GTEXTX(X,Y,KTEXTX,IJUST)	引用型文字列を指定位置に揃えて作図
 
-	NUMBR(R,KFORM,NCHR)	�P���x������C�ӂ̏����ō�}
-	NUMBD(D,KFORM,NCHR)	�{���x������C�ӂ̏����ō�}
-	NUMBI(I,KFORM,NCHR)	������C�ӂ̏����ō�}
+	NUMBR(R,KFORM,NCHR)	単精度実数を任意の書式で作図
+	NUMBD(D,KFORM,NCHR)	倍精度実数を任意の書式で作図
+	NUMBI(I,KFORM,NCHR)	整数を任意の書式で作図
 
-	GNUMBR(X,Y,R,IND,IJUST)	�P���x�������w��ʒu�ɑ����č�}
-	GNUMBD(X,Y,D,IND,IJUST)	�{���x�������w��ʒu�ɑ����č�}
-	GNUMBI(X,Y,I,IJUST)	�������w��ʒu�ɑ����č�}
-	GNUMBP(X,Y,I,J,IJUST)	�Џ�t���������w��ʒu�ɑ����č�}
+	GNUMBR(X,Y,R,IND,IJUST)	単精度実数を指定位置に揃えて作図
+	GNUMBD(X,Y,D,IND,IJUST)	倍精度実数を指定位置に揃えて作図
+	GNUMBI(X,Y,I,IJUST)	整数を指定位置に揃えて作図
+	GNUMBP(X,Y,I,J,IJUST)	巾乗付き整数を指定位置に揃えて作図
 
-	MOVEPT(X,Y,IPAT)	�w����W�ֈړ��A���p�^�[�����w��
-	DRAWPT(X,Y)	�w����W�֎w�肳�ꂽ���p�^�[���Œ�������}
-	SETLPT(IPAT,NPAT,PAT)	���p�^�[���̓o�^
+	MOVEPT(X,Y,IPAT)	指定座標へ移動、線パターンを指定
+	DRAWPT(X,Y)	指定座標へ指定された線パターンで直線を作図
+	SETLPT(IPAT,NPAT,PAT)	線パターンの登録
 
 	GMNMX1(G,NS,NE,NSTEP,GMIN,GMAX)
-		�P�����z��̍ŏ��C�ő�
+		１次元配列の最小，最大
 	GMNMX2(G,NA,NXS,NXE,NXSTEP,NYS,NYE,NYSTEP,GMIN,GMAX)
-		�Q�����z��̍ŏ��C�ő�
+		２次元配列の最小，最大
 	GQSCAL(GMIN,GMAX,GSMIN,GSMAX,GSCAL)
-		�ŏ��A�ő�A�ڐ���Ԋu�̍œK�l
+		最小、最大、目盛り間隔の最適値
 
 	GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
-		�O���t�̈�̐ݒ�
+		グラフ領域の設定
 	INQ_GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
-		�O���t�̈�̖⍇��
+		グラフ領域の問合せ
 
-	INQPOS2D(X,Y)	�O���t�̈���ʒu�⍇��
-	MOVE2D(X,Y)	�O���t�̈���w����W�ֈړ�
-	DRAW2D(X,Y)	�O���t�̈���w����W�֒�������}
+	INQPOS2D(X,Y)	グラフ領域内位置問合せ
+	MOVE2D(X,Y)	グラフ領域内指定座標へ移動
+	DRAW2D(X,Y)	グラフ領域内指定座標へ直線を作図
 	MOVEPT2D(X,Y,IPAT)
-			�O���t�̈���w����W�ֈړ��A���p�^�[�����w��
-	DRAWPT2D(X,Y)	�O���t�̈���w����W�֎w�肳�ꂽ���p�^�[���Œ�������}
-	LINE2D(X,Y,N)	�O���t�̈�������\���@�\
-	LINES2D(X,Y,N)	�O���t�̈�������Q�\���@�\
-	LINESC2D(X,Y,N)	�O���t�̈�������Q�\���@�\�i�Ȑ��j
-	POLY2D(X,Y,N)	�O���t�̈�����p�`�ʓh��@�\
+			グラフ領域内指定座標へ移動、線パターンを指定
+	DRAWPT2D(X,Y)	グラフ領域内指定座標へ指定された線パターンで直線を作図
+	LINE2D(X,Y,N)	グラフ領域内線分表示機能
+	LINES2D(X,Y,N)	グラフ領域内線分群表示機能
+	LINESC2D(X,Y,N)	グラフ領域内線分群表示機能（閉曲線）
+	POLY2D(X,Y,N)	グラフ領域内多角形面塗り機能
         RGBTRG2D(X,Y,R,G,B)
-			�O���t�̈���O�p�`��A���I�F�ω��Ŗʓh��
+			グラフ領域内三角形を連続的色変化で面塗り
 
-	GFRAME	�g�̍�}
+	GFRAME	枠の作図
 	GSCALE(GXORG,GXSTEP,GYORG,GYSTEP,SLEN,IND)
-		�ڐ��肠�邢�͊i�q�̍�}
+		目盛りあるいは格子の作図
 	GVALUE(GXORG,GXSTEP,GYORG,GYSTEP,IND)
-		�ڐ��萔�l�̍�}
+		目盛り数値の作図
 	GSCALL(GXORG,NXSTEP,GYORG,NYSTEP,SLEN,IND)
-		�ΐ��^�ڐ��肠�邢�͊i�q�̍�}
+		対数型目盛りあるいは格子の作図
 	GVALUL(GXORG,NXSTEP,GYORG,NYSTEP,IND)
-		�ΐ��^�ڐ��萔�l�̍�}
+		対数型目盛り数値の作図
 
 	GPLOTP(GX,GY,NS,NE,NSTEP,IMARK,ISTEP,IPAT)
-		�܂���O���t�̍�}
+		折れ線グラフの作図
 	GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
-		�덷���O���t�̍�}
+		誤差幅グラフの作図
 
 	CONTR1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD)
-		���Ԋu�i�q�f�[�^�̓������\��
+		等間隔格子データの等高線表示
 	CONTR2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD)
-		�s���Ԋu�i�q�f�[�^�̓������\��
+		不等間隔格子データの等高線表示
 	CONTR3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP)
-		���p�x�Ԋu�~�`�f�[�^�̓������\��
+		等角度間隔円形データの等高線表示
 	CONTR4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP)
-		�s���p�x�Ԋu��^�f�[�^�̓������\��
+		不等角度間隔扇型データの等高線表示
 
 	CONTP1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-		���Ԋu�i�q�f�[�^�̓������\���i���p�^�[���j
+		等間隔格子データの等高線表示（線パターン）
 	CONTP2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-		�s���Ԋu�i�q�f�[�^�̓������\���i����j
+		不等間隔格子データの等高線表示（同上）
 	CONTP3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
-		���p�x�Ԋu�~�`�f�[�^�̓������\���i����j
+		等角度間隔円形データの等高線表示（同上）
 	CONTP4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
-		�s���p�x�Ԋu��^�f�[�^�̓������\���i����j
+		不等角度間隔扇型データの等高線表示（同上）
 
 	CONTQ1(Z,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-		���Ԋu�i�q�f�[�^�̓������\���i���p�^�[���A�Ώ́j
+		等間隔格子データの等高線表示（線パターン、対称）
 	CONTQ2(Z,X,Y,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-		�s���Ԋu�i�q�f�[�^�̓������\���i����j
+		不等間隔格子データの等高線表示（同上）
 	CONTQ3(Z,R,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
-		���p�x�Ԋu�~�`�f�[�^�̓������\���i����j
+		等角度間隔円形データの等高線表示（同上）
 	CONTQ4(Z,R,T,NXA,NX,NY,ZORG,ZSTEP,NSTEP,IPAT,KA)
-		�s���p�x�Ԋu��^�f�[�^�̓������\���i����j
+		不等角度間隔扇型データの等高線表示（同上）
 
 	CONTPF(Z,X,Y,NNOD,IELM,NELM,ZORG,ZSTEP,NSTEP,IPAT,KA)
-		�R�p�`�L���v�f�f�[�^�̓������\��
+		３角形有限要素データの等高線表示
 
 	PERSE1(Z,NXA,NX,NY,ZMIN,ZMAX,IXY,IND,XL,YL,ZL,A,B,C,D,E)
-		���Ԋu�i�q�f�[�^�̂R�����\��
+		等間隔格子データの３次元表示
 
 	SPLN1D(X,F,FX,NX,XG,FG,NXG,IP)
-		�P�����f�[�^�̃X�v���C����Ԃ��s���B
+		１次元データのスプライン補間を行う。
 
 	SPLN2D(X,Y,F,FX,FY,FXY,A,NXA,NX,NY,XG,YG,FG,NXAG,NXG,NYG,IP)
-		�Q�����f�[�^�̃X�v���C����Ԃ��s��
+		２次元データのスプライン補間を行う
 
     
 
 
 	CONTF1(Z,NXA,NXMAX,NYMAX,ZL,RGB,NSTEP,IPRD)
-		�������W���Ԋu �F�h�蓙�����}
+		直交座標等間隔 色塗り等高線図
 	CONTF2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,RGB,NSTEP,IPRD)
-		�������W�s���Ԋu �F�h�蓙�����}
+		直交座標不等間隔 色塗り等高線図
 	CONTF3(Z,R,NXA,NXMAX,NYMAX,ZL,RGB,NSTEP)
-		�ɍ��W���p�x�Ԋu �F�h�蓙�����}
+		極座標等角度間隔 色塗り等高線図
 	CONTF4(Z,R,T,NXA,NXMAX,NYMAX,ZL,RGB,NSTEP)
-		�ɍ��W�s���p�x�Ԋu �F�h�蓙�����}
+		極座標不等角度間隔 色塗り等高線図
 
 	CONTG1(Z,NXA,NXMAX,NYMAX,ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
-		�������W���Ԋu �ϐ��퓙�����}
+		直交座標等間隔 可変線種等高線図
 	CONTG2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
-		�������W�s���Ԋu �ϐ��퓙�����}
+		直交座標不等間隔 可変線種等高線図
 	CONTG3(Z,R,NXA,NXMAX,NYMAX,ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
-		�ɍ��W���p�x�Ԋu �ϐ��퓙�����}
+		極座標等角度間隔 可変線種等高線図
 	CONTG4(Z,R,T,NXA,NXMAX,NYMAX,ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
-		�ɍ��W�s���p�x�Ԋu �ϐ��퓙�����}
+		極座標不等角度間隔 可変線種等高線図
 
 	CONTE1(Z,NXA,NXMAX,NYMAX,ZL,NSTEP,IPRD,IPAT,KA)
-		�������W���Ԋu �ȈՌ^�������}
+		直交座標等間隔 簡易型等高線図
 	CONTE2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,IPRD,KA)
-		�������W�s���Ԋu �ȈՌ^�������}
+		直交座標不等間隔 簡易型等高線図
 	CONTE3(Z,R,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
-		�ɍ��W���p�x�Ԋu �ȈՌ^�������}
+		極座標等角度間隔 簡易型等高線図
 	CONTE4(Z,R,T,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
-		�ɍ��W�s���p�x�Ԋu �ȈՌ^�������}
+		極座標不等角度間隔 簡易型等高線図
 
 	RGBBND(X1,X2,Y1,Y2,RGB,N,IND)
-		�p���b�g�\���@�\
+		パレット表示機能
 
 
-�R�D�U�@���Ր}�\���T�u���[�`��
+３．６　鳥瞰図表示サブルーチン
 
 	GDEFIN3D(PXMIN,PXMAX,PYMIN,PYMAX,XL,YL,ZL)
-		�Q�����f�[�^���R�����\�����邽�߂� GDEFIN
+		２次元データを３次元表示するための GDEFIN
 
 	GVIEW3D(PHI,THETA,RADIUS,R,IAXIS,OX,OY,OZ)
-		�Q�����f�[�^���R�����\�����邽�߂̎��_��ݒ肷��B
+		２次元データを３次元表示するための視点を設定する。
 
 	GDATA3D1(Z,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
-		���Ԋu�i�q�Q�����f�[�^���R�����\�����邽�߂̃f�[�^��^
-		����B
-�@�@�@�@�@�@�@�@NX,NY �̍ő�l�͕W�� 300�D
-�@�@�@�@�@�@�@�@����ȏ�̏ꍇ�� A3dcomm.inc �� NXDM, NYDM �𑝂₵��
-�@�@�@�@�@�@�@�@gsaf ���ăR���p�C���D���s���K�v����������������D
+		等間隔格子２次元データを３次元表示するためのデータを与
+		える。
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
 
 	GDATA3D2(Z,X,Y,NXA,NX,NY,ZMIN,ZMAX)
-		�s���Ԋu�i�q�Q�����f�[�^���R�����\�����邽�߂̃f�[�^��^
-		����B�f�[�^�͈́��\���͈�
-�@�@�@�@�@�@�@�@NX,NY �̍ő�l�͕W�� 300�D
-�@�@�@�@�@�@�@�@����ȏ�̏ꍇ�� A3dcomm.inc �� NXDM, NYDM �𑝂₵��
-�@�@�@�@�@�@�@�@gsaf ���ăR���p�C���D���s���K�v����������������D
+		不等間隔格子２次元データを３次元表示するためのデータを与
+		える。データ範囲＝表示範囲
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
 
 	GDATA3D3(Z,X,Y,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
-		�s���Ԋu�i�q�Q�����f�[�^���R�����\�����邽�߂̃f�[�^��^
-		����B
-�@�@�@�@�@�@�@�@NX,NY �̍ő�l�͕W�� 300�D
-�@�@�@�@�@�@�@�@����ȏ�̏ꍇ�� A3dcomm.inc �� NXDM, NYDM �𑝂₵��
-�@�@�@�@�@�@�@�@gsaf ���ăR���p�C���D���s���K�v����������������D
+		不等間隔格子２次元データを３次元表示するためのデータを与
+		える。
+　　　　　　　　NX,NY の最大値は標準 300．
+　　　　　　　　それ以上の場合は A3dcomm.inc の NXDM, NYDM を増やして
+　　　　　　　　gsaf を再コンパイル．実行時必要メモリが増加する．
 
 	CPLOT3D1(IND,RGBFUNC)
-		���Ԋu�i�q�Q�����f�[�^���J���[�̖ʂłR�����\������B
+		等間隔格子２次元データをカラーの面で３次元表示する。
 
 	RGBFUNC(R,RGB(3))
-		2�����f�[�^���J���[�\������ۂɂ��̐F�����肷��T�u���[�`���Q
-	WHITE	�f�[�^�̖ʂ̐F�𔒂ɂ���B
-	BLACK	�f�[�^�̖ʂ̐F�����ɂ���B
-	R2G2P	�f�[�^�̖ʂ̐F���ォ��ԉ��ΐ����Ƃ���B(�S200�F)
-	R2G2B	�f�[�^�̖ʂ̐F���ォ��ԉ��ΐ��Ƃ���B(�S160�F)
-	R2G2BW	�f�[�^�̖ʂ̐F���ォ��ԉ��ΐ��Ƃ��A�ŉ��ʂ̂ݔ��B(�S161�F)
-	R2W2B	�f�[�^�̖ʂ̐F���ォ��ԁA���A�Ƃ���B(�S80�F)
-	R2Y2W	�f�[�^�̖ʂ̐F���ォ��ԁA���A���Ƃ���B(�S80�F)
-	W2G2B	�f�[�^�̖ʂ̐F���ォ�甒�A�΁A�Ƃ���B(�S80�F)
-	W2R2K	�f�[�^�̖ʂ̐F���ォ�甒�A���A�ԁA���Ƃ���B(�S120�F)
-	K2B2W	�f�[�^�̖ʂ̐F���ォ�獕�A�A���A���Ƃ���B(�S120�F)
-	WRKBW	�f�[�^�̖ʂ̐F���ォ�甒���ԍ������Ƃ���B(�S120�F)
-	WRGBW	�f�[�^�̖ʂ̐F���ォ�甒���ԗΐ����Ƃ���B(�S120�F)
+		2次元データをカラー表示する際にその色を決定するサブルーチン群
+	WHITE	データの面の色を白にする。
+	BLACK	データの面の色を黒にする。
+	R2G2P	データの面の色を上から赤黄緑水青紫とする。(全200色)
+	R2G2B	データの面の色を上から赤黄緑水青とする。(全160色)
+	R2G2BW	データの面の色を上から赤黄緑水青とし、最下面のみ白。(全161色)
+	R2W2B	データの面の色を上から赤、白、青とする。(全80色)
+	R2Y2W	データの面の色を上から赤、黄、白とする。(全80色)
+	W2G2B	データの面の色を上から白、緑、青とする。(全80色)
+	W2R2K	データの面の色を上から白、黄、赤、黒とする。(全120色)
+	K2B2W	データの面の色を上から黒、青、水、白とする。(全120色)
+	WRKBW	データの面の色を上から白黄赤黒青水白とする。(全120色)
+	WRGBW	データの面の色を上から白黄赤緑青水白とする。(全120色)
 
 
 	PERSE3D(IXY,IND)
-		���Ԋu�i�q�Q�����f�[�^�̂R�����\�����s���B
+		等間隔格子２次元データの３次元表示を行う。
 
 	CONTQ3D1(ZORG,ZSTEP,NSTEP,IPAD,IPAT,KA,RGBFUNC,IZ)
-		���Ԋu�i�q2�����f�[�^�̓���������p�^�[���t����3�����\������D
+		等間隔格子2次元データの等高線を線パターン付きで3次元表示する．
 
 	GAXIS3D1(IAXIS)
-		�i�q�Q�����f�[�^�`�掞�Ɏ���`���B
+		格子２次元データ描画時に軸を描く。
 
 	GSCALE3DX(XORG,XSTEP,SCL,IND)
 	GSCALE3DY(YORG,YSTEP,SCL,IND)
 	GSCALE3DZ(ZORG,ZSTEP,SCL,IND)
-		�i�q�Q�����f�[�^��\������ۂ̎��̖ڐ���\������B
+		格子２次元データを表示する際の軸の目盛を表示する。
 
 	GVALUE3DX(XORG,XSTEP,IPOS,IND)
 	GVALUE3DY(YORG,YSTEP,IPOS,IND)
 	GVALUE3DZ(ZORG,ZSTEP,IPOS,IND)
-		�i�q�Q�����f�[�^��\������ۂ̎��̖ڐ���̐��l���L������B
+		格子２次元データを表示する際の軸の目盛りの数値を記入する。
 	
 	GTTTx(X,Y,Z,XP,YP) (x=A,B)
-		�i�q�Q�����f�[�^��GDEFIN3D���Œ�`���ꂽ���ʂ֎ˉe����B
+		格子２次元データをGDEFIN3D等で定義された平面へ射影する。
 
 	INQCNR3D(POS)
-		�O���t�̈���Ȃ������̂�8�̊p�̍��W�����߂�D
+		グラフ領域をなす直方体の8つの角の座標を求める．
 	INQANG3D(THETA,PHI)
-		�����̂Ȃ��p�x�����߂�D
+		視線のなす角度を求める．
 
-�i���ӎ����j
-	�ȏ�̃T�u���[�`���̈�����, NUMBD ����� GNUMBD �Ɋ܂܂�� D �������A
-	���ׂĒP���x�����^�A�����^���邢�͕����^�ł���B
+（注意事項）
+	以上のサブルーチンの引数は, NUMBD および GNUMBD に含まれる D を除き、
+	すべて単精度実数型、整数型あるいは文字型である。
 
-���R�D�@�v���O�����̍\��
+§３．　プログラムの構成
 
 
-GSAF ��p���č�}���J�n����O�ɁAGSOPEN ���Ă�ŏ����������s�����Ƃ��K
-�v�ł���B�܂��A�v���O�������I������iSTOP ���ɒB����j�O�� GSCLOS ��
-�Ă�ŏI���������s�����Ƃ��K�v�ł���B���ɐ}�`�f�[�^�t�@�C�����쐬����
-�ꍇ�ɂ́AGSCLOS ���Ă΂�Ȃ��ƍŌ�̃f�[�^���t�@�C���ɏ������܂�Ȃ�
-�̂ŁA�K�� GSCLOS ���Ă΂Ȃ��Ă͂Ȃ�Ȃ��B
+GSAF を用いて作図を開始する前に、GSOPEN を呼んで初期処理を行うことが必
+要である。また、プログラムが終了する（STOP 文に達する）前に GSCLOS を
+呼んで終了処理を行うことが必要である。特に図形データファイルを作成する
+場合には、GSCLOS が呼ばれないと最後のデータがファイルに書き込まれない
+ので、必ず GSCLOS を呼ばなくてはならない。
 
-�P�ł̍�}�� PAGES �ɂ���ĊJ�n����APAGEE �ɂ���ďI������B��������
-�āA��}���[�`���� PAGES �� PAGEE �̊ԂŌĂ΂�Ȃ���΂Ȃ�Ȃ��B
+１頁の作図は PAGES によって開始され、PAGEE によって終了する。したがっ
+て、作図ルーチンは PAGES と PAGEE の間で呼ばれなければならない。
 
-���������ăv���O�����̑�܂��ȍ\���͎��̂悤�ɂȂ�B
+したがってプログラムの大まかな構成は次のようになる。
 
 	CALL GSOPEN
 				(1)
 		CALL PAGES
-			��P�y�[�W�̍�}	(2)
+			第１ページの作図	(2)
 		CALL PAGEE
 				(1)
 		CALL PAGES
-			��Q�y�[�W�̍�}	(2)
+			第２ページの作図	(2)
 		CALL PAGEE
 				(1)
 	CALL GSCLOS
 
 
-�ō�}���̗̈� (2) �Ƃ���ȊO�̗̈� (1) �Ƃł́A�g�p�ł��郋�[�`�����قȂ�B
+頁作図中の領域 (2) とそれ以外の領域 (1) とでは、使用できるルーチンが異なる。
 
-	�C�ӂ͈̔͂ŌĂԂ��Ƃ̂ł���T�u���[�`��
-		�⏕�T�u���[�`��
+	任意の範囲で呼ぶことのできるサブルーチン
+		補助サブルーチン
 		GMNMX1, GMNMX2, GQSCAL
 
-	(1) �͈̔͂ŌĂԂ��Ƃ̂ł���T�u���[�`��
-		��{����T�u���[�`��
+	(1) の範囲で呼ぶことのできるサブルーチン
+		基本制御サブルーチン
 
-	(2) �̗̈�ŌĂԂ��Ƃ̂ł���T�u���[�`�� 
-		��{��}�T�u���[�`��
-		�Θb�^���o�̓T�u���[�`���A
-		���p�T�u���[�`���iGMNMX1, GMNMX2, GQSCAL �������j
-
-
-�i���ӎ����j
-	�O���t�B�b�N�f�B�X�v���C�̏ꍇ�A(2)�̗̈�� WRITE ���� READ ��
-	�����s����Ɖ�ʂ𗐂��ꍇ������̂ŁACHMODE �� GRMODE �ł͂�
-	�ޕK�v������B
-
-	GSOPEN �ȑO���邢�� GSCLOS �Ȍ�� GSAF �̃T�u���[�`�����Ă񂾏ꍇ��A
-	(1) ��(2) �̗̈���ԈႦ���ꍇ�ɂ́A���̃T�u���[�`���͖��������B
+	(2) の領域で呼ぶことのできるサブルーチン 
+		基本作図サブルーチン
+		対話型入出力サブルーチン、
+		応用サブルーチン（GMNMX1, GMNMX2, GQSCAL を除く）
 
 
+（注意事項）
+	グラフィックディスプレイの場合、(2)の領域で WRITE 文や READ 文
+	を実行すると画面を乱す場合があるので、CHMODE と GRMODE ではさ
+	む必要がある。
+
+	GSOPEN 以前あるいは GSCLOS 以後に GSAF のサブルーチンを呼んだ場合や、
+	(1) と(2) の領域を間違えた場合には、そのサブルーチンは無視される。
 
 
 
 
 
 
-�v���O������idoc/sample.f �Ɋi�[�j
 
-�ȒP�ȃv���O�����̗�Ƃ��āA�����̂P�����f�[�^���P���̃O���t�ɕ\������
-�T�u���[�`���������B�z�� GX �ɂ� x ���W���A�z�� GY �ɂ͂��� x ���W�ɑ�
-����֐��l�������ANXM �ɂ͔z�� GY �̑������̏�����ANXMAX �ɂ� x 
-���W�̑������ANGMAX �ɂ̓f�[�^�������ꂼ��ݒ肵�āA GRAPH1 ���Ă�ł�
-��B
+
+プログラム例（doc/sample.f に格納）
+
+簡単なプログラムの例として、複数の１次元データを１枚のグラフに表示する
+サブルーチンを示す。配列 GX には x 座標を、配列 GY にはその x 座標に対
+する関数値を代入し、NXM には配列 GY の第一引数の上限を、NXMAX には x 
+座標の総数を、NGMAX にはデータ数をそれぞれ設定して、 GRAPH1 を呼んでい
+る。
 
       IMPLICIT REAL*8 (A-F,H,O-Z)
       PARAMETER (NXM=101)
@@ -835,835 +835,835 @@ C
       END
 
 
-���S�D�@�T�u���[�`���ڍ�
+§４．　サブルーチン詳細
 
 
-���o�͈����̐�����	[I] 	�͐����^	�����ꂼ��\���A
-			[R]	�͒P���x�����^
-			[D]	�͔{���x�����^
-			[An]	��n���̕����^
+入出力引数の説明で	[I] 	は整数型	をそれぞれ表し、
+			[R]	は単精度実数型
+			[D]	は倍精度実数型
+			[An]	はn桁の文字型
 
-(m) ���t������Ă���ꍇ�͔z��ł��邱�Ƃ������B
+(m) が付加されている場合は配列であることを示す。
 
-ACOS �ł́A�{���P���x�����^�̈����ɔ{���x�����^�������n���Ă����삷��
-�i�z��������j�B���̂悤�ȏ����n�͗�O�ł���A���̏����n�ɈڐA�����ꍇ
-�ɐ���ɓ��삵�Ȃ��̂Œ��ӂ��K�v�B
+ACOS では、本来単精度実数型の引数に倍精度実数型を引き渡しても動作する
+（配列を除く）。このような処理系は例外であり、他の処理系に移植した場合
+に正常に動作しないので注意が必要。
 
-�z��������Ƃ���ꍇ�A�T�u���[�`�������ł͓Y���� 1 ����n�܂���̂Ƃ�
-�Ȃ����B
+配列を引数とする場合、サブルーチン内部では添字は 1 から始まるものとみ
+なされる。
 
-������������Ƃ���ꍇ�ɁA�������̎w����ȗ����邽�߁A���p��������g�p
-���郋�[�`��������B���p������ł́A�擪�̕�������т���Ɠ��������ł�
-���܂ꂽ�����񂪎��ۂ̕������\���B������������Ōv�Z�ł���̂ŁA�ʂ�
-�w�肷��K�v���Ȃ��B
+文字列を引数とする場合に、文字数の指定を省略するため、引用文字列を使用
+するルーチンがある。引用文字列では、先頭の文字およびそれと同じ文字では
+さまれた文字列が実際の文字列を表す。文字数を内部で計算できるので、別に
+指定する必要がない。
 
-	��	���p������	/ABCD/	���ۂ̕�����	ABCD
+	例	引用文字列	/ABCD/	実際の文字列	ABCD
 				@A/B@		A/B
-				//		��
+				//		空
 
 
-�S�D�P�@��{�T�u���[�`��
+４．１　基本サブルーチン
 
 
 GSOPEN
-	GSAF �̏��������s���B
+	GSAF の初期化を行う。
 
-�����ϐ��̏������ƂƂ��ɁAGSSIZE(25.6,18.1) ����� GSTITL(' ') �����s
-�����BGSCLOS ���ĂԂ܂łɍĂ� GSOPEN ���Ă΂ꂽ�ꍇ�ɂ́A�Q�x�ڈȍ~
-�� GSOPEN �͖��������B
+内部変数の初期化とともに、GSSIZE(25.6,18.1) および GSTITL(' ') が実行
+される。GSCLOS を呼ぶまでに再び GSOPEN が呼ばれた場合には、２度目以降
+の GSOPEN は無視される。
 
-�Θb�^���o�͑��u�̏ꍇ�AGSOPEN ���Ă΂��Ƒ��u�����ƃI�v�V�����I����
-�₢���킹���s���B�i ���炩���ߑ������o�^���ꂽ�[���̏ꍇ�ɂ́A���u��
-���̖₢���킹�͏ȗ������B�j
+対話型入出力装置の場合、GSOPEN が呼ばれると装置属性とオプション選択の
+問い合わせを行う。（ あらかじめ属性が登録された端末の場合には、装置属
+性の問い合わせは省略される。）
 
-���u�����̖₢���킹
-	WS	��ʃT�C�Y�A���]��
+装置属性の問い合わせ
+	WS	画面サイズ、反転等
 
-�I�v�V�����I���̖⍇��
-	# INPUT : (C)ONTINUE, (O)OPTION,(H)ELP,(Q)UIT�@�ƕ\������A��
-	�͑҂��ƂȂ�B
+オプション選択の問合せ
+	# INPUT : (C)ONTINUE, (O)OPTION,(H)ELP,(Q)UIT　と表示され、入
+	力待ちとなる。
 	
-	���� C ����͂���ƁA���̂܂܏����𑱍s����B
-	���� O ����͂���ƁA�ȉ��̃I�v�V������ݒ�ł���B	<�W���l>
-		�p���T�C�Y(cm) 	(PX,PY)		<25.6,18.1>
-		��ʃ^�C�g��	(42�����܂ł̈��p������)	<��̋�>
-		�}�`�f�[�^�i�[	(�_���ϐ� T or F)	<F>
-	���� H ����͂���ƁA�P�ō�}�I�����ɓ��͂ł���P�����R�}���h
-	       �̐�����\������B
-	���� Q ����͂���ƁA���s���I������B
+	文字 C を入力すると、そのまま処理を続行する。
+	文字 O を入力すると、以下のオプションを設定できる。	<標準値>
+		用紙サイズ(cm) 	(PX,PY)		<25.6,18.1>
+		画面タイトル	(42文字までの引用文字列)	<一つの空白>
+		図形データ格納	(論理変数 T or F)	<F>
+	文字 H を入力すると、１頁作図終了時に入力できる１文字コマンド
+	       の説明を表示する。
+	文字 Q を入力すると、実行を終了する。
 
 
 GSCLOS
-	GSAF �̏I���������s���AGSOPEN ���Ă΂�Ă���� CPU �������Ԃ�
-	�\������B
+	GSAF の終了処理を行い、GSOPEN が呼ばれてからの CPU 処理時間を
+	表示する。
 
-GSCLOS ���Ă΂��Ƀv���O�������I�������ꍇ�ɂ́A�o�b�t�@�ɒ~�����Ă�
-��f�[�^���o�͂���Ȃ�������A�f�[�^�t�@�C���ɏ������܂�Ȃ��ꍇ������B
+GSCLOS を呼ばずにプログラムが終了した場合には、バッファに蓄えられてい
+るデータが出力されなかったり、データファイルに書き込まれない場合がある。
 
 
 GSSIZE(PX,PY)
-	��ʃT�C�Y�i�p���T�C�Y�j�� cm �P�ʂŐݒ肷��B
+	画面サイズ（用紙サイズ）を cm 単位で設定する。
 
-����	PX	[R]	�p���� X �����̒��� (cm)
-	PY	[R]	�p���� Y �����̒��� (cm)
+入力	PX	[R]	用紙の X 方向の長さ (cm)
+	PY	[R]	用紙の Y 方向の長さ (cm)
 
-�y�[�W�v�����^�̏ꍇ�ɂ́A�W���ݒ�ł͎w�肳�ꂽ�傫���ŏo�͂����B
-�f�B�X�v���C�̏ꍇ�ɂ� PX,PY �̏c�����ς��Ȃ��ŉ�ʈ�t�ɕ\�������B
-GSOPEN ���Ă΂ꂽ���ɁA�W���l PX=25.6,PY=18.1 �ɐݒ肳���B
-���̕W���l�͂ق�B5�ŁAA4�̗p���ɕ`���ꂽ���ɂ͎��̗͂]�����͖�P�C���`�ƂȂ�B
-Y �����̍����ɂ͉�ʃw�b�_���̍����i0.5cm�j���܂܂Ȃ��B
+ページプリンタの場合には、標準設定では指定された大きさで出力される。
+ディスプレイの場合には PX,PY の縦横比を変えないで画面一杯に表示される。
+GSOPEN が呼ばれた時に、標準値 PX=25.6,PY=18.1 に設定される。
+この標準値はほぼB5で、A4の用紙に描かれた時には周囲の余白幅は約１インチとなる。
+Y 方向の高さには画面ヘッダ部の高さ（0.5cm）を含まない。
 
 
 GSTITL(KTITL)
-	��ʃ^�C�g����ݒ肷��B
+	画面タイトルを設定する。
 
-����	KTITL	[A42]	42�����܂ł̈��p������ŕ\���ꂽ�^�C�g��
+入力	KTITL	[A42]	42文字までの引用文字列で表されたタイトル
 
-�e��ʂ� Y �����㕔�ɉ�ʃw�b�_�u���t�A�����A�^�C�g���A�Ŕԍ��v�� �L�������B
-�^�C�g���̕W���ݒ�͂P�����̋󔒂ł���B
-��ʃw�b�_���L�����Ȃ��ꍇ�ɂ͋󕶎���A���Ȃ킿 CALL GSTITL('//') ���w�肷��B
+各画面の Y 方向上部に画面ヘッダ「日付、時刻、タイトル、頁番号」が 記入される。
+タイトルの標準設定は１文字の空白である。
+画面ヘッダを記入しない場合には空文字列、すなわち CALL GSTITL('//') を指定する。
 
 
 GSOPTN(KOPTDL,IOPT)
-	�I�v�V������ݒ肷��B
+	オプションを設定する。
 
-����	KOPTDL	[A4]	4�����̈��p������ŕ\���ꂽ2�����̃I�v�V������
-				�i�� '/HR/'�j
-	IOPT	[I]	�I�v�V�����ɐݒ肳��鐮���l
+入力	KOPTDL	[A4]	4文字の引用文字列で表された2文字のオプション名
+				（例 '/HR/'）
+	IOPT	[I]	オプションに設定される整数値
 
-�o�͑��u�ŗL�̃I�v�V������ݒ肷��B
+出力装置固有のオプションを設定する。
 
-ACOS �f�B�X�v���C�̏ꍇ�ɐݒ�ł���I�v�V����
-	HR	0	��𑜓x�i1024�~1024�j�ő��M
-		1	���𑜓x�i4096�~4096�j�ő��M
-	AP	0	����������[�h����
-		1	����������[�h�ݒ�
+ACOS ディスプレイの場合に設定できるオプション
+	HR	0	低解像度（1024×1024）で送信
+		1	高解像度（4096×4096）で送信
+	AP	0	自動印刷モード解除
+		1	自動印刷モード設定
 
-�I�v�V���������󕶎���̏ꍇ�́AGSOPEN �� PAGEE �őI���ł���I�v�V����
-�ݒ肪�N�������B
+オプション名が空文字列の場合は、GSOPEN や PAGEE で選択できるオプション
+設定が起動される。
 
 
 GSFILE(NFCS,NFCT)
-	�}�`�f�[�^�̃t�@�C���ւ̊i�[�𐧌䂷��B
+	図形データのファイルへの格納を制御する。
 
-����	NFCS	[I] 	�}�`�t�@�C���̃t�@�C���ԍ���^���A�i�[���J�n����B(1��NFCS��63)
-			NFCS=0 �̏ꍇ�t�@�C���ւ̊i�[���~����B
-	NFCT	[I]	�ꎞ�t�@�C���̃t�@�C���ԍ���^����B(1��NFCT��63)
+入力	NFCS	[I] 	図形ファイルのファイル番号を与え、格納を開始する。(1≦NFCS≦63)
+			NFCS=0 の場合ファイルへの格納を停止する。
+	NFCT	[I]	一時ファイルのファイル番号を与える。(1≦NFCT≦63)
 
-�t�@�C���ԍ� NFCS �̃t�@�C�������O�ɐڑ�����Ă���ꍇ�ɂ͂��̃t�@�C��
-���g�p�����B���O�ɐڑ�����Ă��Ȃ��ꍇ�ɂ́A�t�@�C�����̖⍇�����s��
-���B�⍇���ɂ���Ďw�肳�ꂽ�t�@�C�������ɑ��݂���ꍇ�ɂ́A�m�F����
-�߂���B�t�@�C���ւ̊i�[���J�n�����ƁA�e��ʍ�}�������Ɋi�[���邩
-�ǂ����A�m�F�����߂���B
+ファイル番号 NFCS のファイルが事前に接続されている場合にはそのファイル
+が使用される。事前に接続されていない場合には、ファイル名の問合せが行わ
+れる。問合せによって指定されたファイルが既に存在する場合には、確認が求
+められる。ファイルへの格納が開始されると、各画面作図完了時に格納するか
+どうか、確認が求められる。
 
-�Θb�^���o�͑��u�ɂ����āAPAGEE ���s���̃I�v�V�����w��Ńt�@�C���ւ̊i
-�[���J�n�����ꍇ�ɂ��Ă΂��B
+対話型入出力装置において、PAGEE 実行時のオプション指定でファイルへの格
+納を開始した場合にも呼ばれる。
 
-���łɊi�[���J�n���Ă���ꍇ�ɍĂ� GSFILE ���ĂԂƁA�g�p���̃t�@�C����
-�����A�Ȍ�̐}�`�f�[�^�͐V���� GSFILE �Ŏw�肳�ꂽ NFCS ���t�@�C��
-�ԍ��Ƃ���t�@�C���Ɋi�[�����B
+すでに格納を開始している場合に再び GSFILE を呼ぶと、使用中のファイルは
+閉じられ、以後の図形データは新しく GSFILE で指定された NFCS をファイル
+番号とするファイルに格納される。
 
-�I�v�V�����ݒ�Ő}�`�f�[�^�i�[���J�n�����ꍇ�ɂ́ANFCS ����� NFCT ��
-�W���l�Ƃ��āA���ꂼ�� 51, 50 ���g�p�����B
+オプション設定で図形データ格納を開始した場合には、NFCS および NFCT の
+標準値として、それぞれ 51, 50 が使用される。
 
 
 GSREAD(NFCR,NPAGE)
-	�}�`�f�[�^�t�@�C������w�肳�ꂽ�y�[�W��ǂݍ��݁A��}����B
+	図形データファイルから指定されたページを読み込み、作図する。
 
-����	NFCR	[I]	�ǂݍ��ސ}�`�f�[�^�t�@�C���̃t�@�C���ԍ���^����B
-						(1��NFCR��63)
-	NPAGE	[I]	NPAGE>0 : �y�[�W�ԍ� NPAGE �̂ݍ�}����B
-			NPAGE=0	: �Ȍ�̑S�w�[�W����}����B
-			NPAGE<0	: �Ȍ�̘A������ NPAGE �y�[�W����}����B     
+入力	NFCR	[I]	読み込む図形データファイルのファイル番号を与える。
+						(1≦NFCR≦63)
+	NPAGE	[I]	NPAGE>0 : ページ番号 NPAGE のみ作図する。
+			NPAGE=0	: 以後の全ヘージを作図する。
+			NPAGE<0	: 以後の連続する NPAGE ページを作図する。     
 
 
-��ʃT�C�Y�i�p���T�C�Y�j����щ�ʃ^�C�g���̓t�@�C���쐬���Ɏw�肵����
-�̂���ύX�ł��Ȃ��B
+画面サイズ（用紙サイズ）および画面タイトルはファイル作成時に指定したも
+のから変更できない。
 
-���̃��[�`���ł͐}�`�t�@�C���������߂����Ƃ͂Ȃ��B�ŏ�����{���n�߂邽
-�߂ɂ� REWIND NFCR �ɂ���ăt�@�C���������߂��K�v������B
+このルーチンでは図形ファイルを巻き戻すことはない。最初から捜し始めるた
+めには REWIND NFCR によってファイルを巻き戻す必要がある。
 
 
 GSCOMB(NFCR,I,ITL)
-	�}�`�f�[�^�t�@�C���Ɋ܂܂�Ă���A�����镡���ł�Ǎ��A�܂Ƃ߂�
-	�P�łɏo�͂���B
+	図形データファイルに含まれている連続する複数頁を読込、まとめて
+	１頁に出力する。
 
-����	NFCR	[I]	�ǂݍ��ސ}�`�f�[�^�t�@�C���̃t�@�C���ԍ���^����B
-				(1��NFCR��63)
-	I	[I]	�P�łɂ܂Ƃ߂ďo�͂����Ő��B(1��I��16)
-	ITL	[I]	0: �e�ł̃w�b�_���o�͂��Ȃ�  1: �o�͂���B
+入力	NFCR	[I]	読み込む図形データファイルのファイル番号を与える。
+				(1≦NFCR≦63)
+	I	[I]	１頁にまとめて出力される頁数。(1≦I≦16)
+	ITL	[I]	0: 各頁のヘッダを出力しない  1: 出力する。
 
-ITL=0 �̏ꍇ�ɂ́Ay > 18.1 cm �̗̈�͏o�͂���Ȃ��B
+ITL=0 の場合には、y > 18.1 cm の領域は出力されない。
 
 
 GSLIST(NFCR,NPAGEA,NA,NP)
-	�}�`�f�[�^�t�@�C���Ɋ܂܂��ł̃��X�g���쐬����B
+	図形データファイルに含まれる頁のリストを作成する。
 
-����	NFCR	[I]	�ǂݍ��ސ}�`�f�[�^�t�@�C���̃t�@�C���ԍ���^����B
-				(1��NFCR��63)
-	NA	[I]	�Ń��X�g���Ԃ����z��̑傫��
-�o��	NPAGEA	[I(NA)]	�Ń��X�g���Ԃ���鐮���z��
-	NP	[I]	�܂܂��Ő�
+入力	NFCR	[I]	読み込む図形データファイルのファイル番号を与える。
+				(1≦NFCR≦63)
+	NA	[I]	頁リストが返される配列の大きさ
+出力	NPAGEA	[I(NA)]	頁リストが返される整数配列
+	NP	[I]	含まれる頁数
 
 
 
-�S�D�Q�@��{��}�T�u���[�`��
+４．２　基本作図サブルーチン
 
 
 PAGES
-�P�ł̍�}���J�n����B
+１頁の作図を開始する。
 
-���̃T�u���[�`���ɂ���č�}�̏��������s���A�f�B�X�v���C�ł͐}�`�\����ʂɐ؂�ւ�����B�������ɍۂ��āAOFFVEW, OFFCLP, SETLIN(0,2,7), SETCHH(0.35,0.0), SETMKS(0,0.2), MOVE(0.0,0.0) �����s����A��ʏ㕔�ɉ�ʃw�b�h���L�������B��ʃw�b�h���ȗ����邽�߂ɂ́AGSTITL('//') ���Ăׂ΂悢�B
+このサブルーチンによって作図の初期化が行われ、ディスプレイでは図形表示画面に切り替えられる。初期化に際して、OFFVEW, OFFCLP, SETLIN(0,2,7), SETCHH(0.35,0.0), SETMKS(0,0.2), MOVE(0.0,0.0) が実行され、画面上部に画面ヘッドが記入される。画面ヘッドを省略するためには、GSTITL('//') を呼べばよい。
 
-PAGES ���Ă΂��ɍ�}���[�`�����g�p�����ꍇ�́A���̍�}���[�`���͖��������B
+PAGES を呼ばずに作図ルーチンを使用した場合は、その作図ルーチンは無視される。
 
 
 PAGEE
-�P�ł̍�}���I������B
+１頁の作図を終了する。
 
-�f�B�X�v���C�̏ꍇ�ɂ̓x������A�P�������͑҂��ƂȂ�B������
-	C �܂��� 
-	CR����͂����	���������s�����B
-	D ����͂����	��ʂ̃r�b�g�}�b�v�t�@�C�����쐬����A
-			�ʃE�B���h�E�ɕ\�������B
-	O ����͂����	�I�v�V�����ݒ���J�n����B
-	F ����͂����	�}�`�f�[�^�t�@�C���̎w�肨��ъi�[�J�n
-	X ����͂����	�}�`�f�[�^�t�@�C���ւ̊i�[�J�n�^��~�؂�ւ�
-	S ����͂����	���̉�ʂ̃f�[�^��ۑ��D�t�@�C�����w��Ȃ�Ζ₢���킹
-	Y ����͂����	�t�@�C���i�[�w�莞�ɂ́A���̉�ʂ̃f�[�^��ۑ�����B
-	N ����͂����	�t�@�C���i�[�w�莞�ł��A���̉�ʂ̃f�[�^��ۑ����Ȃ��B
-	H ����͂����	���͉\������\������B
-	B ����͂����	�`��I�����̃x������ ON/OFF �؂�ւ�
-	Q ����͂����	�m�F�̏�A�v���O�������I������B
-�����ĕ����\����ʂɐ؂�ւ��B
+ディスプレイの場合にはベルが鳴り、１文字入力待ちとなる。ここで
+	C または 
+	CRを入力すると	処理が続行される。
+	D を入力すると	画面のビットマップファイルが作成され、
+			別ウィンドウに表示される。
+	O を入力すると	オプション設定を開始する。
+	F を入力すると	図形データファイルの指定および格納開始
+	X を入力すると	図形データファイルへの格納開始／停止切り替え
+	S を入力すると	その画面のデータを保存．ファイル未指定ならば問い合わせ
+	Y を入力すると	ファイル格納指定時には、その画面のデータを保存する。
+	N を入力すると	ファイル格納指定時でも、その画面のデータを保存しない。
+	H を入力すると	入力可能文字を表示する。
+	B を入力すると	描画終了時のベル音の ON/OFF 切り替え
+	Q を入力すると	確認の上、プログラムが終了する。
+そして文字表示画面に切り替わる。
 
-��ʃr�b�g�}�b�v�t�@�C���ɂ� gsdump# �i# �͕Ŕԍ��j�Ƃ������O���t������B���Ȃ�傫�ȃt�@�C���Ȃ̂ŕs�v�ȃt�@�C���͒����ɏ������邱�ƁB�쐬���ꂽ�t�@�C�����ĕ\�����邽�߂ɂ�
+画面ビットマップファイルには gsdump# （# は頁番号）という名前が付けられる。かなり大きなファイルなので不要なファイルは直ちに消去すること。作成されたファイルを再表示するためには
 	xwd gsdump#
-�����s����B
+を実行する。
 
-�}�`�t�@�C���Ƀf�[�^���i�[���Ă���ꍇ�ɂ́A���̕ł��i�[���邩�ǂ����̖₢���킹���s����B
+図形ファイルにデータを格納している場合には、その頁を格納するかどうかの問い合わせが行われる。
 
 
 SETPAGE(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
-��ʂ̃I�t�Z�b�g�Ɣ{����ݒ�
+画面のオフセットと倍率を設定
 
 INQPAGE(PXOFFSET,PYOFFSET,PXSCALE,PYSCALE)
-��ʂ̃I�t�Z�b�g�Ɣ{����₢���킹
+画面のオフセットと倍率を問い合わせ
 
 SETVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
-��ʏ�ɍ��W�n��ݒ肷��B
+画面上に座標系を設定する。
 
-����	PXMIN	[R]	���W�n��ݒ肷���ʗ̈�̍��[�� x ���W (cm)
-	PXMAX	[R]	���W�n��ݒ肷���ʗ̈�̉E�[�� x ���W (cm)
-	PYMIN	[R]	���W�n��ݒ肷���ʗ̈�̉��[�� y ���W (cm)
-	PXMAX	[R]	���W�n��ݒ肷���ʗ̈�̏�[�� y ���W (cm)
-	XMIN	[R]	��ʗ̈�ɐݒ肷����W�n�̍��[�� x ���W
-	XMAX	[R]	��ʗ̈�ɐݒ肷����W�n�̉E�[�� x ���W
-	YMIN	[R]	��ʗ̈�ɐݒ肷����W�n�̉��[�� y ���W
-	XMAX	[R]	��ʗ̈�ɐݒ肷����W�n�̏�[�� y ���W
+入力	PXMIN	[R]	座標系を設定する画面領域の左端の x 座標 (cm)
+	PXMAX	[R]	座標系を設定する画面領域の右端の x 座標 (cm)
+	PYMIN	[R]	座標系を設定する画面領域の下端の y 座標 (cm)
+	PXMAX	[R]	座標系を設定する画面領域の上端の y 座標 (cm)
+	XMIN	[R]	画面領域に設定する座標系の左端の x 座標
+	XMAX	[R]	画面領域に設定する座標系の右端の x 座標
+	YMIN	[R]	画面領域に設定する座標系の下端の y 座標
+	XMAX	[R]	画面領域に設定する座標系の上端の y 座標
 
-�ݒ肳�ꂽ���W�n�́A�w�肳�ꂽ��ʗ̈�������łȂ���ʑS�̂ŗL���ł���B
-�W���̍��W�n�͍��������_�Ƃ��A�E��� (25.6,18.1) �Ƃ���B
+設定された座標系は、指定された画面領域内だけでなく画面全体で有効である。
+標準の座標系は左下を原点とし、右上を (25.6,18.1) とする。
 
 
 OFFVEW
-SETVEW �Őݒ肳�ꂽ���W�n�𖳌��ɂ��A���W�n����ʍ��W�Ɉ�v������B
+SETVEW で設定された座標系を無効にし、座標系を画面座標に一致させる。
 
 
 INQVEW(PXMIN,PXMAX,PYMIN,PYMAX,YMIN,YMAX,YMIN,YMAX)
-SETVEW �Őݒ肳��Ă�����W�n��₢���킹��B�o�͂��������� SETVEW �Ɠ����B
+SETVEW で設定されている座標系を問い合わせる。出力される引数は SETVEW と同じ。
 
 
 SETCLP(XMIN,XMAX,YMIN,YMAX)
-��}�͈͂����肷�邽�߁A�N���b�s���O�̈��ݒ肷��B
+作図範囲を限定するため、クリッピング領域を設定する。
 
-����	XMIN	[R]	�N���b�s���O�̈�̍��[�� x ���W
-	XMAX	[R]	�N���b�s���O�̈�̉E�[�� x ���W
-	YMIN	[R]	�N���b�s���O�̈�̉��[�� y ���W
-	XMAX	[R]	�N���b�s���O�̈�̏�[�� y ���W
+入力	XMIN	[R]	クリッピング領域の左端の x 座標
+	XMAX	[R]	クリッピング領域の右端の x 座標
+	YMIN	[R]	クリッピング領域の下端の y 座標
+	XMAX	[R]	クリッピング領域の上端の y 座標
 
-�����̓N���b�s���O�̈悩��͂ݏo������������}����Ȃ��B
-�}�[�N�͒��S���N���b�s���O�̈�O�ł���ƍ�}����Ȃ��B
-�����̓N���b�s���O���ꂸ�A�˂ɍ�}�����B
+直線はクリッピング領域からはみ出した部分が作図されない。
+マークは中心がクリッピング領域外であると作図されない。
+文字はクリッピングされず、つねに作図される。
 
 
 OFFCLP
-SETCLP �Őݒ肳�ꂽ�N���b�s���O�̈�𖳌��ɂ��A��ʑS�̂���}�\�ɂ���B
+SETCLP で設定されたクリッピング領域を無効にし、画面全体を作図可能にする。
 
 
 INQCLP(XMIN,XMAX,YMIN,YMAX)
-SETCLP �Őݒ肳��Ă���N���b�s���O�̈��₢���킹��B�o�͂��������� SETCLP �Ɠ����B
+SETCLP で設定されているクリッピング領域を問い合わせる。出力される引数は SETCLP と同じ。
 
 
 MOVE(X,Y)
-�w�肳�ꂽ���W�����݈ʒu�Ƃ���B
+指定された座標を現在位置とする。
 
-����	X	[R]	�V�����ʒu�� x ���W
-	Y	[R]	�V�����ʒu�� y ���W
+入力	X	[R]	新しい位置の x 座標
+	Y	[R]	新しい位置の y 座標
 
 
 DRAW(X,Y)
-���݈ʒu����w�肳�ꂽ���W�܂Œ�������}���C�w�肳�ꂽ���W�����݈ʒu�Ƃ���B
+現在位置から指定された座標まで直線を作図し，指定された座標を現在位置とする。
 
-����	X	[R]	��}���钼���̐V�����[�� x ���W
-	Y	[R]	��}���钼���̐V�����[�� y ���W
+入力	X	[R]	作図する直線の新しい端の x 座標
+	Y	[R]	作図する直線の新しい端の y 座標
 
 
 LINE1(XS,YS,XE,YE)	
-�����\���@�\
+線分表示機能
 
 
 MARK(X,Y)
-�w�肳�ꂽ���W�Ƀ}�[�N����}���C�w�肳�ꂽ���W�����݈ʒu�Ƃ���B
+指定された座標にマークを作図し，指定された座標を現在位置とする。
 
-����	X	[R]	��}����}�[�N�̒��S�� x ���W
-	Y	[R]	��}����}�[�N�̒��S�� y ���W
+入力	X	[R]	作図するマークの中心の x 座標
+	Y	[R]	作図するマークの中心の y 座標
 
-�}�[�N�̎�ނ� SETMRK ���邢�� SETMKS �ɂ���Ďw�肷��B�}�[�N�̎w�肪���̏ꍇ�ɂ͌��݈ʒu����w�肳�ꂽ���W�܂Œ�������}������}�[�N����}����B
+マークの種類は SETMRK あるいは SETMKS によって指定する。マークの指定が負の場合には現在位置から指定された座標まで直線を作図した後マークを作図する。
 
-�}�[�N�͋L�����邢�͕����̒��S���w��ʒu�ƂȂ�悤�ɍ�}�����B
+マークは記号あるいは文字の中心が指定位置となるように作図される。
 
 
 INQPOS(X,Y)
-���݈ʒu��₢���킹��B
+現在位置を問い合わせる。
 
-�o��	X	[R]	���݈ʒu�� x ���W
-	Y	[R]	���݈ʒu�� y ���W
+出力	X	[R]	現在位置の x 座標
+	Y	[R]	現在位置の y 座標
 
 
 TEXT(KTEXT,NCHR)
-���݈ʒu�ɕ�����̍�}���s���B
+現在位置に文字列の作図を行う。
 
-����	KTEXT	[A*]	��}���镶����
-	NCHR	[I]	��}���镶���� (NCHR < 256)
+入力	KTEXT	[A*]	作図する文字列
+	NCHR	[I]	作図する文字数 (NCHR < 256)
 
-���ꕶ����F���̕�����͍�}�`����ύX����Ӗ������B�i\ �� \ �ƕ\�������ꍇ������j
-	\+	�Ȍ�̕��������t�Y���Ƃ���B
-	\-	�Ȍ�̕���������t�Y���Ƃ���B
-	\=	�Ȍ�̕������Y���ł͂Ȃ��A�ʏ�̕����Ƃ���B
-	\*	�P������ނ��ďd�ˑł�����B
-	\\	\����}����B
-���݈ʒu���ŏ��̕����̍������ƂȂ�A��}�I����͎��ɕ������o�͂����ꍇ�̂��̕����̍��������V�������݈ʒu�ƂȂ�B
+特殊文字列：次の文字列は作図形式を変更する意味をもつ。（\ は \ と表示される場合がある）
+	\+	以後の文字列を上付添字とする。
+	\-	以後の文字列を下付添字とする。
+	\=	以後の文字列を添字ではなく、通常の文字とする。
+	\*	１文字後退して重ね打ちする。
+	\\	\を作図する。
+現在位置が最初の文字の左下隅となり、作図終了後は次に文字を出力した場合のその文字の左下隅が新しい現在位置となる。
 
 INQTSZ(KTEXT,NCHR,SIZE)
-������̕���₢���킹��B
+文字列の幅を問い合わせる。
 
-����	KTEXT	[A*]	��}���悤�Ƃ��镶����
-	NCHR	[I]	��}���悤�Ƃ��镶���� (NCHR < 256)
-�o��	SIZE	[R]	������̕� (cm)
+入力	KTEXT	[A*]	作図しようとする文字列
+	NCHR	[I]	作図しようとする文字数 (NCHR < 256)
+出力	SIZE	[R]	文字列の幅 (cm)
 
 
 SETLIN(ILN,IBL,ICL)
-���̎�ށA�����A�F��ݒ肷��B
+線の種類、太さ、色を設定する。
 
-����	ILN	[I]	���̎��	0:����  1:�_��  2:�j��  3:���j��  
-				4:��_����  5:����_����  6:��_����  7:����_����  
-	IBL	[I]	���̑���	0:�ł��א�  1:�P�h�b�g��  2:�Q�h�b�g���E�E�E
-	ICL	[I]	���̐F	0:��  1:���F  2:��  3:��  4:��  5:��  6:��  7:��
+入力	ILN	[I]	線の種類	0:実線  1:点線  2:破線  3:長破線  
+				4:一点鎖線  5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
+	IBL	[I]	線の太さ	0:最も細線  1:１ドット幅  2:２ドット幅・・・
+	ICL	[I]	線の色	0:白  1:水色  2:黄  3:紫  4:緑  5:青  6:赤  7:黒
 
-���̐ݒ�́A�����A�}�[�N�A�����񂷂ׂĂɉe����^����B���ɃX�g���[�N������̏ꍇ�͐��̎�ނ̉e�����󂯂�̂ŗv���ӁB
+この設定は、直線、マーク、文字列すべてに影響を与える。特にストローク文字列の場合は線の種類の影響も受けるので要注意。
 
-���̎�ނ͏o�͑��u�̌ŗL�@�\�Ɉˑ����A�e�������Ƀp�^�[�����`����邽�߁A�Z��������A�˂��ꍇ�ɂ͎����ɂ݂���B���������ɂ݂̂��̋@�\���g�p���������悢�B
+線の種類は出力装置の固有機能に依存し、各直線毎にパターンが描かれるため、短い直線を連ねた場合には実線にみえる。長い直線にのみこの機能を使用した方がよい。
 
-ILN, IBL, ICL �Ƃ��� -1 ���w�肵���ꍇ�ɂ́A���݂̐ݒ�l�̂܂ܕύX����Ȃ��B
+ILN, IBL, ICL として -1 を指定した場合には、現在の設定値のまま変更されない。
 
 
 INQLIN(ILN,IBL,ICL)
-���ݐݒ肳��Ă�����̎�ށA�����A�F��₢���킹��B�o�͂��������� SETLIN �Ɠ����B
+現在設定されている線の種類、太さ、色を問い合わせる。出力される引数は SETLIN と同じ。
 
 
 SETMKS(IMRK,SMRK)
-�}�[�N�̎�ށA�傫����ݒ肷��B
+マークの種類、大きさを設定する。
 
-����	IMRK	[I]	�}�[�N�̎��	0..31	�L��
-					32..127	ASCII �����ԍ�
-	SMRK	[R]	�}�[�N�̑傫�� (cm)
+入力	IMRK	[I]	マークの種類	0..31	記号
+					32..127	ASCII 文字番号
+	SMRK	[R]	マークの大きさ (cm)
 
-���̃��[�`���ł͉�]�p����ьX���p�� 0 �ɐݒ肳���B
+このルーチンでは回転角および傾き角は 0 に設定される。
 
 SETMRK(IMRK,HMRK,WMRK,ANGL,TILT)
-�}�[�N�̎�ށA�����A���A��]�p�A�X���p��ݒ肷��B
+マークの種類、高さ、幅、回転角、傾き角を設定する。
 
-����	IMRK	[I]	�}�[�N�̎��	0..31	�L��
-					32..127	ASCII �����ԍ�
-	HMRK	[R]	�}�[�N�̍��� (cm)
-	WMRK	[R]	�}�[�N�̕� (cm)
-	ANGL	[R]	�}�[�N�̔����v����]�p�i�x�j
-	TILT	[R]	�}�[�N�̔����v���X���p�i�x�j
+入力	IMRK	[I]	マークの種類	0..31	記号
+					32..127	ASCII 文字番号
+	HMRK	[R]	マークの高さ (cm)
+	WMRK	[R]	マークの幅 (cm)
+	ANGL	[R]	マークの反時計回り回転角（度）
+	TILT	[R]	マークの反時計回り傾き角（度）
 
-TILT ��90 ���邢�� -90 �t�߂ɐݒ肷��ƁA���ɉ����̃}�[�N�ƂȂ��Ă��܂��̂ŗv���ӁB
+TILT を90 あるいは -90 付近に設定すると、非常に横長のマークとなってしまうので要注意。
 
 
 INQMRK(IMRK,HMRK,WMRK,ANGL,TILT)
-���ݐݒ肳��Ă���}�[�N�̎�ށA�����A���A��]�p�A�X���p��₢���킹��B
-�o�͂��������� SETMRK �Ɠ����B
+現在設定されているマークの種類、高さ、幅、回転角、傾き角を問い合わせる。
+出力される引数は SETMRK と同じ。
 
 
 SETCHS(CHH,ANGL)
-�t�H���g���X�g���[�N�����Ƃ��A�����̍����A��]�p��ݒ肷��B
+フォントをストローク文字とし、文字の高さ、回転角を設定する。
 
-����	CHH	[R]	�����̍��� (cm)
-	ANGL	[R]	�����̉�]�p�i�x�j
+入力	CHH	[R]	文字の高さ (cm)
+	ANGL	[R]	文字の回転角（度）
 
-���̃��[�`���ł͕����̕��͍����� 2/3 �ɁA�����̊Ԋu�͍����Ɠ����ɁA�X���p�� 0 �ɐݒ肳���B
+このルーチンでは文字の幅は高さの 2/3 に、文字の間隔は高さと同じに、傾き角は 0 に設定される。
 
 
 SETCHH(CHH,ANGL)
-�t�H���g���n�[�h�E�F�A�����Ƃ��A�����̍����A��]�p��ݒ肷��B
+フォントをハードウェア文字とし、文字の高さ、回転角を設定する。
 
-����	CHH	[R]	�����̍��� (cm)
-	ANGL	[R]	�����̉�]�p�i�x�j
+入力	CHH	[R]	文字の高さ (cm)
+	ANGL	[R]	文字の回転角（度）
 
-���̃��[�`���ł͕����̕��͍����� 2/3 �ɁA�����̊Ԋu�͍����Ɠ����ɁA�X���p�� 0 �ɐݒ肳���B
+このルーチンでは文字の幅は高さの 2/3 に、文字の間隔は高さと同じに、傾き角は 0 に設定される。
 
-�n�[�h�E�F�A�����̍�}�ɂ͏o�͑��u�̌ŗL�@�\�𗘗p���邽�߁A�����ɍ�}����邪�A�ݒ肳�ꂽ�����̑傫���A��]�A�X�����������ł��Ȃ��ꍇ������B���̏ꍇ�͑��ɃX�g���[�N��������}����B
+ハードウェア文字の作図には出力装置の固有機能を利用するため、高速に作図されるが、設定された文字の大きさ、回転、傾き等が実現できない場合がある。その場合は代りにストローク文字を作図する。
 
 
 SETCHR(CHH,CHW,CHSP,ANGL,TILT)
-�����̍����A���A�Ԋu�A��]�p�A�X���p��ݒ肷��B
+文字の高さ、幅、間隔、回転角、傾き角を設定する。
 
-����	CHH	[R]	�����̍��� (cm)
-	CHW	[R]	�����̕� (cm)
-	CHSP	[R]	�����̊Ԋu (cm)
-	ANGL	[R]	�����̉�]�p�i�x�j
-	TILT	[R]	�����̌X���p�i�x�j
+入力	CHH	[R]	文字の高さ (cm)
+	CHW	[R]	文字の幅 (cm)
+	CHSP	[R]	文字の間隔 (cm)
+	ANGL	[R]	文字の回転角（度）
+	TILT	[R]	文字の傾き角（度）
 
-�����̊Ԋu�Ƃ́A�����Ԃ̋󔒕��ɕ��������������l�ł���B
-TILT ��90 ���邢�� -90 �t�߂ɐݒ肷��ƁA���ɉ����̕����ƂȂ��Ă��܂��̂ŗv���ӁB
-���̃��[�`���͕����t�H���g��ύX���Ȃ��B
+文字の間隔とは、文字間の空白幅に文字幅を加えた値である。
+TILT を90 あるいは -90 付近に設定すると、非常に横長の文字となってしまうので要注意。
+このルーチンは文字フォントを変更しない。
 
 
 INQCHR(CHH,CHW,CHSP,ANGL,TILT)
-���ݐݒ肳��Ă��镶���̍����A���A�Ԋu�A��]�p�A�X���p��₢���킹��B
-�o�͂��������� SETCHR �Ɠ����B
+現在設定されている文字の高さ、幅、間隔、回転角、傾き角を問い合わせる。
+出力される引数は SETCHR と同じ。
 
 
 SETFNT(IFNT)
-�����t�H���g��ݒ肷��B
+文字フォントを設定する。
 
-����	IFNT	[I]	�����t�H���g�ԍ�
+入力	IFNT	[I]	文字フォント番号
 
-���ݐݒ�\�ȕ����t�H���g�ԍ��͎��̂Q�ł���B
+現在設定可能な文字フォント番号は次の２つである。
 
-	0	�X�g���[�N�����i�����`���_���W�f�[�^�̌`�Œ�`����A�C�ӂ̑傫���A�p�x��		���w��\�j
-	1	�n�[�h�E�F�A�����i�����`�͏o�͑��u�Ɉˑ����A���u�ɂ���Ă͑傫���A�p�x��		�̎w�肪�ł��Ȃ��j
+	0	ストローク文字（文字形が点座標データの形で定義され、任意の大きさ、角度等		が指定可能）
+	1	ハードウェア文字（文字形は出力装置に依存し、装置によっては大きさ、角度等		の指定ができない）
 
 
 INQFNT(IFNT)
-���ݐݒ肳��Ă��镶���t�H���g��₢���킹��B�o�͂��������� SETFNT �Ɠ����B
+現在設定されている文字フォントを問い合わせる。出力される引数は SETFNT と同じ。
 
 
 PGREAD(NFCR,NPAGE,XFACT,YFACT,XOFS,YOFS,ROT,ITL,NPAGEF)
-�}�`�f�[�^�t�@�C���Ɋ܂܂��ł�ό`���ďo�͂���B
+図形データファイルに含まれる頁を変形して出力する。
 
-����	NFCR	[I]	�ǂݍ��ސ}�`�f�[�^�t�@�C���̃t�@�C���ԍ� (1��NFCR��63)
-	NPAGE	[I]	�ǂݍ��ޕŔԍ��i-1 �̏ꍇ�͎��Łj
-	XFACT	[R]	x �����̔{��
-	YFACT	[R]	y �����̔{��
-	XOFS	[R]	x �����̕ψ� (cm)
-	YOFS	[R]	y �����̕ψ� (cm)
-	ROT	[R]	�E�����𒆐S�Ƃ��������v���̂̉�]�p�i�x�j
-	ITL	[I]	��ʃw�b�_����}����ꍇ�� 1�A��}���Ȃ��ꍇ�� 0�B
-�o��	NPAGEF	[I]	���̕Ŕԍ�
-				0 �̏ꍇ�̓t�@�C���̏I�[
-				-1 �̏ꍇ�͎w��ł����݂��Ȃ�
-
-
-
-�S�D�R�@�Θb�^���o�̓T�u���[�`��
+入力	NFCR	[I]	読み込む図形データファイルのファイル番号 (1≦NFCR≦63)
+	NPAGE	[I]	読み込む頁番号（-1 の場合は次頁）
+	XFACT	[R]	x 方向の倍率
+	YFACT	[R]	y 方向の倍率
+	XOFS	[R]	x 方向の変位 (cm)
+	YOFS	[R]	y 方向の変位 (cm)
+	ROT	[R]	右下隅を中心とした反時計回りのの回転角（度）
+	ITL	[I]	画面ヘッダを作図する場合は 1、作図しない場合は 0。
+出力	NPAGEF	[I]	次の頁番号
+				0 の場合はファイルの終端
+				-1 の場合は指定頁が存在しない
 
 
-�Θb�^���o�̓T�u���[�`���́A�f�B�X�v���C��ʂ������u�ɂ����Ă̂ݗL���ł���B�y�[�W�v�����^�̏ꍇ�ɂ́A���̓��[�`���͈Ӗ��̂Ȃ��l��Ԃ��A�o�̓��[�`���͖��������B
+
+４．３　対話型入出力サブルーチン
+
+
+対話型入出力サブルーチンは、ディスプレイ画面をもつ装置においてのみ有効である。ページプリンタの場合には、入力ルーチンは意味のない値を返し、出力ルーチンは無視される。
 
 
 CHIN(KTEXT,NCHAR)
-�L�[�{�[�h������͂��ꂽ�������ǂݎ��B
+キーボードから入力された文字列を読み取る。
 
-�o��	KTEXT	[A*]	���͂��ꂽ������
-����	NCHR	[I]	���͂�v�����镶���� (NCHR < 256)
+出力	KTEXT	[A*]	入力された文字列
+入力	NCHR	[I]	入力を要求する文字数 (NCHR < 256)
 
-�y�[�W�v�����^�̏ꍇ�ɂ͋󔒂��Ԃ����B
+ページプリンタの場合には空白が返される。
 
 
 XYIN(X,Y)
-�}�E�X���ɂ���ē��͂��ꂽ���W��ǂݎ��B
+マウス等によって入力された座標を読み取る。
 
-�o��	X	[R]	�}�E�X�̃{�^�������������̃J�[�\���ʒu�� x ���W
-	Y	[R]	�}�E�X�̃{�^�������������̃J�[�\���ʒu�� y ���W
+出力	X	[R]	マウスのボタンを押した時のカーソル位置の x 座標
+	Y	[R]	マウスのボタンを押した時のカーソル位置の y 座標
 
-setvew �ɂ���č��W�n���ݒ肳��Ă���ꍇ�ɂ́A���̍��W�n�ł̒l���Ԃ����B
-�y�[�W�v�����^�̏ꍇ�ɂ͉�ʌ��_�ʒu���Ԃ����B
+setvew によって座標系が設定されている場合には、その座標系での値が返される。
+ページプリンタの場合には画面原点位置が返される。
 
 
 ERAS
-��ʂ���������B
+画面を消去する。
 
 
 BELL
-�x����炷�B
+ベルを鳴らす。
 
 
 CHMODE
-�}�`�\����ʂ��當���\����ʂɈڂ�B
+図形表示画面から文字表示画面に移る。
 
-���o�͕͂�����ʂɈڂ邪�A�����\����ʂ��O�ʂɂȂ�Ȃ����u������B���̏ꍇ�̓}�E�X�ŕ����\����ʂ��N���b�N����K�v������B
+入出力は文字画面に移るが、文字表示画面が前面にならない装置もある。その場合はマウスで文字表示画面をクリックする必要がある。
 
 
 GRMODE
-�����\����ʂ���}�`�\����ʂɈڂ�B
+文字表示画面から図形表示画面に移る。
 
-���o�͂͐}�`��ʂɈڂ邪�A�}�`�\����ʂ��O�ʂɂȂ�Ȃ����u������B���̏ꍇ�̓}�E�X�Ő}�`�\����ʂ��N���b�N����K�v������B
-
-
-
-�S�D�S�@�⏕�T�u���[�`��
+入出力は図形画面に移るが、図形表示画面が前面にならない装置もある。その場合はマウスで図形表示画面をクリックする必要がある。
 
 
-�⏕�T�u���[�`���� GSAF �����Ŏg�p���Ă���L�p�ȃT�u���[�`�������J�������̂ł���B
-�@��Ɉˑ�����@�\���A���ʂ̃T�u���[�`���ŗ��p�ł���悤�ɂ��Ă���B
+
+４．４　補助サブルーチン
+
+
+補助サブルーチンは GSAF 内部で使用している有用なサブルーチンを公開したものである。
+機種に依存する機能を、共通のサブルーチンで利用できるようにしている。
 
 
 GUDATE(NDY,NDM,NDD,NTH,NTM,NTS)
-���s���̓��t����ю�����₢���킹��B
+実行時の日付および時刻を問い合わせる。
 
-�o��	NDY	[I]	�N
-	NDM	[I]	��
-	NDD	[I]	��
-	NTH	[I]	��
-	NTM	[I]	��
-	NTS	[I]	�b
+出力	NDY	[I]	年
+	NDM	[I]	月
+	NDD	[I]	日
+	NTH	[I]	時
+	NTM	[I]	分
+	NTS	[I]	秒
 
 
 GUTIME(T)
-���s���� CPU �g�p���Ԃ�₢���킹��B
+実行時の CPU 使用時間を問い合わせる。
 
-�o��	T	[R]	CPU �g�p���ԁi�b�j
+出力	T	[R]	CPU 使用時間（秒）
 
-CPU �g�p���Ԃ̌��_�͋@��ɂ��قȂ�̂ŁA���肷�鏈���̑O��ł��̃T�u���[�`�����ĂсA���̎��ԍ����������ԂƂ��Ďg�p���邱�ƁB���Ԃ̐��x�͋@��ɂ�肩�Ȃ荷������B
+CPU 使用時間の原点は機種により異なるので、測定する処理の前後でこのサブルーチンを呼び、その時間差を処理時間として使用すること。時間の精度は機種によりかなり差がある。
 
 
 GUDSTR(KIN,NIN,KOUT,NOUT)
-���p�����񂩂當���������߁A�{���̕�����ɕϊ�����B
+引用文字列から文字数を求め、本来の文字列に変換する。
 
-����	KIN	[A*NIN]	�ϊ��ΏۂƂȂ���p������
-	NIN	[I]	KIN �Ɋ��蓖�Ă�ꂽ�����ϐ��̒���
-�o��	KOUT	[A*NOUT]	�ϊ����ꂽ������
-	NOUT	[I]	�ϊ����ꂽ������
+入力	KIN	[A*NIN]	変換対象となる引用文字列
+	NIN	[I]	KIN に割り当てられた文字変数の長さ
+出力	KOUT	[A*NOUT]	変換された文字列
+	NOUT	[I]	変換された文字数
 
-�擪�̋�؂蕶������x�ƌ���Ȃ��s���Ȉ��p������̏ꍇ�́AKOUT ����� NOUT �͂Ƃ��ɕύX����Ȃ��B���炩���� NOUT �� -1 ��ݒ肵�Ă����ƁA�s���ȕ�����̏ꍇ�ɂ� -1 �̂܂ܕԂ����B
+先頭の区切り文字が二度と現れない不正な引用文字列の場合は、KOUT および NOUT はともに変更されない。あらかじめ NOUT に -1 を設定しておくと、不正な文字列の場合には -1 のまま返される。
 
 
 GUCPTL(KID)
-�p���������p�啶���ɕϊ�����B
+英小文字を英大文字に変換する。
 
-���o��	KID	[A1]	�ϊ��ΏۂƂȂ镶���ϐ�
+入出力	KID	[A1]	変換対象となる文字変数
 
-���͂��p�������̏ꍇ�̂݁A�p�啶���ɕϊ�����B
+入力が英小文字の場合のみ、英大文字に変換する。
 
 
 CHRASC(KTEXT,IASC,NCHAR)
-������� ASCII �����z��ɕϊ�����B
+文字列を ASCII 整数配列に変換する。
 
-����	KTEXT	[A*NCHAR]	�ϊ��ΏۂƂȂ镶����
-�o��	IASC	[I(NCHAR)]	�ϊ����ꂽ ASCII �����z��
-����	NCHAR	[I]	������
+入力	KTEXT	[A*NCHAR]	変換対象となる文字列
+出力	IASC	[I(NCHAR)]	変換された ASCII 整数配列
+入力	NCHAR	[I]	文字数
 
 
 ASCCHR(IASC,KTEXT,NCHAR)
-ASCII �����z��𕶎���� �ϊ�����B
+ASCII 整数配列を文字列に 変換する。
 
-����	IASC	[I(NCHAR)]	�ϊ��ΏۂƂȂ� ASCII �����z��
-�o��	KTEXT	[A*NCHAR]	�ϊ��΂��ꂽ������
-����	NCHAR	[I]	������
+入力	IASC	[I(NCHAR)]	変換対象となる ASCII 整数配列
+出力	KTEXT	[A*NCHAR]	変換対された文字列
+入力	NCHAR	[I]	文字数
 
 
-�S�D�T�@���p�T�u���[�`��
+４．５　応用サブルーチン
 
 
 
 TEXTX(KTEXTX)
-���݈ʒu�Ɉ��p���������}����B
+現在位置に引用文字列を作図する。
 
-����	KTEXTX	[A*]	��}������p������i254 �����܂Łj
+入力	KTEXTX	[A*]	作図する引用文字列（254 文字まで）
 
 
 GTEXT(X,Y,KTEXT,NCHAR,IJUST)
-�w�肳�ꂽ�ʒu�ɁA������𑵂��č�}����B
+指定された位置に、文字列を揃えて作図する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	KTEXT	[A*NCHAR]	��}���镶����
-	NCHAR	[I]	��}���镶���� (NCHR < 256)
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ���������@3 : �����_����
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	KTEXT	[A*NCHAR]	作図する文字列
+	NCHAR	[I]	作図する文字数 (NCHR < 256)
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え　3 : 小数点揃え
 
-�������̏ꍇ�͐擪�����̍��������w��ʒu�ƂȂ�B�E�����̏ꍇ�͏I���������̉E�������w��ʒu�ƂȂ�B���������̏ꍇ�͕�����̒��S�ʒu�̉��[���w��ʒu�ƂȂ�B�����_�����̏ꍇ�͕�����ɏ����_���܂܂�Ă���΂��̈ʒu���w��ʒu�ƂȂ�A�܂܂�Ă��Ȃ���ΉE�����ɂȂ�B
+左揃えの場合は先頭文字の左下隅が指定位置となる。右揃えの場合は終末尾文字の右下隅が指定位置となる。中央揃えの場合は文字列の中心位置の下端が指定位置となる。小数点揃えの場合は文字列に小数点が含まれていればその位置が指定位置となり、含まれていなければ右揃えになる。
 
 
 GTEXTX(X,Y,KTEXTX,IJUST)
-�w�肳�ꂽ�ʒu�ɁA���p������𑵂��č�}����B
+指定された位置に、引用文字列を揃えて作図する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	KTEXT	[A*]	��}������p������i254 �����܂Łj
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ���������@3 : �����_����
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	KTEXT	[A*]	作図する引用文字列（254 文字まで）
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え　3 : 小数点揃え
 
 
 NUMBR(R,KFORM,NCHAR)
-���݈ʒu�ɁA�P���x�����l���w�肳�ꂽ�����ŕ\������B
+現在位置に、単精度実数値を指定された書式で表示する。
 
-����	R	[R]	�\������P���x�����l
-	KFORM	[A*16]	�i�j�ł�����ꂽ�A�������w�肷�镶����
-	NCHAR	[I]	�\�����镶�����i�����Ŏw�肵�������ƈ�v���邱�Ɓj
+入力	R	[R]	表示する単精度実数値
+	KFORM	[A*16]	（）でくくられた、書式を指定する文字列
+	NCHAR	[I]	表示する文字数（書式で指定した桁数と一致すること）
 
-��j�����_�ȉ��S���A�S�̂W���ŌŒ菬���_�\���̏ꍇ
+例）小数点以下４桁、全体８桁で固定小数点表示の場合
 		CALL NUMBR(R,'(F8.4)',8)
-��j�����_�ȉ��Q���A�S�̂P�O���ŕ��������_�\���̏ꍇ
+例）小数点以下２桁、全体１０桁で浮動小数点表示の場合
 		CALL NUMBR(R,'(1PE10.4)',10)
 
 
 NUMBD(D,KFORM,NCHAR)
-���݈ʒu�ɁA�{���x�����l���w�肳�ꂽ�����ŕ\������B
+現在位置に、倍精度実数値を指定された書式で表示する。
 
-����	D	[D]	�\������{���x�����l
-	KFORM	[A*16]	�i�j�ł�����ꂽ�A�������w�肷�镶����
-	NCHAR	[I]	�\�����镶�����i�����Ŏw�肵�������ƈ�v���邱�Ɓj
+入力	D	[D]	表示する倍精度実数値
+	KFORM	[A*16]	（）でくくられた、書式を指定する文字列
+	NCHAR	[I]	表示する文字数（書式で指定した桁数と一致すること）
 
 
 NUMBI(I,KFORM,NCHAR)
-���݈ʒu�ɁA�����l���w�肳�ꂽ�����ŕ\������B
+現在位置に、整数値を指定された書式で表示する。
 
-����	I	[I]	�\�����鐮���l
-	KFORM	[A*16]	�i�j�ł�����ꂽ�A�������w�肷�镶����
-	NCHAR	[I]	�\�����镶�����i�����Ŏw�肵�������ƈ�v���邱�Ɓj
+入力	I	[I]	表示する整数値
+	KFORM	[A*16]	（）でくくられた、書式を指定する文字列
+	NCHAR	[I]	表示する文字数（書式で指定した桁数と一致すること）
 
-��j�S�̂W���Ő����\���̏ꍇ
+例）全体８桁で整数表示の場合
 		CALL NUMBI(I,'(I8)',8)
 
 
 GNUMBR(X,Y,R,IND,IJUST)
-�w�肳�ꂽ�ʒu�ɁA�P���x�����l�𑵂��ĕ\������B
+指定された位置に、単精度実数値を揃えて表示する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	R	[R]	�\������P���x�����l
-	IND	[I]	�����_�ȉ��̌���
-				���F�Œ菬���_�\��
-				���F���������_�\��
-				�O�F�l�̌ܓ����ꂽ����
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ���������@3 : �����_����
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	R	[R]	表示する単精度実数値
+	IND	[I]	小数点以下の桁数
+				正：固定小数点表示
+				負：浮動小数点表示
+				０：四捨五入された整数
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え　3 : 小数点揃え
 
 
 GNUMBD(X,Y,D,IND,IJUST)
-�w�肳�ꂽ�ʒu�ɁA�{���x�����l�𑵂��ĕ\������B
+指定された位置に、倍精度実数値を揃えて表示する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	D	[D]	�\������{���x�����l
-	IND	[I]	�����_�ȉ��̌����i���F�Œ菬���_�\���A���F���������_�\���j
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ���������@3 : �����_����
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	D	[D]	表示する倍精度実数値
+	IND	[I]	小数点以下の桁数（正：固定小数点表示、負：浮動小数点表示）
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え　3 : 小数点揃え
 
 
 GNUMBI(X,Y,I,IJUST)
-�w�肳�ꂽ�ʒu�ɁA�����l�𑵂��ĕ\������B
+指定された位置に、整数値を揃えて表示する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	I	[I]	�\�����鐮���l
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ��������
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	I	[I]	表示する整数値
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え
 
 
 GNUMBP(X,Y,I,J,IJUST)
-�w�肳�ꂽ�ʒu�ɁA�ׂ���t�������l�𑵂��ĕ\������B
+指定された位置に、べき乗付き整数値を揃えて表示する。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	I	[I]	�\���������̐����l
-	J	[I]	�\������w�����̐����l
-	IJUST	[I]	�������̎w��@0 : �������@1 : �E�����@2 : ��������
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	I	[I]	表示する基数部の整数値
+	J	[I]	表示する指数部の整数値
+	IJUST	[I]	揃え方の指定　0 : 左揃え　1 : 右揃え　2 : 中央揃え
 
 
 MOVEPT(X,Y,IPAT)
-���̃p�^�[���ԍ����w�肵�A�w�肳�ꂽ���W�����݈ʒu�Ƃ���B
+線のパターン番号を指定し、指定された座標を現在位置とする。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
-	IPAT	[I]	���p�^�[���ԍ�	0:����  1:�_��  2:�j��  3:���j��  4:��_����
-					5:����_����  6:��_����  7:����_����  
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
+	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
+					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
 
-IPAT �����̏ꍇ�͋t�p�^�[���ƂȂ�A�p�^�[���̂P�T�C�N���̖�������擪�Ɍ������p�^�[���ō�}����B����_���痼���ɘA�������p�^�[���ō�}����ꍇ�ɗp����B
+IPAT が負の場合は逆パターンとなり、パターンの１サイクルの末尾から先頭に向かうパターンで作図する。ある点から両側に連続したパターンで作図する場合に用いる。
 
 
 DRAWPT(X,Y)
-���݈ʒu����w�肳�ꂽ���W�܂Ő��p�^�[���t����������}���C�w�肳�ꂽ���W�����݈ʒu�Ƃ���B
+現在位置から指定された座標まで線パターン付き直線を作図し，指定された座標を現在位置とする。
 
-����	X	[R]	�w��ʒu�� x ���W
-	Y	[R]	�w��ʒu�� y ���W
+入力	X	[R]	指定位置の x 座標
+	Y	[R]	指定位置の y 座標
 
-MOVEPT ���Ă΂Ȃ�����A�������� DRAWPT �ł͘A���������p�^�[���ŕ`�����B�_�̊Ԋu�������Ă����p�^�[���̒����͈��ł���B
+MOVEPT を呼ばない限り、引き続く DRAWPT では連続した線パターンで描かれる。点の間隔が狭くても線パターンの長さは一定である。
 
 
 SETLPT(IPAT,NPAT,PAT)
-���p�^�[���ԍ��ɐ��p�^�[����ݒ肷��B
+線パターン番号に線パターンを設定する。
 
-����	IPAT	[I]	���p�^�[���ԍ�  (8��IPAT��15)
-	NPAT	[I]	�p�^�[�����̑S��Ԑ�
-	PAT	[R(NPAT)]	�p�^�[�����̋�Ԓ���\���z��
+入力	IPAT	[I]	線パターン番号  (8≦IPAT≦15)
+	NPAT	[I]	パターン中の全区間数
+	PAT	[R(NPAT)]	パターン中の区間長を表す配列
 
-��Ԗڂ̋�Ԃ̂ݐ���������A������Ԃɂ͈�����Ȃ��B
+奇数番目の区間のみ線が引かれ、偶数区間には引かれない。
 
 
 GMNMX1(Z,NS,NE,NSTEP,ZMIN,ZMAX)
-�P�����z��̍ŏ��l�A�ő�l���߂�B
+１次元配列の最小値、最大値を定める。
 
-����	Z	[R(*)]	�f�[�^�̂P�����z��
-	NS	[I]	�L���f�[�^�̓Y���̏��l
-	NE	[I]	�L���f�[�^�̓Y���̏I�l
-	NSTEP	[I]	�L���f�[�^�̓Y���̊Ԋu
-�o��	ZMIN	[R]	�f�[�^�̍ŏ��l
-	ZMAX	[R]	�f�[�^�̍ő�l
+入力	Z	[R(*)]	データの１次元配列
+	NS	[I]	有効データの添字の初値
+	NE	[I]	有効データの添字の終値
+	NSTEP	[I]	有効データの添字の間隔
+出力	ZMIN	[R]	データの最小値
+	ZMAX	[R]	データの最大値
 
 
 GMNMX2(Z,NA,NXS,NXE,NXSTEP,NYS,NYE,NYSTEP,ZMIN,ZMAX)
-�Q�����z��̍ŏ��l�A�ő�l���߂�B
+２次元配列の最小値、最大値を定める。
 
-����	Z	[R(NA,*)]	�f�[�^�̂Q�����z��
-	NA	[I]	�Q�����f�[�^�̑�P�Y���̏���iDIMENSION �����Ŏw�肵���l�j
-	NXS	[I]	�L���f�[�^�̑�P�Y���̏��l
-	NXE	[I]	�L���f�[�^�̑�P�Y���̏I�l
-	NXSTEP	[I]	�L���f�[�^�̑�P�Y���̊Ԋu
-	NYS	[I]	�L���f�[�^�̑�Q�Y���̏��l
-	NYE	[I]	�L���f�[�^�̑�Q�Y���̏I�l
-	NXSTEP	[I]	�L���f�[�^�̑�Q�Y���̊Ԋu
-�o��	ZMIN	[R]	�f�[�^�̍ŏ��l
-	ZMAX	[R]	�f�[�^�̍ő�l
+入力	Z	[R(NA,*)]	データの２次元配列
+	NA	[I]	２次元データの第１添字の上限（DIMENSION 文等で指定した値）
+	NXS	[I]	有効データの第１添字の初値
+	NXE	[I]	有効データの第１添字の終値
+	NXSTEP	[I]	有効データの第１添字の間隔
+	NYS	[I]	有効データの第２添字の初値
+	NYE	[I]	有効データの第２添字の終値
+	NXSTEP	[I]	有効データの第２添字の間隔
+出力	ZMIN	[R]	データの最小値
+	ZMAX	[R]	データの最大値
 
 
 GQSCAL(GMIN,GMAX,GSMIN,GSMAX,GSCAL)
-�f�[�^�̍ŏ��l�A�ő�l����A���W���̓K�؂ȏ���l�A�����l�A�ڐ���Ԋu�����߂�B
+データの最小値、最大値から、座標軸の適切な上限値、下限値、目盛り間隔を求める。
 
-����	GMIN	[R]	�f�[�^�̍ŏ��l
-	GMAX	[R]	�f�[�^�̍ő�l
-�o��	GSMIN	[R]	���W���̓K�؂ȏ���l
-	GSMAX	[R]	���W���̓K�؂ȉ����l
-	GSCAL	[R]	���W���̓K�؂Ȗڐ��Ԋu
+入力	GMIN	[R]	データの最小値
+	GMAX	[R]	データの最大値
+出力	GSMIN	[R]	座標軸の適切な上限値
+	GSMAX	[R]	座標軸の適切な下限値
+	GSCAL	[R]	座標軸の適切な目盛間隔
 
-GMIN �� GMAX ������ 0 �̏ꍇ�́AGSMIN=-1.0, GSMAX=1.0 �Ƃ���B
-GMIN �� GMAX ���������ꍇ�́AGSMIN �܂��� GSMAX �� 0 �Ƃ���B
-���ۂɂ� GMIN �� GMAX �̑召�֌W�͖��Ȃ��B
-�ڐ��̖{���� 6 ���� 12 �{�̊ԂŁA�ڐ��Ԋu�� 1, 2, 2.5, 5 �~10�� �ƂȂ�悤�� GSSCAL ���I�΂��B
+GMIN と GMAX が共に 0 の場合は、GSMIN=-1.0, GSMAX=1.0 とする。
+GMIN と GMAX が等しい場合は、GSMIN または GSMAX を 0 とする。
+実際には GMIN と GMAX の大小関係は問わない。
+目盛の本数が 6 から 12 本の間で、目盛間隔が 1, 2, 2.5, 5 ×10ｎ となるように GSSCAL が選ばれる。
 
 
 GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GXMIN,GXMAX,GYMIN,GYMAX)
-�O���t�̈�̒�`���s���B
+グラフ領域の定義を行う。
 
-����	PXMIN	[R]	�O���t����}�����ʗ̈�̍��[�� x ���W (cm)
-	PXMAX	[R]	�O���t����}�����ʗ̈�̉E�[�� x ���W (cm)
-	PYMIN	[R]	�O���t����}�����ʗ̈�̉��[�� y ���W (cm)
-	PYMAX	[R]	�O���t����}�����ʗ̈�̏�[�� y ���W (cm)
-	GXMIN	[R]	x ���̍ŏ��l
- 	GXMAX	[R]	x ���̍ő�l
-	GYMIN	[R]	y ���̍ŏ��l
-	GYMAX	[R]	y ���̍ő�l
+入力	PXMIN	[R]	グラフを作図する画面領域の左端の x 座標 (cm)
+	PXMAX	[R]	グラフを作図する画面領域の右端の x 座標 (cm)
+	PYMIN	[R]	グラフを作図する画面領域の下端の y 座標 (cm)
+	PYMAX	[R]	グラフを作図する画面領域の上端の y 座標 (cm)
+	GXMIN	[R]	x 軸の最小値
+ 	GXMAX	[R]	x 軸の最大値
+	GYMIN	[R]	y 軸の最小値
+	GYMAX	[R]	y 軸の最大値
 
-GPLOTP, CONTPn, CONTPn, CONTQn, PERSEn  ���ŕ`���O���t�̍�}�̈��ݒ肷��B
+GPLOTP, CONTPn, CONTPn, CONTQn, PERSEn  等で描くグラフの作図領域を設定する。
 
 
 INQ_GDEFIN(PXMIN,PXMAX,PYMIN,PYMAX,GYMIN,GYMAX,GYMIN,GYMAX)
-		�O���t�̈�̖⍇��
+		グラフ領域の問合せ
 
-INQPOS2D(X,Y)	�O���t�̈���ʒu�⍇��
+INQPOS2D(X,Y)	グラフ領域内位置問合せ
 
-MOVE2D(X,Y)	�O���t�̈���w����W�ֈړ�
+MOVE2D(X,Y)	グラフ領域内指定座標へ移動
 
-DRAW2D(X,Y)	�O���t�̈���w����W�֒�������}
+DRAW2D(X,Y)	グラフ領域内指定座標へ直線を作図
 
 MOVEPT2D(X,Y,IPAT)
-		�O���t�̈���w����W�ֈړ��A���p�^�[�����w��
+		グラフ領域内指定座標へ移動、線パターンを指定
 
-DRAWPT2D(X,Y)	�O���t�̈���w����W�֎w�肳�ꂽ���p�^�[���Œ�������}
+DRAWPT2D(X,Y)	グラフ領域内指定座標へ指定された線パターンで直線を作図
 
-LINE2D(X,Y,N)	�O���t�̈�������\���@�\
-LINES2D(X,Y,N)	�O���t�̈�������Q�\���@�\
-LINESC2D(X,Y,N)	�O���t�̈�������Q�\���@�\�i�Ȑ��j
-POLY2D(X,Y,N)	�O���t�̈�����p�`�ʓh��@�\
+LINE2D(X,Y,N)	グラフ領域内線分表示機能
+LINES2D(X,Y,N)	グラフ領域内線分群表示機能
+LINESC2D(X,Y,N)	グラフ領域内線分群表示機能（閉曲線）
+POLY2D(X,Y,N)	グラフ領域内多角形面塗り機能
 RGBTRG2D(X,Y,R,G,B)
-		�O���t�̈���O�p�`��A���I�F�ω��Ŗʓh��
+		グラフ領域内三角形を連続的色変化で面塗り
 
 GFRAME
-�O���t�̘g����}����B
+グラフの枠を作図する。
 
-GDEFIN �Œ�`���ꂽ�O���t�̈�̘g��`���B
+GDEFIN で定義されたグラフ領域の枠を描く。
 
 
 GSCALE(GXORG,GXSTEP,GYORG,GYSTEP,SLEN,IND)
-�ڐ��肠�邢�͊i�q���L������B
+目盛りあるいは格子を記入する。
 
-����	GXORG	[R]	x ���̖ڐ���J�n�l
-	GXSTEP	[R]	x ���̖ڐ���Ԋu�i0.0 �̏ꍇ�� x ���ɖڐ����t���Ȃ��j
-	GYORG	[R]	y ���̖ڐ���J�n�l
-	GYSTEP	[R]	y ���̖ڐ���Ԋu�i0.0 �̏ꍇ�� y ���ɖڐ����t���Ȃ��j
-	SLEN	[R]	�ڐ���̒���(cm)���邢�͊i�q���p�^�[���i�l�̌ܓ����ꂽ�����l�j
-	IND	[I]	�ڐ���̕t����
-				0	�i�q�i�i�q���p�^�[���� SLEN �Ɏw��ł���j
-				1	�������̖ڐ���
-				2	�O�����̖ڐ���
-				3	�{�^�̖ڐ���
-				+4	�㑤�� x ������щE���� y ���ɖڐ����t����
-				+8	�㉺�� x ������э��E�� y ���ɖڐ����t����
- 				+16	x ���̉E�[����� y ���̏�[�ɖڐ����t���Ȃ�
- 				+32	x ���̍��[����� y ���̉��[�ɖڐ����t���Ȃ�
- 				+48	x ���̍��E�[����� y ���̏㉺�[�ɖڐ����t���Ȃ�
+入力	GXORG	[R]	x 軸の目盛り開始値
+	GXSTEP	[R]	x 軸の目盛り間隔（0.0 の場合は x 軸に目盛りを付けない）
+	GYORG	[R]	y 軸の目盛り開始値
+	GYSTEP	[R]	y 軸の目盛り間隔（0.0 の場合は y 軸に目盛りを付けない）
+	SLEN	[R]	目盛りの長さ(cm)あるいは格子線パターン（四捨五入された整数値）
+	IND	[I]	目盛りの付け方
+				0	格子（格子線パターンを SLEN に指定できる）
+				1	内向きの目盛り
+				2	外向きの目盛り
+				3	＋型の目盛り
+				+4	上側の x 軸および右側の y 軸に目盛りを付ける
+				+8	上下の x 軸および左右の y 軸に目盛りを付ける
+ 				+16	x 軸の右端および y 軸の上端に目盛りを付けない
+ 				+32	x 軸の左端および y 軸の下端に目盛りを付けない
+ 				+48	x 軸の左右端および y 軸の上下端に目盛りを付けない
 
-�ڐ���́A�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɕt������B�J�n�l����
-�̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ���͕\������Ȃ��D
+目盛りは、開始値から指定された間隔で正負両方向に付けられる。開始値がそ
+の軸の座標の最小値と最大値の間になければ，目盛りは表示されない．
 
 
 GVALUE(GXORG,GXSTEP,GYORG,GYSTEP,IND)
-�ڐ���̐��l���L������B
+目盛りの数値を記入する。
 
-����	GXORG	[R]	x ���̖ڐ��萔�l�J�n�l
-	GXSTEP	[R]	x ���̖ڐ��萔�l�Ԋu�i0.0 �̏ꍇ�� x ���ɖڐ��萔�l��t���Ȃ��j
-	GYORG	[R]	y ���̖ڐ��萔�l�J�n�l
-	GYSTEP	[R]	y ���̖ڐ��萔�l�Ԋu�i0.0 �̏ꍇ�� y ���ɖڐ��萔�l��t���Ȃ��j
-	IND	[I]	�ڐ���̕t����
-				0	�����^�ŕ\��
-				����	�Œ菬���_�\���̏����_�ȉ�����
-				����	���������_�\���̏����_�ȉ�����
-				+400	�㑤�� x ������щE���� y ���ɖڐ��萔�l��t����
-				+800	�㉺�� x ������э��E�� y ���ɖڐ��萔�l��t����
- 				+1600	x ���̉E�[����� y ���̏�[�ɖڐ��萔�l��t���Ȃ�
- 				+3200	x ���̍��[����� y ���̉��[�ɖڐ��萔�l��t���Ȃ�
- 				+4800	x ���̍��E�[����� y ���̏㉺�[�ɖڐ��萔�l��t����					��
+入力	GXORG	[R]	x 軸の目盛り数値開始値
+	GXSTEP	[R]	x 軸の目盛り数値間隔（0.0 の場合は x 軸に目盛り数値を付けない）
+	GYORG	[R]	y 軸の目盛り数値開始値
+	GYSTEP	[R]	y 軸の目盛り数値間隔（0.0 の場合は y 軸に目盛り数値を付けない）
+	IND	[I]	目盛りの付け方
+				0	整数型で表示
+				正数	固定小数点表示の小数点以下桁数
+				負数	浮動小数点表示の小数点以下桁数
+				+400	上側の x 軸および右側の y 軸に目盛り数値を付ける
+				+800	上下の x 軸および左右の y 軸に目盛り数値を付ける
+ 				+1600	x 軸の右端および y 軸の上端に目盛り数値を付けない
+ 				+3200	x 軸の左端および y 軸の下端に目盛り数値を付けない
+ 				+4800	x 軸の左右端および y 軸の上下端に目盛り数値を付けな					い
 
-�ڐ��萔�l�́A�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɕt������B�J�n�l����
-�̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��萔�l�͕\������Ȃ��D
+目盛り数値は、開始値から指定された間隔で正負両方向に付けられる。開始値がそ
+の軸の座標の最小値と最大値の間になければ，目盛り数値は表示されない．
 
-IND �̃I�v�V���� +n �͐�Βl�ɑ΂��ĉ��Z����B�Ⴆ�΁AIND=-402 �͏㑤�� x ������щE���� y ���ɏ����_�ȉ��Q���̕��������_�\���ŕ\������
+IND のオプション +n は絶対値に対して加算する。例えば、IND=-402 は上側の x 軸および右側の y 軸に小数点以下２桁の浮動小数点表示で表示する
 
 
 GSCALL(GXORG,NXSTEP,GYORG,NYSTEP,SLEN,IND)
-�ΐ��ڐ��肠�邢�͊i�q���L������B
+対数目盛りあるいは格子を記入する。
 
-����	GXORG	[R]	x ���̖ڐ���J�n�l
-	NXSTEP	[I]	x ���̂P������ڐ�����i0 �̏ꍇ�� x ���ɖڐ����t���Ȃ��j
-	GYORG	[R]	y ���̖ڐ���J�n�l
-	NYSTEP	[I]	y ���̂P������ڐ�����i0.0 �̏ꍇ�� y ���ɖڐ����t���Ȃ��j
-	SLEN	[R]	�ڐ���̒���(cm)���邢�͊i�q���p�^�[���i�l�̌ܓ����ꂽ�����l�j
-	IND	[I]	�ڐ���̕t����
-				0	�i�q�i�i�q���p�^�[���� SLEN �Ɏw��ł���j
-				1	�������̖ڐ���
-				2	�O�����̖ڐ���
-				3	�{�^�̖ڐ���
-				+4	�㑤�� x ������щE���� y ���ɖڐ����t����
-				+8	�㉺�� x ������э��E�� y ���ɖڐ����t����
- 				+16	x ���̉E�[����� y ���̏�[�ɖڐ����t���Ȃ�
- 				+32	x ���̍��[����� y ���̉��[�ɖڐ����t���Ȃ�
- 				+48	x ���̍��E�[����� y ���̏㉺�[�ɖڐ����t���Ȃ�
+入力	GXORG	[R]	x 軸の目盛り開始値
+	NXSTEP	[I]	x 軸の１桁当り目盛り個数（0 の場合は x 軸に目盛りを付けない）
+	GYORG	[R]	y 軸の目盛り開始値
+	NYSTEP	[I]	y 軸の１桁当り目盛り個数（0.0 の場合は y 軸に目盛りを付けない）
+	SLEN	[R]	目盛りの長さ(cm)あるいは格子線パターン（四捨五入された整数値）
+	IND	[I]	目盛りの付け方
+				0	格子（格子線パターンを SLEN に指定できる）
+				1	内向きの目盛り
+				2	外向きの目盛り
+				3	＋型の目盛り
+				+4	上側の x 軸および右側の y 軸に目盛りを付ける
+				+8	上下の x 軸および左右の y 軸に目盛りを付ける
+ 				+16	x 軸の右端および y 軸の上端に目盛りを付けない
+ 				+32	x 軸の左端および y 軸の下端に目盛りを付けない
+ 				+48	x 軸の左右端および y 軸の上下端に目盛りを付けない
 
-GXORG, GYORG �͎w���l�Ŏw�肷��B�Ⴆ�� GXORG=2.0 �Ǝw�肷��� 102 ����ڐ��肪�����������ɕt������B�J�n�l����
-�̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ���͕\������Ȃ��D
+GXORG, GYORG は指数値で指定する。例えば GXORG=2.0 と指定すると 102 から目盛りが正負両方向に付けられる。開始値がそ
+の軸の座標の最小値と最大値の間になければ，目盛りは表示されない．
 
-NXSTEP, NYSTEP �̎w���	1	�Ȃ��	1, 10	�ɖڐ��肪�t������
+NXSTEP, NYSTEP の指定は	1	ならば	1, 10	に目盛りが付けられる
 				2		1, 3, 10
 				3		1, 2, 5, 10
 				4,5		1, 2, 3, 5, 7, 10
@@ -1671,23 +1671,23 @@ NXSTEP, NYSTEP �̎w���	1	�Ȃ��	1, 10	�ɖڐ��肪�t������
 
 
 GVALUL(GXORG,NXSTEP,GYORG,NYSTEP,IND)
-�ΐ��ڐ���̐��l���L������B
+対数目盛りの数値を記入する。
 
-����	GXORG	[R]	x ���̖ڐ��萔�l�J�n�l
-	NXSTEP	[I]	x ���̖ڐ��萔�l�Ԋu�i0.0 �̏ꍇ�� x ���ɖڐ��萔�l��t���Ȃ��j
-	GYORG	[R]	y ���̖ڐ��萔�l�J�n�l
-	NYSTEP	[R]	y ���̖ڐ��萔�l�Ԋu�i0.0 �̏ꍇ�� y ���ɖڐ��萔�l��t���Ȃ��j
-	IND	[I]	�ڐ���̕t����
-				+400	�㑤�� x ������щE���� y ���ɖڐ��萔�l��t����
-				+800	�㉺�� x ������э��E�� y ���ɖڐ��萔�l��t����
- 				+1600	x ���̉E�[����� y ���̏�[�ɖڐ��萔�l��t���Ȃ�
- 				+3200	x ���̍��[����� y ���̉��[�ɖڐ��萔�l��t���Ȃ�
- 				+4800	x ���̍��E�[����� y ���̏㉺�[�ɖڐ��萔�l��t����					��
+入力	GXORG	[R]	x 軸の目盛り数値開始値
+	NXSTEP	[I]	x 軸の目盛り数値間隔（0.0 の場合は x 軸に目盛り数値を付けない）
+	GYORG	[R]	y 軸の目盛り数値開始値
+	NYSTEP	[R]	y 軸の目盛り数値間隔（0.0 の場合は y 軸に目盛り数値を付けない）
+	IND	[I]	目盛りの付け方
+				+400	上側の x 軸および右側の y 軸に目盛り数値を付ける
+				+800	上下の x 軸および左右の y 軸に目盛り数値を付ける
+ 				+1600	x 軸の右端および y 軸の上端に目盛り数値を付けない
+ 				+3200	x 軸の左端および y 軸の下端に目盛り数値を付けない
+ 				+4800	x 軸の左右端および y 軸の上下端に目盛り数値を付けな					い
 
-GXORG, GYORG �͎w���l�Ŏw�肷��B�Ⴆ�� GXORG=2.0 �Ǝw�肷��� 102 ����ڐ��萔�l�������������ɕt������B�J�n�l����
-�̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��萔�l�͕\������Ȃ��D
+GXORG, GYORG は指数値で指定する。例えば GXORG=2.0 と指定すると 102 から目盛り数値が正負両方向に付けられる。開始値がそ
+の軸の座標の最小値と最大値の間になければ，目盛り数値は表示されない．
 
-NXSTEP, NYSTEP �̎w���	1	�Ȃ��	1, 10	�ɖڐ��萔�l���t������
+NXSTEP, NYSTEP の指定は	1	ならば	1, 10	に目盛り数値が付けられる
 				2		1, 3, 10
 				3		1, 2, 5, 10
 				4,5		1, 2, 3, 5, 7, 10
@@ -1695,428 +1695,428 @@ NXSTEP, NYSTEP �̎w���	1	�Ȃ��	1, 10	�ɖڐ��萔�l���t������
 
 
 GPLOTP(GX,GY,NS,NE,NSTEP,IMRK,ISTEP,IPAT)
-�P�����f�[�^�̃O���t�\�����s���B
+１次元データのグラフ表示を行う。
 
-����	GX	[R(*)]	x ���W�f�[�^�̂P�����z��
-	GY	[R(*)]	y ���W�f�[�^�̂P�����z��
-	NS	[I]	�L���f�[�^�̓Y���̏��l
-	NE	[I]	�L���f�[�^�̓Y���̏I�l
-	NSTEP	[I]	�L���f�[�^�̓Y���̊Ԋu
-	IMRK	[I]	�}�[�N�̎��	�O�F�f�[�^�����Ԓ����̂�
-					���F�f�[�^�������}�[�N�̂�
-					���F�}�[�N�ƒ����̗���
-	ISTEP	[I]	�}�[�N������f�[�^�Ԋu
-	IPAT	[I]	���p�^�[���ԍ�	0:����  1:�_��  2:�j��  3:���j��  4:��_����
-					5:����_����  6:��_����  7:����_����  
+入力	GX	[R(*)]	x 座標データの１次元配列
+	GY	[R(*)]	y 座標データの１次元配列
+	NS	[I]	有効データの添字の初値
+	NE	[I]	有効データの添字の終値
+	NSTEP	[I]	有効データの添字の間隔
+	IMRK	[I]	マークの種類	０：データを結ぶ直線のみ
+					正：データを示すマークのみ
+					負：マークと直線の両方
+	ISTEP	[I]	マークをつけるデータ間隔
+	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
+					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
 GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
-�P�����f�[�^�̌덷���O���t�\�����s���B
+１次元データの誤差幅グラフ表示を行う。
 
-����	GX	[R(*)]	x ���W�f�[�^�̂P�����z��
-	GY1	[R(*)]	y ���W�f�[�^�덷�����̂P�����z��
-	GY2	[R(*)]	y ���W�f�[�^�덷����̂P�����z��
-	NS	[I]	�L���f�[�^�̓Y���̏��l
-	NE	[I]	�L���f�[�^�̓Y���̏I�l
-	NSTEP	[I]	�L���f�[�^�̓Y���̊Ԋu
-	SCAL	[R]	�덷�������щ�����\�����_�̒���
-				0.0 �̏ꍇ�͉��_��\�����Ȃ�
+入力	GX	[R(*)]	x 座標データの１次元配列
+	GY1	[R(*)]	y 座標データ誤差下限の１次元配列
+	GY2	[R(*)]	y 座標データ誤差上限の１次元配列
+	NS	[I]	有効データの添字の初値
+	NE	[I]	有効データの添字の終値
+	NSTEP	[I]	有効データの添字の間隔
+	SCAL	[R]	誤差上限および下限を表す横棒の長さ
+				0.0 の場合は横棒を表示しない
 
 
 CONTR1(Z,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD)
-���Ԋu�i�q�Q�����f�[�^�̓������\�����s���B
+等間隔格子２次元データの等高線表示を行う。
 
-����	Z	[R(NXA,*)]	�f�[�^�̂Q�����z��
-	NXA	[I]	�Q�����f�[�^�̑�P�Y���̏��
-	NXMAX	[I]	x �����̃f�[�^��
-	NYMAX	[I]	y �����̃f�[�^��
-	ZORG	[R]	�������̊J�n�l
-	ZSTEP	[R]	�������̊Ԋu
-	NSTEP	[I]	�������̖{��
-	IPRD	[I]	�������̐ݒ�	0 : �������Ȃ�
-					1 : x �����Ɏ����I Z(NXMAX+1,*)=Z(1,*)
-					2 : y �����Ɏ����I Z(*,NXMAX+1)=Z(*,1)
-					3 : x, y �������Ɏ����I
+入力	Z	[R(NXA,*)]	データの２次元配列
+	NXA	[I]	２次元データの第１添字の上限
+	NXMAX	[I]	x 方向のデータ数
+	NYMAX	[I]	y 方向のデータ数
+	ZORG	[R]	等高線の開始値
+	ZSTEP	[R]	等高線の間隔
+	NSTEP	[I]	等高線の本数
+	IPRD	[I]	周期性の設定	0 : 周期性なし
+					1 : x 方向に周期的 Z(NXMAX+1,*)=Z(1,*)
+					2 : y 方向に周期的 Z(*,NXMAX+1)=Z(*,1)
+					3 : x, y 両方向に周期的
 
 
 CONTR2(Z,X,Y,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD)
-�s���Ԋu�i�q�Q�����f�[�^�̓������\�����s���B
+不等間隔格子２次元データの等高線表示を行う。
 
-����	Z	[R(NXA,*)]	�f�[�^�̂Q�����z��
-	X	[R(*)]	x ���W�f�[�^�̂P�����z��
-	Y	[R(*)]	y ���W�f�[�^�̂P�����z��
-	�ȉ��@NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD �� CONTR1 �Ɠ����B
+入力	Z	[R(NXA,*)]	データの２次元配列
+	X	[R(*)]	x 座標データの１次元配列
+	Y	[R(*)]	y 座標データの１次元配列
+	以下　NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD は CONTR1 と同じ。
 
-�����������肳�ꂽ�ꍇ�ɂ́A���̕����̍��W�f�[�^�� NXMAX+1 ���邢�� NYMAX+1 �K�v�ł��邱�Ƃɒ��ӁB
+周期性が仮定された場合には、その方向の座標データは NXMAX+1 あるいは NYMAX+1 個必要であることに注意。
 
 
 CONTR3(Z,R,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP)
-���p�x�Ԋu�~�`�Q�����f�[�^�̓������\�����s���B
+等角度間隔円形２次元データの等高線表示を行う。
 
-����	Z	[R(NXA,*)]	�f�[�^�̂Q�����z��
-	R	[R(*)]	���a�������W�f�[�^�̂P�����z�� (cm)
-	NXA	[I]	�Q�����f�[�^�̑�P�Y���̏��
-	NXMAX	[I]	���a�����̃f�[�^��
-	NYMAX	[I]	�p�x�����̃f�[�^��
-	�ȉ��@ZORG, ZSTEP, NSTEP �� CONTR1 �Ɠ����B
+入力	Z	[R(NXA,*)]	データの２次元配列
+	R	[R(*)]	半径方向座標データの１次元配列 (cm)
+	NXA	[I]	２次元データの第１添字の上限
+	NXMAX	[I]	半径方向のデータ数
+	NYMAX	[I]	角度方向のデータ数
+	以下　ZORG, ZSTEP, NSTEP は CONTR1 と同じ。
 
-�p�x�����Ɋւ��ẮA�ŏ��̃f�[�^�� x ����ɂƂ��A�����v���� 360/NYMAX �x�Ԋu�ŕ\�������B���� 360 �x�̎����������肳���B
+角度方向に関しては、最初のデータが x 軸上にとられ、反時計回りに 360/NYMAX 度間隔で表示される。周期 360 度の周期性が仮定される。
 
 
 CONTR4(Z,R,T,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP)
-�s���p�x�Ԋu��`�Q�����f�[�^�̓������\�����s���B
+不等角度間隔扇形２次元データの等高線表示を行う。
 
-����	Z	[R(NXA,*)]	�f�[�^�̂Q�����z��
-	R	[R(*)]	���a�������W�f�[�^�̂P�����z�� (cm)
-	T	[R(*)]	�p�x�������W�f�[�^�̂P�����z�� (�x)
-	NXA	[I]	�Q�����f�[�^�̑�P�Y���̏��
-	NXMAX	[I]	���a�����̃f�[�^��
-	NYMAX	[I]	�p�x�����̃f�[�^��
-	�ȉ��@ZORG, ZSTEP, NSTEP �� CONTR1 �Ɠ����B
+入力	Z	[R(NXA,*)]	データの２次元配列
+	R	[R(*)]	半径方向座標データの１次元配列 (cm)
+	T	[R(*)]	角度方向座標データの１次元配列 (度)
+	NXA	[I]	２次元データの第１添字の上限
+	NXMAX	[I]	半径方向のデータ数
+	NYMAX	[I]	角度方向のデータ数
+	以下　ZORG, ZSTEP, NSTEP は CONTR1 と同じ。
 
-�p�x�����Ɋւ��ẮA�ŏ��̃f�[�^�� x ����ɂƂ��A�����v���ŕ\�������B�������͉��肳��Ȃ��B
+角度方向に関しては、最初のデータが x 軸上にとられ、反時計回りで表示される。周期性は仮定されない。
 
 
 CONTP1(Z,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-���Ԋu�i�q�Q�����f�[�^�̓���������p�^�[���t���ŕ\������B
+等間隔格子２次元データの等高線を線パターン付きで表示する。
 
-����	Z, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD �� CONTR1 �Ɠ����B
-	IPAT	[I]	���p�^�[���ԍ�	0:����  1:�_��  2:�j��  3:���j��  4:��_����
-					5:����_����  6:��_����  7:����_����  
-��Ɨ̈�
-	KA	[I(4,NXMAX,NYMAX)]	��Ɨp�����z��
+入力	Z, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD は CONTR1 と同じ。
+	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
+					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
+作業領域
+	KA	[I(4,NXMAX,NYMAX)]	作業用整数配列
 
 
 CONTP2(Z,X,Y,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-�s���Ԋu�i�q�Q�����f�[�^�̓���������p�^�[���t���ŕ\������B
+不等間隔格子２次元データの等高線を線パターン付きで表示する。
 
-����	Z, X, Y, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD �� CONTR2 �Ɠ����B
-�@	IPAT, KA �� CONTP1 �Ɠ����B
+引数	Z, X, Y, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD は CONTR2 と同じ。
+　	IPAT, KA は CONTP1 と同じ。
 
 
 CONTP3(Z,R,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPAT,KA)
-���p�x�Ԋu�~�`�Q�����f�[�^�̓���������p�^�[���t���ŕ\������B
+等角度間隔円形２次元データの等高線を線パターン付きで表示する。
 
-����	Z, R, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP �� CONTR3 �Ɠ����B
-�@	IPAT, KA �� CONTP1 �Ɠ����B
+引数	Z, R, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP は CONTR3 と同じ。
+　	IPAT, KA は CONTP1 と同じ。
 
 
 CONTP4(Z,R,T,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPAT,KA)
-�s���p�x�Ԋu��`�Q�����f�[�^�̓���������p�^�[���t���ŕ\������B
+不等角度間隔扇形２次元データの等高線を線パターン付きで表示する。
 
-����	Z, R, T, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP �� CONTR4 �Ɠ����B
-�@	IPAT, KA �� CONTP1 �Ɠ����B
+引数	Z, R, T, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP は CONTR4 と同じ。
+　	IPAT, KA は CONTP1 と同じ。
 
 
 CONTQ1(Z,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-���Ԋu�i�q�Q�����f�[�^�̓���������p�^�[���t���ŕ\������BCONTP1 �������ׂ����B
+等間隔格子２次元データの等高線を線パターン付きで表示する。CONTP1 よりもやや細かい。
 
-����	Z, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD �� CONTR1 �Ɠ����B
-	IPAT	[I]	���p�^�[���ԍ�	0:����  1:�_��  2:�j��  3:���j��  4:��_����
-					5:����_����  6:��_����  7:����_����  
-��Ɨ̈�
-	KA	[I(8,NXMAX,NYMAX)]	��Ɨp�����z��
+入力	Z, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD は CONTR1 と同じ。
+	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
+					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
+作業領域
+	KA	[I(8,NXMAX,NYMAX)]	作業用整数配列
 
 
 CONTQ2(Z,X,Y,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPRD,IPAT,KA)
-�s���Ԋu�i�q�Q�����f�[�^�̓���������p�^�[���t���ŕ\������BCONTP2 �������ׂ����B
+不等間隔格子２次元データの等高線を線パターン付きで表示する。CONTP2 よりもやや細かい。
 
-����	Z, X, Y, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD �� CONTR2 �Ɠ����B
-�@	IPAT, KA �� CONTQ1 �Ɠ����B
+引数	Z, X, Y, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP, IPRD は CONTR2 と同じ。
+　	IPAT, KA は CONTQ1 と同じ。
 
 
 CONTQ3(Z,R,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPAT,KA)
-���p�x�Ԋu�~�`�Q�����f�[�^�̓���������p�^�[���t���ŕ\������BCONTP3 �������ׂ����B
+等角度間隔円形２次元データの等高線を線パターン付きで表示する。CONTP3 よりもやや細かい。
 
-����	Z, R, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP �� CONTR3 �Ɠ����B
-�@	IPAT, KA �� CONTQ1 �Ɠ����B
+引数	Z, R, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP は CONTR3 と同じ。
+　	IPAT, KA は CONTQ1 と同じ。
 
 
 CONTQ4(Z,R,T,NXA,NXMAX,NYMAX,ZORG,ZSTEP,NSTEP,IPAT,KA)
-�s���p�x�Ԋu��`�Q�����f�[�^�̓���������p�^�[���t���ŕ\������BCONTP4 �������ׂ����B
+不等角度間隔扇形２次元データの等高線を線パターン付きで表示する。CONTP4 よりもやや細かい。
 
-����	Z, R, T, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP �� CONTR4 �Ɠ����B
-�@	IPAT, KA �� CONTQ1 �Ɠ����B
+引数	Z, R, T, NXA, NXMAX, NYMAX, ZORG, ZSTEP, NSTEP は CONTR4 と同じ。
+　	IPAT, KA は CONTQ1 と同じ。
 
 
 CONTPF(Z,X,Y,NNOD,IELM,NELM,ZORG,ZSTEP,NSTEP,IPAT,KA)
-�O�p�`�L���v�f��̂Q�����f�[�^�̓���������p�^�[���t���ŕ\������B
+三角形有限要素上の２次元データの等高線を線パターン付きで表示する。
 
-����	Z	[R(*)]	�ߓ_��̃f�[�^����Ȃ�P�����z��i�����͐ߓ_�ԍ��j
-	X	[R(*)]	�ߓ_�� x ���W�f�[�^����Ȃ�P�����z��i�����͐ߓ_�ԍ��j
-	Y	[R(*)]	�ߓ_�� y ���W�f�[�^����Ȃ�P�����z��i�����͐ߓ_�ԍ��j
-	NNOD	[I]	�S�ߓ_��
-	IELM	[I(3,*)]	�v�f�ɑ�����ߓ_�ԍ��i�����͗v�f�ԍ��j
-	NELM	[I]	�S�v�f��
-	ZORG, ZSTEP, NSTEP �� CONTR1 �Ɠ����B
-�@	IPAT �� CONTP1 �Ɠ����B
-��Ɨ̈�
-	KA	[I(2,NXMAX,NYMAX)]	��Ɨp�����z��
+入力	Z	[R(*)]	節点上のデータからなる１次元配列（引数は節点番号）
+	X	[R(*)]	節点の x 座標データからなる１次元配列（引数は節点番号）
+	Y	[R(*)]	節点の y 座標データからなる１次元配列（引数は節点番号）
+	NNOD	[I]	全節点数
+	IELM	[I(3,*)]	要素に属する節点番号（引数は要素番号）
+	NELM	[I]	全要素数
+	ZORG, ZSTEP, NSTEP は CONTR1 と同じ。
+　	IPAT は CONTP1 と同じ。
+作業領域
+	KA	[I(2,NXMAX,NYMAX)]	作業用整数配列
 
 
 PERSE1(Z,NXA,NXMAX,NYMAX,ZMIN,ZMAX,IXY,IND,XL,YL,ZL,A,B,C,D,E)
-���Ԋu�i�q�Q�����f�[�^�̂R�����\�����s���B
+等間隔格子２次元データの３次元表示を行う。
 
-����	Z	[R(NXA,*)]	�f�[�^�̂Q�����z��
-	NXA	[I]	�Q�����f�[�^�̑�P�Y���̏��
-	NXMAX	[I]	x �����̃f�[�^��
-	NYMAX	[I]	y �����̃f�[�^��
-	ZMIN	[R]	�\������f�[�^�̉���
-	ZMAX	[R]	�\������f�[�^�̏��
-	IXY	[I]	�f�[�^�\���@�̎w��	0	�������̂�
-					1	�� x ���̂�
-					2	�� y ���̂�
-					3	�� x, �� y �i�q
-	IND	[I]	�f�[�^�\���@�̎w��	IXY=0 �̏ꍇ	�������̖{��
-					IXY<>0 �̏ꍇ
-					   0	�B�������Ȃ�
-					   1	��������ʕ\���Ȃ�
-					   2	��������ʓ������̂�
-					   3	��������ʊi�q����
-	XL	[R]	x ���̒��� (cm)
-	YL	[R]	y ���̒��� (cm)
-	ZL	[R]	z ���̒��� (cm)
-	A	[R]	z �����̉�]�p
-	B	[R]	���_�Ɠ��e�ʂ̂Ȃ��p�i�ʏ� 0 �ł悢�j
-	C	[R]	z=0 �ʂƎ����̂Ȃ��p�i���ŏ������j
-	D	[R]	���_�Ɠ��e�ʂ̊Ԃ̋��� (cm) �i�ʏ� 0 �ł悢�j
-	E	[R]	���_�̓��e�ʂ���̋��� (cm)
+入力	Z	[R(NXA,*)]	データの２次元配列
+	NXA	[I]	２次元データの第１添字の上限
+	NXMAX	[I]	x 方向のデータ数
+	NYMAX	[I]	y 方向のデータ数
+	ZMIN	[R]	表示するデータの下限
+	ZMAX	[R]	表示するデータの上限
+	IXY	[I]	データ表示法の指定	0	等高線のみ
+					1	等 x 線のみ
+					2	等 y 線のみ
+					3	等 x, 等 y 格子
+	IND	[I]	データ表示法の指定	IXY=0 の場合	等高線の本数
+					IXY<>0 の場合
+					   0	隠線処理なし
+					   1	上限下限面表示なし
+					   2	上限下限面等高線のみ
+					   3	上限下限面格子あり
+	XL	[R]	x 軸の長さ (cm)
+	YL	[R]	y 軸の長さ (cm)
+	ZL	[R]	z 軸の長さ (cm)
+	A	[R]	z 軸回りの回転角
+	B	[R]	原点と投影面のなす角（通常 0 でよい）
+	C	[R]	z=0 面と視線のなす角（負で上方から）
+	D	[R]	原点と投影面の間の距離 (cm) （通常 0 でよい）
+	E	[R]	視点の投影面からの距離 (cm)
 
-�p�����[�^�̏ڍׂ́u�Ȑ��ƋȖʁv���Q�Ƃ̂��ƁB
-100�~100 �̔z��܂ŕ\���\�B
+パラメータの詳細は「曲線と曲面」を参照のこと。
+100×100 の配列まで表示可能。
 
 
 SPLN1D(X,F,FX,NX,XG,FG,NXG,IP)
-�P�����f�[�^�̃X�v���C����Ԃ��s���B
+１次元データのスプライン補間を行う。
 
-����	X	[R(*)]	���̓f�[�^�� x ���W�f�[�^�̂P�����z��
-	F	[R(*)]	���̓f�[�^�̂P�����z��
-	FX	[R(NX,3)]	��Ɨp�Q�����z��
-	NX	[I]	���̓f�[�^�� x �����̃f�[�^��
-	XG	[R(*)]	�o�̓f�[�^�� x ���W�f�[�^�̂P�����z��
-�o��	FG	[R(*)]	�o�̓f�[�^�̂P�����z��
-����	NXG	[I]	�o�̓f�[�^�� x �����̃f�[�^��
-	IP	[I]	���̓f�[�^(FX) �̎w��	�F/�x, �2F/�x2 �̋��E�l
-				0: ��`���Ȃ��i�����Ōv�Z�j
-				1: �F/�x ���`����inx=1,NX, ny=1�j
-				2: �2F/�x2 ���`����inx=1,NX, ny=1�j
+入力	X	[R(*)]	入力データの x 座標データの１次元配列
+	F	[R(*)]	入力データの１次元配列
+	FX	[R(NX,3)]	作業用２次元配列
+	NX	[I]	入力データの x 方向のデータ数
+	XG	[R(*)]	出力データの x 座標データの１次元配列
+出力	FG	[R(*)]	出力データの１次元配列
+入力	NXG	[I]	出力データの x 方向のデータ数
+	IP	[I]	入力データ(FX) の指定	ｶF/ｶx, ｶ2F/ｶx2 の境界値
+				0: 定義しない（内部で計算）
+				1: ｶF/ｶx を定義する（nx=1,NX, ny=1）
+				2: ｶ2F/ｶx2 を定義する（nx=1,NX, ny=1）
 
 
 SPLN2D(X,Y,F,FX,FY,FXY,A,NXA,NX,NY,XG,YG,FG,NXAG,NXG,NYG,IP)
-�Q�����f�[�^�̃X�v���C����Ԃ��s���B
+２次元データのスプライン補間を行う。
 
-����	X	[R(*)]	���̓f�[�^�� x ���W�f�[�^�̂P�����z��
-	Y	[R(*)]	���̓f�[�^�� y ���W�f�[�^�̂P�����z��
-	F	[R(NXA,*)]	���̓f�[�^�̂Q�����z��
-	FX	[R(NXA,*)]	dF/dx �̂Q�����z�� (��Ɨp�A�܂��� nx=1,NX ���`)
-	FY	[R(NXA,*)]	�F/�y �̂Q�����z�� (��Ɨp�A�܂��� ny=1,NY ���`)
-	FXY	[R(NXA,*)]	�2F/�x�y �̂Q�����z�� (��Ɨp�A�܂��͂S�����`)
-���	A	[R(4,MAX(NX,NY))]	��Ɨp�Q�����z��
-����	NXA	[I]	���͂Q�����f�[�^�̑�P�Y���̏��
-	NX	[I]	���̓f�[�^�� x �����̃f�[�^��
-	NY	[I]	���̓f�[�^�� y �����̃f�[�^��
-	XG	[R(*)]	�o�̓f�[�^�� x ���W�f�[�^�̂P�����z��
-	YG	[R(*)]	�o�̓f�[�^�� y ���W�f�[�^�̂P�����z��
-�o��	FG	[R(NXA,*)]	�o�̓f�[�^�̂Q�����z��
-����	NXAG	[I]	�o�͂Q�����f�[�^�̑�P�Y���̏��
-	NXG	[I]	�o�̓f�[�^�� x �����̃f�[�^��
-	NYG	[I]	�o�̓f�[�^�� y �����̃f�[�^��
-	IP	[I]	���̓f�[�^�̎w��	dF/dx, dF/dy, d2F/dxdy �̋��E�l
-				0: ��`���Ȃ��i�����Ōv�Z�j
-				1: ��`����i�l���w�肷��j
+入力	X	[R(*)]	入力データの x 座標データの１次元配列
+	Y	[R(*)]	入力データの y 座標データの１次元配列
+	F	[R(NXA,*)]	入力データの２次元配列
+	FX	[R(NXA,*)]	dF/dx の２次元配列 (作業用、または nx=1,NX を定義)
+	FY	[R(NXA,*)]	ｶF/ｶy の２次元配列 (作業用、または ny=1,NY を定義)
+	FXY	[R(NXA,*)]	ｶ2F/ｶxｶy の２次元配列 (作業用、または４隅を定義)
+作業	A	[R(4,MAX(NX,NY))]	作業用２次元配列
+入力	NXA	[I]	入力２次元データの第１添字の上限
+	NX	[I]	入力データの x 方向のデータ数
+	NY	[I]	入力データの y 方向のデータ数
+	XG	[R(*)]	出力データの x 座標データの１次元配列
+	YG	[R(*)]	出力データの y 座標データの１次元配列
+出力	FG	[R(NXA,*)]	出力データの２次元配列
+入力	NXAG	[I]	出力２次元データの第１添字の上限
+	NXG	[I]	出力データの x 方向のデータ数
+	NYG	[I]	出力データの y 方向のデータ数
+	IP	[I]	入力データの指定	dF/dx, dF/dy, d2F/dxdy の境界値
+				0: 定義しない（内部で計算）
+				1: 定義する（値を指定する）
 
 -------------------------------------------
-GSAF �̃}�C�i�[�o�[�W�����A�b�v  1993/05/15  �i1993/08/07 �ǉ��j
+GSAF のマイナーバージョンアップ  1993/05/15  （1993/08/07 追加）
 -------------------------------------------
-GSAF �̋@�\������s�����B
-  �EX window �g�p���̉�ʑI�𓙂����ϐ��Ŏw��\�Ƃ����B
-  �E�O���t�B�b�N�f�[�^���o�͂���R�}���h�̋@�\����Ɠ��ꉻ���s�Ȃ����B
-  �E�O���t�B�b�N�f�[�^���o�͂��郋�[�`���̎d�l�ύX����ђǉ����s�Ȃ����B
-  �E�����o�̓��[�`���ɂ�����G�X�P�[�v�����̎d�l��ύX�����B
+GSAF の機能向上を行った。
+  ・X window 使用時の画面選択等を環境変数で指定可能とした。
+  ・グラフィックデータを出力するコマンドの機能向上と統一化を行なった。
+  ・グラフィックデータを出力するルーチンの仕様変更および追加を行なった。
+  ・文字出力ルーチンにおけるエスケープ文字の仕様を変更した。
 
-X window ���̎g�p�J�n���ɗv��������ʑI������уI�v�V�����̐ݒ����
-���ϐ� GSGDP �Ŏw�肷�邱�Ƃ��ł���悤�ɂȂ����B�Ⴆ��
+X window 等の使用開始時に要求される画面選択およびオプションの設定を環
+境変数 GSGDP で指定することができるようになった。例えば
       GSGDP=5c; export GSGDP
-�Ɛݒ肵�Ă����ƁA
-      ��ʃT�C�Y 760�~564�A�w�i���F
-      �I�v�V�����̐ݒ�͂��Ȃ�
-�Ƃ��āA�₢���킹���ȗ������B
+と設定しておくと、
+      画面サイズ 760×564、背景白色
+      オプションの設定はしない
+として、問い合わせが省略される。
 
-�O���t�B�b�N�f�[�^���o�͂���R�}���h
-      gsview  : X window ���ɏo��
-      gsprint : �v�����^�ɏo��
-      gstops  : �|�X�g�X�N���v�g�f�[�^�ɕϊ�
-�̋@�\�����コ���A�d�l�𓝈ꂵ���B�R�}���h�̈����͂قڋ��ʂ�
+グラフィックデータを出力するコマンド
+      gsview  : X window 等に出力
+      gsprint : プリンタに出力
+      gstops  : ポストスクリプトデータに変換
+の機能を向上させ、仕様を統一した。コマンドの引数はほぼ共通で
     gsview [-a] [-s ps] [-e pe] [-p np] [-t] [filename]
-          -a       : ���ׂĂ̕ł��o�͂���B�igsprint �̊���l�j
-          -s ps    : ps �ł���o�͂����B�ȗ��l 1�B  
-          -e pe    : pe �ł܂ŏo�͂����B�ȗ��l 999�B
-          -p np    : �A������ np �ł��P���ɂ܂Ƃ߂ďo�͂���B�ȗ��l 1�B
-          -t       : �e�ł̌��̃^�C�g�����o�͂���B
-          -b       : �^�C�g�����o�͂��Ȃ��B
-          -r       : �}��90�x��]������B�igstops �̂ݗL���j
-          filename : �o�͂���t�@�C�����B�ȗ����͖₢���킹����B
-gsview, gstops �̏ꍇ�ɂ́A-a, -s, -e �̃I�v�V�������w�肵�Ȃ���΁A��
-�b�I�ɕł��w�肷�郂�[�h�ɓ���Bgsprint �̏ꍇ�͂��炩���� -a ���ݒ肳
-��Ă���̂ŁA�Θb���[�h�ɓ��邱�Ƃ͂ł��Ȃ��B�܂� -t ���w�肵�āA-p 2 
-���邢�� -p [5678] �Ƃ����ꍇ�ɂ́A�^�C�g�����o�͂��邽�߂ɑS�̂��T��
-�k�������B
+          -a       : すべての頁を出力する。（gsprint の既定値）
+          -s ps    : ps 頁から出力される。省略値 1。  
+          -e pe    : pe 頁まで出力される。省略値 999。
+          -p np    : 連続する np 頁を１枚にまとめて出力する。省略値 1。
+          -t       : 各頁の元のタイトルを出力する。
+          -b       : タイトルを出力しない。
+          -r       : 図を90度回転させる。（gstops のみ有効）
+          filename : 出力するファイル名。省略時は問い合わせられる。
+gsview, gstops の場合には、-a, -s, -e のオプションを指定しなければ、対
+話的に頁を指定するモードに入る。gsprint の場合はあらかじめ -a が設定さ
+れているので、対話モードに入ることはできない。また -t を指定して、-p 2 
+あるいは -p [5678] とした場合には、タイトルを出力するために全体が５％
+縮小される。
 
-�O���t�B�b�N�f�[�^�̏o�͎��Ɏg�p�����T�u���[�`�� PGREAD �̎d�l���ύX
-����A�V���ɃT�u���[�`�� PGCOMB, PGRLOC, GSSHOW ���ǉ����ꂽ�B�}�j���A
-���̉���ł��ł���܂ł́A�ڍׂ�/users/ftp/dist/gsaf �ɂ���\�[�X�v��
-�O���� fio.f ���Q�Ƃ��ꂽ���B
+グラフィックデータの出力時に使用されるサブルーチン PGREAD の仕様が変更
+され、新たにサブルーチン PGCOMB, PGRLOC, GSSHOW が追加された。マニュア
+ルの改定版ができるまでは、詳細は/users/ftp/dist/gsaf にあるソースプロ
+グラム fio.f を参照されたい。
 
-�����o�̓��[�`�� TEXT �ɂ����āA��t�Y���A���t�Y���A�d�ˑł��̎w�����
-�邽�߂̃G�X�P�[�v������ "\" �ł��������A"\" �𕶎���Ɋ܂ނ��Ƃ��ł�
-�Ȃ� Fortran �����n�����邽�߁A"$" ���G�X�P�[�v�����Ƃ��ĔF������悤
-�ɕύX�����B�Q�̕����̋@�\�͑S�������ł���B�݊����̓_���獡��� "$" 
-���g�p���邱�Ƃ��]�܂����B�܂��A�P�����̏o�͂̏ꍇ�̓G�X�P�[�v�����̉�
-�߂����Ȃ��悤�ɕύX�����B
+文字出力ルーチン TEXT において、上付添字、下付添字、重ね打ちの指定をす
+るためのエスケープ文字は "\" であったが、"\" を文字列に含むことができ
+ない Fortran 処理系があるため、"$" もエスケープ文字として認識するよう
+に変更した。２つの文字の機能は全く同じである。互換性の点から今後は "$" 
+を使用することが望ましい。また、１文字の出力の場合はエスケープ文字の解
+釈をしないように変更した。
 
 -------------------------------
-GSAF V3.1 beta �̌��J  94/05/22             94/06/04, 00/02/28, 
-                                            07/11/10 ����
+GSAF V3.1 beta の公開  94/05/22             94/06/04, 00/02/28, 
+                                            07/11/10 改訂
 -------------------------------
 
-�O���t�B�b�N���C�u���� GSAF ���@�\�ǉ��� V3.1 beta �ɍX�V�����D
+グラフィックライブラリ GSAF を機能追加版 V3.1 beta に更新した．
 
-�ǉ����ꂽ�@�\�́C
-�@�@�����Q�\���@�\     LINES(X,Y,N)
-�@�@�����Q�\���@�\   LINESC(X,Y,N)
-�@�@���p�`�ʓh��@�\   POLY(X,Y,N)
-�@�@���F�ݒ�@�\       SETRGB(R,G,B)
-�@�@�����ݒ�@�\       SETLNW(W)
-�@�@���F�⍇���@�\     INQRGB(R,G,B)
-�@�@�����⍇���@�\     INQLNW(W)
+追加された機能は，
+　　線分群表示機能     LINES(X,Y,N)
+　　閉線分群表示機能   LINESC(X,Y,N)
+　　多角形面塗り機能   POLY(X,Y,N)
+　　多色設定機能       SETRGB(R,G,B)
+　　線幅設定機能       SETLNW(W)
+　　多色問合せ機能     INQRGB(R,G,B)
+　　線幅問合せ機能     INQLNW(W)
     
-   �R�}���h gstops �ɃJ���[�@�\�I�v�V���� -c 
+   コマンド gstops にカラー機能オプション -c 
 
-LINES, LINESC, POLY �̈����͂������
-    X(N) : ���_�� x ���W��\�������z��
-    Y(N) : ���_�� y ���W��\�������z��
-    N    : ���_�̌� (<=256)
+LINES, LINESC, POLY の引数はいずれも
+    X(N) : 頂点の x 座標を表す実数配列
+    Y(N) : 頂点の y 座標を表す実数配列
+    N    : 頂点の個数 (<=256)
 
-    POLY �� LINESC �̏ꍇ�C�ŏ��̒��_�ƍŌ�̒��_����v���Ȃ��ƁC�����I
-    �ɕ���ӂ��ǉ������DPOLY �͑��p�`�̓��������łȂ��C�ӂ��h���
-    ���̂ŁC�ӂ̐F��ς���ꍇ�� POLY �̌�� LINES ���Ăяo�����ƁD
-    SETCLP �ɂ��N���b�s���O���\�ɂ��Ă��邪�C�\���ɂ̓`�F�b�N�����
-    ���Ȃ��D
+    POLY と LINESC の場合，最初の頂点と最後の頂点が一致しないと，自動的
+    に閉じる辺が追加される．POLY は多角形の内部だけでなく，辺も塗りつぶ
+    すので，辺の色を変える場合は POLY の後に LINES を呼び出すこと．
+    SETCLP によるクリッピングを可能にしているが，十分にはチェックされて
+    いない．
 
-SETRGB �̈��� R, G, B �� ��, ��, �� �̔䗦�� 0 ���� 1 �͈̔͂̎����Ŏw
-�肷��D�ʏ�� 256 �F�w-window �ł͈��ʂɏo�͂ł���F���� 200 �F���x
-�Ɍ�����D
+SETRGB の引数 R, G, B は 赤, 緑, 青 の比率を 0 から 1 の範囲の実数で指
+定する．通常の 256 色Ｘ-window では一画面に出力できる色数が 200 色程度
+に限られる．
 
-SETLNW �̈��� W �ɂ͐��̕��� cm �P�ʂŎw�肷��DLASER SHOT �ɏo�͂���
-�ꍇ�͖� 0.01, 0.03, 0.05, 0.07 cm �̐��������o�͂ł��Ȃ��D�����Ƃ��� 
-0.0 ���w�肵���ꍇ�́C�ł����������ōł������ɍ�}�����D�]���� 
-SETLIN �ł́C���������͂��邽��X-window �\�����ɂ͐����͖�������Ă���
-���CSETLNW �͏�ɗL���ƂȂ�D
+SETLNW の引数 W には線の幅を cm 単位で指定する．LASER SHOT に出力する
+場合は約 0.01, 0.03, 0.05, 0.07 cm の線幅しか出力できない．線幅として 
+0.0 を指定した場合は，最も狭い線幅で最も高速に作図される．従来の 
+SETLIN では，高速化をはかるためX-window 表示時には線幅は無視されていた
+が，SETLNW は常に有効となる．
 
-INQRGB �ɂ���ĕԂ��ꂽ�l�� R < 0 �ƂȂ�̂́CSETLIN �ɂ��w�肪�L��
-�ȏꍇ�ł���D
+INQRGB によって返された値が R < 0 となるのは，SETLIN による指定が有効
+な場合である．
 
-INQLNW �ɂ���ĕԂ��ꂽ�l�����ƂȂ�̂́CSETLIN �ɂ��w�肪�L���ȏꍇ
-�ł���D
+INQLNW によって返された値が負となるのは，SETLIN による指定が有効な場合
+である．
 
-�܂� SETRGB �� R < 0 ���w�肷��ƁCSETLIN �ɂ���ĈȑO��
-�w�肵���l���L���ɂȂ�DSETLNW �ɂ����� W < 0 �̏ꍇ�����l�D
+また SETRGB で R < 0 を指定すると，SETLIN によって以前に
+指定した値が有効になる．SETLNW において W < 0 の場合も同様．
 
-�o�͋@��Ƃ��Ă� X-window, Postscript ���T�|�[�g����Ă���D
+出力機器としては X-window, Postscript がサポートされている．
 
 -----------------------------------
-GSAF V3.1 beta �̒ǉ��@�\  94/06/02               ���� 94/06/04
+GSAF V3.1 beta の追加機能  94/06/02               改訂 94/06/04
 -----------------------------------
 
-�O���t�B�b�N���C�u���� GSAF �@�\�ǉ��� V3.1 beta �ɐF�h�蓙�����}����
-�щϐ��퓙�����}��ǉ������D
+グラフィックライブラリ GSAF 機能追加版 V3.1 beta に色塗り等高線図およ
+び可変線種等高線図を追加した．
 
-�ǉ����ꂽ�@�\�́C�F�h�蓙�����}�Ƃ���
+追加された機能は，色塗り等高線図として
 
-�@�@�������W���Ԋu     CONTF1(Z,NXA,NXMAX,NYMAX,
+　　直交座標等間隔     CONTF1(Z,NXA,NXMAX,NYMAX,
                               ZL,RGB,NSTEP,IPRD)
-�@�@�������W�s���Ԋu   CONTF2(Z,X,Y,NXA,NXMAX,NYMAX,
+　　直交座標不等間隔   CONTF2(Z,X,Y,NXA,NXMAX,NYMAX,
                               ZL,RGB,NSTEP,IPRD)
-�@�@�ɍ��W���p�x�Ԋu   CONTF3(Z,R,NXA,NXMAX,NYMAX,
+　　極座標等角度間隔   CONTF3(Z,R,NXA,NXMAX,NYMAX,
                               ZL,RGB,NSTEP)
-�@�@�ɍ��W�s���p�x�Ԋu CONTF4(Z,R,T,NXA,NXMAX,NYMAX,
+　　極座標不等角度間隔 CONTF4(Z,R,T,NXA,NXMAX,NYMAX,
                               ZL,RGB,NSTEP)
 
-�@�@    ������  ZL(NSTEP)       �����������w��z��
-                RGB(3,0:NSTEP)  �F�w��z��
-                NSTEP           �������{��
-�@�@�@�@�@�@�@�@IPRD            �������w��
+　　    引数は  ZL(NSTEP)       等高線高さ指定配列
+                RGB(3,0:NSTEP)  色指定配列
+                NSTEP           等高線本数
+　　　　　　　　IPRD            周期性指定
 
-        ZL(NSTEP) �ɂ͐F�̋��E�ƂȂ铙�����̍������w�肷��D
-�@�@�@�@RGB(3,N) �ɂ́CN �Ԗڂ̍����ɓh��F���C
+        ZL(NSTEP) には色の境界となる等高線の高さを指定する．
+　　　　RGB(3,N) には，N 番目の高さに塗る色を，
               RGB(1,N) = red
               RGB(2,N) = green
               RGB(3,N) = blue
-    �@�@�Ŏw�肷��Dred, green, blue �͂������ 0 �� 1 �̊Ԃ̒P���x�����D
-      �@�@�@�@N=0     ��             Z < ZL(1)
-              N=1�@�@ �� ZL(1)     < Z < ZL(2)
-              N=NSTEP �� ZL(NSTEP) < Z          �ɓh����D
+    　　で指定する．red, green, blue はいずれも 0 と 1 の間の単精度実数．
+      　　　　N=0     は             Z < ZL(1)
+              N=1　　 は ZL(1)     < Z < ZL(2)
+              N=NSTEP は ZL(NSTEP) < Z          に塗られる．
 
 
-�ϐ��퓙�����}�Ƃ���
+可変線種等高線図として
 
-�@�@�������W���Ԋu     CONTG1(Z,NXA,NXMAX,NYMAX,
+　　直交座標等間隔     CONTG1(Z,NXA,NXMAX,NYMAX,
                               ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
-�@�@�������W�s���Ԋu   CONTG2(Z,X,Y,NXA,NXMAX,NYMAX,
+　　直交座標不等間隔   CONTG2(Z,X,Y,NXA,NXMAX,NYMAX,
                               ZL,RGB,ILN,WLN,NSTEP,ISPL,IPRD,KA)
-�@�@�ɍ��W���p�x�Ԋu   CONTG3(Z,R,NXA,NXMAX,NYMAX,
+　　極座標等角度間隔   CONTG3(Z,R,NXA,NXMAX,NYMAX,
                               ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
-�@�@�ɍ��W�s���p�x�Ԋu CONTG4(Z,R,T,NXA,NXMAX,NYMAX,
+　　極座標不等角度間隔 CONTG4(Z,R,T,NXA,NXMAX,NYMAX,
                               ZL,RGB,ILN,WLN,NSTEP,ISPL,KA)
 
-�@�@    ������  ZL(NSTEP)       �@�����������w��z��
-                RGB(3,NSTEP)    �@�F�w��z��
-                ILN(NSTEP)      �@����w��z�� (0..7)
-                WLN(NSTEP)      �@�����w��z��icm �P�ʁj
-                NSTEP           �@�������{��
-�@�@�@�@�@�@�@�@IPRD            �@�������w��
-�@�@�@�@�@�@�@�@ISPL            �@�X�v���C��������
-                KA(2,NXMAX,NYMAX) ��Ɨp�z��
+　　    引数は  ZL(NSTEP)       　等高線高さ指定配列
+                RGB(3,NSTEP)    　色指定配列
+                ILN(NSTEP)      　線種指定配列 (0..7)
+                WLN(NSTEP)      　線幅指定配列（cm 単位）
+                NSTEP           　等高線本数
+　　　　　　　　IPRD            　周期性指定
+　　　　　　　　ISPL            　スプライン平滑化
+                KA(2,NXMAX,NYMAX) 作業用配列
 
-        ZL(N) �ɂ͐F�̋��E�ƂȂ铙�����̍������w�肷��D
-�@�@�@�@RGB(3,N) �ɂ́CN �Ԗڂ̓������̐F���C
+        ZL(N) には色の境界となる等高線の高さを指定する．
+　　　　RGB(3,N) には，N 番目の等高線の色を，
               RGB(1,N) = red
               RGB(2,N) = green
               RGB(3,N) = blue
-    �@�@�Ŏw�肷��Dred, green, blue �͂������ 0 �� 1 �̊Ԃ̒P���x�����D
-        ILN(N) �ɂ� N �Ԗڂ̓������̐�����w�肷��D
-�@�@�@�@�@�@�@(0:����, 1:�_��, 2:�Z�g��...7:����_�����j
-        WLN(N) �ɂ� N �Ԗڂ̓������̐�����w�肷��Dcm �P��
-�@�@�@�@ISPL = 0 : �X�v���C�������������D
-               1 : ���������Ȃ��ꍇ�Ɠ����ߓ_���ŕ������D
-               M : ���������Ȃ��ꍇ�� M �{�̐ߓ_���ŕ������D
+    　　で指定する．red, green, blue はいずれも 0 と 1 の間の単精度実数．
+        ILN(N) には N 番目の等高線の線種を指定する．
+　　　　　　　(0:実数, 1:点線, 2:短波線...7:長二点鎖線）
+        WLN(N) には N 番目の等高線の線種を指定する．cm 単位
+　　　　ISPL = 0 : スプライン平滑化せず．
+               1 : 平滑化しない場合と同じ節点数で平滑化．
+               M : 平滑化しない場合の M 倍の節点数で平滑化．
 
 -----------------------------------
-GSAF V3.1 beta �̒ǉ��@�\  94/06/05
+GSAF V3.1 beta の追加機能  94/06/05
 -----------------------------------
 
-�O���t�B�b�N���C�u���� GSAF �@�\�ǉ��� V3.1 beta �ɊȈՌ^�������}���
-�������D�F�h�蓙�����}�Ɠ��l�ɍ����w��z�� ZL(NSTEP) ��p���Ă��邪�C
-����ȊO�̈����͏]���� CONTP/Q �Ɠ����ł���D��������Ɨp�����z�� KA 
-�̑傫���� (2,NXMAX,NYMAX) �ł悢�D
+グラフィックライブラリ GSAF 機能追加版 V3.1 beta に簡易型等高線図を追
+加した．色塗り等高線図と同様に高さ指定配列 ZL(NSTEP) を用いているが，
+それ以外の引数は従来の CONTP/Q と同じである．ただし作業用整数配列 KA 
+の大きさは (2,NXMAX,NYMAX) でよい．
 
-      �������W���Ԋu     CONTE1(Z,NXA,NXMAX,NYMAX,ZL,NSTEP,IPRD,IPAT,KA)
-      �������W�s���Ԋu   CONTE2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,IPRD,KA)
-      �ɍ��W���p�x�Ԋu   CONTE3(Z,R,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
-      �ɍ��W�s���p�x�Ԋu CONTE4(Z,R,T,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
-
-
-�Ȃ��C�F�h�蓙�����}�̖}��Ƃ��邽�߂̑ь^�p���b�g���쐬����T�u���[�`
-�����ǉ�����Ă���D
-
-�@�@�@�p���b�g�\���@�\   RGBBND(X1,X2,Y1,Y2,RGB,N,IND)
-
-�@�@�@�@(x1,y1)-(x2,y2) �̒����`���� RGB(3,N) �Ɏw�肳�ꂽ�F��тŕ\������D
-�@�@�@�@N �͐F���CIND=0 �͉������ɐF�����CIND=1 �͏c�����ɐF�������w��D
+      直交座標等間隔     CONTE1(Z,NXA,NXMAX,NYMAX,ZL,NSTEP,IPRD,IPAT,KA)
+      直交座標不等間隔   CONTE2(Z,X,Y,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,IPRD,KA)
+      極座標等角度間隔   CONTE3(Z,R,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
+      極座標不等角度間隔 CONTE4(Z,R,T,NXA,NXMAX,NYMAX,ZL,NSTEP,IPAT,KA)
 
 
-�d�l�͕ύX�����ꍇ������D
+なお，色塗り等高線図の凡例とするための帯型パレットを作成するサブルーチ
+ンも追加されている．
+
+　　　パレット表示機能   RGBBND(X1,X2,Y1,Y2,RGB,N,IND)
+
+　　　　(x1,y1)-(x2,y2) の長方形内に RGB(3,N) に指定された色を帯で表示する．
+　　　　N は色数，IND=0 は横方向に色分け，IND=1 は縦方向に色分けを指定．
 
 
-�Q�l�v���O����
+仕様は変更される場合がある．
+
+
+参考プログラム
 
       COMMON /CMCONT/ A(41,41),KA(8,41,41) 
       DIMENSION RGB(3,11),ZL(10),RGBL(3,10),ILN(10),WLN(10)
@@ -2179,85 +2179,85 @@ C
 GSAF V3.3  98/03/21 (updated 00/02/14)
 -------------------
 
-�_�~�[���C�u���� libgdum ���쐬�����D
-�@�}�`�f�[�^�t�@�C���݂̂��쐬����ꍇ�ɂ́C
-  libgdp.sl �̑���� libgdum.sl �������N����D
-  ���Ȃ킿�C�����N���� -lgdp �ł͂Ȃ� -lgdum ���w�肷��D
-  �P�ƃR���p�C���̏ꍇ�ɂ� f77g �ł͂Ȃ��Cf77gdum ���g�p����΂悢�C
+ダミーライブラリ libgdum を作成した．
+　図形データファイルのみを作成する場合には，
+  libgdp.sl の代わりに libgdum.sl をリンクする．
+  すなわち，リンク時に -lgdp ではなく -lgdum を指定する．
+  単独コンパイルの場合には f77g ではなく，f77gdum を使用すればよい，
 
-�v���O����������}�`�f�[�^�t�@�C���ւ̕ۑ��𐧌䂷��T�u���[�`�����쐬�����D
-  GSFOPN(FILENAME,IND)     �}�`�f�[�^�t�@�C���̎w��
-                             FILENAME �̓t�@�C������\��������
-                           �@�t�@�C��������ɍ쐬�ł����ꍇ�� IND=0 ��Ԃ�
-  GSFCLS                   �}�`�f�[�^�t�@�C���̐ڑ�����
-  GSFON                    �}�`�f�[�^�t�@�C���ւ̊i�[�J�n
-  GSFOFF                   �}�`�f�[�^�t�@�C���ւ̊i�[��~
+プログラム内から図形データファイルへの保存を制御するサブルーチンを作成した．
+  GSFOPN(FILENAME,IND)     図形データファイルの指定
+                             FILENAME はファイル名を表す文字列
+                           　ファイルが正常に作成できた場合は IND=0 を返す
+  GSFCLS                   図形データファイルの接続解除
+  GSFON                    図形データファイルへの格納開始
+  GSFOFF                   図形データファイルへの格納停止
 
-  GSTOPN                   �ꎞ�}�`�f�[�^�t�@�C���̎w��
-  GSTCLS                   �ꎞ�}�`�f�[�^�t�@�C���̐ڑ�����
-  GSTON                    �ꎞ�}�`�f�[�^�t�@�C���ւ̊i�[�J�n
-  GSTOFF                   �ꎞ�}�`�f�[�^�t�@�C���ւ̊i�[��~
+  GSTOPN                   一時図形データファイルの指定
+  GSTCLS                   一時図形データファイルの接続解除
+  GSTON                    一時図形データファイルへの格納開始
+  GSTOFF                   一時図形データファイルへの格納停止
 
-  GSCODE(NFCSN,NFCTN)      �}�`�f�[�^�t�@�C�����u�ԍ��̕ύX
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�W���l: NFCSN=51, NFCTN=50
+  GSCODE(NFCSN,NFCTN)      図形データファイル装置番号の変更
+　　　　　　　　　　　　　　　標準値: NFCSN=51, NFCTN=50
 
-�@�����̃T�u���[�`���͍�}���i GSPAGS �� GSPAGE �̊ԁj�͖��������D
+　これらのサブルーチンは作図中（ GSPAGS と GSPAGE の間）は無視される．
 
-�P�ŕ`��I�����F�f�B�X�v���C�̏ꍇ�ɂ̓x������A�P�������͑҂��ƂȂ�B������
-	C �܂��� CR����͂����	���������s�����B
-	K ����͂����		���������s����A���� PAGES �����s�����Ƃ��ɉ�ʂ�����				���ꂸ�A�d�ˏ����ƂȂ�B
-	D ����͂����		WS �̏ꍇ�A��ʂ̃r�b�g�}�b�v�t�@�C�����쐬����A�ʃE
-				�B���h�E�ɕ\�������B
-	O ����͂����		�I�v�V�����ݒ���J�n����B
-	F ����͂����		�}�`�f�[�^�t�@�C���̎w�肨��ъi�[�J�n
-	X ����͂����		�}�`�f�[�^�t�@�C���ւ̊i�[�J�n�^��~�؂�ւ�
-	S ����͂����		���̉�ʂ̃f�[�^��ۑ��D�t�@�C�����w��Ȃ�Ζ₢���킹
-	Y ����͂����		�t�@�C���i�[�w�莞�ɂ́A���̉�ʂ̃f�[�^��ۑ�����B
-	N ����͂����		�t�@�C���i�[�w�莞�ł��A���̉�ʂ̃f�[�^��ۑ����Ȃ��B
-	H ����͂����		���͉\������\������B
-	B ����͂����		�`��I�����̃x������ ON/OFF �؂�ւ�
-	Q ����͂����		�m�F�̏�A�v���O�������I������B
-�����ĕ����\����ʂɐ؂�ւ��B
+１頁描画終了時：ディスプレイの場合にはベルが鳴り、１文字入力待ちとなる。ここで
+	C または CRを入力すると	処理が続行される。
+	K を入力すると		処理が続行され、次に PAGES を実行したときに画面が消去				されず、重ね書きとなる。
+	D を入力すると		WS の場合、画面のビットマップファイルが作成され、別ウ
+				ィンドウに表示される。
+	O を入力すると		オプション設定を開始する。
+	F を入力すると		図形データファイルの指定および格納開始
+	X を入力すると		図形データファイルへの格納開始／停止切り替え
+	S を入力すると		その画面のデータを保存．ファイル未指定ならば問い合わせ
+	Y を入力すると		ファイル格納指定時には、その画面のデータを保存する。
+	N を入力すると		ファイル格納指定時でも、その画面のデータを保存しない。
+	H を入力すると		入力可能文字を表示する。
+	B を入力すると		描画終了時のベル音の ON/OFF 切り替え
+	Q を入力すると		確認の上、プログラムが終了する。
+そして文字表示画面に切り替わる。
 
 
 --------------------
 GSAF V3.52  99/07/29
 --------------------
 
-�t�@�C���E�f�B���N�g���\����ύX�����D
-�@�@�@�@�@�@�@arch, doc, src �̊e�f�B���N�g�����쐬
-�@�@�@�@�@�@�@install ��Ƃ� src �f�B���N�g���ōs��
-�@�@�@�@�@�@�@Makefile �̍쐬���@��ύX
+ファイル・ディレクトリ構成を変更した．
+　　　　　　　arch, doc, src の各ディレクトリを作成
+　　　　　　　install 作業は src ディレクトリで行う
+　　　　　　　Makefile の作成方法を変更
 
-gstops ��  PostScript File �쐬�R�}���h
-�@�@�@�@�@ �@ �S�̂��P�̃t�@�C��
-�@�@�@�@�@�@�@���̂܂܂Ńv�����^�o�͉\
+gstops は  PostScript File 作成コマンド
+　　　　　 　 全体が１つのファイル
+　　　　　　　そのままでプリンタ出力可能
 
-gstoeps �� Encapsulated PostScript File �쐬�R�}���h
-�@�@�@�@�@�@�@�e�Ŗ��ɂP�̃t�@�C��
-�@�@�@�@�@�@�@showpage �R�}���h��t�����Ȃ��ƃv�����^�o�͂���Ȃ�
+gstoeps は Encapsulated PostScript File 作成コマンド
+　　　　　　　各頁毎に１つのファイル
+　　　　　　　showpage コマンドを付加しないとプリンタ出力されない
 
-��ʕ\���ɂ�����w�i�F�𔒂ɌŒ�D
-��ʕ\���ɂ�����𑜓x�̎�ނ𑝉� (512,640,768,896,1024,1280)
+画面表示における背景色を白に固定．
+画面表示における解像度の種類を増加 (512,640,768,896,1024,1280)
 
-�����f�[�^�̃O���[�v�����s�����߂̃��[�`����ǉ�
-     GUGRPS  �O���[�v���J�n
-     GUGRPE  �O���[�v���I��
-     �iGPLOTP, LINES, GSCALE, GSCALL, GVECTR, TEXT ���[�`�����Ŏg�p�j
+線分データのグループ化を行うためのルーチンを追加
+     GUGRPS  グループ化開始
+     GUGRPE  グループ化終了
+     （GPLOTP, LINES, GSCALE, GSCALL, GVECTR, TEXT ルーチン等で使用）
 
-�ׂ���\�����s����悤�� GNUMBD/R ���g��
-�@�@�����w��q IND:  >0�@�Œ菬���_�\��
-�@�@�@�@�@�@�@�@�@�@ =0�@�����\��
-�@�@�@�@�@�@�@�@�@�@ <0�@���������_�\�� (1.234E03)
-�@�@�@�@�@�@�@�@  <-100  �ׂ���\��(1.234x10^3)
-�@�@GVALUE ���ł��w��\
+べき乗表示を行えるように GNUMBD/R を拡張
+　　桁数指定子 IND:  >0　固定小数点表示
+　　　　　　　　　　 =0　整数表示
+　　　　　　　　　　 <0　浮動小数点表示 (1.234E03)
+　　　　　　　　  <-100  べき乗表示(1.234x10^3)
+　　GVALUE 等でも指定可能
 
-�{���x����P���x�ւ̕ϊ����s���֐� GUCLIP(DATA) ��ǉ�
-�O���t���������l�̍œK�����s���֐� NGULEN(GSTEP) ��ǉ�
+倍精度から単精度への変換を行う関数 GUCLIP(DATA) を追加
+グラフメモリ数値の最適化を行う関数 NGULEN(GSTEP) を追加
 
-�x�N�g���t�H���g���g�������D(IFNT>=32 �͈���� Postscript font ���g�p�j
-   SETFNT(IFNT)   IFNT=0  �]���̃\�t�g�E�F�A�����i�W���j
-                       1  �]���̃n�[�h�E�F�A�����i����� Courier�j
+ベクトルフォントを拡張した．(IFNT>=32 は印刷時 Postscript font を使用）
+   SETFNT(IFNT)   IFNT=0  従来のソフトウェア文字（標準）
+                       1  従来のハードウェア文字（印刷時 Courier）
 
                        2  Roman
                        3  Roman Italic
@@ -2292,24 +2292,24 @@ gstoeps �� Encapsulated PostScript File �쐬�R�}���h
 		      43  Courier-BoldOblique
 		      44  Symbol
 
-TEXT �T�u���[�`���ɗ^���镶����̎d�l���g�������D
-     $+   ��t�Y���J�n
-     $-   ���t�Y���J�n
-     $=   �Y���I��
+TEXT サブルーチンに与える文字列の仕様を拡張した．
+     $+   上付添字開始
+     $-   下付添字開始
+     $=   添字終了
 
-     $0..$9   �t�H���g�ύX
-           IFNT < 32 �̏ꍇ�F$0..$9 �� IFNT=0..9 �ɑΉ�
-�@�@�@�@�@ IFNT >=32 �̏ꍇ�F$0..$9 �� IFNT=0,1,32..39 �ɑΉ�
-     $#   �M���V�������Ƀt�H���g�ύX
-�@�@�@�@�@�t�H���g�ύX����Ă���ꍇ�ɂ͌��̃t�H���g�ɕ��A
+     $0..$9   フォント変更
+           IFNT < 32 の場合：$0..$9 が IFNT=0..9 に対応
+　　　　　 IFNT >=32 の場合：$0..$9 が IFNT=0,1,32..39 に対応
+     $#   ギリシャ文字にフォント変更
+　　　　　フォント変更されている場合には元のフォントに復帰
 
-     $,   1/6 �������ړ�
-     $;   2/9 �������ړ�
-     $!   -1/6 �������ړ�
-     $?   -2/9 �������ړ�
+     $,   1/6 文字幅移動
+     $;   2/9 文字幅移動
+     $!   -1/6 文字幅移動
+     $?   -2/9 文字幅移動
 
-     $/### postscript �o�͂ɂ�����W�i�\���i### �͂W�i�\���̂R�����j
-     $$   ���� $ �̏o��
+     $/### postscript 出力における８進表現（### は８進表現の３文字）
+     $$   文字 $ の出力
 
 CONTENTS: V3.63, V3.65, V3.66
 
@@ -2317,417 +2317,417 @@ CONTENTS: V3.63, V3.65, V3.66
 GSAF V3.63  00/02/14   Updated 00/02/28
 --------------------
 
-2�����f�[�^��3�����\�����邽�߂̃T�u���[�`���Q��ǉ�
+2次元データを3次元表示するためのサブルーチン群を追加
 
-3�����\��������ɂ́C�܂��͂��߂� GDEFIN3D,GVIEW3D,GDATA3Dn (n=1,2...)
-���ĂԕK�v������D���̌�O���t��\������T�u���[�`�� 
-( CPLOT3D1,PERSE3D,etc...) ���ĂсC�Ō�ɖڐ���y�ѐ��l���L������
-�T�u���[�`�����ĂԁD( g3dtest.f���Q�ƁD) ��{�I�ɂ͌ォ��Ă΂ꂽ
-�T�u���[�`���͏㏑�������Ă����̂ŁC�T�u���[�`�����Ăԏ��Ԃɂ͒��ӂ���
-�K�v������D�Ⴆ�� g3dtest.f �ɂ����ẮC�w�i��h��ׂ��T�u���[�`��
-GDRWBK �̂��ƂɃO���t��\������T�u���[�`�� CPLOT3D1 ���ĂԕK�v������C
-����ɖڐ���␔�l���L������T�u���[�`���́CCPLOT3D1 �ŏ㏑���������
-���悤�� CPLOT3D1 ����ɌĂԕK�v������D
+3次元表示をするには，まずはじめに GDEFIN3D,GVIEW3D,GDATA3Dn (n=1,2...)
+を呼ぶ必要がある．その後グラフを表示するサブルーチン 
+( CPLOT3D1,PERSE3D,etc...) を呼び，最後に目盛り及び数値を記入する
+サブルーチンを呼ぶ．( g3dtest.fを参照．) 基本的には後から呼ばれた
+サブルーチンは上書きをしていくので，サブルーチンを呼ぶ順番には注意する
+必要がある．例えば g3dtest.f においては，背景を塗り潰すサブルーチン
+GDRWBK のあとにグラフを表示するサブルーチン CPLOT3D1 を呼ぶ必要があり，
+さらに目盛りや数値を記入するサブルーチンは，CPLOT3D1 で上書きをされな
+いように CPLOT3D1 より後に呼ぶ必要がある．
 
-@@ �O���t��`���O�ɌĂԕK�v�̂���T�u���[�`���Q
+@@ グラフを描く前に呼ぶ必要のあるサブルーチン群
 
 @ GDEFIN3D
 
-   2�����f�[�^��3�����\�����邽�߂� GDEFIN 
-   3�����\��������ۂɂ͂܂��͂��߂ɌĂԕK�v������D
+   2次元データを3次元表示するための GDEFIN 
+   3次元表示をする際にはまずはじめに呼ぶ必要がある．
 	
    GDEFIN3D(PXMIN,PXMAX,PYMIN,PYMAX,XL,YL,ZL)
 
-	����	XL	[R]	x���̒��� (cm)
-		YL	[R]	y���̒��� (cm)
-		ZL	[R]	z���̒��� (cm)
+	引数	XL	[R]	x軸の長さ (cm)
+		YL	[R]	y軸の長さ (cm)
+		ZL	[R]	z軸の長さ (cm)
 
-	PXMIN,PXMAX,PYMIN,PYMAX �� GDEFIN �Ɠ����B
+	PXMIN,PXMAX,PYMIN,PYMAX は GDEFIN と同じ。
 
 @ GVIEW3D
 
-   2�����f�[�^��3�����\�����邽�߂̎��_��ݒ肷��D
-   �܂��A���̃O���t�𕽍s�ړ�(��ʒ����Ɋ񂹂�)�C�g��C�k�����s���D
+   2次元データを3次元表示するための視点を設定する．
+   また、そのグラフを平行移動(画面中央に寄せる)，拡大，縮小も行う．
 	
    GVIEW3D(PHI,THETA,RADIUS,R,IAXIS,OX,OY,OZ)
 
-	����	PHI	[R]	z�����̉�]�p (�ɍ��W�̃�)
-		THETA	[R]	z���Ǝ����̂Ȃ��p�i�ɍ��W�̃�)
-		RADIUS	[R]	���_�̓��e�ʂ���̋��� (cm)�i�ɍ��W��r)
-		R	[R]	�O���t�̑傫����GDEFIN �Œ�`���ꂽ
-				�̈�̑傫���̔�B
-				R�����̂Ƃ��ɂ͊g��k���͂��ꂸ�C
-				���s�ړ��݂̂������D
-		IAXIS	[I]	�O���t�𕽍s�ړ��C�g��k������ꍇ�ɂǂ̎���
-                	        �`��̈�Ɏ��܂�悤�ɂ��邩���w��B
-				IAXIS<0 ���s�ړ��y�ъg��A�k�������Ȃ��B
-				IAXIS=0	�O���t�{�݂̂̂����߂�悤�ɂ���D
-				IAXIS=1	�����̎��̂ݍl���ɂ����D
-				IAXIS=2	�S�Ă̎����l���ɂ����D
-		OX	[R]	GDEFIN�Œ�`���ꂽ�̈�̒����ɕ`�����_
-        	                (���߂�_)��x���W
-		OY	[R]	������y���W
-		OZ	[R]	������z���W
+	引数	PHI	[R]	z軸回りの回転角 (極座標のφ)
+		THETA	[R]	z軸と視線のなす角（極座標のθ)
+		RADIUS	[R]	視点の投影面からの距離 (cm)（極座標のr)
+		R	[R]	グラフの大きさとGDEFIN で定義された
+				領域の大きさの比。
+				Rが負のときには拡大縮小はされず，
+				平行移動のみがされる．
+		IAXIS	[I]	グラフを平行移動，拡大縮小する場合にどの軸が
+                	        描画領域に収まるようにするかを指定。
+				IAXIS<0 平行移動及び拡大、縮小をしない。
+				IAXIS=0	グラフ本体のみを収めるようにする．
+				IAXIS=1	奥側の軸のみ考慮にいれる．
+				IAXIS=2	全ての軸を考慮にいれる．
+		OX	[R]	GDEFINで定義された領域の中央に描かれる点
+        	                (見つめる点)のx座標
+		OY	[R]	同じくy座標
+		OZ	[R]	同じくz座標
 
-	���� : (OX,OY,OZ)���O���t�̈悩��傫�����ꂽ�_���w�肵�Ă���ꍇ
-        	�̕\���͑z�肵�Ă��Ȃ��D�ł��邾���O���t�̈�����܂��͎��ӂ�
-        	�w�肵�Ă��������D
+	注意 : (OX,OY,OZ)がグラフ領域から大きく離れた点を指定している場合
+        	の表示は想定していない．できるだけグラフ領域内部または周辺を
+        	指定してください．
 
 @ GDATA3D1
 
-   ���Ԋu�i�q2�����f�[�^��3�����\�����邽�߂̃f�[�^��^����B
+   等間隔格子2次元データを3次元表示するためのデータを与える。
 	
    GDATA3D1(Z,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
 
-	����	Z	[R(NXA,*)]	�f�[�^��2�����z��
-		NXA	[I]	2�����f�[�^�̑�1�Y���̏��
-		NX	[I]	x�����̃f�[�^��
-		NY	[I]	y�����̃f�[�^��
-		XMIN	[R]	x�̉���
-		XMAX	[R]	x�̏��
-		YMIN	[R]	y�̉���
-		YMAX	[R]	y�̏��
-		ZMIN	[R]	�\������f�[�^�̉���
-		ZMAX	[R]	�\������f�[�^�̏��
+	引数	Z	[R(NXA,*)]	データの2次元配列
+		NXA	[I]	2次元データの第1添字の上限
+		NX	[I]	x方向のデータ数
+		NY	[I]	y方向のデータ数
+		XMIN	[R]	xの下限
+		XMAX	[R]	xの上限
+		YMIN	[R]	yの下限
+		YMAX	[R]	yの上限
+		ZMIN	[R]	表示するデータの下限
+		ZMAX	[R]	表示するデータの上限
 
 @ GDATA3D2
 
-   �s���Ԋu�i�q2�����f�[�^��3�����\�����邽�߂̃f�[�^��^����B
+   不等間隔格子2次元データを3次元表示するためのデータを与える。
 	
    GDATA3D2(Z,X,Y,NXA,NX,NY,ZMIN,ZMAX)
 
-	����	Z	[R(NXA,*)]	�f�[�^��2�����z��
-		X	[R(NX)]	x�����̊i�q�f�[�^�̂P�����z��
-		Y	[R(NY)]	Y�����̊i�q�f�[�^�̂P�����z��
-		NXA	[I]	2�����f�[�^�̑�1�Y���̏��
-		NX	[I]	x�����̃f�[�^��
-		NY	[I]	y�����̃f�[�^��
-		ZMIN	[R]	�\������f�[�^�̉���
-		ZMAX	[R]	�\������f�[�^�̏��
+	引数	Z	[R(NXA,*)]	データの2次元配列
+		X	[R(NX)]	x方向の格子データの１次元配列
+		Y	[R(NY)]	Y方向の格子データの１次元配列
+		NXA	[I]	2次元データの第1添字の上限
+		NX	[I]	x方向のデータ数
+		NY	[I]	y方向のデータ数
+		ZMIN	[R]	表示するデータの下限
+		ZMAX	[R]	表示するデータの上限
 
 @ GDATA3D3
 
-   �s���Ԋu�i�q2�����f�[�^��3�����\�����邽�߂̃f�[�^��^����B
+   不等間隔格子2次元データを3次元表示するためのデータを与える。
 	
    GDATA3D3(Z,X,Y,NXA,NX,NY,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX)
 
-	����	Z	[R(NXA,*)]	�f�[�^��2�����z��
-		X	[R(NX)]	x�����̊i�q�f�[�^�̂P�����z��
-		Y	[R(NY)]	Y�����̊i�q�f�[�^�̂P�����z��
-		NXA	[I]	2�����f�[�^�̑�1�Y���̏��
-		NX	[I]	x�����̃f�[�^��
-		NY	[I]	y�����̃f�[�^��
-		XMIN	[R]	x�̉���
-		XMAX	[R]	x�̏��
-		YMIN	[R]	y�̉���
-		YMAX	[R]	y�̏��
-		ZMIN	[R]	�\������f�[�^�̉���
-		ZMAX	[R]	�\������f�[�^�̏��
+	引数	Z	[R(NXA,*)]	データの2次元配列
+		X	[R(NX)]	x方向の格子データの１次元配列
+		Y	[R(NY)]	Y方向の格子データの１次元配列
+		NXA	[I]	2次元データの第1添字の上限
+		NX	[I]	x方向のデータ数
+		NY	[I]	y方向のデータ数
+		XMIN	[R]	xの下限
+		XMAX	[R]	xの上限
+		YMIN	[R]	yの下限
+		YMAX	[R]	yの上限
+		ZMIN	[R]	表示するデータの下限
+		ZMAX	[R]	表示するデータの上限
 
-@@ �O���t��`���T�u���[�`���Q
+@@ グラフを描くサブルーチン群
 
 @ CPLOT3D1
   
-   ���Ԋu�i�q2�����f�[�^���J���[�̖ʂ�3�����\������B
+   等間隔格子2次元データをカラーの面で3次元表示する。
 
    CPLOT3D1(IND,RGBFUNC)
 
-	����	IND	[I]	�f�[�^�̕\�����@�B
-				IND=0	�J���[�̖ʂ̂ݕ\���D
-				IND=1	�J���[�̖ʂ�x�������̃��b�V����\���D
-				IND=2	�J���[�̖ʂ�y�������̃��b�V����\���D
-				IND=3	�J���[�̖ʂ�x,y�������̃��b�V����\���D
-				   +4	�ʂ��Ȃ߂炩�ɓh��D
+	引数	IND	[I]	データの表示方法。
+				IND=0	カラーの面のみ表示．
+				IND=1	カラーの面とx軸方向のメッシュを表示．
+				IND=2	カラーの面とy軸方向のメッシュを表示．
+				IND=3	カラーの面とx,y軸方向のメッシュを表示．
+				   +4	面をなめらかに塗る．
 
-		RGBFUNC		�f�[�^�̖ʂ̐F�����߂�T�u���[�`����	
+		RGBFUNC		データの面の色を決めるサブルーチン名	
 
-	�o�O�F �O���t�̈���Ɏ��_�����荞�񂾏ꍇ�O���t��\���ł��Ȃ��D
+	バグ： グラフ領域内に視点が入り込んだ場合グラフを表示できない．
 
 @ PERSE3D(IXY,IND)
 
-   ���Ԋu�i�q2�����f�[�^��3�����\�����s���B
+   等間隔格子2次元データの3次元表示を行う。
 
-	����	IXY	[I]	�f�[�^�\���@�̎w��	
-					0	�������̂�
-					1	�� x ���̂�
-					2	�� y ���̂�
-					3	�� x, �� y �i�q
-		IND	[I]	�f�[�^�\���@�̎w��
-				IXY=0 �̏ꍇ	�������̖{��
-				IXY<>0 �̏ꍇ
-					0	�B�������Ȃ�
-					1	��������ʕ\���Ȃ�
-					2	��������ʓ������̂�
-				        3	��������ʊi�q����
+	入力	IXY	[I]	データ表示法の指定	
+					0	等高線のみ
+					1	等 x 線のみ
+					2	等 y 線のみ
+					3	等 x, 等 y 格子
+		IND	[I]	データ表示法の指定
+				IXY=0 の場合	等高線の本数
+				IXY<>0 の場合
+					0	隠線処理なし
+					1	上限下限面表示なし
+					2	上限下限面等高線のみ
+				        3	上限下限面格子あり
 @ CONTQ3D1
 
-   ���Ԋu�i�q2�����f�[�^�̓���������p�^�[���t����3�����\������D
+   等間隔格子2次元データの等高線を線パターン付きで3次元表示する．
 	
    CONTQ3D1(ZORG,ZSTEP,NSTEP,IPAD,IPAT,KA,RGBFUNC,IZ)
 
-	����	ZORG,ZSTEP,NSTEP,IPAD,IPAT,KA �� CONTQ1 �Ɠ����D
+	引数	ZORG,ZSTEP,NSTEP,IPAD,IPAT,KA は CONTQ1 と同じ．
 	
-	RGBFUNC		�������̐F�����߂�T�u���[�`����
-	IZ	[I]	�������̎ˉe�ʂ̎w��
-			IZ=0	��� Z=ZMIN ���ʂɎˉe�D
-			IZ=1	��� Z=ZMAX ���ʂɎˉe�D
-			IZ=2	�O���t���ォ�猩���Ƃ��� Z=ZMIN�C
-                                �����猩���Ƃ��� Z=ZMAX ���ʂɎˉe�D
-			IZ=3	�O���t���ォ�猩���Ƃ��� Z=ZMAX�C
-                                �����猩���Ƃ��� Z=ZMIN ���ʂɎˉe�D
+	RGBFUNC		等高線の色を決めるサブルーチン名
+	IZ	[I]	等高線の射影面の指定
+			IZ=0	常に Z=ZMIN 平面に射影．
+			IZ=1	常に Z=ZMAX 平面に射影．
+			IZ=2	グラフを上から見たときは Z=ZMIN，
+                                下から見たときは Z=ZMAX 平面に射影．
+			IZ=3	グラフを上から見たときは Z=ZMAX，
+                                下から見たときは Z=ZMIN 平面に射影．
 
-@@ �O���t��`���⏕������T�u���[�`���Q
+@@ グラフを描く補助をするサブルーチン群
 
 @ RGBFUNC
 
-   2�����f�[�^���J���[�\������ۂɂ��̐F�����肷��T�u���[�`���Q
+   2次元データをカラー表示する際にその色を決定するサブルーチン群
 
-	��̓I�ɂ͌��݈ȉ��̂��̂�����D
-	���L�̎d�l�̃T�u���[�`�������邱�Ƃɂ���ă��[�U�[�̍D�݂�
-	�z�F�����邱�Ƃ��ł���D
+	具体的には現在以下のものがある．
+	下記の仕様のサブルーチンをつくることによってユーザーの好みの
+	配色をすることができる．
 
-	R2G2P	�f�[�^�̖ʂ̐F���ォ��ԁA�΁A�A���Ƃ���B(�S200�F)
-	WHITE	�f�[�^�̖ʂ̐F�𔒂ɂ���B
-	BLACK   �f�[�^�̖ʂ̐F�����ɂ���B
-	R2G2B	�f�[�^�̖ʂ̐F���ォ��ԁA�΁A�Ƃ���B(�S160�F)
-	R2G2BW	�f�[�^�̖ʂ̐F���ォ��ԁA�΁A�Ƃ��A�ŉ��ʂ̂ݔ��B(�S161�F)
-	R2W2B	�f�[�^�̖ʂ̐F���ォ��ԁA���A�Ƃ���B(�S80�F)
+	R2G2P	データの面の色を上から赤、緑、青、紫とする。(全200色)
+	WHITE	データの面の色を白にする。
+	BLACK   データの面の色を黒にする。
+	R2G2B	データの面の色を上から赤、緑、青とする。(全160色)
+	R2G2BW	データの面の色を上から赤、緑、青とし、最下面のみ白。(全161色)
+	R2W2B	データの面の色を上から赤、白、青とする。(全80色)
 
    RGBFUNC(R,RGB(3))
 	
-	����	R	[R]	0�ȏ�1�ȉ��̎���
-	�o��	RGB(1)	[R]	0�ȏ�1�ȉ��̎��� RGB��R
-		RGB(2)	[R]	0�ȏ�1�ȉ��̎��� RGB��G
-		RGB(3)	[R]	0�ȏ�1�ȉ��̎��� RGB��B
+	入力	R	[R]	0以上1以下の実数
+	出力	RGB(1)	[R]	0以上1以下の実数 RGBのR
+		RGB(2)	[R]	0以上1以下の実数 RGBのG
+		RGB(3)	[R]	0以上1以下の実数 RGBのB
 
-@@ �O���t�ȊO��`���T�u���[�`���Q
+@@ グラフ以外を描くサブルーチン群
 
 @ GAXIS3D
 	
-   ���Ԋu�y�ѕs���Ԋu�i�q�Q�����f�[�^�`�掞�Ɏ���`���B
-   ( CPLOT3D1 �̌�ɌĂԕK�v������D )	
+   等間隔及び不等間隔格子２次元データ描画時に軸を描く。
+   ( CPLOT3D1 の後に呼ぶ必要がある． )	
 
    GAXIS3D1(IAXIS)
 
-	����	IAXIS	[I]	�\�����鎲���w��B
-				IAXIS=0	�����̎���\���B
-				IAXIS=1	��O�̎���\���B
-				IAXIS=2	��O�Ɖ��̎���\���B
+	引数	IAXIS	[I]	表示する軸を指定。
+				IAXIS=0	奥側の軸を表示。
+				IAXIS=1	手前の軸を表示。
+				IAXIS=2	手前と奥の軸を表示。
 	
 @ GSCALE3DX
 
-   ���Ԋu�y�ѕs���Ԋu�i�q2�����f�[�^��\������ۂ�x���̖ڐ���\������B
-   ( CPLOT3D1 �̌�ɌĂԕK�v������D)
+   等間隔及び不等間隔格子2次元データを表示する際のx軸の目盛を表示する。
+   ( CPLOT3D1 の後に呼ぶ必要がある．)
 
    GSCALE3DX(XORG,XSTEP,SCL,IND)
      
-	����	XORG,XSTEP �� GSCALE �Ɠ����B
-		XSTEP �� 0.0 �̎��ɂ͖ڐ��͕`����Ȃ��B
+	引数	XORG,XSTEP は GSCALE と同じ。
+		XSTEP が 0.0 の時には目盛は描かれない。
 	
-		SCL	[R]	�ڐ���̒���(cm)
-				���邢�͕`�敽�ʂɎˉe����O�̖ڐ��̒���(cm)
-		IND 	[I]	�ڐ��̕t����
+		SCL	[R]	目盛りの長さ(cm)
+				あるいは描画平面に射影する前の目盛の長さ(cm)
+		IND 	[I]	目盛の付け方
 
-		IND=0,	xy���ʓ��Ɋi�q��`���D���̎��C�����INT(SCL)
-			�ɂȂ�D
-	  	IND=1, 	POSITION1��x����xy���ʓ��ɓ����̖ڐ���`���B
-		IND=2, 	POSITION1��x����xy���ʓ��ɊO���̖ڐ���`���B
-		IND=3, 	POSITION1��x����xy���ʓ��ɓ��O�����̖ڐ���`���B
-		+3     	x,y���̖ڐ���z���ɕ��s�ɁB
-		+6     	����p�x�ɂ����+0��+3�������I�ɑI��
+		IND=0,	xy平面内に格子を描く．この時，線種はINT(SCL)
+			になる．
+	  	IND=1, 	POSITION1のx軸にxy平面内に内側の目盛を描く。
+		IND=2, 	POSITION1のx軸にxy平面内に外側の目盛を描く。
+		IND=3, 	POSITION1のx軸にxy平面内に内外両側の目盛を描く。
+		+3     	x,y軸の目盛をz軸に平行に。
+		+6     	見る角度によって+0か+3を自動的に選択
 		+10    	POSITION2
 		+20    	POSITION3
 		+30    	POSITION4
-		*(-1)  	�ڐ��̒���������p�x�Ɉ˂炸�Œ蒷�ɁB
-		       	���̏ꍇ�\������钷����SCAL(cm)�ɂȂ�B
+		*(-1)  	目盛の長さを見る角度に依らず固定長に。
+		       	この場合表示される長さがSCAL(cm)になる。
 
-		POSITION1 �Ƃ́C�O���t���㑤���璭�߂鎞�͉�����O�̎����w���D
-		 	        �O���t���������璭�߂鎞�͏㑤��O�̎����w���D
-		POSITION2 �Ƃ́C�O���t���㑤���璭�߂鎞�͉��������̎����w���D
-				�O���t���������璭�߂鎞�͏㑤�����̎����w���D
-		POSITION3 �Ƃ́C�O���t���㑤���璭�߂鎞�͏㑤��O�̎����w���D
-				�O���t���������璭�߂鎞�͉�����O�̎����w���D
-		POSITION4 �Ƃ́C�O���t���㑤���璭�߂鎞�͏㑤�����̎����w���D
-				�O���t���������璭�߂鎞�͉��������̎����w���D
+		POSITION1 とは，グラフを上側から眺める時は下側手前の軸を指す．
+		 	        グラフを下側から眺める時は上側手前の軸を指す．
+		POSITION2 とは，グラフを上側から眺める時は下側奥側の軸を指す．
+				グラフを下側から眺める時は上側奥側の軸を指す．
+		POSITION3 とは，グラフを上側から眺める時は上側手前の軸を指す．
+				グラフを下側から眺める時は下側手前の軸を指す．
+		POSITION4 とは，グラフを上側から眺める時は上側奥側の軸を指す．
+				グラフを下側から眺める時は下側奥側の軸を指す．
 
-	�ڐ��́C�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɂ�����D�J�n�l��
-	���̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��͕\������Ȃ��D
+	目盛は，開始値から指定された間隔で正負両方向につけられる．開始値が
+	その軸の座標の最小値と最大値の間になければ，目盛は表示されない．
 
-	GSCALE3DY�����l�D
+	GSCALE3DYも同様．
 
 @ GSCALE3DZ
 
-   ���Ԋu�y�ѕs���Ԋu�i�q2�����f�[�^��\������ۂ�z���̖ڐ���\������D
-   ( CPLOT3D1 �̌�ɌĂԕK�v������D)
+   等間隔及び不等間隔格子2次元データを表示する際のz軸の目盛を表示する．
+   ( CPLOT3D1 の後に呼ぶ必要がある．)
 
    GSCALE3DZ(ZORG,ZSTEP,SCL,IND)
      
-	����	ZORG,ZSTEP �� GSCALE �Ɠ����D
-		ZSTEP �� 0.0 �̎��ɂ͖ڐ��͕`����Ȃ��D
+	引数	ZORG,ZSTEP は GSCALE と同じ．
+		ZSTEP が 0.0 の時には目盛は描かれない．
 	
-		SCL	[R]	�ڐ���̒���(cm)
-				���邢�͕��ʂɎˉe����O�̖ڐ��̒���(cm)
-		IND 	[I]	�ڐ��̕t����
+		SCL	[R]	目盛りの長さ(cm)
+				あるいは平面に射影する前の目盛の長さ(cm)
+		IND 	[I]	目盛の付け方
 
-		IND=0, �w�ʂɊi�q��̖ڐ����`���D
-	  	IND=1, POSITION1��z����xy���ʓ��ɓ����̖ڐ���`���D
-		IND=2, POSITION1��z����xy���ʓ��ɊO���̖ڐ���`���D
-		IND=3, POSITION1��z����xy���ʓ��ɓ��O�����̖ڐ���`���D	
+		IND=0, 背面に格子状の目盛りを描く．
+	  	IND=1, POSITION1のz軸にxy平面内に内側の目盛を描く．
+		IND=2, POSITION1のz軸にxy平面内に外側の目盛を描く．
+		IND=3, POSITION1のz軸にxy平面内に内外両側の目盛を描く．	
 		+10    POSITION2
 		+20    POSITION3
 		+30    POSITION4
-		*(-1)  �ڐ��̒���������p�x�Ɉ˂炸�Œ蒷�ɁD
-		       ���̏ꍇ�\������钷����SCAL(cm)�ɂȂ�D
+		*(-1)  目盛の長さを見る角度に依らず固定長に．
+		       この場合表示される長さがSCAL(cm)になる．
 
-		POSITION1 �Ƃ́C�O���t������z�����w���D
-		POSITION2 �Ƃ́C�O���t�E����z�����w���D
-		POSITION3 �Ƃ́C��O��z�����w���D
-		POSITION4 �Ƃ́C������z�����w���D
+		POSITION1 とは，グラフ左側のz軸を指す．
+		POSITION2 とは，グラフ右側のz軸を指す．
+		POSITION3 とは，手前のz軸を指す．
+		POSITION4 とは，奥側のz軸を指す．
 
-	�ڐ��́C�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɂ�����D�J�n�l��
-	���̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��͕\������Ȃ��D
+	目盛は，開始値から指定された間隔で正負両方向につけられる．開始値が
+	その軸の座標の最小値と最大値の間になければ，目盛は表示されない．
 
 @ GVALUE3DX
 
-   ���Ԋu�y�ѕs���Ԋu�i�q2�����f�[�^��\������ۂ�x���̖ڐ���̐��l��
-   �L������B  ( ���ݐ��l�������ۂɂ͉B�������͍s���Ă��Ȃ��̂ŕK�v�� 
-   ������CPLOT3D1�̑O�܂��͌�܂��͑O��ɌĂԕK�v������D)
+   等間隔及び不等間隔格子2次元データを表示する際のx軸の目盛りの数値を
+   記入する。  ( 現在数値を書く際には隠線処理は行っていないので必要に 
+   応じてCPLOT3D1の前または後または前後に呼ぶ必要がある．)
 
    GVALUE3DX(XORG,XSTEP,IPOS,IND)
 	
-	����	XORG,XSTEP �� GSCALE3DX �Ɠ����B
-		XSTEP �� 0.0 �̎��ɂ͐��l�͕`����Ȃ��B
+	引数	XORG,XSTEP は GSCALE3DX と同じ。
+		XSTEP が 0.0 の時には数値は描かれない。
 	
-		IPOS	[I]	���l�̏��������w��B
+		IPOS	[I]	数値の書き方を指定。
 	
- 	   	1	POSITION1��xy���ʓ���x,y���ɕ��s�ɐ�����`���D
-	 	2	POSITION1��xy���ʏ�ɁC�����ɐ����ɐ�����`���D   
-		3       POSITION1��xy���ʏ�ɁCz���ɕ��s�ɕ`���D
-		4       ���_����ł��߂�xz���ʖ���yz���ʂɏ�ɕ��s�ɁC
-			z���ɕ��s�ɕ`���D
-		5	POSITION1��yz����zx���ʓ��ɁC�����ɐ����ɐ�����`���D
-	    	6,7,8	����p�x�ɂ���Đ����̊p�x�������I�ɑI���B
-			xy���ʓ��ɕ`�����ꍇ�C6,7��1�C8��2�ɑΉ�����D
-			z���ɕ��s�ɕ`�����ꍇ�C6��3,7��4,8��5�Ɠ����ɂȂ�D 
+ 	   	1	POSITION1のxy平面内にx,y軸に平行に数字を描く．
+	 	2	POSITION1のxy平面上に，視線に垂直に数字を描く．   
+		3       POSITION1のxy平面上に，z軸に平行に描く．
+		4       視点から最も近いxz平面又はyz平面に常に平行に，
+			z軸に平行に描く．
+		5	POSITION1のyz又はzx平面内に，視線に垂直に数字を描く．
+	    	6,7,8	見る角度によって数字の角度を自動的に選択。
+			xy平面内に描かれる場合，6,7は1，8は2に対応する．
+			z軸に平行に描かれる場合，6は3,7は4,8は5と同じになる． 
  	   	+10     POSITION2
  	   	+20     POSITION3
 		+30 	POSITION4
- 	  	*(-1)   �t�H���g�̑傫�����Œ�  (+�̏ꍇ�͌���p�x�ɉ�����
-			�t�H���g�̑傫�����኱�ς��邪�C���̂Ƃ��떢�Ή�)
+ 	  	*(-1)   フォントの大きさを固定  (+の場合は見る角度に応じて
+			フォントの大きさを若干変えるが，今のところ未対応)
 
-		POSITION1 �Ƃ́C�O���t���㑤���璭�߂鎞�͉�����O�̎����w���D
-		 	        �O���t���������璭�߂鎞�͏㑤��O�̎����w���D
-		POSITION2 �Ƃ́C�O���t���㑤���璭�߂鎞�͉��������̎����w���D
-				�O���t���������璭�߂鎞�͏㑤�����̎����w���D
-		POSITION3 �Ƃ́C�O���t���㑤���璭�߂鎞�͏㑤��O�̎����w���D
-				�O���t���������璭�߂鎞�͉�����O�̎����w���D
-		POSITION4 �Ƃ́C�O���t���㑤���璭�߂鎞�͏㑤�����̎����w���D
-				�O���t���������璭�߂鎞�͉��������̎����w���D
+		POSITION1 とは，グラフを上側から眺める時は下側手前の軸を指す．
+		 	        グラフを下側から眺める時は上側手前の軸を指す．
+		POSITION2 とは，グラフを上側から眺める時は下側奥側の軸を指す．
+				グラフを下側から眺める時は上側奥側の軸を指す．
+		POSITION3 とは，グラフを上側から眺める時は上側手前の軸を指す．
+				グラフを下側から眺める時は下側手前の軸を指す．
+		POSITION4 とは，グラフを上側から眺める時は上側奥側の軸を指す．
+				グラフを下側から眺める時は下側奥側の軸を指す．
 
-		INDX �� GNUMBR �� IND �Ɠ����B
+		INDX は GNUMBR の IND と同じ。
 
-  	�ڐ��萔�l�́C�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɂ�����D
-  	�J�n�l�����̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��萔�l��
-	�\������Ȃ��D
+  	目盛り数値は，開始値から指定された間隔で正負両方向につけられる．
+  	開始値がその軸の座標の最小値と最大値の間になければ，目盛り数値は
+	表示されない．
 
-	GVALUE3DY�����l�D
+	GVALUE3DYも同様．
 
 @ GVALUE3DZ
 
-   ���Ԋu�y�ѕs���Ԋu�i�q2�����f�[�^��\������ۂ�z���̖ڐ���̐��l��
-   �L������B  ( ���ݐ��l�������ۂɂ͉B�������͍s���Ă��Ȃ��̂ŕK�v�� 
-   ������CPLOT3D1�̑O�܂��͌�܂��͑O��ɌĂԕK�v������D)
+   等間隔及び不等間隔格子2次元データを表示する際のz軸の目盛りの数値を
+   記入する。  ( 現在数値を書く際には隠線処理は行っていないので必要に 
+   応じてCPLOT3D1の前または後または前後に呼ぶ必要がある．)
 
    GVALUE3DZ(ZORG,ZSTEP,IPOS,IND)
 	
-	����	ZORG,ZSTEP �� GSCALE3DX �Ɠ����B
-		ZSTEP �� 0.0 �̎��ɂ͐��l�͕`����Ȃ��B
+	引数	ZORG,ZSTEP は GSCALE3DX と同じ。
+		ZSTEP が 0.0 の時には数値は描かれない。
 	
-		IPOS	[I]	���l�̏��������w��B
+		IPOS	[I]	数値の書き方を指定。
 	
-		1       ���_����ł��߂�xz���ʖ���yz���ʂɏ�ɕ��s�ɁC
-			z���ɕ��s�ɕ`���D
-		2	POSITION1��yz����zx���ʓ��ɁC�����ɐ����ɐ�����`���D
+		1       視点から最も近いxz平面又はyz平面に常に平行に，
+			z軸に平行に描く．
+		2	POSITION1のyz又はzx平面内に，視線に垂直に数字を描く．
  	   	+10     POSITION2
  	   	+20     POSITION3
 		+30 	POSITION4
- 	  	*(-1)   �t�H���g�̑傫�����Œ�  (+�̕��͌���p�x�ɉ�����
-			�t�H���g�̑傫�����኱�ς��邪�C���̂Ƃ��떢�Ή�)
+ 	  	*(-1)   フォントの大きさを固定  (+の方は見る角度に応じて
+			フォントの大きさを若干変えるが，今のところ未対応)
 
-		POSITION1 �Ƃ́C�O���t������z�����w���D
-		POSITION2 �Ƃ́C�O���t�E����z�����w���D
-		POSITION3 �Ƃ́C��O��z�����w���D
-		POSITION4 �Ƃ́C������z�����w���D
+		POSITION1 とは，グラフ左側のz軸を指す．
+		POSITION2 とは，グラフ右側のz軸を指す．
+		POSITION3 とは，手前のz軸を指す．
+		POSITION4 とは，奥側のz軸を指す．
 
-		INDX �� GNUMBR �� IND �Ɠ����B
+		INDX は GNUMBR の IND と同じ。
 
-  	�ڐ��萔�l�́C�J�n�l����w�肳�ꂽ�Ԋu�Ő����������ɂ�����D
-  	�J�n�l�����̎��̍��W�̍ŏ��l�ƍő�l�̊ԂɂȂ���΁C�ڐ��萔�l��
-	�\������Ȃ��D
+  	目盛り数値は，開始値から指定された間隔で正負両方向につけられる．
+  	開始値がその軸の座標の最小値と最大値の間になければ，目盛り数値は
+	表示されない．
 
 @ GDRWBK
 
-   �O���t�̔w�ʂ�^����ꂽ�F�œh��ׂ��D
+   グラフの背面を与えられた色で塗り潰す．
 
    GDRWBK(R,G,B)
 
-	����	R	[R]	�h��ׂ��F (RGB�l��R)
-		G	[R]	�h��ׂ��F (RGB�l��G)
-		B	[R]	�h��ׂ��F (RGB�l��B)
+	引数	R	[R]	塗り潰す色 (RGB値のR)
+		G	[R]	塗り潰す色 (RGB値のG)
+		B	[R]	塗り潰す色 (RGB値のB)
 
-@@ ���[�U�[���ǉ��̕`�������⏕������T�u���[�`���Q
+@@ ユーザーが追加の描画をする補助をするサブルーチン群
 
 @ GTTTx (x=A,B)
 
-   ���Ԋu�y�ѕs���Ԋu�i�q2�����f�[�^��GDEFIN3D���Œ�`���ꂽ���ʂ֎ˉe��
-   ���̍��W�����߂�D
-   (�����ǉ����ĕ\�����������̂�����Ƃ��̂݃��[�U�[���g���K�v������D)
+   等間隔及び不等間隔格子2次元データをGDEFIN3D等で定義された平面へ射影し
+   その座標を求める．
+   (何か追加して表示したいものがあるときのみユーザーが使う必要がある．)
 
    GTTTx(X,Y,Z,XP,YP) (x=A,B)
 
-	����	X	[R]	3�����f�[�^��x���W
-		Y	[R]	3�����f�[�^��y���W
-		Z	[R]	3�����f�[�^��z���W
+	入力	X	[R]	3次元データのx座標
+		Y	[R]	3次元データのy座標
+		Z	[R]	3次元データのz座標
 
-	�o��	XP	[R]	�ˉe��̃f�[�^��x���W(cm)
-		YP	[R]	�ˉe��̃f�[�^��y���W(cm)
+	出力	XP	[R]	射影後のデータのx座標(cm)
+		YP	[R]	射影後のデータのy座標(cm)
 
-   	GTTTA�͂��̓_���O���t�̊g��A�k���A���s�ړ��ōl���ɂ����
-   	(�܂肻�̓_��GDEFIN�Œ�`�����̈�ɕK�����܂邱�Ƃ�ۏ؂���)
-   	�Ƃ��Ɏg���CGTTTB�͂����ł͂Ȃ��Ƃ��Ɏg���B
+   	GTTTAはその点をグラフの拡大、縮小、平行移動で考慮にいれる
+   	(つまりその点がGDEFINで定義した領域に必ず収まることを保証する)
+   	ときに使い，GTTTBはそうではないときに使う。
 
 @ INQCNR3D
 
-   �O���t�̈���Ȃ������̂�8�̊p�̍��W�����߂�D
+   グラフ領域をなす直方体の8つの角の座標を求める．
 
    INQCNR3D(POS)
 
-	�o��	POS	[R(2,8)] 	8�̓_���ꂼ���x,y���W(cm)�D 
+	出力	POS	[R(2,8)] 	8つの点それぞれのx,y座標(cm)． 
 
 @ INQANG3D
 
-   �����̂Ȃ��p�x�����߂�D�������CTHETA (�ɍ��W�̃�) ��
-   0 <= theta < 180 , PHI (�ɍ��W�̃�) �� 0 <= phi < 360
-   �𖞂����悤�ɂ���Ă���D  
+   視線のなす角度を求める．ただし，THETA (極座標のθ) は
+   0 <= theta < 180 , PHI (極座標のφ) は 0 <= phi < 360
+   を満たすようにされている．  
 
    INQANG3D(THETA,PHI)
 
-	�o��	THETA	[R]	�ɍ��W�̃� (�x)
-		PHI	[R]	�ɍ��W�̃� (�x)
+	出力	THETA	[R]	極座標のθ (度)
+		PHI	[R]	極座標のφ (度)
 
 --------------------
 GSAF V3.65  00/02/25
 --------------------
-@@ �C�x���g�����Ɋ֌W����T�u���[�`���Q
+@@ イベント処理に関係するサブルーチン群
 
 @ GF_SET_EVENT
 
-   �҂��󂯂�C�x���g�̎�ނ�ݒ肷��D
+   待ち受けるイベントの種類を設定する．
 
    SUBROUTINE GF_SET_EVENT(ID)
 
-	����	ID	[I]	�C�x���g�̎��
-				�i�����̃C�x���g��҂ꍇ�͂����̘a�j
+	入力	ID	[I]	イベントの種類
+				（複数のイベントを待つ場合はそれらの和）
 		   0 : NO EVENT (default)
 		   1 : KEY PRESSED
 		   2 : MOUSE PRESSED
@@ -2736,51 +2736,51 @@ GSAF V3.65  00/02/25
 
 @ GF_INQ_EVENT
 
-   �҂��󂯂Ă���C�x���g�̎�ނ�₢���킹��D
+   待ち受けているイベントの種類を問い合わせる．
 
    SUBROUTINE GF_INQ_EVENT(ID)
 
-	�o��	ID	[I]	�C�x���g�̎��
+	出力	ID	[I]	イベントの種類
 
 @ GF_GET_EVENT
 
-   �C�x���g��҂��󂯂�D
+   イベントを待ち受ける．
 
    SUBROUTINE GF_GET_EVENT(ID,X,Y,KID,KEY)
 
-	�o��	ID	[I]	�C�x���g�̎��
-		X	[R]	�C�x���g���������Ƃ��̃}�E�X�̂w���W
-		Y	[R]	�C�x���g���������Ƃ��̃}�E�X�̂x���W
-		KID	[I]	Key Event �̏ꍇ�͓��͕����� ASCII �R�[�h
-				Mouse Event �̏ꍇ�̓}�E�X�{�^���̔ԍ�
-		KEY	[I]	Key Event �̏ꍇ�͉����ꂽ�L�[�ԍ�
-				�iShift, Control, Alt �L�[�͖�������j
+	出力	ID	[I]	イベントの種類
+		X	[R]	イベントが生じたときのマウスのＸ座標
+		Y	[R]	イベントが生じたときのマウスのＹ座標
+		KID	[I]	Key Event の場合は入力文字の ASCII コード
+				Mouse Event の場合はマウスボタンの番号
+		KEY	[I]	Key Event の場合は押されたキー番号
+				（Shift, Control, Alt キーは無視する）
 
 @ GF_CHECK_EVENT
 
-   �C�x���g��ǂݍ��ށD
+   イベントを読み込む．
 
    SUBROUTINE GF_GET_EVENT(ID,X,Y,KID,KEY)
 
-	�o��	ID	[I]	�C�x���g�̎�ށFID=0 �C�x���g�Ȃ�
-		X	[R]	�C�x���g���������Ƃ��̃}�E�X�̂w���W
-		Y	[R]	�C�x���g���������Ƃ��̃}�E�X�̂x���W
-		KID	[I]	Key Event �̏ꍇ�͓��͕����� ASCII �R�[�h
-				Mouse Event �̏ꍇ�̓}�E�X�{�^���̔ԍ�
-		KEY	[I]	Key Event �̏ꍇ�͉����ꂽ�L�[�ԍ�
-				�iShift, Control, Alt �L�[�͖�������j
+	出力	ID	[I]	イベントの種類：ID=0 イベントなし
+		X	[R]	イベントが生じたときのマウスのＸ座標
+		Y	[R]	イベントが生じたときのマウスのＹ座標
+		KID	[I]	Key Event の場合は入力文字の ASCII コード
+				Mouse Event の場合はマウスボタンの番号
+		KEY	[I]	Key Event の場合は押されたキー番号
+				（Shift, Control, Alt キーは無視する）
 
-@@ �`�摮���̐ݒ�Ɋ֌W����T�u���[�`���Q
+@@ 描画属性の設定に関係するサブルーチン群
 
 @ GF_SET_GCFUNC
 
-   �`�悷��ۂ̏������ݑ�����ݒ肷��i���n�ɍ�����Fwhite=0, black=1�j
+   描画する際の書き込み属性を設定する（白地に黒を基準：white=0, black=1）
 
 	SUBROUTINE GF_SET_GCFUNC(ID)
 
-	����	ID	[I]	�`�摮��
-				�iS=Source �����������Ƃ���f�[�^
-				�@D=Destination �������܂��s�N�Z���̃f�[�^�j
+	入力	ID	[I]	描画属性
+				（S=Source 書き込もうとするデータ
+				　D=Destination 書き込まれるピクセルのデータ）
 		    0 : Clear             0
 		    1 : And               S  &  D
 		    2 : AndReverse        S  & !D
@@ -2800,161 +2800,161 @@ GSAF V3.65  00/02/25
 
 @ GF_INQ_GCFUNC
 
-   �`�悷��ۂ̏������ݑ�����₢���킹��D
+   描画する際の書き込み属性を問い合わせる．
 
 	SUBROUTINE GF_INQ_GCFUNC(ID)
 
-	�o��	ID	[I]	�`�摮��
+	出力	ID	[I]	描画属性
 
-@@ �O���t�B�b�N�p�o�b�t�@�Ǘ��Ɋւ���T�u���[�`��
+@@ グラフィック用バッファ管理に関するサブルーチン
 
 @ GF_SYNC
 
-   �O���t�B�b�N��ʗp�o�b�t�@�ɒ~�ς��ꂽ�f�[�^�����ׂĉ�ʂɏ����o���D
-   �i�X���[�v����O�ɂ͂���܂ł̃f�[�^�������o�����߂ɁC���̃��[�`�����Ă�
-   �@���Ƃ��]�܂����D�j
+   グラフィック画面用バッファに蓄積されたデータをすべて画面に書き出す．
+   （スリープする前にはそれまでのデータを書き出すために，このルーチンを呼ぶ
+   　ことが望ましい．）
 
 	SUBROUTINE GF_SYNC
 
-@@ ���ԊǗ��Ɋւ���T�u���[�`��
+@@ 時間管理に関するサブルーチン
 
 @ GU_SLEEP
 
-   �w�肳�ꂽ���Ԃ̊ԁC�v���O�����̎��s���~����D
+   指定された時間の間，プログラムの実行を停止する．
 
 	SUBROUTINE GU_SLEEP(T)
 
-	����	T	[R]	���s��~���ԁm�b�n
+	入力	T	[R]	実行停止時間［秒］
 
-@@ �����Ɋւ���T�u���[�`��
+@@ 乱数に関するサブルーチン
 
 GURAND(X)
 
 @ GU_SRAND
 
-   �^����ꂽ�������V�[�h�Ƃ��ė���������������D
-   �iGSOPEN �����s�����Ƃ��C���̎������琮���𐶐����āC����������������j
+   与えられた整数をシードとして乱数を初期化する．
+   （GSOPEN が実行されるとき，その時刻から整数を生成して，乱数を初期化する）
 
 	SUBROUTINE GU_SRAND(I)
 
-	����	I	[I]	�V�[�h�F�����̎�ƂȂ鐮��
+	入力	I	[I]	シード：乱数の種となる整数
 
 GUFLSH
 
 --------------------
 GSAF V3.66  00/02/28
 --------------------
-@@ ��}�I���T�u���[�`���̒ǉ�
+@@ 作図終了サブルーチンの追加
 
 @ PAGEY
 
-   �P�ł̍�}���I�����C���͂�҂����ɏ����𑱍s����D
-   �t�@�C���ۑ����[�h�ł͏�Ƀf�[�^��ۑ�����D
+   １頁の作図を終了し，入力を待たずに処理を続行する．
+   ファイル保存モードでは常にデータを保存する．
 
 @ PAGEN
 
-   �P�ł̍�}���I�����C���͂�҂����ɏ����𑱍s����D
-   �t�@�C���ۑ����[�h�ł��f�[�^�͕ۑ����Ȃ��D
+   １頁の作図を終了し，入力を待たずに処理を続行する．
+   ファイル保存モードでもデータは保存しない．
 
 --------------------
 GSAF V3.71  01/05/28
 --------------------
 @ RGBTRG
 
-   �O�p�`�̐F�h��i���_�̐F���w�肵�āC�A���h��j
+   三角形の色塗り（頂点の色を指定して，連続塗り）
 
    SUBROUTINE RGBTRG(X,Y,R,G,B)
 
-	����	X(3)	[R]	�O�p�`�̒��_�� X ���W
-		Y(3)	[R]	�O�p�`�̒��_�� Y ���W
-		R(3)	[R]	�O�p�`�̒��_�ɂ�����ԐF�x
-		G(3)	[R]	�O�p�`�̒��_�ɂ�����ΐF�x
-		B(3)	[R]	�O�p�`�̒��_�ɂ�����F�x
+	入力	X(3)	[R]	三角形の頂点の X 座標
+		Y(3)	[R]	三角形の頂点の Y 座標
+		R(3)	[R]	三角形の頂点における赤色度
+		G(3)	[R]	三角形の頂点における緑色度
+		B(3)	[R]	三角形の頂点における青色度
 
-	��ʕ\������� -g �I�v�V������t�����ɍ쐬���ꂽ ps/eps �t�@�C���ł�
-	���ϐF�ň�l�ɓh����D
-	-g �I�v�V������t���č쐬���ꂽ ps/eps �t�@�C���ł͘A���I�ɐF�h�肳
-�@�@�@�@���D������ Freeand/Illustrator �ł̕ҏW�͂ł��Ȃ��Ȃ�D
+	画面表示および -g オプションを付けずに作成された ps/eps ファイルでは
+	平均色で一様に塗られる．
+	-g オプションを付けて作成された ps/eps ファイルでは連続的に色塗りさ
+　　　　れる．ただし Freeand/Illustrator での編集はできなくなる．
 
-	�O�p�`�̃N���b�s���O�͍s��Ȃ��̂ŁC���_���͂ݏo�����ꍇ�ɂ͋����I��
-	���_���\���͈͓��Ɉړ�����D
+	三角形のクリッピングは行わないので，頂点がはみ出した場合には強制的に
+	頂点が表示範囲内に移動する．
 
 @MOVE2D
 
-  GDEFIN �Œ�`���ꂽ���W�ł̈ړ�
+  GDEFIN で定義された座標での移動
 
    SUBROUTINE MOVE2D(X,Y)
 
-	����	X	[R]	�ړ���� X ���W
-		Y	[R]	�ړ���� Y ���W
+	入力	X	[R]	移動先の X 座標
+		Y	[R]	移動先の Y 座標
 
 @DRAW2D
 
-  GDEFIN �Œ�`���ꂽ���W�ł̐��`��
+  GDEFIN で定義された座標での線描画
 
    SUBROUTINE DRAW2D(X,Y)
 
-	����	X	[R]	�ړ���� X ���W
-		Y	[R]	�ړ���� Y ���W
+	入力	X	[R]	移動先の X 座標
+		Y	[R]	移動先の Y 座標
 
 @MOVE2DPT
 
-  GDEFIN �Œ�`���ꂽ���W�ł̐��p�^�[���t�������̍�}�̏�����
+  GDEFIN で定義された座標での線パターン付き直線の作図の初期化
 
    SUBROUTINE MOVE2DPT(X,Y,IPT)
 
-	����	X	[R]	�ړ���� X ���W
-		Y	[R]	�ړ���� Y ���W
-                IPAT	[I]	���p�^�[���ԍ�	0:����  1:�_��  2:�j��  3:���j��  4:��_����
-                                                5:����_����  6:��_����  7:����_����  
+	入力	X	[R]	移動先の X 座標
+		Y	[R]	移動先の Y 座標
+                IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
+                                                5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
 
 @DRAW2DPT
 
-  GDEFIN �Œ�`���ꂽ���W�ł̐��p�^�[���t�������̍�}
+  GDEFIN で定義された座標での線パターン付き直線の作図
 
    SUBROUTINE DRAW2DPT(X,Y)
 
-	����	X	[R]	�ړ���� X ���W
-		Y	[R]	�ړ���� Y ���W
+	入力	X	[R]	移動先の X 座標
+		Y	[R]	移動先の Y 座標
 ----------------------
 GSAF V3.92  2005/08/24
 ----------------------
 
 @ GF_DEFIMAGE
 
-   pixel map �̒�`
+   pixel map の定義
 
    SUBROUTINE GF_DEFIMAGE(ID,IW,IH,DATA)
 
-	����	ID	[I]	pixel map �̔ԍ��i0 <= ID <= 9�j
-		IW	[I]	pixel map �̕�
-		IH	[I]	pixel map �̍���
-		IDATA(IW,IH)	[I]	pixel map �f�[�^
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
+		IW	[I]	pixel map の幅
+		IH	[I]	pixel map の高さ
+		IDATA(IW,IH)	[I]	pixel map データ
 
-�@�@�@�@pixel map �f�[�^�́AIR,IG,IB ��ԁA�΁A��\�� (0..255) ��
-�@�@�@�@�͈̔͂̐����Ƃ���
-�@�@�@�@�@�@�@�@DATA=IR*256*256+IG*256+IB
+　　　　pixel map データは、IR,IG,IB を赤、緑、青を表す (0..255) の
+　　　　の範囲の整数として
+　　　　　　　　DATA=IR*256*256+IG*256+IB
 			
 @ GF_UNDEFIMAGE
 
-   pixel map �̍폜
+   pixel map の削除
 
    SUBROUTINE GF_UDEFIMAGE(ID)
 
-	����	ID	[I]	pixel map �̔ԍ��i0 <= ID <= 9�j
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
 
 @ GF_PUTIMAGE
 
-   pixel map �̕\��
+   pixel map の表示
 
    SUBROUTINE GF_PUTIMAGE(ID,X,Y)
 
-	����	ID	[I]	pixel map �̔ԍ��i0 <= ID <= 9�j
-		X	[R]	pixel map �̍������ X ���W
-		Y	[R]	pixel map �̍������ Y ���W
+	入力	ID	[I]	pixel map の番号（0 <= ID <= 9）
+		X	[R]	pixel map の左上隅の X 座標
+		Y	[R]	pixel map の左上隅の Y 座標
 @ GU_XFLUSH
 
-   X11 �̃o�b�t�@���ɂ��閽�߂̑������s
+   X11 のバッファ内にある命令の即時実行
 
    SUBROUTINE GU_XFLUSH
 
@@ -2962,6 +2962,6 @@ GSAF V3.92  2005/08/24
 GSAF V4.08  2019/01/08
 --------------------
 
-���ϐ� NGDPIX �FXwindow �ɂ�����F�K���̎w��D�w��͈͂� 16 ����
-256. �W���l�� 64�DNGDPIX ��傫������ƁC�F�K���͊��炩�ɂȂ邪�C
-�ŏ��̕`��Ɏ��Ԃ�������C�K�v�����������傷��i�ő� 96 MB�j
+環境変数 NGDPIX ：Xwindow における色階調の指定．指定範囲は 16 から
+256. 標準値は 64．NGDPIX を大きくすると，色階調は滑らかになるが，
+最初の描画に時間がかかり，必要メモリが増大する（最大 96 MB）
