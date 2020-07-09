@@ -7,6 +7,8 @@ XLIBS=$(XLIBPATH)/libX11$(SL)
 
 LIBS=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdp$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)
 
+LIBSPS=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgps$(LIB-SUFFIX) $(MLIBS)
+
 LIBSDUM=-L../lib -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdum$(LIB-SUFFIX) $(MLIBS)
 
 GDPLIBS=-L$(LIBPATH) -lg3d$(LIB-SUFFIX) -lgsp$(LIB-SUFFIX) -lgdp$(LIB-SUFFIX) -L$(XLIBPATH) -lX11 $(MLIBS)

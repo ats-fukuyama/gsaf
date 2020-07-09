@@ -40,12 +40,22 @@ $(FC)g : f77g.tp
 	sed "s@GSLIBS@$(GDPLIBS)@" > $(FC)g
 	chmod 755 $(FC)g
 
+$(FC)g90 : f90g.tp
+	sed "s@FC@$(FC)@" f90g.tp | \
+	sed "s@GSLIBS@$(GDPLIBS)@" > $(FC)g90
+	chmod 755 $(FC)g90
+
 $(FC)gdum : f77g.tp
 	sed "s@FC@$(FC)@" f77g.tp | \
 	sed "s@GSLIBS@$(GDUMLIBS)@" > $(FC)gdum
 	chmod 755 $(FC)gdum
 
-install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump $(FC)g $(FC)gdum
+$(FC)gdum90 : f90g.tp
+	sed "s@FC@$(FC)@" f90g.tp | \
+	sed "s@GSLIBS@$(GDUMLIBS)@" > $(FC)gdum90
+	chmod 755 $(FC)gdum90
+
+install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump $(FC)g $(FC)gdum $(FC)g90 $(FC)gdum90
 	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif $(BINPATH)/gstosvg
 	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump \
 	   $(FC)g $(FC)gdum $(BINPATH)
@@ -57,7 +67,7 @@ install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.s
 
 clean :
 	rm -f *.o ./*~ ./#*# core*
-	-rm -f gsview $(FC)g $(FC)gdum
+	-rm -f gsview $(FC)g $(FC)gdum *.slave
 
 veryclean : clean
-	rm -f *$(SL) *test *.slave gsprint *g *gdum gsdata*
+	rm -f *$(SL) *test gsprint *g *gdum gsdata*

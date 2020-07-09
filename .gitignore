@@ -13,6 +13,12 @@ src/bin/gsview
 src/bin/gsview.slave
 src/bin/ifortg
 src/bin/ifortgdum
+src/bin/ifortg90
+src/bin/ifortgdum90
+src/bin/gfortrang
+src/bin/gfortrangdum
+src/bin/gfortrang90
+src/bin/gfortrangdum90
 src/test/apltest
 src/test/bsctest
 src/test/conttest
@@ -28,3 +34,4 @@ src/test/pgtest
 src/test/pstest
 src/test/splntest
 src/test/sptest
+src/test/gpstest
