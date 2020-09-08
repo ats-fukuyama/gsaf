@@ -1,7 +1,7 @@
 ### $Id$ ###
-2020 年 7 月 6 日 (coding system: utf-8)
+2020 年 9 月 8 日 (coding system: utf-8)
 
-ＧＳＡＦ　使用手引書　　[Version 3.84]
+ＧＳＡＦ　使用手引書　　[Version 4.12]
 
 A. Fukuyama
 
@@ -68,8 +68,8 @@ GSAFの主な機能
 　　圧縮テキスト形式：サイズが小さく，機種依存性がなく，転送が容易
 　　cat コマンドでファイルの合体も可能
 　　gsview コマンドで画面表示可能
-　　gstops コマンドで postscript file に変換可能
-　　gstoeps コマンドで EPSF (Illustrator 形式）に変換可能
+　　gstops コマンドで全頁を一つの postscript file に変換可能
+　　gstoeps コマンドで各頁を一つの EPSF (Illustrator 形式）に変換可能
 　　頁毎に表示／変換が可能
 　　複数頁を一括して１頁に表示／変換が可能
 　　postscript file/EPSF からは ghostscript で各種ファイルに変換可能
@@ -537,6 +537,8 @@ ghostscript で GIF ファイルを作成する例
 
 	GPLOTP(GX,GY,NS,NE,NSTEP,IMARK,ISTEP,IPAT)
 		折れ線グラフの作図
+	GPLOTPG(GX,GY,NS,NE,NSTEP,IMARK,ISTEP,IPAT,ID)
+		濃淡付き折れ線グラフの作図
 	GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
 		誤差幅グラフの作図
 
@@ -1705,9 +1707,17 @@ GPLOTP(GX,GY,NS,NE,NSTEP,IMRK,ISTEP,IPAT)
 	IMRK	[I]	マークの種類	０：データを結ぶ直線のみ
 					正：データを示すマークのみ
 					負：マークと直線の両方
-	ISTEP	[I]	マークをつけるデータ間隔
+	ISTEP	[I]	マークをつけるデータ間隔（IMRK<0 の場合のみ）
 	IPAT	[I]	線パターン番号	0:実線  1:点線  2:破線  3:長破線  4:一点鎖線
 					5:長一点鎖線  6:二点鎖線  7:長二点鎖線  
+GPLOTPG(GX,GY,NS,NE,NSTEP,IMRK,ISTEP,IPAT,ID)
+濃淡付き１次元データのグラフ表示を行う。
+点の番号とともに，一様に濃度が変化する．
+最後の引数 ID を除き，GPLOTP と同じ
+入力    ID      [I]    濃淡の指定　0:濃淡なし，それまでに指定されていた色
+　　　　　　　　　　　　　　　　　 1:白から指定色，2:黒から指定色	　
+　　　　　　　　　　　　　　　　　 3:灰から指定色，4:半分濃度から指定色
+
 GPLOTPE(GX,GY1,GY2,NS,NE,NSTEP,SCAL)
 １次元データの誤差幅グラフ表示を行う。
 

@@ -905,6 +905,114 @@ C
       RETURN
       END
 C
+C     ****** DRAW XY GRAPH with gray scale ******
+C          ID=0: RGB original
+C             1: white to RGB
+C             2: black to RGB
+C             3: gray to RGB
+C             4: half RGB to RGB
+C
+      SUBROUTINE GPLOTPG(GX,GY,NSRT,NEND,NSTEP,IMARK,ISTEP,IPAT,ID)
+C
+      IMPLICIT LOGICAL(L)
+      COMMON /GSGFXY/ DX,DY,PXS,PYS,PXE,PYE,GXS,GYS,GXE,GYE,LGF
+      DIMENSION GX(NEND),GY(NEND)
+C
+      IF(.NOT.LGF) RETURN
+C
+      CALL INQRGB(CR,CG,CB)
+      CALL SETCLP(PXS,PXE,PYS,PYE)
+      IF(IMARK.EQ.0) THEN
+         CALL GUGRPS
+         PX=DX*(GX(NSRT)-GXS)+PXS
+         PY=DY*(GY(NSRT)-GYS)+PYS
+         CALL MOVEPT(PX,PY,IPAT)
+         DO 1010 N=NSRT+NSTEP,NEND,NSTEP
+            PX=DX*(GX(N)-GXS)+PXS
+            PY=DY*(GY(N)-GYS)+PYS
+            FACTOR=REAL(N-NSRT)/REAL(NEND-NSRT)
+            CALL SETRGBG(CR,CG,CB,FACTOR,ID)
+            CALL DRAWPT(PX,PY)
+ 1010    CONTINUE
+         CALL GUGRPE
+      ELSEIF(IMARK.GT.0) THEN
+         CALL INQMRK(IMARKS,HMRK,WMRK,ANGL,TILT)
+         CALL SETMRK(IMARK,HMRK,WMRK,ANGL,TILT)
+         CALL GUGRPS
+         DO 2010 N=NSRT,NEND,NSTEP
+            PX=DX*(GX(N)-GXS)+PXS
+            PY=DY*(GY(N)-GYS)+PYS
+            FACTOR=REAL(N-NSRT)/REAL(NEND-NSRT)
+            CALL SETRGBG(CR,CG,CB,FACTOR,ID)
+            CALL MARK(PX,PY)
+ 2010    CONTINUE
+         CALL GUGRPE
+         CALL SETMRK(IMARKS,HMRK,WMRK,ANGL,TILT)
+      ELSE
+         CALL GUGRPS
+         PX=DX*(GX(NSRT)-GXS)+PXS
+         PY=DY*(GY(NSRT)-GYS)+PYS
+         CALL MOVEPT(PX,PY,IPAT)
+         DO 3010 N=NSRT+NSTEP,NEND,NSTEP
+            PX=DX*(GX(N)-GXS)+PXS
+            PY=DY*(GY(N)-GYS)+PYS
+            FACTOR=REAL(N-NSRT)/REAL(NEND-NSRT)
+            CALL SETRGBG(CR,CG,CB,FACTOR,ID)
+            CALL DRAWPT(PX,PY)
+ 3010    CONTINUE
+         CALL GUGRPE
+         CALL INQMRK(IMARKS,HMRK,WMRK,ANGL,TILT)
+         CALL SETMRK(ABS(IMARK),HMRK,WMRK,ANGL,TILT)
+         CALL GUGRPS
+         DO 3020 N=NSRT,NEND,NSTEP*ISTEP
+            PX=DX*(GX(N)-GXS)+PXS
+            PY=DY*(GY(N)-GYS)+PYS
+            FACTOR=REAL(N-NSRT)/REAL(NEND-NSRT)
+            CALL SETRGBG(CR,CG,CB,FACTOR,ID)
+            CALL MARK(PX,PY)
+ 3020    CONTINUE
+         CALL GUGRPE
+         CALL SETMRK(IMARKS,HMRK,WMRK,ANGL,TILT)
+      ENDIF
+      CALL OFFCLP
+      CALL SETRGB(CR0,CG0,CB0)
+      RETURN
+      END
+C
+      SUBROUTINE SETRGBG(CR0,CG0,CB0,FACTOR,ID)
+      IMPLICIT NONE
+      REAL*4 CR0,CG0,CB0,FACTOR,CR,CG,CB
+      INTEGER ID
+
+      IF(FACTOR.LT.0.0) FACTOR=0.0
+      IF(FACTOR.GT.1.0) FACTOR=1.0
+      
+      SELECT CASE(ID)
+      CASE(0)
+         CR=CR0
+         CG=CG0
+         CB=CB0
+      CASE(1)
+         CR=(1.D0-FACTOR)+CR0*FACTOR
+         CG=(1.D0-FACTOR)+CG0*FACTOR
+         CB=(1.D0-FACTOR)+CB0*FACTOR
+      CASE(2)
+         CR=CR0*FACTOR
+         CG=CG0*FACTOR
+         CB=CB0*FACTOR
+      CASE(3)
+         CR=0.5*(1.D0-FACTOR)+CR0*FACTOR
+         CG=0.5*(1.D0-FACTOR)+CG0*FACTOR
+         CB=0.5*(1.D0-FACTOR)+CB0*FACTOR
+      CASE(4)
+         CR=0.5*(1.D0-FACTOR)+CR0*FACTOR
+         CG=0.5*(1.D0-FACTOR)+CG0*FACTOR
+         CB=0.5*(1.D0-FACTOR)+CB0*FACTOR
+      END SELECT
+      CALL SETRGB(CR,CG,CB)
+      RETURN
+      END
+C     
 C     ****** DRAW XY ERRORBAR GRAPH ******
 C
       SUBROUTINE GPLOTPE(GX,GY1,GY2,NSRT,NEND,NSTEP,SCAL)
