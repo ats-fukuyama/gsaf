@@ -141,26 +141,26 @@ C -------------------------------------------
       COMMON /GLNGTH/ XL,YL,ZL,ZMIN,ZMAX,NX,NY
       COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
       COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &     NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &     NNMX(2560,2),AFACTOR
       COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
 C
       IF (NZBUF.EQ.1) RETURN 
       NZBUF=1
 C
-      AFACTER=50.0
-      IXLENG=NINT(AFACTER*(XTMAX-XTMIN))+2
-      IYLENG=NINT(AFACTER*(YTMAX-YTMIN))+2
-      IXMIN =NINT(AFACTER* XTMIN)-1
-      IYMIN =NINT(AFACTER* YTMIN)-1
+      AFACTOR=50.0
+      IXLENG=NINT(AFACTOR*(XTMAX-XTMIN))+2
+      IYLENG=NINT(AFACTOR*(YTMAX-YTMIN))+2
+      IXMIN =NINT(AFACTOR* XTMIN)-1
+      IYMIN =NINT(AFACTOR* YTMIN)-1
 C
       DO I=1,NX-1
       DO J=1,NY-1
-         HXY(I,J)=0
+         IHXY(I,J)=0
       ENDDO
       ENDDO
-      NYMIN=NINT(AFACTER*YTMAX)+1
-      NYMAX=NINT(AFACTER*YTMIN)-1
+      NYMIN=NINT(AFACTOR*YTMAX)+1
+      NYMAX=NINT(AFACTOR*YTMIN)-1
       DO I=1,IXLENG
          NNMX(I,1)=NYMIN
          NNMX(I,2)=NYMAX
@@ -175,33 +175,33 @@ C
          IY=IYINDEX(I)
          DO J=1,4
             IF ( J.EQ.1 ) THEN
-               IX1=NINT(AFACTER*WORK(IX,IY,1))
-               IX2=NINT(AFACTER*WORK(IX+1,IY,1))
-               IY1=NINT(AFACTER*WORK(IX,IY,2))
-               IY2=NINT(AFACTER*WORK(IX+1,IY,2))
+               IX1=NINT(AFACTOR*WORK(IX,IY,1))
+               IX2=NINT(AFACTOR*WORK(IX+1,IY,1))
+               IY1=NINT(AFACTOR*WORK(IX,IY,2))
+               IY2=NINT(AFACTOR*WORK(IX+1,IY,2))
                IXPMIN=MIN(IX1,IX2)
                IXPMAX=MAX(IX1,IX2)
                IYPMIN=MIN(IY1,IY2)
                IYPMAX=MAX(IY1,IY2)
             ELSE IF ( J.EQ.2 ) THEN
-               IX2=NINT(AFACTER*WORK(IX,IY+1,1))
-               IY2=NINT(AFACTER*WORK(IX,IY+1,2))
+               IX2=NINT(AFACTOR*WORK(IX,IY+1,1))
+               IY2=NINT(AFACTOR*WORK(IX,IY+1,2))
                IXPMIN=MIN(IX2,IXPMIN)
                IXPMAX=MAX(IX2,IXPMAX)
                IYPMIN=MIN(IY2,IYPMIN)
                IYPMAX=MAX(IY2,IYPMAX)
             ELSE IF ( J.EQ.3 ) THEN
-               IX1=NINT(AFACTER*WORK(IX+1,IY,1))
-               IX2=NINT(AFACTER*WORK(IX+1,IY+1,1))
-               IY1=NINT(AFACTER*WORK(IX+1,IY,2))
-               IY2=NINT(AFACTER*WORK(IX+1,IY+1,2))
+               IX1=NINT(AFACTOR*WORK(IX+1,IY,1))
+               IX2=NINT(AFACTOR*WORK(IX+1,IY+1,1))
+               IY1=NINT(AFACTOR*WORK(IX+1,IY,2))
+               IY2=NINT(AFACTOR*WORK(IX+1,IY+1,2))
                IXPMIN=MIN(IX1,IX2,IXPMIN)
                IXPMAX=MAX(IX1,IX2,IXPMAX)
                IYPMIN=MIN(IY1,IY2,IYPMIN)
                IYPMAX=MAX(IY1,IY2,IYPMAX)
             ELSE IF ( J.EQ.4 ) THEN
-               IX1=NINT(AFACTER*WORK(IX,IY+1,1))
-               IY1=NINT(AFACTER*WORK(IX,IY+1,2))
+               IX1=NINT(AFACTOR*WORK(IX,IY+1,1))
+               IY1=NINT(AFACTOR*WORK(IX,IY+1,2))
                IXPMIN=MIN(IX1,IXPMIN)
                IXPMAX=MAX(IX1,IXPMAX)
                IYPMIN=MIN(IY1,IYPMIN)
@@ -224,8 +224,8 @@ C
       SUBROUTINE GTZBUF(I,J,IXPMIN,IXPMAX)
 C
       INCLUDE 'A3dcomm.inc'
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &     NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &     NNMX(2560,2),AFACTOR
       COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
 C     
       IFLAG=0
@@ -233,11 +233,12 @@ C
       DO IY=NNMX(IX-IXMIN,1),NNMX(IX-IXMIN,2)
          IF (ZVALUE(I,J).GE.DPMX(IX-IXMIN,IY-IYMIN)) THEN
             IFLAG=1
-      DPMX(IX-IXMIN,IY-IYMIN)=MAX(ZVALUE(I,J),DPMX(IX-IXMIN,IY-IYMIN))
+            DPMX(IX-IXMIN,IY-IYMIN)
+     &           =MAX(ZVALUE(I,J),DPMX(IX-IXMIN,IY-IYMIN))
          ENDIF
       ENDDO
       ENDDO
-      IF (IFLAG.EQ.0) HXY(I,J)=1
+      IF (IFLAG.EQ.0) IHXY(I,J)=1
 C
       RETURN
       END
@@ -247,8 +248,8 @@ C
       SUBROUTINE GTZBUFP(IX1,IX2,IY1,IY2)
 C
       INCLUDE 'A3dcomm.inc'
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &     NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &     NNMX(2560,2),AFACTOR
 C
       IF (IX2.EQ.IX1) THEN
          NNMX(IX1-IXMIN,1)=MIN(NNMX(IX1-IXMIN,1),IY1,IY2)
@@ -288,8 +289,8 @@ C
       COMMON /TDATA1/ XDATA(NXDMP),YDATA(NYDMP),ZDATA(NXDMP,NYDMP)
       COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
       COMMON /ANGL3D/ PHI,THETA
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &                NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &                NNMX(2560,2),AFACTOR
       COMMON /ZBUFUR/ IXINDEX(NXYDM),IYINDEX(NXYDM),ZVALUE(NXDM,NYDM)
       DIMENSION RGB(3,NXDMP,NYDMP)
       EXTERNAL  RGBFUNC
@@ -297,12 +298,13 @@ C
       CALL GTTTDATA
       CALL gtMkZBuffer
       CALL INQRGB(CR,CG,CB)
+      CALL SETRGB(0.0,0.0,0.0)
       IF (IND.GE.4) THEN
          NF=IND-4
          DO I=1,(NX-1)*(NY-1)
             IX=IXINDEX(I)
             IY=IYINDEX(I)
-            IF (HXY(IX,IY).NE.1) THEN
+            IF (IHXY(IX,IY).NE.1) THEN
                call gtGradationColor_Square(IX,IY,rgbfunc)
                call gtCLines1(ix,iy)
             END IF
@@ -312,7 +314,7 @@ C
          DO I=1,(NX-1)*(NY-1)
             IX=IXINDEX(I)
             IY=IYINDEX(I)
-            IF (HXY(IX,IY).NE.1) THEN
+            IF (IHXY(IX,IY).NE.1) THEN
                ZC=ZDATA(IX,IY)+ZDATA(IX+1,IY)+ZDATA(IX,IY+1)
      &           +ZDATA(IX+1,IY+1)
                ZC=0.25*ZC-ZMIN
@@ -322,14 +324,13 @@ C
                CALL GTCPOLY1(IX,IY)
             END IF
          ENDDO
- 150     CONTINUE
       ENDIF
 C
       CALL SETRGB(CR,CG,CB)
       RETURN
       END
 C     
-C     ****** DRAW POLY AND LINES ******
+C     ****** Paint and Draw Frame of POLY  ******
 C     
       SUBROUTINE GTCPOLY1(I,J)
 C
@@ -337,11 +338,11 @@ C     if I=0, draw poly and lines
 C     if I=1, draw poly only
 C     if I=2, draw poly and x-lines only
 C     if I=3, draw poly and y-lines only
-C     
+C
       INCLUDE 'A3dcomm.inc'
       COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &     NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &     NNMX(2560,2),AFACTOR
 C
       DIMENSION X1(5),Y1(5)
 C     
@@ -356,31 +357,23 @@ C
       Y1(4)=WORK(I,J+1,2)
       Y1(5)=Y1(1)
       CALL POLY(X1,Y1,4)
+
       CALL SETRGB(0.0,0.0,0.0)
-      IF (NF.EQ.0) THEN
-         GOTO 9999
-      ELSE IF (NF.EQ.1) THEN
-         GOTO 1
-      ELSE IF (NF.EQ.2) THEN
-         GOTO 2
-      ELSE
-         GOTO 3
-      ENDIF
-C
- 1    CALL MOVE(X1(1),Y1(1))
-      CALL DRAW(X1(2),Y1(2))
-      CALL MOVE(X1(4),Y1(4))
-      CALL DRAW(X1(3),Y1(3))
-      GOTO 9999
-C     
- 2    CALL MOVE(X1(1),Y1(1))
-      CALL DRAW(X1(4),Y1(4))
-      CALL MOVE(X1(2),Y1(2))
-      CALL DRAW(X1(3),Y1(3))
-      GOTO 9999
-C
- 3    CALL LINES(X1,Y1,4)
- 9999 RETURN
+      SELECT CASE(NF)
+      CASE(1)
+         CALL MOVE(X1(1),Y1(1))
+         CALL DRAW(X1(2),Y1(2))
+         CALL MOVE(X1(4),Y1(4))
+         CALL DRAW(X1(3),Y1(3))
+      CASE(2)
+         CALL MOVE(X1(1),Y1(1))
+         CALL DRAW(X1(4),Y1(4))
+         CALL MOVE(X1(2),Y1(2))
+         CALL DRAW(X1(3),Y1(3))
+      CASE(3)
+         CALL LINES(X1,Y1,4)
+      END SELECT
+      RETURN
       END
 C     
 C     ****** DRAW LINES ******
@@ -394,8 +387,8 @@ C     if NF=3, draw poly and lines
 C     
       INCLUDE 'A3dcomm.inc'
       COMMON /TDATA2/ WORK(NXDMP,NYDMP,8),XTMIN,XTMAX,YTMIN,YTMAX
-      COMMON /CPLTHD/ NF,IXMIN,IYMIN,HXY(NXDM,NYDM),DPMX(2560,1810),
-     &     NNMX(2560,2),AFACTER
+      COMMON /CPLTHD/ NF,IXMIN,IYMIN,IHXY(NXDM,NYDM),DPMX(2560,1810),
+     &     NNMX(2560,2),AFACTOR
 C
       DIMENSION X1(5),Y1(5)
 C     
@@ -409,29 +402,21 @@ C
       Y1(3)=WORK(I+1,J+1,2)
       Y1(4)=WORK(I,J+1,2)
       Y1(5)=Y1(1)
-      IF (NF.EQ.0) THEN
-         GOTO 9999
-      ELSE IF (NF.EQ.1) THEN
-         GOTO 1
-      ELSE IF (NF.EQ.2) THEN
-         GOTO 2
-      ELSE
-         GOTO 3
-      ENDIF
-C
- 1    CALL MOVE(X1(1),Y1(1))
-      CALL DRAW(X1(2),Y1(2))
-      CALL MOVE(X1(4),Y1(4))
-      CALL DRAW(X1(3),Y1(3))
-      GOTO 9999
-C     
- 2    CALL MOVE(X1(1),Y1(1))
-      CALL DRAW(X1(4),Y1(4))
-      CALL MOVE(X1(2),Y1(2))
-      CALL DRAW(X1(3),Y1(3))
-      GOTO 9999
-C
- 3    CALL LINES(X1,Y1,5)
- 9999 RETURN
+
+      SELECT CASE(NF)
+      CASE(1)
+         CALL MOVE(X1(1),Y1(1))
+         CALL DRAW(X1(2),Y1(2))
+         CALL MOVE(X1(4),Y1(4))
+         CALL DRAW(X1(3),Y1(3))
+      CASE(2)
+         CALL MOVE(X1(1),Y1(1))
+         CALL DRAW(X1(4),Y1(4))
+         CALL MOVE(X1(2),Y1(2))
+         CALL DRAW(X1(3),Y1(3))
+      CASE(3)
+         CALL LINES(X1,Y1,4)
+      END SELECT
+      RETURN
       END
 
