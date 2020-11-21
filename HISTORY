@@ -1,5 +1,8 @@
 $Id$
 
+V4.13
+2020/11/21  bas1.f: GNULEN corrected for underlow
+
 V4.12
 2020/09/08  apl2.f: GPLOTPG for color changing plot
 
