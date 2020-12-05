@@ -1,0 +1,53 @@
+### $Id$ ###
+# Make for gsaf : V3.80 for MacOS-arm64-nag-fortran [2020/11/29]
+#################################################################
+
+# default install path
+
+BINPATH=/usr/local/bin
+LIBPATH=/usr/local/lib
+
+# home install path
+
+#HOMEPATH=/home/fukuyama
+#BINPATH=$(HOMEPATH)/bin
+#LIBPATH=$(HOMEPATH)/lib
+
+# Compiler command
+
+FC=nagfor
+CC=cc
+
+# Compile flags
+
+FLFLAGS=-g -O -fixed
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
+FFLAGS=-g -O -fixed
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
+
+# Make library command and options
+
+LD=ld
+LDX=echo Created:
+LDFLAGS=-r -o
+
+# Library extension
+
+LIB-SUFFIX=-nag
+SL=$(LIB-SUFFIX).a
+
+# X library path
+
+XINCPATH=/opt/X11/include
+XLIBPATH=/opt/local/lib
+XLIBS=$(XLIBPATH)/libX11$(SL)
+
+# Libraries for C mathematical functions in Fortran compile
+
+MLIBS=
+
+# Print command
+
+LP=lpr
+
+include ../Makefile.static
