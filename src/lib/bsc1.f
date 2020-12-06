@@ -46,7 +46,7 @@ C
       COMMON /GSAFS9/ ICRS,ICGS,ICBS
       CHARACTER KID*1
       DATA LINIT/.TRUE./
-      REAL(8):: TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
+      REAL*8 TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
 C
       IF(LINIT) THEN
          LGOPEN = .FALSE.
@@ -110,7 +110,7 @@ C
      &          '                        ',
      &          '6)1280x950 7)xterm 8)versaterm 9)online 0)quiet)')
          READ(5,'(A1)',END=9000,ERR=1) KID
-         CALL CHRASC(KID,ICH,1)
+         CALL CHRASC1(KID,ICH)
       ENDIF
 C
 C     ***** ICH.EQ.0: Non Interactive device *****
@@ -129,7 +129,7 @@ C
             CALL DVFLSH
             READ(5,'(A1)',END=9000,ERR=10) KID
          ELSE
-            CALL ASCCHR(ID,KID,1)
+            CALL ASCCHR1(ID,KID)
          ENDIF
          CALL GUCPTL(KID)
          IF(KID.EQ.'C') THEN
@@ -163,8 +163,8 @@ C
       COMMON /GSAFLF/ LOPENS,LOPENT,LSAVES,LSAVET
       COMMON /GSAFTM/ TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
       COMMON /GSGRPL/ NGRPL,NGRPM
-      REAL(8):: TU,TS,TCU,TCS,TELP
-      REAL(8):: TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
+      REAL*8 TU,TS,TCU,TCS,TELP
+      REAL*8 TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
 
       IF(.NOT.LGSAF) RETURN
       IF(LPAGE) CALL PAGEE
@@ -326,7 +326,7 @@ C
       LSAVE=LSAVES
       IF(ICH.NE.0) THEN
          IF(ICH.GT.32) THEN
-            CALL ASCCHR(ICH,KID,1)
+            CALL ASCCHR1(ICH,KID)
             CALL GUCPTL(KID)
    10       IF(KID.EQ.'C') THEN
                GOTO 30
@@ -1572,11 +1572,11 @@ C
 C
       CHARACTER KID*1
 C
-      CALL CHRASC(KID,ID,1)
+      CALL CHRASC1(KID,ID)
 C
       IF(ID.GE.97.AND.ID.LE.122) ID=ID-32
 C
-      CALL ASCCHR(ID,KID,1)
+      CALL ASCCHR1(ID,KID)
 C
       RETURN
       END

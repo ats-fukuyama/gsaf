@@ -1,9 +1,16 @@
 $Id$
 
-2020/11/23  bsc2.f: POLY group setting added
+2020/12/06  GPLOTPG: color handling corrected
+            bsc2.f: POLY group setting added
 
 V4.13
-2020/11/21  bas1.f: GNULEN corrected for underlow
+2020/12/05  macos-arm64 gfortran support:
+                arch/macos-arm64-gfortran/Makefile.arch
+            macos-arm64 nag-fortran support:
+                arch/macos-arm64-nag-fortran/Makefile.arch
+            bsc1.1: CHRASC1,ASCCHR1 added
+
+2020/11/21  bsc1.f: GNULEN corrected for underlow
 
 V4.12
 2020/09/08  apl2.f: GPLOTPG for color changing plot
