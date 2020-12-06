@@ -185,8 +185,10 @@ C
  2000 CONTINUE
 C
       IF(M.GT.2) THEN
+         CALL GUGRPS
          CALL  DVPOLY(IX,IY,M)
          IF(LFIL) CALL BUFFXN(12,IX,IY,M)
+         CALL GUGRPE
       ENDIF
       ENDDO
       X1=X(N)
