@@ -1,8 +1,12 @@
 $Id$
 
+2020/12/06  GPLOTPG: color handling corrected
+
 V4.13
-2020/12/05  macos-arm64 nag-fortran support:
-                arch/macos-nag-fortran/Makefile.arch
+2020/12/05  macos-arm64 gfortran support:
+                arch/macos-arm64-gfortran/Makefile.arch
+            macos-arm64 nag-fortran support:
+                arch/macos-arm64-nag-fortran/Makefile.arch
             bsc1.1: CHRASC1,ASCCHR1 added
 2020/11/21  bsc1.f: GNULEN corrected for underlow
 
