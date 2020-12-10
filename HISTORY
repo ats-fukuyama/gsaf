@@ -1,5 +1,10 @@
 $Id$
 
+V4.14
+2020/12/10  MacOS 11.0 support:
+	    	  arch/macosxi-ifc64/Makfile.arch
+		  arch/macosxi-gfortran64/Makefile.arh
+
 2020/12/06  GPLOTPG: color handling corrected
             bsc2.f: POLY group setting added
 
