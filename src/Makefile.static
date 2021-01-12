@@ -1,6 +1,6 @@
 ### $Id$ ###
 #
-# Makefile for dynamic libraries
+# Makefile for stati libraries
 #
 
 XLIBS=$(XLIBPATH)/libX11$(SL)

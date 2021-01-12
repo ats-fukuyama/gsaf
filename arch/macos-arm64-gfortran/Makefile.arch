@@ -15,8 +15,11 @@ LIBPATH=/usr/local/lib
 
 # Compiler command
 
+#FC=gfortran
+#CC=gcc
+# MacPorts gcc/devel gfortran and Apple gcc=clang on 2020-12-09
 FC=gfortran-mp-devel
-CC=gcc-mp-devel
+CC=clang
 
 # Compile flags
 
