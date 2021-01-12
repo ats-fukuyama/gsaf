@@ -1,7 +1,7 @@
 C     $Id$C
 C
 C     *****************************************************
-C     ****** GSAF BASIC ROUTINES V4.13 : INTERFACE 1 ******
+C     ****** GSAF BASIC ROUTINES V4.14 : INTERFACE 1 ******
 C     *****************************************************
 C
 C     ****** SYSTEM INITIALIZE ******
@@ -180,7 +180,7 @@ C
       CALL GUTIMES(TU,TS,TCU,TCS,TELP)
       IF(ICH.NE.0) WRITE(6,601) TELP-TELPOPEN,TU-TUOPEN,TS-TSOPEN,
      &                          TCU-TCUOPEN,TCS-TCSOPEN
-  601 FORMAT(1H ,'# GSAF V4.13 : ',
+  601 FORMAT(1H ,'# GSAF V4.14 : ',
      &           'Copyright (C) 1983-2020 A. Fukuyama and T. Akutsu'/
      &       1H ,'# CLOSED.      ELAPSED TIME =',
      &            F10.3,' SEC'/

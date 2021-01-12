@@ -20,10 +20,11 @@ CC=gcc
 
 # Compile flags
 
-FLFLAGS=-g -O -m64
-CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT
-FFLAGS=-g -O -m64
-CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT
+USRPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr
+FLFLAGS=-g -O -m64 -L$(USRPATH)/lib
+CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
+FFLAGS=-g -O -m64 -L$(USRPATH)/lib
+CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
 
 # Make library command and options
 

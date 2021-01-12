@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for MacOSX-intel-ifort-static [2006/07/16]
+# Make for gsaf : V4.14 for MacOSX-intel-ifort-static [2020/12/06]
 #################################################################
 
 # default install path
@@ -20,10 +20,13 @@ CC=gcc
 
 # Compile flags
 
-FLFLAGS=-g -O -m64
-FFLAGS=-g -O -m64
-CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -DLSB -m64
-CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -DLSB -m64
+USRPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr
+FLFLAGS=-g -O -m64 -L$(USRPATH)/lib
+#FLFLAGS=-g -m64 -C -traceback -debug extended -align -fpe0 -fmath-errno -fstack-security-check -no-ftz -shared-intel -L$(USRPATH)/lib
+FFLAGS=-g -O -m64 -L$(USRPATH)/lib
+CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -DLSB -I$(USRPATH)/include -L$(USRPATH)/lib
+CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -DLSB -I$(USRPATH)/include -L$(USRPATH)/lib
+
 
 # Make library command and options
 
@@ -42,8 +45,8 @@ SL=$(LIB-SUFFIX).a
 
 # X library path
 
-XINCPATH=/usr/X11/include
-XLIBPATH=/usr/X11/lib
+XINCPATH=/opt/X11/include
+XLIBPATH=/opt/X11/lib
 XLIBS=$(XLIBPATH)/libX11$(SL)
 
 # Libraries for C mathematical functions in Fortran compile
