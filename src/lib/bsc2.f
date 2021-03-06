@@ -914,3 +914,34 @@ C
       B=BS
       RETURN
       END
+      
+!     *****************************
+
+!     INTERPORATE RGB
+
+!     *****************************
+
+      SUBROUTINE GUSRGB(GL,GRGBL,NRGB,GLA,GRGBLA)
+
+      IMPLICIT NONE
+      REAL,                  INTENT(IN) :: GL
+      REAL, DIMENSION(3),    INTENT(OUT):: GRGBL
+      INTEGER              , INTENT(IN) :: NRGB
+      REAL, DIMENSION(NRGB), INTENT(IN) :: GLA
+      REAL, DIMENSION(3,NRGB),INTENT(IN):: GRGBLA
+      REAL    :: GFACT
+      INTEGER :: N, NDO
+
+      DO NDO=2,NRGB
+         N=NDO
+         IF(GLA(N).GT.GL) GOTO 9
+      ENDDO
+    9 CONTINUE
+
+      GFACT=(GL-GLA(N-1))/(GLA(N)-GLA(N-1))
+      GRGBL(1)=GRGBLA(1,N-1)*(1.0-GFACT)+GRGBLA(1,N)*GFACT
+      GRGBL(2)=GRGBLA(2,N-1)*(1.0-GFACT)+GRGBLA(2,N)*GFACT
+      GRGBL(3)=GRGBLA(3,N-1)*(1.0-GFACT)+GRGBLA(3,N)*GFACT
+
+      RETURN
+      END SUBROUTINE GUSRGB

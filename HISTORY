@@ -1,5 +1,11 @@
 $Id$
 
+V4.15
+2021/03/06  bsc2.f: GUSRGB added
+            cont1.f:CONTR5,CONTP5,CONTQ5,CONTP6 added
+
+2021/02/02  igl1.f: underscore of bitmap font si replaced by stroke font
+
 V4.14
 2020/12/10  MacOS 11.0 support:
 	    	  arch/macosxi-ifc64/Makfile.arch
