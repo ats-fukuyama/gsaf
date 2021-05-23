@@ -175,7 +175,8 @@ C
          DO 1000 N=1,ABS(NCHAR)
             INS=IASC(N)
             CALL DVGRPS
-            IF(IFNTR.EQ.0) THEN
+C --- underbar in bitmap font is replaved by stroke font ---
+            IF(IFNTR.EQ.0.OR.(IFNTR.LE.10.AND.INS.EQ.95)) THEN
                CALL GS_SFCHAR(IX,IY,INS,0)
             ELSE
                CALL GS_GRCHAR(IX,IY,INS,0)

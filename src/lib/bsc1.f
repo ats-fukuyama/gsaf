@@ -1,7 +1,7 @@
 C     $Id$C
 C
 C     *****************************************************
-C     ****** GSAF BASIC ROUTINES V4.13 : INTERFACE 1 ******
+C     ****** GSAF BASIC ROUTINES V4.15 : INTERFACE 1 ******
 C     *****************************************************
 C
 C     ****** SYSTEM INITIALIZE ******
@@ -41,12 +41,15 @@ C
       COMMON /GSAFMD/ ITMODE
       COMMON /GSAFTM/ TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
       COMMON /GSAFBL/ LBELL
-      COMMON /GSAFS8/ PXOFFSET,PYOFFSET,PXSCALE,PYSCALE
       COMMON /GSAFS6/ WS,RS,GS,BS
+      COMMON /GSADS7/ IFNTS
+      COMMON /GSAFS8/ PXOFFSET,PYOFFSET,PXSCALE,PYSCALE
       COMMON /GSAFS9/ ICRS,ICGS,ICBS
+      COMMON /GSAFFN/ IFNTR,LSOFT
+      COMMON /GSAFBF/ NBUFF,IBUFF,IDATA(150)
       CHARACTER KID*1
       DATA LINIT/.TRUE./
-      REAL(8):: TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
+      REAL*8 TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
 C
       IF(LINIT) THEN
          LGOPEN = .FALSE.
@@ -98,6 +101,10 @@ C
       CALL GSTON
       CALL GSSIZE(25.6,18.1)
       CALL GSTITL('/ /')
+      LSOFT=.TRUE.
+      IFNTS=0
+      IBUFF=0
+      IDATA(1:150)=0
 C
       CALL DVTYPE(ICH)
 C
@@ -110,7 +117,7 @@ C
      &          '                        ',
      &          '6)1280x950 7)xterm 8)versaterm 9)online 0)quiet)')
          READ(5,'(A1)',END=9000,ERR=1) KID
-         CALL CHRASC(KID,ICH,1)
+         CALL CHRASC1(KID,ICH)
       ENDIF
 C
 C     ***** ICH.EQ.0: Non Interactive device *****
@@ -129,7 +136,7 @@ C
             CALL DVFLSH
             READ(5,'(A1)',END=9000,ERR=10) KID
          ELSE
-            CALL ASCCHR(ID,KID,1)
+            CALL ASCCHR1(ID,KID)
          ENDIF
          CALL GUCPTL(KID)
          IF(KID.EQ.'C') THEN
@@ -163,8 +170,8 @@ C
       COMMON /GSAFLF/ LOPENS,LOPENT,LSAVES,LSAVET
       COMMON /GSAFTM/ TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
       COMMON /GSGRPL/ NGRPL,NGRPM
-      REAL(8):: TU,TS,TCU,TCS,TELP
-      REAL(8):: TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
+      REAL*8 TU,TS,TCU,TCS,TELP
+      REAL*8 TUOPEN,TSOPEN,TCUOPEN,TCSOPEN,TELPOPEN
 
       IF(.NOT.LGSAF) RETURN
       IF(LPAGE) CALL PAGEE
@@ -180,8 +187,8 @@ C
       CALL GUTIMES(TU,TS,TCU,TCS,TELP)
       IF(ICH.NE.0) WRITE(6,601) TELP-TELPOPEN,TU-TUOPEN,TS-TSOPEN,
      &                          TCU-TCUOPEN,TCS-TCSOPEN
-  601 FORMAT(1H ,'# GSAF V4.13 : ',
-     &           'Copyright (C) 1983-2020 A. Fukuyama and T. Akutsu'/
+  601 FORMAT(1H ,'# GSAF V4.15 : ',
+     &           'Copyright (C) 1983-2021 A. Fukuyama and T. Akutsu'/
      &       1H ,'# CLOSED.      ELAPSED TIME =',
      &            F10.3,' SEC'/
      &       1H ,'# USED CPU TIME (u,s,cu,cs) =',
@@ -326,7 +333,7 @@ C
       LSAVE=LSAVES
       IF(ICH.NE.0) THEN
          IF(ICH.GT.32) THEN
-            CALL ASCCHR(ICH,KID,1)
+            CALL ASCCHR1(ICH,KID)
             CALL GUCPTL(KID)
    10       IF(KID.EQ.'C') THEN
                GOTO 30
@@ -1572,11 +1579,11 @@ C
 C
       CHARACTER KID*1
 C
-      CALL CHRASC(KID,ID,1)
+      CALL CHRASC1(KID,ID)
 C
       IF(ID.GE.97.AND.ID.LE.122) ID=ID-32
 C
-      CALL ASCCHR(ID,KID,1)
+      CALL ASCCHR1(ID,KID)
 C
       RETURN
       END

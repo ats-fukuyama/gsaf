@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for MacOSX-intel-gfortran-static [2006/07/16]
+# Make for gsaf : V3.80 for MacOSX-arm64-gfortran-static [2020/12/05]
 #################################################################
 
 # default install path
@@ -15,16 +15,18 @@ LIBPATH=/usr/local/lib
 
 # Compiler command
 
-FC=gfortran
-CC=gcc
+#FC=gfortran
+#CC=gcc
+# MacPorts gcc/devel gfortran and Apple gcc=clang on 2020-12-09
+FC=gfortran-mp-devel
+CC=clang
 
 # Compile flags
 
-USRPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr
-FLFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
-FFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
+FLFLAGS=-g -O
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
+FFLAGS=-g -O
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
 
 # Make library command and options
 
@@ -34,13 +36,14 @@ LDFLAGS=-r -o
 
 # Library extension
 
-LIB-SUFFIX=-gfc64
+LIB-SUFFIX=-garm64
 SL=$(LIB-SUFFIX).a
 
 # X library path
 
-XINCPATH=/opt/X11/include
-XLIBPATH=/opt/X11/lib
+### for libX11 installed by MacPorts
+XINCPATH=/opt/local/include
+XLIBPATH=/opt/local/lib
 XLIBS=$(XLIBPATH)/libX11$(SL)
 
 # Libraries for C mathematical functions in Fortran compile

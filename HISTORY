@@ -1,9 +1,33 @@
 $Id$
 
+<<<<<<< HEAD
 2020/11/23  bsc2.f: POLY group setting added
+=======
+2021/03/31  bsc1.f: Initialization corrected
+
+V4.15
+2021/03/06  bsc2.f: GUSRGB added
+            cont1.f:CONTR5,CONTP5,CONTQ5,CONTP6 added
+
+2021/02/02  igl1.f: underscore of bitmap font si replaced by stroke font
+
+V4.14
+2020/12/10  MacOS 11.0 support:
+	    	  arch/macosxi-ifc64/Makfile.arch
+		  arch/macosxi-gfortran64/Makefile.arh
+
+2020/12/06  GPLOTPG: color handling corrected
+            bsc2.f: POLY group setting added
+>>>>>>> 5f5c8694f10626d78d9772627714423154382a7d
 
 V4.13
-2020/11/21  bas1.f: GNULEN corrected for underlow
+2020/12/05  macos-arm64 gfortran support:
+                arch/macos-arm64-gfortran/Makefile.arch
+            macos-arm64 nag-fortran support:
+                arch/macos-arm64-nag-fortran/Makefile.arch
+            bsc1.1: CHRASC1,ASCCHR1 added
+
+2020/11/21  bsc1.f: GNULEN corrected for underlow
 
 V4.12
 2020/09/08  apl2.f: GPLOTPG for color changing plot
