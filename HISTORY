@@ -1,5 +1,8 @@
 $Id$
 
+2021/05/23  A3dplot.f: Initialization corrected
+2021/03/31  bsc1.f: Initialization corrected
+
 V4.15
 2021/03/06  bsc2.f: GUSRGB added
             cont1.f:CONTR5,CONTP5,CONTQ5,CONTP6 added
