@@ -1305,6 +1305,7 @@ C
       CALL gtMkZBuffer
 C
       IPOSS=IPOS
+      ILINE=INT(SCL)
 C
       IF (IPOS.LT.0) THEN
          ISCL=0
@@ -1323,6 +1324,7 @@ C
             SCAL1=SCL/XL*(GXE-GXS)
          ENDIF
       ENDIF
+      IZERO=0
 C ------------------------------------------
 C     ñ⁄ê∑ÇËÇäiéqèÛÇ…èëÇ≠Ç∆Ç´ÇÕï Ç…àµÇ§ÅD
 C ------------------------------------------
