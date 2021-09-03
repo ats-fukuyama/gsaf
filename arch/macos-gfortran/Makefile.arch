@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for MacOSX-intel-gfortran-static [2006/07/16]
+# Make for gsaf : V4.16 for MacOSX-gfortran-static [2021/09/03]
 #################################################################
 
 # default install path
@@ -21,10 +21,10 @@ CC=gcc
 # Compile flags
 
 USRPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr
-FLFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
-FFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
+FLFLAGS=-g -O -L$(USRPATH)/lib
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
+FFLAGS=-g -O -L$(USRPATH)/lib
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
 
 # Make library command and options
 
