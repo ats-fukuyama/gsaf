@@ -57,6 +57,11 @@ $(FC)gdum90 : f90g.tp
 
 install : gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump $(FC)g $(FC)gdum $(FC)g90 $(FC)gdum90
 	-rm $(BINPATH)/gsfile $(BINPATH)/gstoeps $(BINPATH)/gstops $(BINPATH)/gstotgif $(BINPATH)/gstosvg
+	-rm $(BINPATH)/gsview $(BINPATH)/gsview.slave $(BINPATH)/gsfile.slave
+	-rm $(BINPATH)/gstoeps.slave $(BINPATH)/gstops.slave
+	-rm $(BINPATH)/gstotgif.slave $(BINPATH)/gstosvg.slave
+	-rm $(BINPATH)/gsprint $(BINPATH)/gsdump
+	-rm $(BINPATH)/$(FC)g $(BINPATH)/$(FC)gdum
 	cp -f gsview gsview.slave gsfile.slave gstoeps.slave gstops.slave gstotgif.slave gstosvg.slave gsprint gsdump \
 	   $(FC)g $(FC)gdum $(BINPATH)
 	ln $(BINPATH)/gsview $(BINPATH)/gsfile

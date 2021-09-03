@@ -897,6 +897,8 @@ C
 C
 C     depend on data's being equal intervals. 
       IY=INT((Y-GYS)/(GYE-GYS)*REAL(NY-1))+1
+      IF(IY.LT.1) IY=1
+      IF(IY.GT.NY-1) IY=NY-1
       IYMIN=IY
       IYMAX=IY+1
       Y2=Y-YDATA(IYMIN)
@@ -919,6 +921,8 @@ C
 C
 C     depend on data's being equal intervals. 
       IX=INT((X-GXS)/(GXE-GXS)*REAL(NX-1))+1
+      IF(IX.LT.1) IX=1
+      IF(IX.GT.NX-1) IX=NX-1
       IXMIN=IX
       IXMAX=IX+1
       X2=X-XDATA(IXMIN)
@@ -940,6 +944,8 @@ C
       COMMON /GDFN2D/ GXS,GXE,GYS,GYE
 C     depend on data's being equal intervals. 
       IY=INT((Y-GYS)/(GYE-GYS)*REAL(NY-1))+1
+      IF(IY.LT.1) IY=1
+      IF(IY.GT.NY-1) IY=NY-1
       IYMIN=IY
       IYMAX=IY+1
       Y2=Y-YDATA(IYMIN)
@@ -947,6 +953,8 @@ C     depend on data's being equal intervals.
       RATIOY=Y2/Y3
 C     depend on being equal intervals. 
       IX=INT((X-GXS)/(GXE-GXS)*REAL(NX-1))+1
+      IF(IX.LT.1) IX=1
+      IF(IX.GT.NX-1) IX=NX-1
       IXMIN=IX
       IXMAX=IX+1
       X2=X-XDATA(IXMIN)
