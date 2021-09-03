@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for MacOS-arm64-nag-fortran [2020/11/29]
+# Make for gsaf : V4.16 for MacOS-arm64-nag-fortran [2021/09/03]
 #################################################################
 
 # default install path
@@ -9,7 +9,7 @@ LIBPATH=/usr/local/lib
 
 # home install path
 
-#HOMEPATH=/Users/fukuyama
+#HOMEPATH=$(HOME)
 #BINPATH=$(HOMEPATH)/bin
 #LIBPATH=$(HOMEPATH)/lib
 
