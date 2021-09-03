@@ -1,5 +1,7 @@
 $Id$
 
+V4.16
+2021/09/02  arch: arch name changed. macos-nag added
 2021/05/23  A3dplot.f: Initialization corrected
 2021/03/31  bsc1.f: Initialization corrected
 

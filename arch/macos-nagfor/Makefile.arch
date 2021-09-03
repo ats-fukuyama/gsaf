@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for MacOSX-intel-gfortran-static [2006/07/16]
+# Make for gsaf : V3.80 for MacOS-arm64-nag-fortran [2020/11/29]
 #################################################################
 
 # default install path
@@ -9,22 +9,23 @@ LIBPATH=/usr/local/lib
 
 # home install path
 
-#HOMEPATH=/home/fukuyama
+#HOMEPATH=/Users/fukuyama
 #BINPATH=$(HOMEPATH)/bin
 #LIBPATH=$(HOMEPATH)/lib
 
 # Compiler command
 
-FC=gfortran
-CC=gcc
+FC=nagfor
+CC=clang
 
 # Compile flags
 
-USRPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr
-FLFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CLFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
-FFLAGS=-g -O -m64 -L$(USRPATH)/lib
-CFLAGS=-g -O -m64 -DUNDERSCORE -DBSD -DLONGINT -I$(USRPATH)/include -L$(USRPATH)/lib
+FLFLAGS=-g -O -fixed
+#FLFLAGS=-g -C=undefined -fixed
+CLFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
+FFLAGS=-g -O -fixed
+#FFLAGS=-g -C=undefined -fixed
+CFLAGS=-g -O -DUNDERSCORE -DBSD -DLONGINT
 
 # Make library command and options
 
@@ -34,13 +35,13 @@ LDFLAGS=-r -o
 
 # Library extension
 
-LIB-SUFFIX=-gfc64
+LIB-SUFFIX=-nag
 SL=$(LIB-SUFFIX).a
 
 # X library path
 
 XINCPATH=/opt/X11/include
-XLIBPATH=/opt/X11/lib
+XLIBPATH=/opt/local/lib
 XLIBS=$(XLIBPATH)/libX11$(SL)
 
 # Libraries for C mathematical functions in Fortran compile
