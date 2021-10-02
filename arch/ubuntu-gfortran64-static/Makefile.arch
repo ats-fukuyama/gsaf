@@ -9,7 +9,7 @@ LIBPATH=/usr/local/lib
 
 # home install path
 
-#HOMEPATH=/home/fukuyama
+#HOMEPATH=$(HOME)
 #BINPATH=$(HOMEPATH)/bin
 #LIBPATH=$(HOMEPATH)/lib
 
@@ -40,7 +40,7 @@ SL=$(LIB-SUFFIX).a
 # X library path
 
 XINCPATH=/usr/include/X11
-XLIBPATH=/usr/lib64
+XLIBPATH=/usr/lib/x86_64-linux-gnu
 XLIBS=$(XLIBPATH)/libX11$(SL)
 
 # Libraries for C mathematical functions in Fortran compile

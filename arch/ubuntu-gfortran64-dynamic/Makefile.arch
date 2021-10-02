@@ -1,5 +1,5 @@
 ### $Id$ ###
-# Make for gsaf : V3.80 for Ubuntu-gfortran-dynamic [2017/12/25]
+# Make for gsaf : V3.80 for Ubuntu-gfortran-dynamic [2021/09/21]
 #################################################################
 
 # default install path
@@ -9,7 +9,7 @@ LIBPATH=/usr/local/lib
 
 # home install path
 
-#HOMEPATH=/home/fukuyama
+#HOMEPATH=$(HOME)
 #BINPATH=$(HOMEPATH)/bin
 #LIBPATH=$(HOMEPATH)/lib
 
@@ -20,8 +20,8 @@ CC=gcc
 
 # Compile flags
 
-FLFLAGS=-O -m64
-CLFLAGS=-O -m64 -DUNDERSCORE -DLSB -DLONGINT
+FLFLAGS=-O -m64 -fPIC
+CLFLAGS=-O -m64 -fPIC -DUNDERSCORE -DLSB -DLONGINT
 FFLAGS=-O -m64
 CFLAGS=-O -m64 -DUNDERSCORE -DLSB -DLONGINT
 
