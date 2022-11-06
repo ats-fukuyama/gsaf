@@ -127,11 +127,6 @@ C     ***** ABS(ICH): Key input *****
 C
       CALL DVOPEN(ICH)
       IF(ICH.LE.0) ITMODE=0
-      IF(ISATTY(UNIT=5)) THEN
-         ITMODE=1
-      ELSE
-         ITMODE=0
-      END IF
 C
       IF(ICH.NE.0) THEN
    10    CONTINUE
