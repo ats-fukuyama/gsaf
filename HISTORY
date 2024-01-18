@@ -1,5 +1,7 @@
 $Id$
 
+2024/01/05  apl2.f: GNUMBI2D,GNUMBR2D,GNUMBD2D,GNUMBP2D added
+
 V4.16
 2021/09/02  arch: arch name changed. macos-nag added
 2021/05/23  A3dplot.f: Initialization corrected
