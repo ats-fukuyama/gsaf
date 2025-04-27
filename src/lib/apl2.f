@@ -389,8 +389,7 @@ C
       ENDIF
 C
       DPX=ABS(DX*XSTEP)
-      IF(DPX.GT.EPS.AND.
-     &   (GXE-XORG)*(XORG-GXS).GE.0.0) THEN
+      IF(DPX.GT.EPS.AND.GXE.GE.XORG.AND.XORG.GE.GXS) THEN
          PX0=DX*(XORG-GXS)+PXS
          IF(LNBOT) THEN
             NS=INT((PXS-PX0+EPS)/DPX)
@@ -430,8 +429,7 @@ C
       ENDIF
 C
       DPY=ABS(DY*YSTEP)
-      IF(DPY.GT.EPS.AND.
-     &   (GYE-YORG)*(YORG-GYS).GE.0.0) THEN
+      IF(DPY.GT.EPS.AND.GYE.GE.YORG.AND.YORG.GE.GYS) THEN
          PY0=DY*(YORG-GYS)+PYS
          IF(LNBOT) THEN
             NS=INT((PYS-PY0+EPS)/DPY)
@@ -496,8 +494,7 @@ C
       LNTOP=MOD(IND2/32,2).EQ.1
 C
       DPX=ABS(DX*XSTEP)
-      IF(DPX.GT.EPS.AND.
-     &   (GXE-XORG)*(XORG-GXS).GE.0.0) THEN
+      IF(DPX.GT.EPS.AND.GXE.GE.XORG.AND.XORG.GE.GXS) THEN
          IF(DX.GE.0.0) THEN
             XSTP= ABS(XSTEP)
          ELSE
@@ -536,8 +533,7 @@ C
       ENDIF
 C
       DPY=ABS(DY*YSTEP)
-      IF(DPY.GT.EPS.AND.
-     &   (GYE-YORG)*(YORG-GYS).GE.0.0) THEN
+      IF(DPY.GT.EPS.AND.GYE.GE.YORG.AND.YORG.GE.GYS) THEN
 C
          IF(DY.GE.0.0) THEN
             YSTP= ABS(YSTEP)
@@ -608,8 +604,7 @@ C
          IPAT=0
       ENDIF
 C
-      IF(NXSTEP.GT.0.AND.
-     &   (GXE-XORG)*(XORG-GXS).GE.0.0) THEN
+      IF(NXSTEP.GT.0.AND.GXE.GE.XROG.AND.XORG.GE.GXS) THEN
          IXORG=INT(XORG+EPS)
          PX0=DX*(IXORG-GXS)+PXS
          IF(LNBOT) THEN
@@ -678,8 +673,7 @@ C
  2000    CONTINUE
       ENDIF
 C
-      IF(NYSTEP.GT.0.AND.
-     &   (GYE-YORG)*(YORG-GYS).GE.0.0) THEN
+      IF(NYSTEP.GT.0.AND.GYE.GE.YORG.AND.YORG.GE.GYS) THEN
          IYORG=INT(YORG+EPS)
          PY0=DY*(IYORG-GYS)+PYS
          IF(LNBOT) THEN
@@ -786,8 +780,7 @@ C
       LNBOT=MOD(IND2/16,2).EQ.1
       LNTOP=MOD(IND2/32,2).EQ.1
 C
-      IF(NXSTEP.GT.0.AND.
-     &   (GXE-XORG)*(XORG-GXS).GE.0.0) THEN
+      IF(NXSTEP.GT.0.AND.GXE.GE.XORG.AND.XORG.GE.GXS) THEN
          IXORG=INT(XORG+EPS)
          IF(DX.GE.0.0) THEN
             IXSTP= 1
@@ -844,8 +837,7 @@ C
  2000    CONTINUE
       ENDIF
 C
-      IF(NYSTEP.GT.0.AND.
-     &   (GYE-YORG)*(YORG-GYS).GE.0.0) THEN
+      IF(NYSTEP.GT.0.AND.GYE.GE.YORG.AND.YORG.GE.GYS) THEN
          IYORG=INT(YORG+EPS)
          IF(DY.GE.0.0) THEN
             IYSTP= 1
@@ -1126,7 +1118,7 @@ C
 C
       CALL GUGRPS
       DO 20 NX=NXS,NXE,NXSTEP
-      DO 20 NY=NYS,NYE,NYSTEP
+      DO 19 NY=NYS,NYE,NYSTEP
          PX=PXS+DX*(X(NX)-GXS)
          PY=PYS+DY*(Y(NY)-GYS)
          PVX=VX(NX,NY)*PXN
@@ -1156,6 +1148,7 @@ C
             CALL DRAW(PXE,PYE)
             CALL GUGRPE
          ENDIF
+   19 CONTINUE
    20 CONTINUE
       CALL GUGRPE
       CALL OFFCLP
