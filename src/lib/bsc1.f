@@ -804,10 +804,7 @@ C
       IF(.NOT.LPAGE) RETURN
 C
       IF(IMK.LT.0) CALL DRAW(X,Y)
-      IF((X-XL)*(XR-XL).GE.0.0.AND.
-     &   (XR-X)*(XR-XL).GE.0.0.AND.
-     &   (Y-YL)*(YR-YL).GE.0.0.AND.
-     &   (YR-Y)*(YR-YL).GE.0.0) THEN
+      IF(XR.GE.X.AND.X.GE.XL.AND.YR.GE.Y.AND.Y.GE.YL) THEN
          IX=NINT(X*XDEL+XORG)
          IY=NINT(Y*YDEL+YORG)
          CALL GS_SFMARK(IX,IY)
